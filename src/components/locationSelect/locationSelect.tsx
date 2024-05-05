@@ -8,9 +8,9 @@ import {
   useFiltersStore,
 } from "../../store/store";
 import { useFetchCashCountries } from "../../api/api";
-import { directionTabsValute } from "../../assets/consts";
 import { useTranslation } from "react-i18next";
-import { LocationIcon } from "../../assets/icons/LocationIcon";
+import { directionTabsValute } from "@/shared/consts";
+import { LocationIcon } from "@/shared/assets/icons/LocationIcon";
 
 interface LocationSelectProps {}
 

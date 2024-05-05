@@ -1,16 +1,10 @@
-import { useQuery } from "react-query";
-import {
-  availableKey,
-  citiesKey,
-  countriesKey,
-  directionCashKey,
-  exchangersKey,
-} from "../assets/consts";
-import { City, Country, DirectionCash } from "../model";
-import { Categories } from "../model/Categories";
-import { Exchanger } from "../model/Exchanger";
-import { $host } from "./base";
 import { AxiosError } from "axios";
+import { useQuery } from "react-query";
+
+import { Country, DirectionCash } from "../model";
+import { Categories } from "../model/Categories";
+import { $host } from "./base";
+import { availableKey, countriesKey, exchangersKey } from "@/shared/consts";
 
 //безналичные
 
@@ -20,21 +14,22 @@ type ReqFetchAvailableDto = {
 };
 export type ResFetchAvailable = {
   ru: Categories;
-  en: Categories
-}
-// todo добавить что бы не было много запрос в случае ошибки 
+  en: Categories;
+};
+// todo добавить что бы не было много запрос в случае ошибки
 
 //запрос на получение доступных направлений
-export const useFetchAvailable = ({ base = "all", city }: ReqFetchAvailableDto) => {
-
+export const useFetchAvailable = ({
+  base = "all",
+  city,
+}: ReqFetchAvailableDto) => {
   const apiUrl = city
     ? `/api/available_valutes?city=${city}&base=${base}`
     : `/api/available_valutes?base=${base}`;
   const fetchAvailable = async () =>
-    (await $host.get<ResFetchAvailable>(apiUrl))
-      .data;
+    (await $host.get<ResFetchAvailable>(apiUrl)).data;
 
-  const queryResult = useQuery<ResFetchAvailable,AxiosError>({
+  const queryResult = useQuery<ResFetchAvailable, AxiosError>({
     queryKey: [availableKey, base, city],
     queryFn: fetchAvailable,
     enabled: true,
@@ -46,7 +41,7 @@ export const useFetchAvailable = ({ base = "all", city }: ReqFetchAvailableDto) 
   });
   return queryResult;
 };
-// todo 
+// todo
 //тип для получения обменников на основе выбранных валют
 type ReqFetchExchangersDto = {
   from: string | undefined;
@@ -55,17 +50,17 @@ type ReqFetchExchangersDto = {
 };
 //todo отмена запроса если fetchAvailable провалился
 //запрос на получение обменников на основе выбранных валют
-export const useFetchExchangers = ({ from, to, city }: ReqFetchExchangersDto) => {
-
+export const useFetchExchangers = ({
+  from,
+  to,
+  city,
+}: ReqFetchExchangersDto) => {
   const apiUrl = city
     ? `api/directions?city=${city}&valute_from=${from}&valute_to=${to}`
     : `api/directions?valute_from=${from}&valute_to=${to}`;
-  const fetchExchangers = async () => (
-    await $host.get<DirectionCash[]>(
-      apiUrl
-    )
-  ).data;
-  const queryResult = useQuery<DirectionCash[],AxiosError | null>({
+  const fetchExchangers = async () =>
+    (await $host.get<DirectionCash[]>(apiUrl)).data;
+  const queryResult = useQuery<DirectionCash[], AxiosError | null>({
     queryKey: [exchangersKey, city],
     queryFn: fetchExchangers,
     cacheTime: Infinity,

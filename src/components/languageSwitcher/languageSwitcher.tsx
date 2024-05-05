@@ -1,9 +1,10 @@
 import { memo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { RussiaIcon } from "../../assets/icons/IconRussia";
-import { USAIcon } from "../../assets/icons/IconUsa";
+
 import { Switch } from "../ui/switch";
 import styles from "./languageSwitcher.module.scss";
+import { RussiaIcon } from "@/shared/assets/icons/IconRussia";
+import { USAIcon } from "@/shared/assets/icons/IconUsa";
 
 export const LanguageSwitcher = memo(() => {
   const { i18n } = useTranslation();
@@ -19,7 +20,7 @@ export const LanguageSwitcher = memo(() => {
     // await new Promise((resolve) => setTimeout(resolve, 200));
     i18n.changeLanguage(i18n.language === "ru" ? "en" : "ru");
     // setSpring({ transform: "translateY(0px)" });
-  },[i18n]);
+  }, [i18n]);
 
   const currentLang = i18n.language === "en" ? "Русский" : "English";
   const currentIcon =

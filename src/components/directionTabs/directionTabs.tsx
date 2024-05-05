@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
-import { directionTabsValute, exchangersKey } from "../../assets/consts";
+
 import {
   useCashStore,
   useDirectionTabsStore,
@@ -10,6 +10,7 @@ import styles from "./directionTabs.module.scss";
 import { TabsItem } from "../ui/tabs/tabs";
 import { useQueryClient } from "react-query";
 import { useTranslation } from "react-i18next";
+import { directionTabsValute, exchangersKey } from "@/shared/consts";
 
 export const DirectionTabs = memo(() => {
   const { setTypeValute, typeValute } = useDirectionTabsStore((state) => state);

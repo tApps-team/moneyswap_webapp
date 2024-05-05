@@ -1,12 +1,13 @@
 import { FC, memo, useEffect } from "react";
 
 import { queryClient } from "../../api/queryClient";
-import { exchangersKey } from "../../assets/consts";
+
 import { Options } from "../../model/Options";
 import { useCashStore, useSelectsStore } from "../../store/store";
 import styles from "./valuteCard.module.scss";
 import { useFetchExchangers } from "../../api/api";
 import { useTranslation } from "react-i18next";
+import { exchangersKey } from "@/shared/consts";
 
 interface ValuteCardProps {
   option: Options;

@@ -1,13 +1,13 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Select } from "../select";
-import styles from "./selectsForm.module.scss";
+import { ResFetchAvailable } from "../../api/api";
 import { Options } from "../../model/Options";
 import { useCashStore, useSelectsStore } from "../../store/store";
-import { useEffect } from "react";
-import { ResFetchAvailable } from "../../api/api";
-import { availableKey } from "../../assets/consts";
+import styles from "./selectsForm.module.scss";
+
+import { animated } from "react-spring";
 import { queryClient } from "../../api/queryClient";
-import { animated, config, useSpring } from "react-spring";
+import { availableKey } from "@/shared/consts";
 
 type SelectsFormCollapseProps = {
   get: Options | null;

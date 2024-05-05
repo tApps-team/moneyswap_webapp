@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./app/App";
 import "./styles/global.scss";
-import "./i18n/i18n";
+import "./shared/config/i18n/i18n";
 import * as Sentry from "@sentry/react";
 import {
   useLocation,

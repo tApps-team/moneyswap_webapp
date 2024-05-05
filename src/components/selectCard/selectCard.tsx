@@ -3,11 +3,12 @@ import { Options } from "../../model/Options";
 import styles from "./selectCard.module.scss";
 import { memo } from "react";
 import { Categories } from "../../model/Categories";
-import { directionTabsValute } from "../../assets/consts";
+
 import { useCashStore, useSelectsStore } from "../../store/store";
 import { useTranslation } from "react-i18next";
 import { SelectSkeleton } from "../ui/selectSkeleton";
 import { AxiosError } from "axios";
+import { directionTabsValute } from "@/shared/consts";
 
 type SelectCardProps = {
   type: "give" | "get";

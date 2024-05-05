@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { animated } from "react-spring";
 import { ResFetchAvailable, useFetchAvailable } from "../../api/api";
 import { queryClient } from "../../api/queryClient";
-import { availableKey } from "../../assets/consts";
 import {
   useCashStore,
   useDirectionTabsStore,
@@ -15,6 +14,7 @@ import { Modal } from "../modal/modal";
 
 import styles from "./select.module.scss";
 import { SelectCard } from "../selectCard";
+import { availableKey } from "@/shared/consts";
 
 interface SelectProps {
   type: "give" | "get";

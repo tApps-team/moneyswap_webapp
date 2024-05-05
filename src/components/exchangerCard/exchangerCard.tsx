@@ -1,11 +1,12 @@
 import { FC, memo } from "react";
 import { Exchanger } from "../../model/Exchanger";
 import styles from "./exchangerCard.module.scss";
-import ArrowRight from "../../assets/icons/ArrowRight";
+
 import { useTranslation } from "react-i18next";
 import { Location } from "../../store/store";
 import { RoundValute } from "../ui/roundValute";
 import { animated, useInView } from "react-spring";
+import ArrowRight from "@/shared/assets/icons/ArrowRight";
 
 interface ExchangerCardProps {
   card: Exchanger;
@@ -68,14 +69,10 @@ export const ExchangerCard: FC<ExchangerCardProps> = memo(
               </div>
               <div className={styles.reviewCountWrapper}>
                 <h3 className={styles.reviewCountPositive}>
-                  {card?.review_count} 
+                  {card?.review_count}
                 </h3>
-                <span className={styles.separator} >
-                  |
-                </span>
-                <h3 className={styles.reviewCountNegative}>
-                    0
-                </h3>
+                <span className={styles.separator}>|</span>
+                <h3 className={styles.reviewCountNegative}>0</h3>
               </div>
             </div>
           </header>

@@ -1,17 +1,14 @@
 // CountryCard.jsx
 
 import React, { FC } from "react";
-import {
-  useSpring,
-  animated,
-  useTrail,
-} from "react-spring";
+import { useSpring, animated, useTrail } from "react-spring";
 import { Country } from "../../model";
 import { CityCard } from "../cityCard";
 import styles from "./countryCard.module.scss";
-import ArrowDown from "../../assets/icons/ArrowDown";
+
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
+import ArrowDown from "@/shared/assets/icons/ArrowDown";
 
 interface CountryCardProps {
   country: Country;
@@ -34,7 +31,7 @@ export const CountryCard: FC<CountryCardProps> = ({
     scale: accordion ? 1 : 0,
 
     config: {
-      duration: accordion ? 200 : 0, 
+      duration: accordion ? 200 : 0,
       tension: 210,
       friction: 20,
     },
@@ -50,7 +47,6 @@ export const CountryCard: FC<CountryCardProps> = ({
     height: accordion ? 50 : 0,
     from: { opacity: 0, x: 20, height: 0 },
     config: { mass: 5, tension: 2000, friction: 200 },
-   
   });
 
   return (
@@ -60,7 +56,7 @@ export const CountryCard: FC<CountryCardProps> = ({
       })}
     >
       <header
-        className={clsx(styles.header,{
+        className={clsx(styles.header, {
           [styles.active_country]: accordion,
         })}
         onClick={() => setAccordion(country.id)}
@@ -68,7 +64,9 @@ export const CountryCard: FC<CountryCardProps> = ({
         <figure className={styles.imageContainer}>
           <img src={country.icon_url} alt={`Иконка ${country.name}`} />
         </figure>
-        <h3 className={styles.name}>{i18n.language === "ru" ? country.name.ru : country.name.en}</h3>
+        <h3 className={styles.name}>
+          {i18n.language === "ru" ? country.name.ru : country.name.en}
+        </h3>
         <animated.i className={styles.arrowIcon} style={arrowAnimation}>
           <ArrowDown color="#111111" width="35px" height="35px" />
         </animated.i>
@@ -88,4 +86,3 @@ export const CountryCard: FC<CountryCardProps> = ({
     </div>
   );
 };
-

@@ -1,8 +1,9 @@
 import { FC, memo } from "react";
-import SearchIcon from "../../assets/icons/SearchIcon";
+
 import styles from "./optionSearch.module.scss";
 import { useFiltersStore } from "../../store/store";
 import { useTranslation } from "react-i18next";
+import SearchIcon from "@/shared/assets/icons/SearchIcon";
 
 type SearchName = "cash" | "noCash";
 interface OptionSearchProps {
@@ -17,7 +18,7 @@ export const OptionSearch: FC<OptionSearchProps> = memo(({ type }) => {
   const placeholder = search ? search : t("Поиск");
   return (
     <section className={styles.search}>
-      <span  className={styles.icon}>
+      <span className={styles.icon}>
         <SearchIcon width="30px" height="30px" />
       </span>
       <input
