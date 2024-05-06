@@ -1,7 +1,7 @@
-@import "mixins.scss";
-@import "reset.scss";
-@import "variables.scss";
-@import "fonts.scss";
+@import "./mixins.scss";
+@import "./reset.scss";
+@import "./variables.scss";
+@import "./fonts.scss";
 
 * {
   padding: 0px;
@@ -15,26 +15,7 @@ html {
 }
 
 body {
-  // background: #000;
-}
-
-.main__wrapper {
-  height: 100%;
-  width: 100vw;
-  min-height: 100vh;
-  max-width: 500px;
-  margin: 0 auto;
-  color: #303030;
-
-  @media (max-width: 367px) {
-    .page__wrapper {
-      padding: 0px 10px;
-    }
-  }
-}
-
-.page__wrapper {
-  padding: 0px 15px;
+  
 }
 
 .directionTab {

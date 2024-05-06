@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
-import App from "./app/App";
-import "./styles/global.scss";
-import "./shared/config/i18n/i18n";
+import "@/shared/styles/global.scss";
+import "@/shared/config/i18n/i18n";
 import * as Sentry from "@sentry/react";
 import {
   useLocation,
@@ -10,6 +9,7 @@ import {
   matchRoutes,
 } from "react-router-dom";
 import React from "react";
+import App from "./app";
 Sentry.init({
   dsn: "https://e04ca8c2735eaf9c3e52375fc2ace562@o4506694926336000.ingest.us.sentry.io/4506706862407680",
   integrations: [

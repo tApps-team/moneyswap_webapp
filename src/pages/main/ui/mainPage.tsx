@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Main } from "../components/main";
-import { Preloader } from "../components/ui/preloader/preloader";
+import { useEffect, useState } from "react";
 import styles from "./mainPage.module.scss";
-import { Telegram } from "../components/telegram";
 import clsx from "clsx";
-import { MainBg } from "../components/ui/mainBg";
+import { Main } from "@/components/main";
+import { Telegram } from "@/components/telegram";
+import { Preloader } from "@/components/ui/preloader";
+import { MainBg } from "@/components/ui/mainBg";
 
 export const MainPage = () => {
   const [preloaderFinished, setPreloaderFinished] = useState(false);
@@ -31,7 +31,7 @@ export const MainPage = () => {
   return (
     <div data-testid="main-page" className="page__wrapper">
       <Telegram />
-      {preloaderFinished ? (
+      {/* {preloaderFinished ? (
         <Main />
       ) : (
         <div
@@ -42,7 +42,8 @@ export const MainPage = () => {
         >
           <Preloader step={25} progress={0} strokeWidth={20} />
         </div>
-      )}
+      )} */}
+      <Main />
       <MainBg />
     </div>
   );

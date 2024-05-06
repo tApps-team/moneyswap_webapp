@@ -1,34 +1,61 @@
 .country {
   color: var(--text-color);
-  margin: 5px 0px; position: relative; overflow: hidden;
-  
+  margin: 5px 0px;
+  position: relative;
+  overflow: hidden;
+
   .header {
-    padding: 10px; position: relative;
-    background: var(--secondary-color); border-radius: var(--border-radius-l);
-    display: flex; align-items: center;
+    padding: 10px;
+    position: relative;
+    background: var(--secondary-color);
+    border-radius: var(--border-radius-l);
+    display: flex;
+    align-items: center;
     transition: all 0.2s ease-in;
 
-    .imageContainer{
-      margin-right: 0px; width: 50px; height: 50px;
-      
-      img {width: 100%; height: 100%; min-width: 50px; min-height: 50px; object-fit: contain;}
+    .imageContainer {
+      margin-right: 0px;
+      width: 50px;
+      height: 50px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        min-width: 50px;
+        min-height: 50px;
+        object-fit: contain;
+      }
     }
 
     .name {
-      color: inherit; font-size: var(--font-size-m); font-weight: 500; white-space: nowrap; text-overflow: ellipsis; 
-      margin: 0; max-width: 75%; overflow: hidden;
+      color: inherit;
+      font-size: var(--font-size-m);
+      font-weight: 500;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin: 0;
+      max-width: 75%;
+      overflow: hidden;
     }
 
     .arrowIcon {
-      margin-left: 20px; position: absolute; right: 15px; 
+      margin-left: 20px;
+      position: absolute;
+      right: 15px;
       // top: 50%;
       transform: translateY(-50%);
-      
-      display: flex; justify-content: center; align-items: center;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
-  
-  .list {max-height: 0; overflow: hidden; opacity: 0;}
+
+  .list {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
 
   .active {
     // max-height: 200vh; overflow: auto; opacity: 1;  
@@ -37,7 +64,8 @@
 
   .active_country {
     color: var(--black-color);
-    background: var(--primary-color-gradient); border: 1px solid var(--primary-color);
+    background: var(--primary-color-gradient);
+    border: 1px solid var(--primary-color);
     margin-top: 5px;
 
     h3 {

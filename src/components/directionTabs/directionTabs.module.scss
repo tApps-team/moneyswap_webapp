@@ -1,12 +1,19 @@
 .direction_tabs {
-  margin: 0 auto; padding-top: 20px; margin-bottom: 20px;
-  display: grid; gap: 10px; grid-template: 1fr / 1fr 1fr;
+  margin: 0 auto;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  display: grid;
+  gap: 10px;
+  grid-template: 1fr / 1fr 1fr;
 }
+
 .direction_tabs_item {
-  color: var(--text-color); 
-  font-size: var( --font-size-m); text-align: center;
+  color: var(--text-color);
+  font-size: var(--font-size-m);
+  text-align: center;
   padding: 20px;
-  background: var(--secondary-color); border-radius: var(--border-radius-m);
+  background: var(--secondary-color);
+  border-radius: var(--border-radius-m);
 
   @media (max-width: 420px) {
     font-size: 18px;
@@ -20,7 +27,9 @@
     border-radius: var(--border-radius-s);
   }
 }
+
 .active_direction {
   color: var(--black-color);
-  background: var(--primary-color-gradient); border: 1px solid var(--primary-color);
+  background: var(--primary-color-gradient);
+  border: 1px solid var(--primary-color);
 }
