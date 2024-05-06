@@ -5,6 +5,7 @@ import styles from "./mainPage.module.scss";
 import { Telegram } from "../components/telegram";
 import clsx from "clsx";
 import { MainBg } from "../components/ui/mainBg";
+import { Button } from "@/shared/ui/button";
 
 export const MainPage = () => {
   const [preloaderFinished, setPreloaderFinished] = useState(false);
@@ -43,6 +44,7 @@ export const MainPage = () => {
           <Preloader step={25} progress={0} strokeWidth={20} />
         </div>
       )}
+
       <MainBg />
     </div>
   );

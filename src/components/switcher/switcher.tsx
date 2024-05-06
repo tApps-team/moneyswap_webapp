@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Options } from "../../model/Options";
-import { useSelectsStore } from "../../store/store";
+import { Options } from "../../legacy/model/Options";
+import { useSelectsStore } from "../../legacy/store/store";
 
 import styles from "./switcher.module.scss";
 import clsx from "clsx";

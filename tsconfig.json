@@ -10,9 +10,9 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["./src/*"]
     },
     "noEmit": true,
     "jsx": "react-jsx",
@@ -22,7 +22,7 @@
     // "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "tests/setup.ts"],
+  "include": ["src", "legacy/tests/setup.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

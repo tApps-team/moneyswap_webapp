@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
-import { useCashStore, useSelectsStore } from "../../store/store";
+import { useCashStore, useSelectsStore } from "../../legacy/store/store";
 import styles from "./exchangersList.module.scss";
-import { Exchanger } from "../../model/Exchanger";
+import { Exchanger } from "../../legacy/model/Exchanger";
 import { ExchangerCard } from "../exchangerCard";
 import { useTranslation } from "react-i18next";
 

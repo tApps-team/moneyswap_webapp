@@ -1,6 +1,6 @@
 import { FC, ReactElement } from "react";
 import { QueryClientProvider } from "react-query";
-import { queryClient } from "../api/queryClient";
+import { queryClient } from "../legacy/api/queryClient";
 import { MainPage } from "../pages";
 import { Provider } from "react-redux";
 import { setupStore } from "./providers";

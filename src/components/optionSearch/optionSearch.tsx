@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 
 import styles from "./optionSearch.module.scss";
-import { useFiltersStore } from "../../store/store";
+import { useFiltersStore } from "../../legacy/store/store";
 import { useTranslation } from "react-i18next";
 import SearchIcon from "@/shared/assets/icons/SearchIcon";
 

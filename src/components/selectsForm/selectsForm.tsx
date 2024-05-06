@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Options } from "../../model/Options";
+import { Options } from "../../legacy/model/Options";
 import { Select } from "../select/select";
 import { Switcher } from "../switcher/switcher";
 import styles from "./selectsForm.module.scss";

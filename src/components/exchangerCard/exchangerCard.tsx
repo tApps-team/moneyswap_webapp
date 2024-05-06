@@ -1,9 +1,9 @@
 import { FC, memo } from "react";
-import { Exchanger } from "../../model/Exchanger";
+import { Exchanger } from "../../legacy/model/Exchanger";
 import styles from "./exchangerCard.module.scss";
 
 import { useTranslation } from "react-i18next";
-import { Location } from "../../store/store";
+import { Location } from "../../legacy/store/store";
 import { RoundValute } from "../ui/roundValute";
 import { animated, useInView } from "react-spring";
 import ArrowRight from "@/shared/assets/icons/ArrowRight";

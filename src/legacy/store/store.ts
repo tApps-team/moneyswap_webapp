@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 interface SelectsState {
   giveSelect: Options | null;
   getSelect: Options | null;
-  exchangersError:AxiosError | null;
+  exchangersError: AxiosError | null;
   setExchangersError: (error: AxiosError | null) => void;
   setGiveSelect: (option: Options | null) => void;
   setGetSelect: (option: Options | null) => Promise<void>;
@@ -19,7 +19,7 @@ export const useSelectsStore = create<SelectsState>()(
   devtools(
     (set) => ({
       exchangersError: null,
-      setExchangersError:(error) => set({exchangersError: error}),
+      setExchangersError: (error) => set({ exchangersError: error }),
       giveSelect: null,
       getSelect: null,
       setGiveSelect: (option) => set({ giveSelect: option }),
@@ -87,9 +87,7 @@ interface UserState {
   setUserData: (user: User) => void;
 }
 
-export const useUserStore = create<UserState>()(
-  (set) => ({
-    user: null,
-    setUserData: (user) => set({user: user}),
-  }),
-);
+export const useUserStore = create<UserState>()((set) => ({
+  user: null,
+  setUserData: (user) => set({ user: user }),
+}));

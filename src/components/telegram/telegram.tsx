@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useUserStore } from "../../store/store";
+import { useUserStore } from "../../legacy/store/store";
 
 export const Telegram = () => {
   // инициализация webapp

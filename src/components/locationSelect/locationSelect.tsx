@@ -6,8 +6,8 @@ import {
   useCashStore,
   useDirectionTabsStore,
   useFiltersStore,
-} from "../../store/store";
-import { useFetchCashCountries } from "../../api/api";
+} from "../../legacy/store/store";
+import { useFetchCashCountries } from "../../legacy/api/api";
 import { useTranslation } from "react-i18next";
 import { directionTabsValute } from "@/shared/consts";
 import { LocationIcon } from "@/shared/assets/icons/LocationIcon";

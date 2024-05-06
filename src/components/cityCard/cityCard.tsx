@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
-import { City, Country } from "../../model";
+import { City, Country } from "../../legacy/model";
 import styles from "./cityCard.module.scss";
-import { useCashStore, useSelectsStore } from "../../store/store";
+import { useCashStore, useSelectsStore } from "../../legacy/store/store";
 import { useTranslation } from "react-i18next";
 
 import { useQueryClient } from "react-query";
