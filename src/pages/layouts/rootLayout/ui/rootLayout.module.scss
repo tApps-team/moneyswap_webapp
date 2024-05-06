@@ -1,0 +1,45 @@
+.root__container {
+    height: 100vh;
+    height: 100svh;
+    // max-width: var(--container-width);
+    max-width: 500px;
+    margin: 0 auto;
+    // padding: var(--padding-m);
+    padding: 25px;
+
+    @media (max-width: 380px) {
+        //   padding: var(--padding-xs);
+        padding: 20px;
+    }
+
+    .root__content {
+        // overflow-y: auto;
+        height: calc(100vh - 100px);
+        height: calc(100svh - 100px);
+        // overflow: hidden;
+    }
+}
+
+/* Scroll bar stylings */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    // background: var(--main-color);
+    background: yellow;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    // background: var(--main-color);
+    background: yellow;
+}
