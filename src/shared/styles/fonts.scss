@@ -1,42 +1,42 @@
 // @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
 
-:root{
+:root {
 
-     @font-face {
-     font-family: 'CodecCold-Light';
-     src: local('CodecCold-Light'), url(./fonts/CodecCold-Light.ttf) format('truetype');
-     }
-     
-     @font-face {
-     font-family: 'CodecCold-Regular';
-     src: local('CodecCold-Regular'), url(./fonts/CodecCold-Regular.ttf) format('truetype');
-     }
-     
-     @font-face {
-     font-family: 'CodecCold-Bold';
-     src: local('CodecCold-Bold'), url(./fonts/CodecCold-Bold.ttf) format('truetype');
-     }
-     
+     // @font-face {
+     // font-family: 'CodecCold-Light';
+     // src: local('CodecCold-Light'), url(./fonts/CodecCold-Light.ttf) format('truetype');
+     // }
+
+     // @font-face {
+     // font-family: 'CodecCold-Regular';
+     // src: local('CodecCold-Regular'), url(./fonts/CodecCold-Regular.ttf) format('truetype');
+     // }
+
+     // @font-face {
+     // font-family: 'CodecCold-Bold';
+     // src: local('CodecCold-Bold'), url(./fonts/CodecCold-Bold.ttf) format('truetype');
+     // }
+
      // Шрифты
-     --font-family-light: 'CodecCold-Light', "Helvetica", sans-serif;
-     --font-family-regular: 'CodecCold-Regular', "Helvetica", sans-serif;
-     --font-family-bold: 'CodecCold-Bold', "Helvetica", sans-serif;
+     --font-family-regular: 'Unbounded', "Helvetica", sans-serif;
+     
      //xs
      --font-size-xs: 12px;
      --font-line-xs: 16px;
-     --font-size-ls:14px
+     --font-size-ls: 14px;
      // s
      --font-size-s: 16px;
      --font-line-s: 20px;
- 
+
      // m
      --font-size-m: 20px;
      --font-line-m: 24px;
- 
+
      // l
      --font-size-l: 24px;
      --font-line-l: 32px;
- 
+
      // xl
      --font-size-xl: 32px;
      --font-line-xl: 40px;

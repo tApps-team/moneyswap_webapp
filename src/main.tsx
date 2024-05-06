@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import "@/shared/styles/global.scss";
+import "@/shared/styles/globals.scss";
 import "@/shared/config/i18n/i18n";
 import * as Sentry from "@sentry/react";
 import "./shared/styles/globals.scss";
