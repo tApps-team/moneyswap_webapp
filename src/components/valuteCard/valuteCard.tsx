@@ -1,11 +1,11 @@
 import { FC, memo, useEffect } from "react";
 
-import { queryClient } from "../../api/queryClient";
+import { queryClient } from "../../legacy/api/queryClient";
 
-import { Options } from "../../model/Options";
-import { useCashStore, useSelectsStore } from "../../store/store";
+import { Options } from "../../legacy/model/Options";
+import { useCashStore, useSelectsStore } from "../../legacy/store/store";
 import styles from "./valuteCard.module.scss";
-import { useFetchExchangers } from "../../api/api";
+import { useFetchExchangers } from "../../legacy/api/api";
 import { useTranslation } from "react-i18next";
 import { exchangersKey } from "@/shared/consts";
 

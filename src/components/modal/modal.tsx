@@ -1,10 +1,10 @@
 import { FC, memo, useEffect, useRef } from "react";
-import { Categories } from "../../model/Categories";
+import { Categories } from "../../legacy/model/Categories";
 import { ValuteCard } from "../valuteCard";
 import { OptionFilter } from "../optionFilter";
 import { OptionSearch } from "../optionSearch";
 import { Popup } from "../ui/popup";
-import { useFiltersStore } from "../../store/store";
+import { useFiltersStore } from "../../legacy/store/store";
 import styles from "./modal.module.scss";
 import { useTranslation } from "react-i18next";
 import { SystemError } from "../ui/systemError";

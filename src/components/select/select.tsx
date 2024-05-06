@@ -2,14 +2,14 @@ import clsx from "clsx";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { animated } from "react-spring";
-import { ResFetchAvailable, useFetchAvailable } from "../../api/api";
-import { queryClient } from "../../api/queryClient";
+import { ResFetchAvailable, useFetchAvailable } from "../../legacy/api/api";
+import { queryClient } from "../../legacy/api/queryClient";
 import {
   useCashStore,
   useDirectionTabsStore,
   useFiltersStore,
   useSelectsStore,
-} from "../../store/store";
+} from "../../legacy/store/store";
 import { Modal } from "../modal/modal";
 
 import styles from "./select.module.scss";

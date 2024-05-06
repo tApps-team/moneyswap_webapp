@@ -1,10 +1,10 @@
 import { FC, memo, useEffect, useMemo, useRef, useState } from "react";
 import { Popup } from "../ui/popup";
-import { Country } from "../../model";
+import { Country } from "../../legacy/model";
 import { CountryCard } from "../countryCard";
 import styles from "./modalCountries.module.scss";
 import { OptionSearch } from "../optionSearch";
-import { useFiltersStore } from "../../store/store";
+import { useFiltersStore } from "../../legacy/store/store";
 import { useTranslation } from "react-i18next";
 
 interface ModalCountriesProps {

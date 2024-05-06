@@ -22,14 +22,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: ["/src/tests/setup.ts"],
-    include: ["**/?(*.)test.ts?(x)"],
-  },
+  // test: {
+  //   globals: true,
+  //   environment: "jsdom",
+  //   setupFiles: ["/src/tests/setup.ts"],
+  //   include: ["**/?(*.)test.ts?(x)"],
+  // },
 
-  build: {
-    sourcemap: true,
-  },
+  // build: {
+  //   sourcemap: true,
+  // },
 });

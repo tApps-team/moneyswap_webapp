@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ResFetchAvailable } from "../../api/api";
-import { Options } from "../../model/Options";
-import { useCashStore, useSelectsStore } from "../../store/store";
+import { ResFetchAvailable } from "../../legacy/api/api";
+import { Options } from "../../legacy/model/Options";
+import { useCashStore, useSelectsStore } from "../../legacy/store/store";
 import styles from "./selectsForm.module.scss";
 
 import { animated } from "react-spring";
-import { queryClient } from "../../api/queryClient";
+import { queryClient } from "../../legacy/api/queryClient";
 import { availableKey } from "@/shared/consts";
 
 type SelectsFormCollapseProps = {

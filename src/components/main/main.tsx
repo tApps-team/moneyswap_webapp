@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useState } from "react";
-import { useFetchExchangers } from "../../api/api";
-import { useCashStore, useSelectsStore } from "../../store/store";
+import { useFetchExchangers } from "../../legacy/api/api";
+import { useCashStore, useSelectsStore } from "../../legacy/store/store";
 import { DirectionTabs } from "../directionTabs";
 import { ExchangerLoader } from "../exchangerLoader";
 import { LocationSelect } from "../locationSelect";

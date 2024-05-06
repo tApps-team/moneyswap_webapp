@@ -4,7 +4,7 @@ import {
   useCashStore,
   useDirectionTabsStore,
   useSelectsStore,
-} from "../../store/store";
+} from "../../legacy/store/store";
 import { Tabs } from "../ui/tabs";
 import styles from "./directionTabs.module.scss";
 import { TabsItem } from "../ui/tabs/tabs";

@@ -2,7 +2,7 @@
 
 import React, { FC } from "react";
 import { useSpring, animated, useTrail } from "react-spring";
-import { Country } from "../../model";
+import { Country } from "../../legacy/model";
 import { CityCard } from "../cityCard";
 import styles from "./countryCard.module.scss";
 

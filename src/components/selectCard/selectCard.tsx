@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import { Options } from "../../model/Options";
+import { Options } from "../../legacy/model/Options";
 import styles from "./selectCard.module.scss";
 import { memo } from "react";
-import { Categories } from "../../model/Categories";
+import { Categories } from "../../legacy/model/Categories";
 
-import { useCashStore, useSelectsStore } from "../../store/store";
+import { useCashStore, useSelectsStore } from "../../legacy/store/store";
 import { useTranslation } from "react-i18next";
 import { SelectSkeleton } from "../ui/selectSkeleton";
 import { AxiosError } from "axios";

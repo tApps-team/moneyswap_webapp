@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Exchanger } from "../../model/Exchanger";
+import { Exchanger } from "../../legacy/model/Exchanger";
 import { ExchangersList } from "../exchangersList";
 import styles from "./exchangerLoader.module.scss";
 import { SystemError } from "../ui/systemError";

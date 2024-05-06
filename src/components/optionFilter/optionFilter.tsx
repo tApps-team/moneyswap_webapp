@@ -1,6 +1,6 @@
 import { FC, memo, useEffect, useMemo } from "react";
-import { Categories } from "../../model/Categories";
-import { useFiltersStore } from "../../store/store";
+import { Categories } from "../../legacy/model/Categories";
+import { useFiltersStore } from "../../legacy/store/store";
 import { TabsItem } from "../ui/tabs/tabs";
 import styles from "./optionFilter.module.scss";
 import { Tab } from "../ui/tabs/tab";
