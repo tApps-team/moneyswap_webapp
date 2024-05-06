@@ -3,7 +3,7 @@ import { setupStore } from "./storeProvider/appStore";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { QueryClientProvider } from "react-query";
-import { queryClient } from "@/api/queryClient";
+import { queryClient } from "@/legacy/api/queryClient";
 
 const store = setupStore();
 // const persistor = persistStore(store);

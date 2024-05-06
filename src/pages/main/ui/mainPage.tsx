@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./mainPage.module.scss";
 import clsx from "clsx";
-import { Main } from "@/components/main";
-import { Telegram } from "@/components/telegram";
-import { Preloader } from "@/components/ui/preloader";
-import { MainBg } from "@/components/ui/mainBg";
+import { Main } from "@/legacy/components/main";
+import { Telegram } from "@/legacy/components/telegram";
+import { Preloader } from "@/legacy/components/ui/preloader";
+import { MainBg } from "@/legacy/components/ui/mainBg";
 
 export const MainPage = () => {
   const [preloaderFinished, setPreloaderFinished] = useState(false);
