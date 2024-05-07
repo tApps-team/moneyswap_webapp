@@ -5,6 +5,7 @@ import { Main } from "@/legacy/components/main";
 import { Telegram } from "@/legacy/components/telegram";
 import { Preloader } from "@/legacy/components/ui/preloader";
 import { MainBg } from "@/legacy/components/ui/mainBg";
+import { useAvailableValutesQuery } from "@/entities/currency";
 
 export const MainPage = () => {
   const [preloaderFinished, setPreloaderFinished] = useState(false);
