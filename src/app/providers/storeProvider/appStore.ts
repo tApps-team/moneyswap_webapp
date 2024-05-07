@@ -1,3 +1,4 @@
+import { currencySlice } from "@/entities/currency";
 import { baseApi } from "@/shared/api";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -21,6 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
+  [currencySlice.name]: currencySlice.reducer,
 });
 
 export const setupStore = () => {
