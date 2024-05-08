@@ -10,3 +10,8 @@ export {
   currencyActions,
   currencyReducer,
 } from "./model/slice/currencySlice";
+export type {
+  Currency,
+  CurrencyCategory,
+  CurrencySchema,
+} from "./model/types/currency";
