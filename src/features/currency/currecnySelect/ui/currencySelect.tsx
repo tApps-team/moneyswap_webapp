@@ -1,6 +1,3 @@
-
-export const CurrencySelect = () =>{
-    return(
-        
-    )
-}
+export const CurrencySelect = () => {
+  return <div>currency</div>;
+};
