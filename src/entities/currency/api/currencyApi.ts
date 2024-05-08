@@ -7,6 +7,10 @@ import {
 export const currencyApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     availableValutes: build.query<
+      // {
+      //   currencies: AvailableValutesDtoResponse;
+      //   filteredCategories: { ru: string[]; en: string[] };
+      // },
       AvailableValutesDtoResponse,
       AvailableValutesDtoRequest
     >({
@@ -16,6 +20,15 @@ export const currencyApi = baseApi.injectEndpoints({
           : `/api/available_valutes?base=${base}`,
         method: "GET",
       }),
+      // transformResponse: (response: AvailableValutesDtoResponse, meta, arg) => {
+      //   return {
+      //     currencies: response,
+      //     filteredCategories: {
+      //       ru: Object.keys(response.ru),
+      //       en: Object.keys(response.en),
+      //     },
+      //   };
+      // },
     }),
   }),
 });
