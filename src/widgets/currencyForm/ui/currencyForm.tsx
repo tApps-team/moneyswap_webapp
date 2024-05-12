@@ -51,7 +51,7 @@ export const CurrencyForm = () => {
       ? getCurrencies?.filteredCategories.ru
       : getCurrencies?.filteredCategories.en;
 
-  const currenctGiveLabel = i18n.language === 'ru' ? Object.values(giveCurrencies?.currencies.ru || {}).map(currency => )
+  // const currenctGiveLabel = i18n.language === 'ru' ? Object.values(giveCurrencies?.currencies.ru || {}).map(currency => )
 
   const onGiveCurrencyClick = (currency: Currency) => {
     dispatch(currencyActions.setGiveCurrency(currency));
