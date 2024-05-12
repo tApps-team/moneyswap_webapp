@@ -15,27 +15,22 @@ interface SelectsState {
   switchOptions: () => Promise<void>;
 }
 
-export const useSelectsStore = create<SelectsState>()(
-  devtools(
-    (set) => ({
-      exchangersError: null,
-      setExchangersError: (error) => set({ exchangersError: error }),
-      giveSelect: null,
-      getSelect: null,
-      setGiveSelect: (option) => set({ giveSelect: option }),
-      setGetSelect: async (option) => set({ getSelect: option }),
-      switchOptions: async () => {
-        set((state) => {
-          return {
-            giveSelect: state.getSelect,
-            getSelect: state.giveSelect,
-          };
-        });
-      },
-    }),
-    { name: "selectsStore" }
-  )
-);
+export const useSelectsStore = create<SelectsState>()((set) => ({
+  exchangersError: null,
+  setExchangersError: (error) => set({ exchangersError: error }),
+  giveSelect: null,
+  getSelect: null,
+  setGiveSelect: (option) => set({ giveSelect: option }),
+  setGetSelect: async (option) => set({ getSelect: option }),
+  switchOptions: async () => {
+    set((state) => {
+      return {
+        giveSelect: state.getSelect,
+        getSelect: state.giveSelect,
+      };
+    });
+  },
+}));
 
 interface FiltersState {
   filter: string | null;
