@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@radix-ui/react-tabs": "^1.0.4",
     "@reduxjs/toolkit": "^2.2.3",
     "@sentry/react": "^7.113.0",
     "@sentry/vite-plugin": "^2.16.1",
