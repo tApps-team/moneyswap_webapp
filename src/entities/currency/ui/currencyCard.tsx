@@ -8,17 +8,17 @@ type CurrencyCardProps = {
 export const CurrencyCard = (props: CurrencyCardProps) => {
   const { currency, onClick } = props;
   return (
-    <Card onClick={onClick}>
-      <CardContent className="grid grid-cols-2 grid-rows-2">
+    <Card className="h-[70px] rounded-full border-2  " onClick={onClick}>
+      <CardContent className="grid h-full   grid-flow-col px-4 py-2 justify-start  gap-3 items-center">
         <img
-          className="col-span-2"
+          className="row-span-2"
           src={currency.icon_url}
           alt={`Валюта ${currency.name}`}
-          width={26}
-          height={26}
+          width={34}
+          height={34}
         />
-        <div>{currency.name}</div>
-        <div>{currency.code_name}</div>
+        <div className="truncate">{currency.name}</div>
+        <div className="truncate">{currency.code_name}</div>
       </CardContent>
     </Card>
   );
