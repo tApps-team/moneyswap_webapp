@@ -8,11 +8,7 @@ const store = setupStore();
 const App: FC = (): ReactElement => {
   return (
     <div className="main__wrapper">
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <MainPage />
-        </Provider>
-      </QueryClientProvider>
+      <MainPage />
     </div>
   );
 };
