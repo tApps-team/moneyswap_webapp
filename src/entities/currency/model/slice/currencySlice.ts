@@ -12,16 +12,16 @@ export const currencySlice = createSlice({
   name: "currency",
   initialState,
   reducers: {
-    setGetCurrency: (state, action: PayloadAction<Currency>) => {
+    setGetCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.getCurrency = action.payload;
     },
-    setGiveCurrency: (state, action: PayloadAction<Currency>) => {
+    setGiveCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.giveCurrency = action.payload;
     },
-    setGetCashCurrency: (state, action: PayloadAction<Currency>) => {
+    setGetCashCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.getCashCurrency = action.payload;
     },
-    setGiveCashCurrency: (state, action: PayloadAction<Currency>) => {
+    setGiveCashCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.giveCashCurrency = action.payload;
     },
   },
