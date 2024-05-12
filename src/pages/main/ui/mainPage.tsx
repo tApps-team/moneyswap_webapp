@@ -8,30 +8,30 @@ import { MainBg } from "@/legacy/components/ui/mainBg";
 import { useAvailableValutesQuery } from "@/entities/currency";
 
 export const MainPage = () => {
-  const [preloaderFinished, setPreloaderFinished] = useState(false);
-  const [preloaderExtro, setPreloaderExtro] = useState(false);
+  // const [preloaderFinished, setPreloaderFinished] = useState(false);
+  // const [preloaderExtro, setPreloaderExtro] = useState(false);
 
-  // telegram object
-  const tg = window.Telegram.WebApp;
+  // // telegram object
+  // const tg = window.Telegram.WebApp;
 
-  useEffect(() => {
-    // preloader scale and opacity
-    setTimeout(() => {
-      setPreloaderExtro(true);
-    }, 1200);
-    // webapp 100% height
-    setTimeout(() => {
-      tg.expand();
-    }, 1900);
-    // preloader ends
-    setTimeout(() => {
-      setPreloaderFinished((prev) => !prev);
-    }, 2250);
-  }, []);
+  // useEffect(() => {
+  //   // preloader scale and opacity
+  //   setTimeout(() => {
+  //     setPreloaderExtro(true);
+  //   }, 1200);
+  //   // webapp 100% height
+  //   setTimeout(() => {
+  //     tg.expand();
+  //   }, 1900);
+  //   // preloader ends
+  //   setTimeout(() => {
+  //     setPreloaderFinished((prev) => !prev);
+  //   }, 2250);
+  // }, []);
 
   return (
     <div data-testid="main-page" className="page__wrapper">
-      <Telegram />
+      {/* <Telegram /> */}
       {/* {preloaderFinished ? (
         <Main />
       ) : (
@@ -45,7 +45,7 @@ export const MainPage = () => {
         </div>
       )} */}
       <Main />
-      <MainBg />
+      {/* <MainBg /> */}
     </div>
   );
 };
