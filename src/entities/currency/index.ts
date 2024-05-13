@@ -14,6 +14,7 @@ export type {
   Currency,
   CurrencyCategory,
   CurrencySchema,
+  CurrencyLang,
 } from "./model/types/currency";
 
 export { CurrencyCard } from "./ui/currencyCard";
