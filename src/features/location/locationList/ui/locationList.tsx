@@ -7,12 +7,12 @@ import {
   setCountry,
 } from "@/entities/location";
 import { FC } from "react";
-import styles from "./locationList.module.scss";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  DrawerClose,
 } from "@/shared/ui";
 import { useAppDispatch } from "@/shared/hooks";
 
@@ -30,7 +30,6 @@ export const LocationList: FC<LocationListProps> = ({
     dispatch(setCity(location.city));
     dispatch(setCountry(location.country));
     setSearchValue("");
-    // close drawer
     // очищать exchangers и currency selects
   };
   return (
@@ -42,11 +41,12 @@ export const LocationList: FC<LocationListProps> = ({
           </AccordionTrigger>
           <AccordionContent>
             {country?.cities?.map((city) => (
-              <CityCard
-                city={city}
-                key={city?.id}
-                changeLocation={() => changeLocation({ city, country })}
-              />
+              <DrawerClose key={city?.id} className="w-full">
+                <CityCard
+                  city={city}
+                  changeLocation={() => changeLocation({ city, country })}
+                />
+              </DrawerClose>
             ))}
           </AccordionContent>
         </AccordionItem>

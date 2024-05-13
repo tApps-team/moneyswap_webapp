@@ -122,11 +122,6 @@ export const Main = memo(() => {
           isLoading={isLoading}
           preloader={preloader}
         /> */}
-        <Exchangers
-          exchangers={exchangers!}
-          isFetching={isFetching}
-          error={error}
-        />
       </div>
       <footer className={styles.languageSwitcher}>
         <LanguageSwitcher />

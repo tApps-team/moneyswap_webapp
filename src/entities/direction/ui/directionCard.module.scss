@@ -1,13 +1,18 @@
 .direction {
     color: var(--text-color);
-    padding: 20px;
+    padding: 15px;
     background: var(--secondary-color);
-    border-radius: var(--border-radius-m);
+    border-radius: 35px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .direction__title {
         font-size: var(--font-size-s);
         text-align: center;
         text-transform: uppercase;
+        font-weight: 500;
     }
 }
 

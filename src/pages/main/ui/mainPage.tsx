@@ -5,6 +5,9 @@ import { Main } from "@/legacy/components/main";
 import { Preloader } from "@/legacy/components/ui/preloader";
 import { MainBg } from "@/legacy/components/ui/mainBg";
 import { TelegramApi } from "@/widgets/telegramApi";
+import { Exchangers } from "@/widgets/exchangers";
+import { Location } from "@/widgets/location";
+import { Directions } from "@/widgets/directions";
 
 export const MainPage = () => {
   // const [preloaderFinished, setPreloaderFinished] = useState(false);
@@ -32,6 +35,10 @@ export const MainPage = () => {
     <div data-testid="main-page">
       <div className={styles.container}></div>
       <TelegramApi />
+      <Directions />
+      <Location />
+      {/* currencyForm */}
+      {/* <Exchangers /> */}
       {/* {preloaderFinished ? (
         <Main />
       ) : (
@@ -44,7 +51,6 @@ export const MainPage = () => {
           <Preloader step={25} progress={0} strokeWidth={20} />
         </div>
       )} */}
-      <Main />
     </div>
   );
 };

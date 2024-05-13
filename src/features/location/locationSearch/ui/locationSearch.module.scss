@@ -2,11 +2,10 @@
     position: relative;
     border-radius: var(--border-radius-s);
     padding: 10px 10px 10px 50px;
-    background: var(--black-color);
+    background: var(--light-grey);
     width: 100%;
     font-size: var(--font-size-s);
     color: var(--secondary-color);
-    margin-bottom: 15px;
   
     .icon {
       display: flex;
@@ -21,10 +20,14 @@
     .input {
       border: none;
       background: transparent;
-      color: var(--text-color);
+      color: #000;
       width: 100%;
       font-size: inherit;
       text-transform: uppercase;
+
+      &::placeholder {
+        color: #000;
+      }
   
       &:focus {
         outline: none;

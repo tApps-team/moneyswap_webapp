@@ -9,6 +9,13 @@ import { LocationIcon } from "@/shared/assets";
 import clsx from "clsx";
 import { Country } from "@/entities/location";
 import { Lang } from "@/shared/config";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTrigger,
+  ScrollArea,
+} from "@/shared/ui";
 
 export const Location = () => {
   const { t, i18n } = useTranslation();
@@ -61,28 +68,48 @@ export const Location = () => {
         [styles.location__active]: activeDirection === directions.cash,
       })}
     >
-      <header className={styles.header}>
-        <figure className={styles.figure}>
-          {country ? (
-            <img src={country?.icon_url} alt={`Иконка ${currentCountryName}`} />
-          ) : (
-            <LocationIcon />
-          )}
-        </figure>
-        <h2 className={styles.locationSelect}>
-          {city && country
-            ? `${currentCountryName}, ${currentCityName}`
-            : t("Выберите страну и город")}
-        </h2>
-      </header>
-      <div>
-        <h2 className={styles.title}>{t("Выбор страны и города")}</h2>
-        <LocationSearch onChange={setSearchValue} searchValue={searchValue} />
-        <LocationList
-          countries={filteredCountries!}
-          setSearchValue={setSearchValue}
-        />
-      </div>
+      <Drawer>
+        <DrawerTrigger asChild>
+          <header className={styles.header}>
+            <figure className={styles.figure}>
+              {country ? (
+                <img
+                  src={country?.icon_url}
+                  alt={`Иконка ${currentCountryName}`}
+                />
+              ) : (
+                <LocationIcon />
+              )}
+            </figure>
+            <h2 className={styles.locationSelect}>
+              {city && country ? (
+                <p>
+                  <span>{currentCountryName},</span> {currentCityName}
+                </p>
+              ) : (
+                t("Выберите страну и город")
+              )}
+            </h2>
+          </header>
+        </DrawerTrigger>
+        <DrawerContent className="h-[100svh] bg-[#2d2d2d] border-none rounded-none">
+          <DrawerHeader className="gap-4">
+            <h2 className="text-left text-[16px] uppercase text-[#f6ff5f]">
+              {t("Выбор страны и города")}
+            </h2>
+            <LocationSearch
+              onChange={setSearchValue}
+              searchValue={searchValue}
+            />
+          </DrawerHeader>
+          <ScrollArea data-vaul-no-drag className="h-full pt-2 p-4 w-full ">
+            <LocationList
+              countries={filteredCountries!}
+              setSearchValue={setSearchValue}
+            />
+          </ScrollArea>
+        </DrawerContent>
+      </Drawer>
     </section>
   );
 };

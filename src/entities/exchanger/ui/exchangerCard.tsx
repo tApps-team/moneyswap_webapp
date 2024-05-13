@@ -12,12 +12,14 @@ interface ExchangerCardProps {
   card: Exchanger;
   city: City | null;
   openLink: (url: string) => void;
+  openReviews?: () => void;
 }
 
 export const ExchangerCard: FC<ExchangerCardProps> = ({
   card,
   city,
   openLink,
+  openReviews,
 }) => {
   const { t, i18n } = useTranslation();
   const [ref, springs] = useInView(() => ({
@@ -55,7 +57,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                   : t("Онлайн обмен")}
               </h3>
             </div>
-            <div className={styles.reviewCountWrapper}>
+            <div className={styles.reviewCountWrapper} onClick={openReviews}>
               <p className={styles.reviewTitle}>{t("Отзывы")}</p>
               <div className={styles.reviews}>
                 <h3 className={styles.reviewCountPositive}>
