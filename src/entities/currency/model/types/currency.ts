@@ -12,10 +12,18 @@ export type CurrencyCategory = {
     [key: string]: Currency[];
   };
 };
-
+export type CurrencyLang = {
+  id: number;
+  name: {
+    ru: string;
+    en: string;
+  };
+  code_name: string;
+  icon_url: string;
+};
 export type CurrencySchema = {
-  giveCurrency?: Currency | null;
-  getCurrency?: Currency | null;
-  giveCashCurrency?: Currency | null;
-  getCashCurrency?: Currency | null;
+  giveCurrency?: CurrencyLang | null;
+  getCurrency?: CurrencyLang | null;
+  giveCashCurrency?: CurrencyLang | null;
+  getCashCurrency?: CurrencyLang | null;
 };
