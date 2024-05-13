@@ -15,6 +15,7 @@ import { Modal } from "../modal/modal";
 import styles from "./select.module.scss";
 import { SelectCard } from "../selectCard";
 import { availableKey } from "@/shared/consts";
+import { Lang } from "@/shared/config";
 
 interface SelectProps {
   type: "give" | "get";
@@ -36,7 +37,7 @@ export const Select = memo(({ type }: SelectProps) => {
     "all",
     city?.location.city.code_name,
   ]);
-  const currentOptions = i18n.language === "ru" ? options?.ru : options?.en;
+  const currentOptions = i18n.language === Lang.ru ? options?.ru : options?.en;
   const {
     data: availableDirection,
     error,
@@ -46,7 +47,7 @@ export const Select = memo(({ type }: SelectProps) => {
     city: city?.location.city.code_name,
   });
   const currentAvailableDirection =
-    i18n.language === "ru" ? availableDirection?.ru : availableDirection?.en;
+    i18n.language === Lang.ru ? availableDirection?.ru : availableDirection?.en;
   useEffect(() => {
     if (error) {
       setGetSelect(null);

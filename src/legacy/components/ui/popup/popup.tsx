@@ -1,8 +1,8 @@
 import { ReactNode, useEffect } from "react";
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated } from "react-spring";
 
 import styles from "./popup.module.scss";
-import CloseModal from "@/shared/assets/icons/CloseModal";
+import { CloseModal } from "@/shared/assets";
 
 type PopupProps = {
   children?: ReactNode;

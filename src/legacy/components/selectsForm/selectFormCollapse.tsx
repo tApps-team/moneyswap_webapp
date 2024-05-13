@@ -8,6 +8,7 @@ import styles from "./selectsForm.module.scss";
 import { animated } from "react-spring";
 import { queryClient } from "../../api/queryClient";
 import { availableKey } from "@/shared/consts";
+import { Lang } from "@/shared/config";
 
 type SelectsFormCollapseProps = {
   get: Options | null;
@@ -27,14 +28,14 @@ export const SelectsFormCollapse = (props: SelectsFormCollapseProps) => {
     location?.location.city?.code_name,
   ]);
 
-  const currentOptions = i18n.language === "ru" ? options?.ru : options?.en;
+  const currentOptions = i18n.language === Lang.ru ? options?.ru : options?.en;
   const availableDirection = queryClient.getQueryData<ResFetchAvailable>([
     availableKey,
     give?.code_name,
     location?.location.city?.code_name,
   ]);
   const currentAvailableDirection =
-    i18n.language === "ru" ? availableDirection?.ru : availableDirection?.en;
+    i18n.language === Lang.ru ? availableDirection?.ru : availableDirection?.en;
 
   useEffect(() => {
     if (currentOptions) {

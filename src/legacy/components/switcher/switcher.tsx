@@ -4,7 +4,7 @@ import { useSelectsStore } from "../../store/store";
 
 import styles from "./switcher.module.scss";
 import clsx from "clsx";
-import ChangeIcon from "@/shared/assets/icons/ChangeIcon";
+import { ChangeIcon } from "@/shared/assets";
 
 interface SwitcherProps {
   refetch: () => void;

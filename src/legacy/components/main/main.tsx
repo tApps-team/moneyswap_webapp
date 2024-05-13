@@ -9,6 +9,9 @@ import { ResultArrow } from "../resultArrow";
 import { SelectsForm, SelectsFormCollapse } from "../selectsForm";
 import { LanguageSwitcher } from "../languageSwitcher";
 import { animated, config, useSpring } from "react-spring";
+import { Directions } from "@/widgets/directions";
+import { Location } from "@/widgets/location";
+import { Exchangers } from "@/widgets/exchangers";
 
 export const Main = memo(() => {
   const give = useSelectsStore((state) => state.giveSelect);
@@ -86,7 +89,9 @@ export const Main = memo(() => {
   return (
     <main className={styles.main}>
       <DirectionTabs />
+      <Directions />
       <LocationSelect />
+      <Location />
       <div className={styles.container}>
         <div>
           {collapsedForm ? (
@@ -110,15 +115,19 @@ export const Main = memo(() => {
             </animated.div>
           )}
         </div>
-        <ExchangerLoader
+        {/* <ExchangerLoader
           error={error}
           exchangers={exchangers}
           isFetching={isFetching}
           isLoading={isLoading}
           preloader={preloader}
+        /> */}
+        <Exchangers
+          exchangers={exchangers!}
+          isFetching={isFetching}
+          error={error}
         />
       </div>
-
       <footer className={styles.languageSwitcher}>
         <LanguageSwitcher />
       </footer>

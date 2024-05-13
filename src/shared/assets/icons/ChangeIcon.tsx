@@ -1,4 +1,4 @@
-const ChangeIcon = (props: any) => (
+export const ChangeIcon = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="_\u0421\u043B\u043E\u0439_1"
@@ -17,4 +17,3 @@ const ChangeIcon = (props: any) => (
     />
   </svg>
 );
-export default ChangeIcon;

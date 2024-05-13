@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 
 import { useQueryClient } from "react-query";
 import { exchangersKey } from "@/shared/consts";
+import { Lang } from "@/shared/config";
 
 interface CityCardProps {
   city: City;
@@ -45,7 +46,7 @@ export const CityCard: FC<CityCardProps> = memo(
     return (
       <li className={styles.city} onClick={handleChangeLocation}>
         <h3 className={styles.name}>
-          {i18n.language === "ru" ? city.name.ru : city.name.en}
+          {i18n.language === Lang.ru ? city.name.ru : city.name.en}
         </h3>
       </li>
     );

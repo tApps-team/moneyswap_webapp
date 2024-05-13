@@ -11,6 +11,7 @@ import { useFetchCashCountries } from "../../api/api";
 import { useTranslation } from "react-i18next";
 import { directionTabsValute } from "@/shared/consts";
 import { LocationIcon } from "@/shared/assets/icons/LocationIcon";
+import { Lang } from "@/shared/config";
 
 interface LocationSelectProps {}
 
@@ -27,11 +28,11 @@ export const LocationSelect: FC<LocationSelectProps> = memo(() => {
   const typeValute = useDirectionTabsStore((state) => state.typeValute);
 
   const currentCountryName =
-    i18n.language === "ru"
+    i18n.language === Lang.ru
       ? location?.location.country.name.ru
       : location?.location.country.name.en;
   const currentCityName =
-    i18n.language === "ru"
+    i18n.language === Lang.ru
       ? location?.location.city.name.ru
       : location?.location.city.name.en;
 

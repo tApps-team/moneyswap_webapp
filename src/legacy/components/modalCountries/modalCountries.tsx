@@ -6,6 +6,7 @@ import styles from "./modalCountries.module.scss";
 import { OptionSearch } from "../optionSearch";
 import { useFiltersStore } from "../../store/store";
 import { useTranslation } from "react-i18next";
+import { Lang } from "@/shared/config";
 
 interface ModalCountriesProps {
   handleModal: () => void;
@@ -21,7 +22,7 @@ export const ModalCountries: FC<ModalCountriesProps> = memo(
     const { t, i18n } = useTranslation();
     // const currentLanguage = (country: Country) => {
     //   const language =
-    //     i18n.language === "ru" ? country?.name?.ru : country?.name?.en;
+    //     i18n.language === Lang.ru ? country?.name?.ru : country?.name?.en;
     //   return language;
     // };
     const filteredOptions = useMemo(
@@ -29,7 +30,7 @@ export const ModalCountries: FC<ModalCountriesProps> = memo(
         countries
           .map((country) => {
             const isCountryMatch =
-              i18n.language === "ru"
+              i18n.language === Lang.ru
                 ? country?.name?.ru.toLowerCase().includes(search)
                 : country?.name?.en.toLowerCase().includes(search);
             const filteredCountry = {
@@ -37,7 +38,7 @@ export const ModalCountries: FC<ModalCountriesProps> = memo(
               cities: isCountryMatch
                 ? country.cities
                 : country.cities.filter((city) =>
-                    i18n.language === "ru"
+                    i18n.language === Lang.ru
                       ? city?.name?.ru.toLowerCase().includes(search)
                       : city?.name?.en.toLowerCase().includes(search)
                   ),

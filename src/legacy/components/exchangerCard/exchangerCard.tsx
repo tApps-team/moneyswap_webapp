@@ -1,12 +1,12 @@
 import { FC, memo } from "react";
-import { Exchanger } from "../../model/Exchanger";
 import styles from "./exchangerCard.module.scss";
-
 import { useTranslation } from "react-i18next";
-import { Location } from "../../store/store";
 import { RoundValute } from "../ui/roundValute";
 import { animated, useInView } from "react-spring";
-import ArrowRight from "@/shared/assets/icons/ArrowRight";
+import { Exchanger } from "@/legacy/model/Exchanger";
+import { Location } from "@/legacy/store/store";
+import { ArrowRight } from "@/shared/assets";
+import { Lang } from "@/shared/config";
 
 interface ExchangerCardProps {
   card: Exchanger;
@@ -17,7 +17,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = memo(
   ({ card, location }) => {
     const { t, i18n } = useTranslation();
     const currentCityName =
-      i18n.language === "ru"
+      i18n.language === Lang.ru
         ? location?.location.city.name.ru
         : location?.location.city.name.en;
     // Telegram object
@@ -59,7 +59,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = memo(
             <div className={styles.cardInfo}>
               <div>
                 <h2 className={styles.cardName}>
-                  {i18n.language === "ru" ? card.name.ru : card.name.en}
+                  {i18n.language === Lang.ru ? card.name.ru : card.name.en}
                 </h2>
                 <h3 className={styles.cityName}>
                   {location

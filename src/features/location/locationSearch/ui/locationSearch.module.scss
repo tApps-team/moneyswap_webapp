@@ -1,0 +1,33 @@
+.search {
+    position: relative;
+    border-radius: var(--border-radius-s);
+    padding: 10px 10px 10px 50px;
+    background: var(--black-color);
+    width: 100%;
+    font-size: var(--font-size-s);
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+  
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translate(0, -50%);
+    }
+  
+    .input {
+      border: none;
+      background: transparent;
+      color: var(--text-color);
+      width: 100%;
+      font-size: inherit;
+      text-transform: uppercase;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  }

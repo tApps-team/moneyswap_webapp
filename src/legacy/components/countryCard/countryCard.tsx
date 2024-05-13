@@ -8,7 +8,8 @@ import styles from "./countryCard.module.scss";
 
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import ArrowDown from "@/shared/assets/icons/ArrowDown";
+import { ArrowDown } from "@/shared/assets";
+import { Lang } from "@/shared/config";
 
 interface CountryCardProps {
   country: Country;
@@ -65,7 +66,7 @@ export const CountryCard: FC<CountryCardProps> = ({
           <img src={country.icon_url} alt={`Иконка ${country.name}`} />
         </figure>
         <h3 className={styles.name}>
-          {i18n.language === "ru" ? country.name.ru : country.name.en}
+          {i18n.language === Lang.ru ? country.name.ru : country.name.en}
         </h3>
         <animated.i className={styles.arrowIcon} style={arrowAnimation}>
           <ArrowDown color="#111111" width="35px" height="35px" />
