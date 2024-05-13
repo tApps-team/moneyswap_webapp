@@ -30,8 +30,8 @@ type CurrecnySelectProps = {
   filteredCategories?: string[];
   iconUrl?: string;
   label?: {
-    name: string;
-    codeName: string;
+    name?: string;
+    codeName?: string;
   };
   emptyLabel?: string;
   onClick?: (currency: Currency) => void;
@@ -46,7 +46,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     filteredCategories,
     onClick,
   } = props;
-  console.log(label);
+
   const [searchValue, setSearchValue] = useState<string>("");
   // const getCurrencyValute = useSelector(getCurrency);
   // const giveCurrencyValute = useSelector(giveCurrency);
@@ -70,7 +70,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           ) : (
             <div className="border rounded-full size-8" />
           )}
-          {label ? (
+          {label?.name ? (
             <div className="flex flex-col items-start">
               <div>{label.name}</div>
               <div>{label.codeName}</div>
