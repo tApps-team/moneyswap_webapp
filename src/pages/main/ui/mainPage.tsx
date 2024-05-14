@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "./mainPage.module.scss";
 import clsx from "clsx";
-import { Main } from "@/legacy/components/main";
-import { Telegram } from "@/legacy/components/telegram";
-import { Preloader } from "@/legacy/components/ui/preloader";
-import { MainBg } from "@/legacy/components/ui/mainBg";
+import { TelegramApi } from "@/widgets/telegramApi";
+import { Exchangers } from "@/widgets/exchangers";
+import { Location } from "@/widgets/location";
+import { Directions } from "@/widgets/directions";
+import { Preloader } from "@/shared/ui";
+import { CurrencyForm } from "@/widgets/currencyForm";
+import { LanguageSwitcher } from "@/features/languageSwitch";
 
 export const MainPage = () => {
   const [preloaderFinished, setPreloaderFinished] = useState(false);
@@ -29,10 +32,17 @@ export const MainPage = () => {
   }, []);
 
   return (
-    <div data-testid="main-page" className="page__wrapper">
-      <Telegram />
-      {/* {preloaderFinished ? (
-        <Main />
+    <div data-testid="main-page">
+      <TelegramApi />
+      <div className={styles.container}></div>
+      {preloaderFinished ? (
+        <>
+          <Directions />
+          <Location />
+          <CurrencyForm />
+          <Exchangers />
+          <LanguageSwitcher />
+        </>
       ) : (
         <div
           className={clsx(styles.preloaderContainer, {
@@ -42,9 +52,7 @@ export const MainPage = () => {
         >
           <Preloader step={25} progress={0} strokeWidth={20} />
         </div>
-      )} */}
-      <Main />
-      <MainBg />
+      )}
     </div>
   );
 };

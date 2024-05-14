@@ -1,1 +1,0 @@
-export { ExchangersList } from "./exchangersList"

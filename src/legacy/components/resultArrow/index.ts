@@ -1,1 +1,0 @@
-export { ResultArrow } from './resultArrow'

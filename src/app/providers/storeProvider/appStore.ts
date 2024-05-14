@@ -1,3 +1,6 @@
+import { directionSlice } from "@/entities/direction";
+import { locationSlice } from "@/entities/location";
+import { currencySlice } from "@/entities/currency";
 import { baseApi } from "@/shared/api";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -20,7 +23,10 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  [locationSlice.name]: locationSlice.reducer,
+  [directionSlice.name]: directionSlice.reducer,
   [baseApi.reducerPath]: baseApi.reducer,
+  [currencySlice.name]: currencySlice.reducer,
 });
 
 export const setupStore = () => {

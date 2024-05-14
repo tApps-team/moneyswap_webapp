@@ -1,7 +1,7 @@
 * {
-    --bg-color: #272826;
-    --primary-color-gradient: linear-gradient(0deg, #026B45 0%, #3CAE6A 109%);
-    --primary-color: #00DB82;
+    --bg-color: #2d2d2d;
+    --primary-color-gradient: linear-gradient(0deg, #026B45 0%, #f6ff5f 109%);
+    --primary-color: #f6ff5f;
     --secondary-color: #585857;
     --text-color: #ffffff;
 
@@ -28,6 +28,20 @@
 
     //countryCard
     --countryCard-margin: 5px 0px
+
+
+
+    // new design
+    --main-color: #f6ff5f;
+    --white-color: #fff;
+    --secondary-text: #606060;
+    --dark-grey: #2d2d2d;
+    --light-grey: #bbbbbb;
+  
+    --text-xl: 20px;
+    --text-lg: 18px;
+    --text-sm: 14px;
+    --text-xs: 12px
 }
 
 //mixin border - radius

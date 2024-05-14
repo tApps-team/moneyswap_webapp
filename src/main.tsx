@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import React from "react";
 import App from "./app";
+
 Sentry.init({
   dsn: "https://e04ca8c2735eaf9c3e52375fc2ace562@o4506694926336000.ingest.us.sentry.io/4506706862407680",
   integrations: [
@@ -19,16 +20,16 @@ Sentry.init({
       maskAllText: false,
       blockAllMedia: false,
     }),
-    Sentry.reactRouterV6BrowserTracingIntegration({
-      useEffect: React.useEffect,
-      useLocation,
-      useNavigationType,
-      createRoutesFromChildren,
-      matchRoutes,
-    }),
+    // Sentry.reactRouterV6BrowserTracingIntegration({
+    //   useEffect: React.useEffect,
+    //   useLocation,
+    //   useNavigationType,
+    //   createRoutesFromChildren,
+    //   matchRoutes,
+    // }),
   ],
   // Performance Monitoring
-  tracesSampleRate: 1.0, //  Capture 100% of the transactions
+  tracesSampleRate: 10 * 60 * 5, //  Capture 100% of the transactions
   // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: [
     "localhost",
