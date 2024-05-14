@@ -1,43 +1,53 @@
 import styles from "./exchangers.module.scss";
-import { useGetExchangersQuery } from "@/entities/exchanger";
 import { useAppSelector } from "@/shared/hooks";
 import { Preloader, SystemError } from "@/shared/ui";
 import { ExchangerList } from "@/features/exchanger";
 import { FC } from "react";
 import { directions } from "@/entities/direction";
+import {
+  useGetExchangersCashQuery,
+  useGetExchangersNoncashQuery,
+} from "@/entities/exchanger";
 
 interface ExchangersProps {}
 
 export const Exchangers: FC<ExchangersProps> = () => {
   const { city } = useAppSelector((state) => state.location);
   const { activeDirection } = useAppSelector((state) => state.direction);
-  // const {} = useAppSelector((state)=>state.)
+  const { getCashCurrency, getCurrency, giveCashCurrency, giveCurrency } =
+    useAppSelector((state) => state.currency);
 
-  const exchangersReq = {
-    city: city?.code_name,
-    valute_from: "dsfsdf",
-    // добавить сюда directions.cash === activeDirection ? currencyCash : currencyNoncash
-    valute_to: "sdfsdf",
+  const give =
+    activeDirection === directions.cash ? giveCashCurrency : giveCurrency;
+  const get =
+    activeDirection === directions.cash ? getCashCurrency : getCurrency;
+
+  const exchangersCashReq = {
+    city: city?.code_name || "",
+    valute_from: give?.code_name || "",
+    valute_to: get?.code_name || "",
+  };
+  const exchangersNoncashReq = {
+    valute_from: give?.code_name || "",
+    valute_to: get?.code_name || "",
   };
   const {
     data: exchangersCash,
     isFetching: isCashFetching,
     error: cashError,
-  } = useGetExchangersQuery(exchangersReq, {
-    skip: activeDirection !== directions.cash,
-    // добавить сюда currencyCash
+  } = useGetExchangersCashQuery(exchangersCashReq, {
+    skip: activeDirection === directions.noncash || !city || !give || !get,
   });
-
   const {
     data: exchangersNoncash,
     isFetching: isNoncashFetching,
     error: noncashError,
-  } = useGetExchangersQuery(exchangersReq, {
-    skip: activeDirection !== directions.noncash,
-    // добавить сюда currencyNoncash
+  } = useGetExchangersNoncashQuery(exchangersNoncashReq, {
+    skip: activeDirection === directions.cash || !get || !get,
   });
 
-  const exchangers = directions.cash ? exchangersCash : exchangersNoncash;
+  const exchangers =
+    activeDirection === directions.cash ? exchangersCash : exchangersNoncash;
 
   return (
     <section className={styles.exchangers}>
@@ -53,13 +63,14 @@ export const Exchangers: FC<ExchangersProps> = () => {
       ) : cashError || noncashError ? (
         <SystemError direction={true} />
       ) : (
-        exchangers && (
+        exchangers &&
+        give &&
+        get && (
           <ExchangerList
             exchangers={exchangers}
-            currencyGive={{ name: "sdfsdf" }}
-            // добавить сюда directions.cash === activeDirection ? currencyCash : currencyNoncash
-            currencyGet={{ name: "sdfsdf" }}
-            city={city && city}
+            giveCurrency={give}
+            getCurrency={get}
+            city={activeDirection === directions.cash ? city : null}
           />
         )
       )}

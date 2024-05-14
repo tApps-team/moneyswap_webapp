@@ -30,15 +30,15 @@ type ProgressProps = {
 
 export const Preloader: React.FC<ProgressProps> = ({
   progress = 0,
-  strokeWidth = 4,
+  strokeWidth = 10,
   ballStrokeWidth = 16,
   reduction = 0,
-  background = "#0000004C",
+  background = "#f6ff5f",
   hideBall = false,
   hideValue = false,
   gradient = [
-    { stop: 0.0, color: "#23a247" },
-    { stop: 1, color: "#23a249" },
+    { stop: 0.0, color: "#f6ff5f" },
+    { stop: 1, color: "#f6ff5f" },
   ],
   subtitle = "",
   style,
@@ -131,7 +131,7 @@ export const Preloader: React.FC<ProgressProps> = ({
         style={fadeInAnimation}
       >
         {/* Серый круг */}
-        <animated.circle
+        {/* <animated.circle
           transform={`rotate(${rotate} ${center} ${center})`}
           id={`path`}
           cx={center}
@@ -141,7 +141,7 @@ export const Preloader: React.FC<ProgressProps> = ({
           fill="none"
           stroke={background}
           strokeLinecap="round"
-        />
+        /> */}
 
         {/* Линейный градиент */}
         <animated.linearGradient
@@ -168,8 +168,8 @@ export const Preloader: React.FC<ProgressProps> = ({
             className={styles.text}
             y={center + 40 / 4}
             textAnchor="middle"
-            fontSize="40"
-            fill="#23a247"
+            fontSize="30"
+            fill="#f6ff5f"
             style={fadeInAnimation}
           >
             {preloaderProgress} {suffix}

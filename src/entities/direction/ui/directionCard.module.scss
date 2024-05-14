@@ -9,10 +9,18 @@
     align-items: center;
 
     .direction__title {
-        font-size: var(--font-size-s);
+        font-size: 14px;
         text-align: center;
         text-transform: uppercase;
         font-weight: 500;
+    }
+
+    @media (max-width: 380px) {
+        height: 60px;
+
+        .direction__title {
+            font-size: 12px;
+        }
     }
 }
 

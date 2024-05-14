@@ -3,18 +3,19 @@ import { FC, memo } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./exchangerList.module.scss";
 import { City } from "@/entities/location";
+import { CurrencyLang } from "@/entities/currency";
+import { Lang } from "@/shared/config";
 
 interface ExchangersListProps {
   exchangers: Exchanger[];
-  // вместо any присвоить типы из currency
-  currencyGive: any;
-  currencyGet: any;
+  giveCurrency: CurrencyLang;
+  getCurrency: CurrencyLang;
   city: City | null;
 }
 
 export const ExchangerList: FC<ExchangersListProps> = memo(
-  ({ exchangers, currencyGet, currencyGive, city }) => {
-    const { t } = useTranslation();
+  ({ exchangers, giveCurrency, getCurrency, city }) => {
+    const { t, i18n } = useTranslation();
 
     // telegram open link method
     const tg = window.Telegram.WebApp;
@@ -30,10 +31,19 @@ export const ExchangerList: FC<ExchangersListProps> = memo(
         tg.openLink(url, options);
       }
     };
+    const giveCurrencyName =
+      i18n.language === Lang.ru
+        ? giveCurrency?.name?.ru
+        : giveCurrency?.name?.en;
+    const getCurrencyName =
+      i18n.language === Lang.ru
+        ? getCurrency?.name?.ru
+        : giveCurrency?.name?.en;
     return (
       <section className={styles.exchangersList}>
         <h2 className={styles.header}>
-          {t("Лучшие курсы")} {currencyGive?.name} {t("на")} {currencyGet?.name}
+          {t("Лучшие курсы")} <span>{giveCurrencyName}</span> {t("на")}{" "}
+          <span>{getCurrencyName}</span>
         </h2>
         <div className={styles.cards}>
           {exchangers &&

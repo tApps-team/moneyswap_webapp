@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CurrencyLang, CurrencySchema } from "../types/currency";
-import { type Currency } from "../types/currency";
 const initialState: CurrencySchema = {
   getCurrency: null,
   giveCurrency: null,
