@@ -6,6 +6,7 @@ import { City } from "@/entities/location";
 
 interface ExchangersListProps {
   exchangers: Exchanger[];
+  // вместо any присвоить типы из currency
   currencyGive: any;
   currencyGet: any;
   city: City | null;

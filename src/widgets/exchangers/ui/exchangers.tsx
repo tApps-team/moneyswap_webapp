@@ -12,7 +12,6 @@ export const Exchangers: FC<ExchangersProps> = () => {
   const { city } = useAppSelector((state) => state.location);
   const { activeDirection } = useAppSelector((state) => state.direction);
   // const {} = useAppSelector((state)=>state.)
-  // тут отправлять запрос на exchangers и сделать skip: !give && !get && directions === directions.cash && !city
 
   const exchangersReq = {
     city: city?.code_name,
