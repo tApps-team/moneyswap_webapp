@@ -11,3 +11,4 @@ export { USAIcon } from "./IconUsa";
 export { LocationIcon } from "./LocationIcon";
 export { SearchIcon } from "./SearchIcon";
 export { LogoArrow } from "./logoArrow";
+export { LogoIcon } from "./logoIcon";
