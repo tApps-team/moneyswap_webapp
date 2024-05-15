@@ -1,3 +1,4 @@
+import { CurrencySelect, CurrencySwitcher } from "@/features/currency";
 import {
   Currency,
   CurrencyLang,
@@ -6,7 +7,6 @@ import {
 } from "@/entities/currency";
 import { directions } from "@/entities/direction";
 
-import { CurrencySelect, CurrencySwitcher } from "@/features/currency";
 import { Lang } from "@/shared/config";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Card } from "@/shared/ui";
@@ -43,12 +43,19 @@ export const CurrencyForm = () => {
   const currentGetCurrency =
     direction === directions.noncash ? getCurrencyValue : getCashCurrencyValue;
   // Запросы на получения валюты
-  const { data: giveCurrencies } = useAvailableValutesQuery({
-    base: "all",
-    city: direction === directions.cash ? code_name : undefined,
-  });
-
-  const { data: getCurrencies } = useAvailableValutesQuery(
+  const { data: giveCurrencies, error: giveCurrencyError } =
+    useAvailableValutesQuery({
+      base: "all",
+      city: direction === directions.cash ? code_name : undefined,
+    });
+  if (giveCurrencyError) {
+    if (direction === directions.cash) {
+      dispatch(currencyActions.setGetCashCurrency(null));
+    } else {
+      dispatch(currencyActions.setGetCurrency(null));
+    }
+  }
+  const { data: getCurrencies, getCurrencyError } = useAvailableValutesQuery(
     {
       base:
         direction === directions.cash
@@ -66,39 +73,29 @@ export const CurrencyForm = () => {
   // В зависимости от языка выбираем нужные нам объекты
   const currentGiveCurrencies =
     i18n.language === Lang.ru
-      ? giveCurrencies?.filteredCurrency.ru
-      : giveCurrencies?.filteredCurrency.en;
+      ? giveCurrencies?.currencies.ru
+      : giveCurrencies?.currencies.en;
 
   const currentGetCurrencies =
     i18n.language === Lang.ru
-      ? getCurrencies?.filteredCurrency.ru
-      : getCurrencies?.filteredCurrency.en;
-
-  const currentGiveFilteredCateogry =
-    i18n.language === Lang.ru
-      ? giveCurrencies?.filteredCategories.ru
-      : giveCurrencies?.filteredCategories.en;
-
-  const currentGetFilteredCateogry =
-    i18n.language === Lang.ru
-      ? getCurrencies?.filteredCategories.ru
-      : getCurrencies?.filteredCategories.en;
+      ? getCurrencies?.currencies.ru
+      : getCurrencies?.currencies.en;
 
   // Функции при клике на карточку в разных селектах
   const onGiveCurrencyClick = (currency: Currency) => {
-    const currencyRu = giveCurrencies?.filteredCurrency?.ru.find(
+    const currencyRuName = giveCurrencies?.filteredCurrency?.ru.find(
       (curr) => curr.id === currency?.id
-    );
-    const currencyEn = giveCurrencies?.filteredCurrency?.en.find(
+    )?.name;
+    const currencyEnName = giveCurrencies?.filteredCurrency?.en.find(
       (curr) => curr.id === currency?.id
-    );
+    )?.name;
     const currencyObject: CurrencyLang = {
       code_name: currency.code_name,
       icon_url: currency.icon_url,
       id: currency.id,
       name: {
-        en: currencyEn?.name || "",
-        ru: currencyRu?.name || "",
+        en: currencyEnName || "",
+        ru: currencyRuName || "",
       },
     };
     dispatch(
@@ -138,32 +135,34 @@ export const CurrencyForm = () => {
   return (
     <Card className="grid grid-cols-1 grid-rows-4 ">
       <CurrencySelect
-        label={{
-          codeName: currentGiveCurrency?.code_name,
+        label={t("ОТДАЮ")}
+        currencyInfo={{
+          code_name: currentGiveCurrency?.code_name || "",
+          icon_url: currentGiveCurrency?.icon_url || "",
           name:
-            i18n.language === Lang.ru
+            (i18n.language === "ru"
               ? currentGiveCurrency?.name.ru
-              : currentGiveCurrency?.name.en,
+              : currentGiveCurrency?.name.en) || "",
         }}
         disabled={direction === directions.cash && !code_name}
         emptyLabel={t("Выберите валюту")}
-        filteredCategories={currentGiveFilteredCateogry}
         currencies={currentGiveCurrencies}
         onClick={onGiveCurrencyClick}
       />
       <CurrencySwitcher />
       <CurrencySelect
+        label={t("ПОЛУЧАЮ")}
         emptyLabel={t("Выберите валюту")}
-        label={{
-          codeName: currentGetCurrency?.code_name,
+        currencyInfo={{
+          code_name: currentGetCurrency?.code_name || "",
+          icon_url: currentGetCurrency?.icon_url || "",
           name:
-            i18n.language === Lang.ru
+            (i18n.language === "ru"
               ? currentGetCurrency?.name.ru
-              : currentGetCurrency?.name.en,
+              : currentGetCurrency?.name.en) || "",
         }}
         disabled={!getCurrencies}
         currencies={currentGetCurrencies}
-        filteredCategories={currentGetFilteredCateogry}
         onClick={onGetCurrencyClick}
       />
     </Card>
