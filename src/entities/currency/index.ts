@@ -12,9 +12,10 @@ export {
 } from "./model/slice/currencySlice";
 export type {
   Currency,
-  CurrencyCategory,
+  CurrencyLangCategory,
   CurrencySchema,
   CurrencyLang,
+  CurrencyCategory,
 } from "./model/types/currency";
 
 export { CurrencyCard } from "./ui/currencyCard";
