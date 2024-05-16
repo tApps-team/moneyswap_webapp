@@ -55,21 +55,22 @@ export const CurrencyForm = () => {
       dispatch(currencyActions.setGetCurrency(null));
     }
   }
-  const { data: getCurrencies, getCurrencyError } = useAvailableValutesQuery(
-    {
-      base:
-        direction === directions.cash
-          ? giveCashCurrencyValue?.code_name
-          : giveCurrencyValue?.code_name,
-      city: direction === directions.cash ? code_name : undefined,
-    },
-    {
-      skip:
-        direction === directions.noncash
-          ? !giveCurrencyValue
-          : !giveCashCurrencyValue,
-    }
-  );
+  const { data: getCurrencies, error: getCurrencyError } =
+    useAvailableValutesQuery(
+      {
+        base:
+          direction === directions.cash
+            ? giveCashCurrencyValue?.code_name
+            : giveCurrencyValue?.code_name,
+        city: direction === directions.cash ? code_name : undefined,
+      },
+      {
+        skip:
+          direction === directions.noncash
+            ? !giveCurrencyValue
+            : !giveCashCurrencyValue,
+      }
+    );
   // В зависимости от языка выбираем нужные нам объекты
   const currentGiveCurrencies =
     i18n.language === Lang.ru
@@ -133,38 +134,44 @@ export const CurrencyForm = () => {
   };
 
   return (
-    <Card className="grid grid-cols-1 grid-rows-4 ">
-      <CurrencySelect
-        label={t("ОТДАЮ")}
-        currencyInfo={{
-          code_name: currentGiveCurrency?.code_name || "",
-          icon_url: currentGiveCurrency?.icon_url || "",
-          name:
-            (i18n.language === "ru"
-              ? currentGiveCurrency?.name.ru
-              : currentGiveCurrency?.name.en) || "",
-        }}
-        disabled={direction === directions.cash && !code_name}
-        emptyLabel={t("Выберите валюту")}
-        currencies={currentGiveCurrencies}
-        onClick={onGiveCurrencyClick}
-      />
+    <Card className="grid grid-cols-1 grid-rows-3 gap-2 p-4 ">
+      <div className="flex flex-col gap-2">
+        <div>{t("ОТДАЮ")}</div>
+        <CurrencySelect
+          label={t("ОТДАЮ")}
+          currencyInfo={{
+            code_name: currentGiveCurrency?.code_name || "",
+            icon_url: currentGiveCurrency?.icon_url || "",
+            name:
+              (i18n.language === "ru"
+                ? currentGiveCurrency?.name.ru
+                : currentGiveCurrency?.name.en) || "",
+          }}
+          disabled={direction === directions.cash && !code_name}
+          emptyLabel={t("Выберите валюту")}
+          currencies={currentGiveCurrencies}
+          onClick={onGiveCurrencyClick}
+        />
+      </div>
       <CurrencySwitcher />
-      <CurrencySelect
-        label={t("ПОЛУЧАЮ")}
-        emptyLabel={t("Выберите валюту")}
-        currencyInfo={{
-          code_name: currentGetCurrency?.code_name || "",
-          icon_url: currentGetCurrency?.icon_url || "",
-          name:
-            (i18n.language === "ru"
-              ? currentGetCurrency?.name.ru
-              : currentGetCurrency?.name.en) || "",
-        }}
-        disabled={!getCurrencies}
-        currencies={currentGetCurrencies}
-        onClick={onGetCurrencyClick}
-      />
+      <div className="flex flex-col gap-2">
+        <div>{t("ПОЛУЧАЮ")}</div>
+        <CurrencySelect
+          label={t("ПОЛУЧАЮ")}
+          emptyLabel={t("Выберите валюту")}
+          currencyInfo={{
+            code_name: currentGetCurrency?.code_name || "",
+            icon_url: currentGetCurrency?.icon_url || "",
+            name:
+              (i18n.language === "ru"
+                ? currentGetCurrency?.name.ru
+                : currentGetCurrency?.name.en) || "",
+          }}
+          disabled={!currentGiveCurrency}
+          currencies={currentGetCurrencies}
+          onClick={onGetCurrencyClick}
+        />
+      </div>
     </Card>
   );
 };
