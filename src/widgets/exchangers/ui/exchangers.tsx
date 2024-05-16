@@ -1,5 +1,5 @@
 import styles from "./exchangers.module.scss";
-import { useAppSelector } from "@/shared/hooks";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Preloader, SystemError } from "@/shared/ui";
 import { ExchangerList } from "@/features/exchanger";
 import { FC } from "react";
@@ -8,11 +8,13 @@ import {
   useGetExchangersCashQuery,
   useGetExchangersNoncashQuery,
 } from "@/entities/exchanger";
+import { currencyActions } from "@/entities/currency";
 
 interface ExchangersProps {}
 
 export const Exchangers: FC<ExchangersProps> = () => {
   const { city } = useAppSelector((state) => state.location);
+  const dispatch = useAppDispatch();
   const { activeDirection } = useAppSelector((state) => state.direction);
   const { getCashCurrency, getCurrency, giveCashCurrency, giveCurrency } =
     useAppSelector((state) => state.currency);
@@ -48,6 +50,11 @@ export const Exchangers: FC<ExchangersProps> = () => {
 
   const exchangers =
     activeDirection === directions.cash ? exchangersCash : exchangersNoncash;
+
+  if (cashError || noncashError) {
+    dispatch(currencyActions.setGiveCashCurrency(null));
+    dispatch(currencyActions.setGetCashCurrency(null));
+  }
 
   return (
     <section className={styles.exchangers}>

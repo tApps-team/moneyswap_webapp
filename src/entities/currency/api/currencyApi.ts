@@ -3,7 +3,7 @@ import {
   AvailableValutesDtoRequest,
   AvailableValutesDtoResponse,
 } from "./currencyDto";
-import { Currency, CurrencyCategory } from "../model/types/currency";
+import { Currency, CurrencyLangCategory } from "../model/types/currency";
 
 export const currencyApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
