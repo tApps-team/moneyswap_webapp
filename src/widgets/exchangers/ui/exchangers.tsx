@@ -1,33 +1,47 @@
 import styles from "./exchangers.module.scss";
 import { useGetExchangersQuery } from "@/entities/exchanger";
-import { useAppSelector } from "@/shared/hooks";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Preloader, SystemError } from "@/shared/ui";
 import { ExchangerList } from "@/features/exchanger";
 import { FC } from "react";
 import { directions } from "@/entities/direction";
+import { currencyActions } from "@/entities/currency";
 
 interface ExchangersProps {}
 
 export const Exchangers: FC<ExchangersProps> = () => {
   const { city } = useAppSelector((state) => state.location);
+  const dispatch = useAppDispatch();
   const { activeDirection } = useAppSelector((state) => state.direction);
   // const {} = useAppSelector((state)=>state.)
-
+  const giveCurrency = useAppSelector((state) =>
+    activeDirection === directions.cash
+      ? state.currency.giveCashCurrency
+      : state.currency.giveCurrency
+  );
+  const getCurrency = useAppSelector((state) =>
+    activeDirection === directions.cash
+      ? state.currency.getCashCurrency
+      : state.currency.getCurrency
+  );
   const exchangersReq = {
     city: city?.code_name,
-    valute_from: "dsfsdf",
+    valute_from: giveCurrency?.code_name || "",
     // добавить сюда directions.cash === activeDirection ? currencyCash : currencyNoncash
-    valute_to: "sdfsdf",
+    valute_to: getCurrency?.code_name || "",
   };
   const {
     data: exchangersCash,
     isFetching: isCashFetching,
     error: cashError,
   } = useGetExchangersQuery(exchangersReq, {
-    skip: activeDirection !== directions.cash,
+    skip: activeDirection !== directions.cash || !giveCurrency || !getCurrency,
     // добавить сюда currencyCash
   });
-
+  if (cashError) {
+    dispatch(currencyActions.setGiveCashCurrency(null));
+    dispatch(currencyActions.setGetCashCurrency(null));
+  }
   const {
     data: exchangersNoncash,
     isFetching: isNoncashFetching,
