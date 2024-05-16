@@ -1,6 +1,6 @@
-import { CurrencyCategory } from "../model/types/currency";
+import { CurrencyLangCategory } from "../model/types/currency";
 
-export type AvailableValutesDtoResponse = CurrencyCategory;
+export type AvailableValutesDtoResponse = CurrencyLangCategory;
 export type AvailableValutesDtoRequest = {
   city?: string;
   base?: string;

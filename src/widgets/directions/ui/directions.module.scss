@@ -5,4 +5,8 @@
     display: grid;
     gap: 20px;
     grid-template: 1fr / 1fr 1fr;
+
+    @media (max-width: 380px){
+      gap: 10px;
+    }
   }

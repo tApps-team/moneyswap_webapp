@@ -5,12 +5,13 @@ import { useAppSelector } from "@/shared/hooks";
 import { useMemo, useState } from "react";
 import styles from "./locations.module.scss";
 import { useTranslation } from "react-i18next";
-import { LocationIcon } from "@/shared/assets";
+import { LocationIcon, LogoArrow } from "@/shared/assets";
 import clsx from "clsx";
 import { Country } from "@/entities/location";
 import { Lang } from "@/shared/config";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTrigger,
@@ -61,7 +62,6 @@ export const Location = () => {
     [countries, i18n.language, searchValue]
   );
 
-  //   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <section
       className={clsx(styles.location, {
@@ -92,7 +92,7 @@ export const Location = () => {
             </h2>
           </header>
         </DrawerTrigger>
-        <DrawerContent className="h-[100svh] bg-[#2d2d2d] border-none rounded-none">
+        <DrawerContent className="h-[100svh] border-none rounded-none bg-transparent">
           <DrawerHeader className="gap-4">
             <h2 className="text-left text-[16px] uppercase text-[#f6ff5f]">
               {t("Выбор страны и города")}
@@ -101,11 +101,15 @@ export const Location = () => {
               onChange={setSearchValue}
               searchValue={searchValue}
             />
+            {/* <DrawerClose>
+              <LogoArrow width={26} height={26} />
+            </DrawerClose> */}
           </DrawerHeader>
           <ScrollArea data-vaul-no-drag className="h-full pt-2 p-4 w-full ">
             <LocationList
               countries={filteredCountries!}
               setSearchValue={setSearchValue}
+              searchValue={searchValue}
             />
           </ScrollArea>
         </DrawerContent>

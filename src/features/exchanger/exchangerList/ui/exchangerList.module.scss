@@ -7,8 +7,15 @@
       font-weight: 400;
       line-height: 1.5;
       text-align: center;
-      margin: 0px 5%;
+      margin: 0px 3%;
       text-transform: uppercase;
+
+      span {
+      }
+
+      @media (max-width: 380px) {
+        font-size: 12px;
+      }
     }
   
     .cards {

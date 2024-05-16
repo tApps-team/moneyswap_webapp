@@ -5,12 +5,11 @@ export type Currency = {
   icon_url: string;
 };
 export type CurrencyCategory = {
-  ru: {
-    [key: string]: Currency[];
-  };
-  en: {
-    [key: string]: Currency[];
-  };
+  [key: string]: Currency[];
+};
+export type CurrencyLangCategory = {
+  ru: CurrencyCategory;
+  en: CurrencyCategory;
 };
 export type CurrencyLang = {
   id: number;

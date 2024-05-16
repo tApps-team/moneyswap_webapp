@@ -1,16 +1,27 @@
 import { baseApi } from "@/shared/api";
 import { Exchanger } from "../model";
-import { DirectionsReq } from "./exchangerDto";
+import { DirectionsCashReq, DirectionsNoncashReq } from "./exchangerDto";
+import { EXCHANGER_CASH, EXCHANGER_NONCASH } from "@/shared/api/tags";
 
 export const exchangerAPI = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getExchangers: build.query<Exchanger[], DirectionsReq>({
+    getExchangersNoncash: build.query<Exchanger[], DirectionsNoncashReq>({
       query: (params) => ({
         url: `/api/directions`,
         method: "GET",
         params: params,
       }),
+      providesTags: [EXCHANGER_NONCASH],
+    }),
+    getExchangersCash: build.query<Exchanger[], DirectionsCashReq>({
+      query: (params) => ({
+        url: `/api/directions`,
+        method: "GET",
+        params: params,
+      }),
+      providesTags: [EXCHANGER_CASH],
     }),
   }),
 });
-export const { useGetExchangersQuery } = exchangerAPI;
+export const { useGetExchangersNoncashQuery, useGetExchangersCashQuery } =
+  exchangerAPI;
