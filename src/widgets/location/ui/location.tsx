@@ -30,7 +30,7 @@ export const Location = () => {
 
   // query rtk
   const { data: countries } = useGetCountriesQuery("", {
-    skip: activeDirection !== directions.cash,
+    skip: activeDirection !== directions.cash || !!country,
   });
 
   // search filter
