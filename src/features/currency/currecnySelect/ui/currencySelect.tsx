@@ -13,6 +13,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shared/ui";
+import { Search } from "lucide-react";
 
 import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -63,7 +64,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     <Drawer>
       <DrawerTrigger asChild>
         <Button
-          className="w-full h-[70px] flex items-center justify-start gap-6 rounded-full"
+          className="w-full h-[70px] text-black disabled:bg-lightGray bg-mainColor flex items-center justify-start gap-6 rounded-full"
           disabled={disabled}
         >
           {currencyInfo?.icon_url ? (
@@ -82,20 +83,24 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               <div>{currencyInfo.code_name}</div>
             </div>
           ) : (
-            <div>{emptyLabel}</div>
+            <div className="uppercase truncate">{emptyLabel}</div>
           )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-svh p-4 grid grid-rows-[1fr,1fr,2fr]  bg-slate-400">
+      <DrawerContent className="h-svh p-4 grid grid-rows-[1fr,1fr,2fr] bg-slate-400">
         <DrawerHeader className="text-start">{label}</DrawerHeader>
-        <Input
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
+        <div className="relative">
+          <Search className="absolute left-2 translate-y-2" />
+          <Input
+            className="rounded-2xl pl-8"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </div>
 
         <Tabs
           defaultValue={allKey}
-          className="min-h-[80svh] flex flex-col gap-12 "
+          className="min-h-[80svh] flex flex-col gap-[70px] "
         >
           <TabsList
             data-vaul-no-drag
@@ -103,7 +108,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           >
             {filteredCategories.categories?.map((filteredCategory) => (
               <TabsTrigger
-                className="rounded-xl uppercase border-2"
+                className="rounded-2xl uppercase border-2 h-11 data-[state=active]:bg-mainColor"
                 key={filteredCategory}
                 value={filteredCategory}
               >

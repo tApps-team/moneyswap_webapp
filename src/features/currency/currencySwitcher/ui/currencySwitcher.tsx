@@ -3,8 +3,15 @@ import { directions } from "@/entities/direction";
 import { LogoIcon } from "@/shared/assets";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Button } from "@/shared/ui";
+import { cx } from "class-variance-authority";
+import { useEffect } from "react";
+type CurrencySwitcherProps = {
+  getError?: boolean;
+  isGetCurrencyFetching?: boolean;
+};
+export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
+  const { getError, isGetCurrencyFetching } = props;
 
-export const CurrencySwitcher = () => {
   const dispatch = useAppDispatch();
   const direction = useAppSelector((state) => state.direction.activeDirection);
   const giveCurrency = useAppSelector((state) =>
@@ -17,25 +24,36 @@ export const CurrencySwitcher = () => {
       ? state.currency.getCashCurrency
       : state.currency.getCurrency
   );
+
+  const canSwitch = giveCurrency && getCurrency;
+
   const handleSwitchCurrency = () => {
-    if (direction === directions.cash && giveCurrency && getCurrency) {
+    if (direction === directions.cash && canSwitch) {
       dispatch(currencyActions.setGiveCashCurrency(getCurrency));
       dispatch(currencyActions.setGetCashCurrency(giveCurrency));
     }
-    if (direction === directions.noncash && giveCurrency && getCurrency) {
+    if (direction === directions.noncash && canSwitch) {
       dispatch(currencyActions.setGiveCurrency(getCurrency));
       dispatch(currencyActions.setGetCurrency(giveCurrency));
     }
   };
   const isDisabled = !giveCurrency || !getCurrency;
   return (
-    <Button
-      disabled={isDisabled}
-      onClick={handleSwitchCurrency}
-      className="rounded-full h-20 w-20 bg-[#F6FF5F] "
-      variant={"outline"}
-    >
-      <LogoIcon className="w-12 h-12" fill="black" />
-    </Button>
+    <div className="relative w-full flex items-center justify-center">
+      <div
+        className={cx(
+          "absolute h-1 w-full ",
+          isDisabled ? "bg-lightGray" : "bg-mainColor"
+        )}
+      ></div>
+      <Button
+        disabled={isDisabled}
+        onClick={handleSwitchCurrency}
+        className="rounded-full h-16 w-16 absolute disabled:opacity-100  disabled:bg-lightGray bg-[#F6FF5F]"
+        variant={"outline"}
+      >
+        <LogoIcon className="w-12 h-12  " fill="black" />
+      </Button>
+    </div>
   );
 };

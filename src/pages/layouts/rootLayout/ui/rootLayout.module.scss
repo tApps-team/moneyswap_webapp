@@ -1,45 +1,39 @@
 .root__container {
     height: 100vh;
     height: 100svh;
-    // max-width: var(--container-width);
     max-width: 500px;
     margin: 0 auto;
-    // padding: var(--padding-m);
     padding: 20px;
 
     @media (max-width: 380px) {
-        //   padding: var(--padding-xs);
         padding: 15px;
     }
 
     .root__content {
-        // overflow-y: auto;
         height: calc(100vh - 100px);
         height: calc(100svh - 100px);
-        // overflow: hidden;
     }
 }
 
-/* Scroll bar stylings */
+// Scroll bar stylings
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
 }
 
-/* Track */
+// Track
 ::-webkit-scrollbar-track {
     background: transparent;
 }
 
-/* Handle */
+// Handle
 ::-webkit-scrollbar-thumb {
-    // background: var(--main-color);
-    background: yellow;
+    background: var(--main-color);
     border-radius: 5px;
 }
 
-/* Handle on hover */
+// Handle on hover
 ::-webkit-scrollbar-thumb:hover {
-    // background: var(--main-color);
-    background: yellow;
+    background: var(--main-color);
 }

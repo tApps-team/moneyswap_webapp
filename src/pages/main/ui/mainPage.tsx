@@ -28,21 +28,24 @@ export const MainPage = () => {
     // preloader ends
     setTimeout(() => {
       setPreloaderFinished((prev) => !prev);
-    }, 2250);
+    }, 2000);
   }, []);
 
   return (
     <div data-testid="main-page">
       <TelegramApi />
-      <div className={styles.container}></div>
       {preloaderFinished ? (
-        <>
+        <div
+          className={clsx(styles.content, {
+            [styles.active_content]: preloaderFinished,
+          })}
+        >
           <Directions />
           <Location />
           <CurrencyForm />
           <Exchangers />
           <LanguageSwitcher />
-        </>
+        </div>
       ) : (
         <div
           className={clsx(styles.preloaderContainer, {

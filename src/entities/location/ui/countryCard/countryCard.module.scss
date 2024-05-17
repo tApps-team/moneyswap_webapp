@@ -3,6 +3,7 @@
     align-items: center;
     width: 100%;
     color: inherit;
+    height: var(--main-height);
 
     .icon {
         margin-right: 10px;
@@ -18,18 +19,17 @@
 
       .name {
         color: inherit;
-        font-size: var(--font-size-s);
+        font-size: 16px;
         font-weight: 500;
         white-space: nowrap;
         text-overflow: ellipsis;
-        // max-width: 75%;
         overflow: hidden;
         text-transform: uppercase;
       }
 }
 
 .active {
-    color: var(--black-color);
-    background: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    color: var(--dark-grey);
+    background: var(--main-color);
+    border: 1px solid var(--main-color);
 }

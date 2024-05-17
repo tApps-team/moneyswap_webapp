@@ -5,7 +5,7 @@ import { useAppSelector } from "@/shared/hooks";
 import { useMemo, useState } from "react";
 import styles from "./locations.module.scss";
 import { useTranslation } from "react-i18next";
-import { LocationIcon, LogoArrow } from "@/shared/assets";
+import { CloseDrawerIcon, LocationIcon, LogoIcon } from "@/shared/assets";
 import clsx from "clsx";
 import { Country } from "@/entities/location";
 import { Lang } from "@/shared/config";
@@ -30,7 +30,7 @@ export const Location = () => {
 
   // query rtk
   const { data: countries } = useGetCountriesQuery("", {
-    skip: activeDirection !== directions.cash,
+    skip: activeDirection !== directions.cash || !!country,
   });
 
   // search filter
@@ -41,16 +41,24 @@ export const Location = () => {
         .map((country) => {
           const isCountryMatch =
             i18n.language === Lang.ru
-              ? country?.name?.ru.toLowerCase().includes(searchValue)
-              : country?.name?.en.toLowerCase().includes(searchValue);
+              ? country?.name?.ru
+                  .toLowerCase()
+                  .includes(searchValue.toLowerCase())
+              : country?.name?.en
+                  .toLowerCase()
+                  .includes(searchValue.toLowerCase());
           const filteredCountry = {
             ...country,
             cities: isCountryMatch
               ? country.cities
               : country.cities.filter((city) =>
                   i18n.language === Lang.ru
-                    ? city?.name?.ru.toLowerCase().includes(searchValue)
-                    : city?.name?.en.toLowerCase().includes(searchValue)
+                    ? city?.name?.ru
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase())
+                    : city?.name?.en
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase())
                 ),
           };
           if (isCountryMatch || filteredCountry?.cities?.length > 0) {
@@ -93,19 +101,24 @@ export const Location = () => {
           </header>
         </DrawerTrigger>
         <DrawerContent className="h-[100svh] border-none rounded-none bg-transparent">
-          <DrawerHeader className="gap-4">
-            <h2 className="text-left text-[16px] uppercase text-[#f6ff5f]">
-              {t("Выбор страны и города")}
-            </h2>
+          <DrawerHeader className="gap-4 pt-8">
+            <div className="flex justify-center items-center">
+              <LogoIcon width="80px" height="80px" />
+            </div>
+            <div className="relative">
+              <h2 className="text-left text-base uppercase text-[#f6ff5f]">
+                {t("Выбор страны и города")}
+              </h2>
+              <DrawerClose className="absolute right-0 top-0">
+                <CloseDrawerIcon width={26} height={26} />
+              </DrawerClose>
+            </div>
             <LocationSearch
               onChange={setSearchValue}
               searchValue={searchValue}
             />
-            {/* <DrawerClose>
-              <LogoArrow width={26} height={26} />
-            </DrawerClose> */}
           </DrawerHeader>
-          <ScrollArea data-vaul-no-drag className="h-full pt-2 p-4 w-full ">
+          <ScrollArea data-vaul-no-drag className="h-full p-4 pt-0 w-full ">
             <LocationList
               countries={filteredCountries!}
               setSearchValue={setSearchValue}
