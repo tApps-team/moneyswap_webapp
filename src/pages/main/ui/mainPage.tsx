@@ -28,7 +28,7 @@ export const MainPage = () => {
     // preloader ends
     setTimeout(() => {
       setPreloaderFinished((prev) => !prev);
-    }, 2250);
+    }, 2000);
   }, []);
 
   return (

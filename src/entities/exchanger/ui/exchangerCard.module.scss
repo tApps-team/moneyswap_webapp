@@ -3,7 +3,8 @@
   cursor: pointer;
   transition: transform 0.15s ease-in;
   background: var(--dark-grey);
-  border-radius: var(--border-radius-l);
+  // border-radius: var(--border-radius-m);
+  border-radius: 30px;
   padding: 20px;
   color: var(--white-color);
   transition: transform 0.15s ease-in;
@@ -85,7 +86,7 @@
             margin-inline: 3px;
             width: 2px;
             height: 50%;
-            border-radius: 10px;
+            border-radius: var(--border-radius-xs);
           }
 
           .reviewCountNegative {

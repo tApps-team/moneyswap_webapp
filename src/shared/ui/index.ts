@@ -12,3 +12,6 @@ export * from "./scroll-area";
 export * from "./label";
 export * from "./tabs";
 export * from "./mainBg";
+export * from "./toast";
+export * from "./toaster";
+export * from "./use-toast";
