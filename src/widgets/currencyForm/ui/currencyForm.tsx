@@ -10,12 +10,12 @@ import { exchangerAPI } from "@/entities/exchanger";
 
 import { Lang } from "@/shared/config";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
-import { Card } from "@/shared/ui";
+import { Card, useToast } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();
-
+  const { toast } = useToast();
   const { activeDirection: direction } = useAppSelector(
     (state) => state.direction
   );
@@ -44,34 +44,53 @@ export const CurrencyForm = () => {
   const currentGetCurrency =
     direction === directions.noncash ? getCurrencyValue : getCashCurrencyValue;
   // Запросы на получения валюты
-  const { data: giveCurrencies, error: giveCurrencyError } =
-    useAvailableValutesQuery({
+  const {
+    data: giveCurrencies,
+    error: giveCurrencyError,
+    isError: isGiveCurrencyError,
+  } = useAvailableValutesQuery(
+    {
       base: "all",
       city: direction === directions.cash ? code_name : undefined,
+    },
+    {
+      skip: !!currentGiveCurrency,
+    }
+  );
+
+  const {
+    data: getCurrencies,
+    error: getCurrencyError,
+    isError: isGetCurrencyError,
+    isLoading: isGetCurrencyLoading,
+    isFetching: isGetCurrencyFetching,
+  } = useAvailableValutesQuery(
+    {
+      base:
+        direction === directions.cash
+          ? giveCashCurrencyValue?.code_name
+          : giveCurrencyValue?.code_name,
+      city: direction === directions.cash ? code_name : undefined,
+    },
+    {
+      skip:
+        direction === directions.noncash
+          ? !giveCurrencyValue
+          : !giveCashCurrencyValue,
+    }
+  );
+
+  if (getCurrencyError) {
+    toast({
+      title: "Error",
     });
-  if (giveCurrencyError) {
     if (direction === directions.cash) {
       dispatch(currencyActions.setGetCashCurrency(null));
+      dispatch(currencyActions.setGiveCashCurrency(null));
     } else {
       dispatch(currencyActions.setGetCurrency(null));
     }
   }
-  const { data: getCurrencies, error: getCurrencyError } =
-    useAvailableValutesQuery(
-      {
-        base:
-          direction === directions.cash
-            ? giveCashCurrencyValue?.code_name
-            : giveCurrencyValue?.code_name,
-        city: direction === directions.cash ? code_name : undefined,
-      },
-      {
-        skip:
-          direction === directions.noncash
-            ? !giveCurrencyValue
-            : !giveCashCurrencyValue,
-      }
-    );
   // В зависимости от языка выбираем нужные нам объекты
   const currentGiveCurrencies =
     i18n.language === Lang.ru
@@ -136,7 +155,7 @@ export const CurrencyForm = () => {
   };
 
   return (
-    <Card className="grid grid-cols-1 grid-rows-3 gap-2 p-4 ">
+    <Card className="grid grid-cols-1 grid-rows-3 items-center bg-darkGray rounded-3xl gap-2 p-4 ">
       <div className="flex flex-col gap-2">
         <div>{t("ОТДАЮ")}</div>
         <CurrencySelect
@@ -155,7 +174,10 @@ export const CurrencyForm = () => {
           onClick={onGiveCurrencyClick}
         />
       </div>
-      <CurrencySwitcher />
+      <CurrencySwitcher
+        isGetCurrencyFetching={isGetCurrencyFetching}
+        getError={isGetCurrencyError}
+      />
       <div className="flex flex-col gap-2">
         <div>{t("ПОЛУЧАЮ")}</div>
         <CurrencySelect
@@ -169,7 +191,7 @@ export const CurrencyForm = () => {
                 ? currentGetCurrency?.name.ru
                 : currentGetCurrency?.name.en) || "",
           }}
-          disabled={!currentGiveCurrency}
+          disabled={!currentGiveCurrency || !getCurrencies}
           currencies={currentGetCurrencies}
           onClick={onGetCurrencyClick}
         />
