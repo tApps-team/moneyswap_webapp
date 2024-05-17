@@ -1,31 +1,32 @@
 .direction {
-    color: var(--text-color);
+    color: var(--white-color);
     padding: 15px;
-    background: var(--secondary-color);
-    border-radius: 35px;
-    height: 70px;
+    background: var(--dark-grey);
+    border: 2px solid var(--light-grey);
+    border-radius: var(--border-radius-l);
+    height: var(--main-height);
     display: flex;
     justify-content: center;
     align-items: center;
 
     .direction__title {
-        font-size: 14px;
+        font-size: var(--text-sm);
         text-align: center;
         text-transform: uppercase;
         font-weight: 500;
     }
 
     @media (max-width: 380px) {
-        height: 60px;
+        height: (var(--second-height));
 
         .direction__title {
-            font-size: 12px;
+            font-size: var(--text-xs);
         }
     }
 }
 
 .active {
-    color: var(--black-color);
-    background: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    color: var(--dark-grey);
+    background: var(--main-color);
+    border: 2px solid var(--main-color);
 }

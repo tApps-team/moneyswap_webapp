@@ -1,33 +1,33 @@
 * {
-    --bg-color: #2d2d2d;
-    --primary-color-gradient: linear-gradient(0deg, #026B45 0%, #f6ff5f 109%);
-    --primary-color: #f6ff5f;
+    // --bg-color: #2d2d2d;
+    // --primary-color-gradient: linear-gradient(0deg, #026B45 0%, #f6ff5f 109%);
+    // --primary-color: #f6ff5f;
     --secondary-color: #585857;
-    --text-color: #ffffff;
+    // --text-color: #ffffff;
 
-    --black-color: #111111;
-    //border-radius
-    --boder-radius-xs: 5px;
-    --border-radius-s: 15px;
-    --border-radius-m: 30px;
-    --border-radius-l: 40px;
-    --border-radius-full: 50%;
+    // --black-color: #111111;
+    // //border-radius
+    // --boder-radius-xs: 5px;
+    // --border-radius-s: 15px;
+    // --border-radius-m: 30px;
+    // --border-radius-l: 40px;
+    // --border-radius-full: 50%;
 
-    --border-radius-filter-tab-item: 10px;
+    // --border-radius-filter-tab-item: 10px;
 
-    //индексы
-    --modal-z-index: 1000;
+    // //индексы
+    // --modal-z-index: 1000;
 
 
 
-    //directionTabs
-    --direction_tabs-padding: 50px;
-    --direction_tabs-margin-bottom: 20px;
-    //seceltsForm
-    --selectsForm-padding: 20px;
+    // //directionTabs
+    // --direction_tabs-padding: 50px;
+    // --direction_tabs-margin-bottom: 20px;
+    // //seceltsForm
+    // --selectsForm-padding: 20px;
 
-    //countryCard
-    --countryCard-margin: 5px 0px
+    // //countryCard
+    // --countryCard-margin: 5px 0px
 
 
 
@@ -37,11 +37,22 @@
     --secondary-text: #606060;
     --dark-grey: #2d2d2d;
     --light-grey: #bbbbbb;
+
+    --border-radius-xl: 50px;
+    --border-radius-l: 35px;
+    --border-radius-s: 16px;
+    --border-radius-m: 20px;
+    --border-radius-xs: 10px;
+  
+    --border-width-main: 2px;
   
     --text-xl: 20px;
     --text-lg: 18px;
     --text-sm: 14px;
     --text-xs: 12px
+
+    --main-height: 70px;
+    --second-height: 60px
 }
 
 //mixin border - radius

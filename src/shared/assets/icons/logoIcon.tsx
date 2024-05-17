@@ -7,7 +7,6 @@ export const LogoIcon = (props: React.SVGProps<SVGSVGElement>) => (
     fill="#fff"
     {...props}
   >
-    <defs>{/* <style>{".cls-1{fill:#fff;stroke-width:0}"}</style> */}</defs>
     <path
       d="m96.65 38.29-.06.06v-.12H0v34.12h62.57L.06 134.88 24.19 159l96.59-96.58-24.13-24.13z"
       // className="cls-1"

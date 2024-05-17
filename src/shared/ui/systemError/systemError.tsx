@@ -1,6 +1,7 @@
 import { FC } from "react";
 import styles from "./systemError.module.scss";
 import { useTranslation } from "react-i18next";
+import { EmptyIcon } from "@/shared/assets";
 
 interface SystemErrorProps {
   network?: boolean;
@@ -8,11 +9,7 @@ interface SystemErrorProps {
   response?: boolean;
 }
 
-export const SystemError: FC<SystemErrorProps> = ({
-  network,
-  direction,
-  response,
-}) => {
+export const SystemError: FC<SystemErrorProps> = ({ direction, response }) => {
   const { t } = useTranslation();
   return (
     <section className={styles.systemError}>
@@ -22,9 +19,9 @@ export const SystemError: FC<SystemErrorProps> = ({
           : response && `${t("Системная ошибка")}`}
       </p>
       <div className={styles.errorImages}>
-        <img src="/img/errorIcon.png" alt="Error Icon" />
-        <img src="/img/errorIcon.png" alt="Error Icon" />
-        <img src="/img/errorIcon.png" alt="Error Icon" />
+        <EmptyIcon />
+        <EmptyIcon />
+        <EmptyIcon />
       </div>
     </section>
   );
