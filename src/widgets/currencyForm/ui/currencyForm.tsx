@@ -10,9 +10,10 @@ import { exchangerAPI } from "@/entities/exchanger";
 
 import { Lang } from "@/shared/config";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
-import { Card, useToast } from "@/shared/ui";
+import { Button, Card, useToast } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
 import { cx } from "class-variance-authority";
+import { LogoArrow, LogoIcon } from "@/shared/assets";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();
@@ -149,7 +150,7 @@ export const CurrencyForm = () => {
   };
 
   return (
-    <Card className="grid grid-cols-1 grid-rows-3 items-center bg-darkGray rounded-3xl gap-2 p-4 ">
+    <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] relative  bg-darkGray rounded-3xl gap-2 p-4 ">
       <div className="flex flex-col gap-2">
         <div
           className={cx(
@@ -214,6 +215,16 @@ export const CurrencyForm = () => {
           onClick={onGetCurrencyClick}
         />
       </div>
+      <Button
+        className={cx(
+          "w-1/3  flex justify-center bottom-0  items-center absolute left-[50%] right-[50%] -translate-x-1/2 translate-y-3  h-6 rounded-full",
+          !currentGiveCurrency || !getCurrencies
+            ? "bg-lightGray"
+            : "bg-mainColor"
+        )}
+      >
+        <LogoArrow className={cx("-rotate-90 ")} />
+      </Button>
     </Card>
   );
 };
