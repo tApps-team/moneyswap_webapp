@@ -1,4 +1,5 @@
 import { Currency, CurrencyCard, CurrencyCategory } from "@/entities/currency";
+import { SearchIcon } from "@/shared/assets";
 import {
   Button,
   Drawer,
@@ -13,6 +14,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shared/ui";
+import { cx } from "class-variance-authority";
 import { Search } from "lucide-react";
 
 import { useDeferredValue, useMemo, useState } from "react";
@@ -20,7 +22,7 @@ import { useTranslation } from "react-i18next";
 
 type CurrecnySelectProps = {
   label: string;
-  currencyInfo?: Omit<Currency, "id">;
+  currencyInfo?: Partial<Omit<Currency, "id">>;
   disabled?: boolean;
   currencies?: CurrencyCategory;
   emptyLabel?: string;
@@ -59,15 +61,18 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       categories: filteredKeys,
     };
   }, [currentCurrniesWithCategories, searchDeferredValue]);
-
+  console.log(currencyInfo);
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <Button
-          className="w-full h-[70px] text-black disabled:bg-lightGray bg-mainColor flex items-center justify-start gap-6 rounded-full"
+          className={cx(
+            "w-full h-[70px]  disabled:bg-lightGray bg-transparent border disabled:bg-opacity-0  flex items-center justify-start gap-6 rounded-full",
+            currencyInfo && "bg-mainColor border-mainColor"
+          )}
           disabled={disabled}
         >
-          {currencyInfo?.icon_url ? (
+          {currencyInfo ? (
             <img
               src={currencyInfo.icon_url}
               alt={`иконка ${currencyInfo?.name}`}
@@ -77,22 +82,29 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           ) : (
             <div className="border rounded-full size-10" />
           )}
-          {currencyInfo?.name ? (
-            <div className="flex flex-col items-start">
-              <div>{currencyInfo.name}</div>
-              <div>{currencyInfo.code_name}</div>
+          {currencyInfo ? (
+            <div className="flex flex-col items-start text-black">
+              <div className="font-bold text-base uppercase">
+                {currencyInfo.name}
+              </div>
+              <div className="text-base">{currencyInfo.code_name}</div>
             </div>
           ) : (
-            <div className="uppercase truncate">{emptyLabel}</div>
+            <div className="uppercase truncate text-white font-normal">
+              {emptyLabel}
+            </div>
           )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-svh p-4 grid grid-rows-[1fr,1fr,2fr] bg-slate-400">
-        <DrawerHeader className="text-start">{label}</DrawerHeader>
+      <DrawerContent className="h-svh p-4 bg-transparent  grid grid-rows-[1fr,1fr,2fr] border-none">
+        <DrawerHeader className="text-start text-mainColor text-lg p-0">
+          {label}
+        </DrawerHeader>
         <div className="relative">
-          <Search className="absolute left-2 translate-y-2" />
+          <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
           <Input
-            className="rounded-2xl pl-8"
+            placeholder={t("ПОИСК ВАЛЮТЫ")}
+            className="rounded-2xl pl-12 bg-lightGray border-none placeholder:text-darkGray"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -108,7 +120,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           >
             {filteredCategories.categories?.map((filteredCategory) => (
               <TabsTrigger
-                className="rounded-2xl uppercase border-2 h-11 data-[state=active]:bg-mainColor"
+                className={
+                  "rounded-2xl uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white  border-2 h-11 data-[state=active]:bg-mainColor"
+                }
                 key={filteredCategory}
                 value={filteredCategory}
               >
@@ -132,6 +146,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                   .map((currency) => (
                     <DrawerClose key={currency.id} asChild>
                       <CurrencyCard
+                        active={currency.code_name === currencyInfo?.code_name}
                         onClick={() => onClick?.(currency)}
                         currency={currency}
                       />
