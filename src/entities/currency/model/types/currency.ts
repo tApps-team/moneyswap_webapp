@@ -14,8 +14,8 @@ export type CurrencyLangCategory = {
 export type CurrencyLang = {
   id: number;
   name: {
-    ru: string;
-    en: string;
+    ru?: string;
+    en?: string;
   };
   code_name: string;
   icon_url: string;
