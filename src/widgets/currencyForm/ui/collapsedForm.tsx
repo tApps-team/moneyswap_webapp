@@ -1,10 +1,44 @@
-import { Currency } from "@/entities/currency";
-import { Card } from "@/shared/ui";
+import { CurrencyLang } from "@/entities/currency";
+import { Lang } from "@/shared/config";
+import { Card, CardContent } from "@/shared/ui";
+import { useTranslation } from "react-i18next";
 type CollapsedFormProps = {
-  giveCurrency: Omit<Currency, "id">;
-  getCurrency: Omit<Currency, "id">;
+  giveCurrency: CurrencyLang;
+  getCurrency: CurrencyLang;
 };
 export const CollapsedForm = (props: CollapsedFormProps) => {
-  const {} = props;
-  return <Card></Card>;
+  const { getCurrency, giveCurrency } = props;
+  const { t, i18n } = useTranslation();
+  const giveCurrencyName =
+    i18n.language === Lang.ru ? giveCurrency.name.ru : giveCurrency.name.en;
+  const getCurrencyName =
+    i18n.language === Lang.ru ? getCurrency.name.ru : getCurrency.name.en;
+  return (
+    <Card className="w-full h-[70px] rounded-full bg-mainColor text-black">
+      <CardContent className="grid grid-cols-2 p-3  ">
+        <div className="flex items-center truncate ">
+          <div className="truncate">
+            <div className="font-bold">{t("ОТДАЮ")}</div>
+            <div className="truncate">{giveCurrencyName}</div>
+          </div>
+          <img
+            className="size-8 "
+            src={giveCurrency.icon_url}
+            alt={`${"Валюта"} ${giveCurrency.name}}`}
+          />
+        </div>
+        <div className="flex items-center ">
+          <div className="truncate">
+            <div className="font-bold">{t("ПОЛУЧАЮ")}</div>
+            <div className="truncate"> {getCurrencyName}</div>
+          </div>
+          <img
+            className="size-8"
+            src={getCurrency.icon_url}
+            alt={`${"Валюта"} ${getCurrency.name}}`}
+          />
+        </div>
+      </CardContent>
+    </Card>
+  );
 };
