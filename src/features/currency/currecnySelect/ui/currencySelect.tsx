@@ -67,7 +67,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       <DrawerTrigger asChild>
         <Button
           className={cx(
-            "w-full h-[70px]  disabled:bg-lightGray bg-transparent border disabled:bg-opacity-0  flex items-center justify-start gap-6 rounded-full",
+            "w-full h-[70px]  disabled:bg-lightGray  bg-transparent border disabled:bg-opacity-0  flex items-center justify-start gap-6 rounded-full",
             currencyInfo && "bg-mainColor border-mainColor"
           )}
           disabled={disabled}
@@ -83,8 +83,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <div className="border rounded-full size-10" />
           )}
           {currencyInfo ? (
-            <div className="flex flex-col items-start text-black">
-              <div className="font-bold text-base uppercase">
+            <div className="flex truncate  flex-col items-start text-black">
+              <div className="font-bold  text-base uppercase">
                 {currencyInfo.name}
               </div>
               <div className="text-base">{currencyInfo.code_name}</div>
