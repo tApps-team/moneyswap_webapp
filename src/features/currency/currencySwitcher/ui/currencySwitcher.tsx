@@ -8,9 +8,10 @@ import { useEffect } from "react";
 type CurrencySwitcherProps = {
   getError?: boolean;
   isGetCurrencyFetching?: boolean;
+  hide?: boolean;
 };
 export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
-  const { getError, isGetCurrencyFetching } = props;
+  const { getError, isGetCurrencyFetching, hide } = props;
 
   const dispatch = useAppDispatch();
   const direction = useAppSelector((state) => state.direction.activeDirection);
@@ -39,7 +40,12 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   };
   const isDisabled = !giveCurrency || !getCurrency;
   return (
-    <div className="relative w-full flex items-center justify-center">
+    <div
+      className={cx(
+        "relative w-full flex items-center justify-center",
+        hide && "hidden"
+      )}
+    >
       <div
         className={cx(
           "absolute h-1 w-full ",
