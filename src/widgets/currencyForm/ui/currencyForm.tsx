@@ -1,4 +1,3 @@
-import { CurrencySelect, CurrencySwitcher } from "@/features/currency";
 import {
   Currency,
   CurrencyLang,
@@ -7,13 +6,19 @@ import {
 } from "@/entities/currency";
 import { directions } from "@/entities/direction";
 import { exchangerAPI } from "@/entities/exchanger";
+import {
+  CollapseButton,
+  CurrencySelect,
+  CurrencySwitcher,
+} from "@/features/currency";
 
 import { Lang } from "@/shared/config";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
-import { Button, Card, useToast } from "@/shared/ui";
-import { useTranslation } from "react-i18next";
+import { Card, useToast } from "@/shared/ui";
 import { cx } from "class-variance-authority";
-import { LogoArrow, LogoIcon } from "@/shared/assets";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { CollapsedForm } from "./collapsedForm";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();
@@ -24,6 +29,17 @@ export const CurrencyForm = () => {
   const code_name = useAppSelector((state) => state.location.city?.code_name);
 
   const dispatch = useAppDispatch();
+
+  const cashExchangersIsSuccess = useAppSelector(
+    (state) => state.currencyForm.cashExchangersIsSuccess
+  );
+  const noCashExchangersIsSuccess = useAppSelector(
+    (state) => state.currencyForm.noCashExchangersIsSuccess
+  );
+  const currenctExchangersIsSuccessState =
+    direction === directions.cash
+      ? cashExchangersIsSuccess
+      : noCashExchangersIsSuccess;
   // Селекторы для получения выбранной валюты
   const giveCurrencyValue = useAppSelector(
     (state) => state.currency.giveCurrency
@@ -43,6 +59,7 @@ export const CurrencyForm = () => {
     direction === directions.noncash
       ? giveCurrencyValue
       : giveCashCurrencyValue;
+
   const currentGetCurrency =
     direction === directions.noncash ? getCurrencyValue : getCashCurrencyValue;
   // Запросы на получения валюты
@@ -73,19 +90,19 @@ export const CurrencyForm = () => {
       skip: !currentGiveCurrency,
     }
   );
-
-  if (getCurrencyError) {
-    toast({
-      title: t("Обмен этих пар пока что недоступен"),
-    });
-    if (direction === directions.cash) {
-      dispatch(currencyActions.setGetCashCurrency(null));
-      dispatch(currencyActions.setGiveCashCurrency(null));
-    } else {
-      dispatch(currencyActions.setGetCurrency(null));
-      dispatch(currencyActions.setGiveCurrency(null));
+  useEffect(() => {
+    if (getCurrencyError) {
+      toast({
+        title: t("Обмен этих пар пока что недоступен"),
+      });
+      if (direction === directions.cash) {
+        dispatch(currencyActions.resetCashCurrency());
+      } else {
+        dispatch(currencyActions.resetNoCashCurrency());
+      }
     }
-  }
+  }, [direction, dispatch, getCurrencyError, t, toast]);
+
   // В зависимости от языка выбираем нужные нам объекты
   const currentGiveCurrencies =
     i18n.language === Lang.ru
@@ -150,81 +167,86 @@ export const CurrencyForm = () => {
   };
 
   return (
-    <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] relative  bg-darkGray rounded-3xl gap-2 p-4 ">
-      <div className="flex flex-col gap-2">
-        <div
-          className={cx(
-            currentGiveCurrency && currentGetCurrency
-              ? "text-mainColor"
-              : "text-lightGray"
-          )}
-        >
-          {t("ОТДАЮ")}
-        </div>
-        <CurrencySelect
-          label={t("ОТДАЮ")}
-          currencyInfo={
-            currentGiveCurrency
-              ? {
-                  code_name: currentGiveCurrency?.code_name,
-                  icon_url: currentGiveCurrency?.icon_url,
-                  name:
-                    i18n.language === "ru"
-                      ? currentGiveCurrency?.name.ru
-                      : currentGiveCurrency?.name.en,
-                }
-              : undefined
-          }
-          disabled={direction === directions.cash && !code_name}
-          emptyLabel={t("Выберите валюту")}
-          currencies={currentGiveCurrencies}
-          onClick={onGiveCurrencyClick}
+    <>
+      {currenctExchangersIsSuccessState ? (
+        <CollapsedForm
+          getCurrency={currentGetCurrency!}
+          giveCurrency={currentGiveCurrency!}
         />
-      </div>
-      <CurrencySwitcher
-        isGetCurrencyFetching={isGetCurrencyFetching}
-        getError={isGetCurrencyError}
-      />
-      <div className="flex flex-col gap-2">
-        <div
-          className={cx(
-            currentGiveCurrency && currentGetCurrency
-              ? "text-mainColor"
-              : "text-lightGray"
-          )}
-        >
-          {t("ПОЛУЧАЮ")}
-        </div>
-        <CurrencySelect
-          label={t("ПОЛУЧАЮ")}
-          emptyLabel={t("Выберите валюту")}
-          currencyInfo={
-            currentGetCurrency
-              ? {
-                  code_name: currentGetCurrency?.code_name,
-                  icon_url: currentGetCurrency?.icon_url,
-                  name:
-                    i18n.language === "ru"
-                      ? currentGetCurrency?.name.ru
-                      : currentGetCurrency?.name.en,
-                }
-              : undefined
-          }
-          disabled={!currentGiveCurrency || !getCurrencies}
-          currencies={currentGetCurrencies}
-          onClick={onGetCurrencyClick}
-        />
-      </div>
-      <Button
-        className={cx(
-          "w-1/3  flex justify-center bottom-0  items-center absolute left-[50%] right-[50%] -translate-x-1/2 translate-y-3  h-6 rounded-full",
-          !currentGiveCurrency || !getCurrencies
-            ? "bg-lightGray"
-            : "bg-mainColor"
-        )}
-      >
-        <LogoArrow className={cx("-rotate-90 ")} />
-      </Button>
-    </Card>
+      ) : (
+        <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] relative  bg-darkGray rounded-3xl gap-2 p-4 ">
+          <div className="flex flex-col gap-2">
+            <div
+              className={cx(
+                currentGiveCurrency && currentGetCurrency
+                  ? "text-mainColor"
+                  : "text-lightGray"
+              )}
+            >
+              {t("ОТДАЮ")}
+            </div>
+
+            <CurrencySelect
+              label={t("ОТДАЮ")}
+              currencyInfo={
+                currentGiveCurrency
+                  ? {
+                      code_name: currentGiveCurrency?.code_name,
+                      icon_url: currentGiveCurrency?.icon_url,
+                      name:
+                        i18n.language === "ru"
+                          ? currentGiveCurrency?.name.ru
+                          : currentGiveCurrency?.name.en,
+                    }
+                  : undefined
+              }
+              disabled={direction === directions.cash && !code_name}
+              emptyLabel={t("Выберите валюту")}
+              currencies={currentGiveCurrencies}
+              onClick={onGiveCurrencyClick}
+            />
+          </div>
+          <CurrencySwitcher
+            isGetCurrencyFetching={isGetCurrencyFetching}
+            getError={isGetCurrencyError}
+          />
+          <div className="flex flex-col gap-2">
+            <div
+              className={cx(
+                currentGiveCurrency && currentGetCurrency
+                  ? "text-mainColor"
+                  : "text-lightGray"
+              )}
+            >
+              {t("ПОЛУЧАЮ")}
+            </div>
+            <CurrencySelect
+              label={t("ПОЛУЧАЮ")}
+              emptyLabel={t("Выберите валюту")}
+              currencyInfo={
+                currentGetCurrency
+                  ? {
+                      code_name: currentGetCurrency?.code_name,
+                      icon_url: currentGetCurrency?.icon_url,
+                      name:
+                        i18n.language === "ru"
+                          ? currentGetCurrency?.name.ru
+                          : currentGetCurrency?.name.en,
+                    }
+                  : undefined
+              }
+              disabled={!currentGiveCurrency || !getCurrencies}
+              currencies={currentGetCurrencies}
+              onClick={onGetCurrencyClick}
+            />
+          </div>
+          <CollapseButton
+            currenctExchangersIsSuccessState={currenctExchangersIsSuccessState}
+            currentGiveCurrency={!!currentGiveCurrency}
+            currentGetCurrencies={!!currentGetCurrencies}
+          />
+        </Card>
+      )}
+    </>
   );
 };
