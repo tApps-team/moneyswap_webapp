@@ -12,6 +12,7 @@ import { Lang } from "@/shared/config";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Card, useToast } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
+import { cx } from "class-variance-authority";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();
@@ -48,15 +49,10 @@ export const CurrencyForm = () => {
     data: giveCurrencies,
     error: giveCurrencyError,
     isError: isGiveCurrencyError,
-  } = useAvailableValutesQuery(
-    {
-      base: "all",
-      city: direction === directions.cash ? code_name : undefined,
-    },
-    {
-      skip: !!currentGiveCurrency,
-    }
-  );
+  } = useAvailableValutesQuery({
+    base: "all",
+    city: direction === directions.cash ? code_name : undefined,
+  });
 
   const {
     data: getCurrencies,
@@ -73,22 +69,20 @@ export const CurrencyForm = () => {
       city: direction === directions.cash ? code_name : undefined,
     },
     {
-      skip:
-        direction === directions.noncash
-          ? !giveCurrencyValue
-          : !giveCashCurrencyValue,
+      skip: !currentGiveCurrency,
     }
   );
 
   if (getCurrencyError) {
     toast({
-      title: "Error",
+      title: t("Обмен этих пар пока что недоступен"),
     });
     if (direction === directions.cash) {
       dispatch(currencyActions.setGetCashCurrency(null));
       dispatch(currencyActions.setGiveCashCurrency(null));
     } else {
       dispatch(currencyActions.setGetCurrency(null));
+      dispatch(currencyActions.setGiveCurrency(null));
     }
   }
   // В зависимости от языка выбираем нужные нам объекты
@@ -143,8 +137,8 @@ export const CurrencyForm = () => {
       icon_url: currency.icon_url,
       id: currency.id,
       name: {
-        en: currencyEn?.name || "",
-        ru: currencyRu?.name || "",
+        en: currencyEn?.name,
+        ru: currencyRu?.name,
       },
     };
     dispatch(
@@ -157,17 +151,29 @@ export const CurrencyForm = () => {
   return (
     <Card className="grid grid-cols-1 grid-rows-3 items-center bg-darkGray rounded-3xl gap-2 p-4 ">
       <div className="flex flex-col gap-2">
-        <div>{t("ОТДАЮ")}</div>
+        <div
+          className={cx(
+            currentGiveCurrency && currentGetCurrency
+              ? "text-mainColor"
+              : "text-lightGray"
+          )}
+        >
+          {t("ОТДАЮ")}
+        </div>
         <CurrencySelect
           label={t("ОТДАЮ")}
-          currencyInfo={{
-            code_name: currentGiveCurrency?.code_name || "",
-            icon_url: currentGiveCurrency?.icon_url || "",
-            name:
-              (i18n.language === "ru"
-                ? currentGiveCurrency?.name.ru
-                : currentGiveCurrency?.name.en) || "",
-          }}
+          currencyInfo={
+            currentGiveCurrency
+              ? {
+                  code_name: currentGiveCurrency?.code_name,
+                  icon_url: currentGiveCurrency?.icon_url,
+                  name:
+                    i18n.language === "ru"
+                      ? currentGiveCurrency?.name.ru
+                      : currentGiveCurrency?.name.en,
+                }
+              : undefined
+          }
           disabled={direction === directions.cash && !code_name}
           emptyLabel={t("Выберите валюту")}
           currencies={currentGiveCurrencies}
@@ -179,18 +185,30 @@ export const CurrencyForm = () => {
         getError={isGetCurrencyError}
       />
       <div className="flex flex-col gap-2">
-        <div>{t("ПОЛУЧАЮ")}</div>
+        <div
+          className={cx(
+            currentGiveCurrency && currentGetCurrency
+              ? "text-mainColor"
+              : "text-lightGray"
+          )}
+        >
+          {t("ПОЛУЧАЮ")}
+        </div>
         <CurrencySelect
           label={t("ПОЛУЧАЮ")}
           emptyLabel={t("Выберите валюту")}
-          currencyInfo={{
-            code_name: currentGetCurrency?.code_name || "",
-            icon_url: currentGetCurrency?.icon_url || "",
-            name:
-              (i18n.language === "ru"
-                ? currentGetCurrency?.name.ru
-                : currentGetCurrency?.name.en) || "",
-          }}
+          currencyInfo={
+            currentGetCurrency
+              ? {
+                  code_name: currentGetCurrency?.code_name,
+                  icon_url: currentGetCurrency?.icon_url,
+                  name:
+                    i18n.language === "ru"
+                      ? currentGetCurrency?.name.ru
+                      : currentGetCurrency?.name.en,
+                }
+              : undefined
+          }
           disabled={!currentGiveCurrency || !getCurrencies}
           currencies={currentGetCurrencies}
           onClick={onGetCurrencyClick}
