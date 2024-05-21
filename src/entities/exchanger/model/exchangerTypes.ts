@@ -3,6 +3,9 @@ import { Name } from "@/shared/config";
 export interface Exchanger {
   id: number;
   name: Name;
+  exchange_id: number;
+  exchange_marker: ExchangerMarker;
+  vip?: boolean;
   partner_link: string;
   valute_from: string;
   icon_valute_from: string;
@@ -12,5 +15,32 @@ export interface Exchanger {
   out_count: number;
   min_amount: string;
   max_amount: string;
-  review_count: number;
+  review_count: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+  info?: {
+    delivery: boolean;
+    office: boolean;
+    working_days: {
+      Пн: boolean;
+      Вт: boolean;
+      Ср: boolean;
+      Чт: boolean;
+      Пт: boolean;
+      Сб: boolean;
+      Вс: boolean;
+    };
+    time_from: string;
+    time_to: string;
+  };
+  params: string;
+  fromfee: number | null;
+}
+
+export enum ExchangerMarker {
+  cash = "cash",
+  no_cash = "no_cash",
+  partner = "partner",
 }

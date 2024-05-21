@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Lang } from "@/shared/config";
 import { LogoArrow } from "@/shared/assets";
 import { RoundValute } from "@/shared/ui";
+import { Ban, CalendarDays, Check, Clock, Minus } from "lucide-react";
 
 interface ExchangerCardProps {
   card: Exchanger;
@@ -34,12 +35,19 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
     <animated.article
       ref={ref}
       style={springs}
-      className={styles.exchangerCard}
+      className={`${styles.exchangerCard__container} ${
+        card?.vip && styles.vip
+      }`}
     >
+      {card?.vip && (
+        <div className={styles.vip_partner}>
+          <p>{t("VIP-партнер")}</p>
+        </div>
+      )}
       <a
-        className={styles.cardLink}
         onClick={() => openLink(card.partner_link)}
         rel="noopener noreferrer"
+        className={`${styles.exchangerCard} ${card?.info && styles.partner}`}
       >
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>
@@ -61,15 +69,57 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
               <p className={styles.reviewTitle}>{t("Отзывы")}</p>
               <div className={styles.reviews}>
                 <h3 className={styles.reviewCountPositive}>
-                  {card?.review_count}
+                  {card?.review_count?.positive}
                 </h3>
                 <span className={styles.separator}></span>
-                <h3 className={styles.reviewCountNegative}>0</h3>
+                <h3 className={styles.reviewCountNegative}>
+                  {card?.review_count?.neutral}
+                </h3>
               </div>
             </div>
           </div>
         </header>
-        <hr className={styles.cardSeparator} />
+        {card?.info ? (
+          <div className={styles.info}>
+            <div className={styles.info__block}>
+              <Clock width={12} height={12} />
+              <div className="truncate flex items-center">
+                <span>{card?.info?.time_from}</span>{" "}
+                <Minus width={8} height={8} />{" "}
+                <span>{card?.info?.time_to}</span>
+              </div>
+            </div>
+            <div className={styles.info__block}>
+              <CalendarDays width={12} height={12} />
+              <div className={styles.days}>
+                {Object.entries(card?.info?.working_days).map(
+                  ([day, isWorking]) => {
+                    if (isWorking)
+                      return <span key={day}>{isWorking && t(`${day}`)}</span>;
+                  }
+                )}
+              </div>
+            </div>
+            <div className={styles.info__block}>
+              {card?.info?.delivery ? (
+                <Check width={10} height={10} />
+              ) : (
+                <Ban width={10} height={10} />
+              )}
+              <p>{t("Доставка")}</p>
+            </div>
+            <div className={styles.info__block}>
+              {card?.info?.office ? (
+                <Check width={10} height={10} />
+              ) : (
+                <Ban width={10} height={10} />
+              )}
+              <p>{t("Офис")}</p>
+            </div>
+          </div>
+        ) : (
+          <hr className={styles.cardSeparator} />
+        )}
         <footer className={styles.cardFooter}>
           <div className={styles.valuteInfo}>
             <h2 className={styles.valuteExchange}>

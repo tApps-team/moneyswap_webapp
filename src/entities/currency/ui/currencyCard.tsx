@@ -17,16 +17,16 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
       )}
       onClick={onClick}
     >
-      <CardContent className="grid h-full   grid-flow-col px-4 py-2 justify-start  gap-3 gap-y-0 items-center">
+      <CardContent className="grid h-full grid-flow-col px-4 py-2 justify-start gap-3 gap-y-0 items-center">
         <img
           className="row-span-2"
           src={currency.icon_url}
           alt={`Валюта ${currency.name}`}
-          width={34}
-          height={34}
+          width={36}
+          height={36}
         />
-        <div className="truncate font-bold">{currency.name}</div>
-        <div className="truncate">{currency.code_name}</div>
+        <div className="truncate font-bold uppercase">{currency.name}</div>
+        <div className="truncate uppercase">{currency.code_name}</div>
       </CardContent>
     </Card>
   );
