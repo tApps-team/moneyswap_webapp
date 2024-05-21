@@ -1,5 +1,9 @@
 import { Name } from "@/shared/config";
-
+type Review = {
+  positive: number;
+  neutral: number;
+  negative: number;
+};
 export interface Exchanger {
   id: number;
   name: Name;
@@ -12,5 +16,5 @@ export interface Exchanger {
   out_count: number;
   min_amount: string;
   max_amount: string;
-  review_count: number;
+  review_count: Review;
 }
