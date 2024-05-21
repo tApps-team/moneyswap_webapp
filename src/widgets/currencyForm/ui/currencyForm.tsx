@@ -45,6 +45,9 @@ export const CurrencyForm = () => {
   const [isCollapse, setIsCollapse] = useState(
     currenctExchangersIsSuccessState
   );
+  useEffect(() => {
+    setIsCollapse(currenctExchangersIsSuccessState);
+  }, [currenctExchangersIsSuccessState]);
   // Селекторы для получения выбранной валюты
   const giveCurrencyValue = useAppSelector(
     (state) => state.currency.giveCurrency
@@ -170,10 +173,11 @@ export const CurrencyForm = () => {
         : currencyActions.setGetCashCurrency(currencyObject)
     );
   };
+  console.log(isCollapse);
 
   return (
     <div className="relative ">
-      {currenctExchangersIsSuccessState ? (
+      {isCollapse ? (
         <CollapsedForm
           getCurrency={currentGetCurrency!}
           giveCurrency={currentGiveCurrency!}
@@ -248,6 +252,7 @@ export const CurrencyForm = () => {
         </Card>
       )}
       <CollapseButton
+        isCollapse={isCollapse}
         onClick={() => setIsCollapse((prev) => !prev)}
         currenctExchangersIsSuccessState={currenctExchangersIsSuccessState}
         currentGiveCurrency={!!currentGiveCurrency}
