@@ -161,8 +161,18 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             </h2>
           </div>
           <span className={styles.valuteRange}>
-            {t("Обмен от")} <RoundValute value={card?.min_amount} /> {t("до")}{" "}
-            <RoundValute value={card?.max_amount} />
+            {t("Обмен от")}{" "}
+            {card?.min_amount ? (
+              <RoundValute value={card?.min_amount} />
+            ) : (
+              t("Amount_null")
+            )}{" "}
+            {t("до")}{" "}
+            {card?.max_amount ? (
+              <RoundValute value={card?.max_amount} />
+            ) : (
+              t("Amount_null")
+            )}
           </span>
         </footer>
       </a>

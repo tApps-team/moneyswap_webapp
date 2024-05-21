@@ -13,8 +13,8 @@ export interface Exchanger {
   icon_valute_to: string;
   in_count: number;
   out_count: number;
-  min_amount: string;
-  max_amount: string;
+  min_amount: string | null;
+  max_amount: string | null;
   review_count: {
     positive: number;
     neutral: number;
