@@ -10,31 +10,37 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
   const { getCurrency, giveCurrency } = props;
   const { t, i18n } = useTranslation();
   const giveCurrencyName =
-    i18n.language === Lang.ru ? giveCurrency.name.ru : giveCurrency.name.en;
+    i18n.language === Lang.ru ? giveCurrency?.name.ru : giveCurrency?.name.en;
   const getCurrencyName =
-    i18n.language === Lang.ru ? getCurrency.name.ru : getCurrency.name.en;
+    i18n.language === Lang.ru ? getCurrency?.name.ru : getCurrency?.name.en;
   return (
-    <Card className="w-full h-[70px] rounded-full bg-mainColor text-black">
-      <CardContent className="grid grid-cols-2 p-3  ">
-        <div className="flex items-center truncate ">
+    <Card className="h-[70px] border-mainColor  rounded-full bg-mainColor text-black">
+      <CardContent className="grid grid-cols-2  px-4 py-2 h-full w-full gap-3">
+        <div className="flex items-center  gap-2">
           <div className="truncate">
             <div className="font-bold">{t("ОТДАЮ")}</div>
-            <div className="truncate">{giveCurrencyName}</div>
+            <div className="flex gap-1">
+              <div className="truncate">{giveCurrencyName}</div>
+              <div className="truncate">{giveCurrency?.code_name}</div>
+            </div>
           </div>
           <img
             className="size-8 "
-            src={giveCurrency.icon_url}
-            alt={`${"Валюта"} ${giveCurrency.name}}`}
+            src={giveCurrency?.icon_url}
+            alt={`${"Валюта"} ${giveCurrencyName}}`}
           />
         </div>
-        <div className="flex items-center ">
+        <div className="flex items-center gap-2">
           <div className="truncate">
             <div className="font-bold">{t("ПОЛУЧАЮ")}</div>
-            <div className="truncate"> {getCurrencyName}</div>
+            <div className="flex gap-1">
+              <div className="truncate"> {getCurrencyName}</div>
+              <div className="truncate"> {getCurrency.code_name}</div>
+            </div>
           </div>
           <img
             className="size-8"
-            src={getCurrency.icon_url}
+            src={getCurrency?.icon_url}
             alt={`${"Валюта"} ${getCurrency.name}}`}
           />
         </div>

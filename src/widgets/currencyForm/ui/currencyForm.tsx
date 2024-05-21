@@ -16,13 +16,14 @@ import { Lang } from "@/shared/config";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Card, useToast } from "@/shared/ui";
 import { cx } from "class-variance-authority";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
+
   const { activeDirection: direction } = useAppSelector(
     (state) => state.direction
   );
@@ -40,6 +41,10 @@ export const CurrencyForm = () => {
     direction === directions.cash
       ? cashExchangersIsSuccess
       : noCashExchangersIsSuccess;
+
+  const [isCollapse, setIsCollapse] = useState(
+    currenctExchangersIsSuccessState
+  );
   // Селекторы для получения выбранной валюты
   const giveCurrencyValue = useAppSelector(
     (state) => state.currency.giveCurrency
@@ -167,14 +172,14 @@ export const CurrencyForm = () => {
   };
 
   return (
-    <>
+    <div className="relative ">
       {currenctExchangersIsSuccessState ? (
         <CollapsedForm
           getCurrency={currentGetCurrency!}
           giveCurrency={currentGiveCurrency!}
         />
       ) : (
-        <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] relative  bg-darkGray rounded-3xl gap-2 p-4 ">
+        <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr]   bg-darkGray rounded-3xl gap-2 p-4 ">
           <div className="flex flex-col gap-2">
             <div
               className={cx(
@@ -240,13 +245,14 @@ export const CurrencyForm = () => {
               onClick={onGetCurrencyClick}
             />
           </div>
-          <CollapseButton
-            currenctExchangersIsSuccessState={currenctExchangersIsSuccessState}
-            currentGiveCurrency={!!currentGiveCurrency}
-            currentGetCurrencies={!!currentGetCurrencies}
-          />
         </Card>
       )}
-    </>
+      <CollapseButton
+        onClick={() => setIsCollapse((prev) => !prev)}
+        currenctExchangersIsSuccessState={currenctExchangersIsSuccessState}
+        currentGiveCurrency={!!currentGiveCurrency}
+        currentGetCurrencies={!!currentGetCurrencies}
+      />
+    </div>
   );
 };
