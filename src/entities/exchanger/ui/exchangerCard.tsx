@@ -20,7 +20,6 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
   card,
   city,
   openLink,
-  openReviews,
 }) => {
   const { t, i18n } = useTranslation();
   const [ref, springs] = useInView(() => ({
@@ -31,6 +30,10 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
       opacity: 1,
     },
   }));
+
+  const openReviews = () => {
+    console.log("открыть отзывы");
+  };
   return (
     <animated.article
       ref={ref}
@@ -65,7 +68,13 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                   : t("Онлайн обмен")}
               </h3>
             </div>
-            <div className={styles.reviewCountWrapper} onClick={openReviews}>
+            <div
+              className={styles.reviewCountWrapper}
+              onClick={(e) => {
+                e.stopPropagation();
+                openReviews();
+              }}
+            >
               <p className={styles.reviewTitle}>{t("Отзывы")}</p>
               <div className={styles.reviews}>
                 <h3 className={styles.reviewCountPositive}>
