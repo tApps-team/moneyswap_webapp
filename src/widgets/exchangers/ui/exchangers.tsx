@@ -1,14 +1,14 @@
-import styles from "./exchangers.module.scss";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks";
-import { Preloader, SystemError } from "@/shared/ui";
-import { ExchangerList } from "@/features/exchanger";
-import { FC } from "react";
 import { directions } from "@/entities/direction";
 import {
   useGetExchangersCashQuery,
   useGetExchangersNoncashQuery,
 } from "@/entities/exchanger";
-import { currencyActions } from "@/entities/currency";
+import { ExchangerList } from "@/features/exchanger";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks";
+import { Preloader, SystemError } from "@/shared/ui";
+import { currencyFormActions } from "@/widgets/currencyForm";
+import { FC, useEffect } from "react";
+import styles from "./exchangers.module.scss";
 
 interface ExchangersProps {}
 
@@ -37,6 +37,7 @@ export const Exchangers: FC<ExchangersProps> = () => {
     data: exchangersCash,
     isFetching: isCashFetching,
     error: cashError,
+    isSuccess: isCashSuccess,
   } = useGetExchangersCashQuery(exchangersCashReq, {
     skip: activeDirection === directions.noncash || !city || !give || !get,
   });
@@ -44,9 +45,24 @@ export const Exchangers: FC<ExchangersProps> = () => {
     data: exchangersNoncash,
     isFetching: isNoncashFetching,
     error: noncashError,
+    isSuccess: isNoCashSuccess,
   } = useGetExchangersNoncashQuery(exchangersNoncashReq, {
     skip: activeDirection === directions.cash || !get || !get,
   });
+
+  useEffect(() => {
+    if (isNoCashSuccess) {
+      dispatch(currencyFormActions.setNoCashExchangersIsSuccess(true));
+    } else {
+      dispatch(currencyFormActions.setNoCashExchangersIsSuccess(false));
+    }
+
+    if (isCashSuccess) {
+      dispatch(currencyFormActions.setCashExchangersIsSuccess(true));
+    } else {
+      dispatch(currencyFormActions.setCashExchangersIsSuccess(false));
+    }
+  }, [dispatch, isCashSuccess, isNoCashSuccess]);
 
   const exchangers =
     activeDirection === directions.cash ? exchangersCash : exchangersNoncash;

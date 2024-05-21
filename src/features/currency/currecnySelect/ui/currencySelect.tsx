@@ -60,7 +60,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       categories: filteredKeys,
     };
   }, [currentCurrniesWithCategories, searchDeferredValue]);
-  console.log(currencyInfo);
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -82,8 +82,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <div className="border rounded-full size-10" />
           )}
           {currencyInfo ? (
-            <div className="flex flex-col items-start text-black">
-              <div className="font-bold text-base uppercase">
+            <div className="flex truncate  flex-col items-start text-black">
+              <div className="font-bold  text-base uppercase">
                 {currencyInfo.name}
               </div>
               <div className="text-base">{currencyInfo.code_name}</div>

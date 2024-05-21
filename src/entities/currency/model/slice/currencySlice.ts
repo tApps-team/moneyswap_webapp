@@ -26,6 +26,12 @@ export const currencySlice = createSlice({
     ) => {
       state.giveCashCurrency = action.payload;
     },
+    resetCashCurrency: (state) => {
+      (state.giveCashCurrency = null), (state.getCashCurrency = null);
+    },
+    resetNoCashCurrency: (state) => {
+      (state.giveCurrency = null), (state.getCurrency = null);
+    },
   },
 });
 export const { actions: currencyActions } = currencySlice;
