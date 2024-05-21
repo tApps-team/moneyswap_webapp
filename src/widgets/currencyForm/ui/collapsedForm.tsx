@@ -20,8 +20,12 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
           <div className="truncate">
             <div className="font-bold">{t("ОТДАЮ")}</div>
             <div className="flex gap-1">
-              <div className="truncate">{giveCurrencyName}</div>
-              <div className="truncate">{giveCurrency?.code_name}</div>
+              <div className="truncate text-xs uppercase">
+                {giveCurrencyName}
+              </div>
+              <div className="truncate text-xs uppercase">
+                {giveCurrency?.code_name}
+              </div>
             </div>
           </div>
           <img
@@ -34,14 +38,18 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
           <div className="truncate">
             <div className="font-bold">{t("ПОЛУЧАЮ")}</div>
             <div className="flex gap-1">
-              <div className="truncate"> {getCurrencyName}</div>
-              <div className="truncate"> {getCurrency.code_name}</div>
+              <div className="truncate text-xs uppercase">
+                {getCurrencyName}
+              </div>
+              <div className="truncate text-xs uppercase">
+                {getCurrency?.code_name}
+              </div>
             </div>
           </div>
           <img
             className="size-8"
             src={getCurrency?.icon_url}
-            alt={`${"Валюта"} ${getCurrency.name}}`}
+            alt={`${"Валюта"} ${getCurrency?.name}}`}
           />
         </div>
       </CardContent>
