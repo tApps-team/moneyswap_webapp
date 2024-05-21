@@ -61,10 +61,12 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
               <p className={styles.reviewTitle}>{t("Отзывы")}</p>
               <div className={styles.reviews}>
                 <h3 className={styles.reviewCountPositive}>
-                  {card?.review_count}
+                  {card?.review_count.positive}
                 </h3>
                 <span className={styles.separator}></span>
-                <h3 className={styles.reviewCountNegative}>0</h3>
+                <h3 className={styles.reviewCountNegative}>
+                  {card.review_count.neutral}
+                </h3>
               </div>
             </div>
           </div>
