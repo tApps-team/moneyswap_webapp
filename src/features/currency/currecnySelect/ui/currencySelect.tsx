@@ -1,5 +1,5 @@
 import { Currency, CurrencyCard, CurrencyCategory } from "@/entities/currency";
-import { SearchIcon } from "@/shared/assets";
+import { CloseDrawerIcon, LogoIcon, SearchIcon } from "@/shared/assets";
 import {
   Button,
   Drawer,
@@ -15,7 +15,6 @@ import {
   TabsTrigger,
 } from "@/shared/ui";
 import { cx } from "class-variance-authority";
-import { Search } from "lucide-react";
 
 import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -61,13 +60,13 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       categories: filteredKeys,
     };
   }, [currentCurrniesWithCategories, searchDeferredValue]);
-  console.log(currencyInfo);
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <Button
           className={cx(
-            "w-full h-[70px]  disabled:bg-lightGray bg-transparent border disabled:bg-opacity-0  flex items-center justify-start gap-6 rounded-full",
+            "w-full h-[70px] disabled:bg-lightGray bg-transparent border disabled:bg-opacity-0 flex items-center justify-start gap-3 rounded-full",
             currencyInfo && "bg-mainColor border-mainColor"
           )}
           disabled={disabled}
@@ -83,8 +82,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <div className="border rounded-full size-10" />
           )}
           {currencyInfo ? (
-            <div className="flex flex-col items-start text-black">
-              <div className="font-bold text-base uppercase">
+            <div className="flex truncate  flex-col items-start text-black">
+              <div className="font-bold  text-base uppercase">
                 {currencyInfo.name}
               </div>
               <div className="text-base">{currencyInfo.code_name}</div>
@@ -96,32 +95,38 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-svh p-4 bg-transparent  grid grid-rows-[1fr,1fr,2fr] border-none">
-        <DrawerHeader className="text-start text-mainColor text-lg p-0">
-          {label}
+      <DrawerContent className="h-[100svh] p-4 bg-transparent border-none">
+        <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4">
+          <div className="flex justify-center items-center">
+            <LogoIcon width="80px" height="80px" />
+          </div>
+          <div className="relative">
+            <h2 className="text-left text-base uppercase text-[#f6ff5f]">
+              {label}
+            </h2>
+            <DrawerClose className="absolute right-0 top-0">
+              <CloseDrawerIcon width={26} height={26} />
+            </DrawerClose>
+          </div>
+          <div className="relative">
+            <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
+            <Input
+              placeholder={t("ПОИСК ВАЛЮТЫ")}
+              className="rounded-2xl pl-12 bg-lightGray border-none placeholder:text-darkGray text-darkGray uppercase"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
         </DrawerHeader>
-        <div className="relative">
-          <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
-          <Input
-            placeholder={t("ПОИСК ВАЛЮТЫ")}
-            className="rounded-2xl pl-12 bg-lightGray border-none placeholder:text-darkGray"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </div>
-
-        <Tabs
-          defaultValue={allKey}
-          className="min-h-[80svh] flex flex-col gap-[70px] "
-        >
+        <Tabs defaultValue={allKey} className="grid grid-flow-row">
           <TabsList
             data-vaul-no-drag
-            className="bg-transparent grid grid-cols-2 gap-2"
+            className="bg-transparent grid grid-cols-2 gap-2 h-full py-4 px-0"
           >
             {filteredCategories.categories?.map((filteredCategory) => (
               <TabsTrigger
                 className={
-                  "rounded-2xl uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white  border-2 h-11 data-[state=active]:bg-mainColor"
+                  "rounded-2xl uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white border-2 h-11 data-[state=active]:bg-mainColor"
                 }
                 key={filteredCategory}
                 value={filteredCategory}
@@ -130,31 +135,35 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               </TabsTrigger>
             ))}
           </TabsList>
-          <ScrollArea data-vaul-no-drag className="">
-            {filteredCategories.categories.map((filteredCategory) => (
-              <TabsContent
-                className="grid mt-0 grid-rows-1 gap-2"
-                key={filteredCategory}
-                value={filteredCategory}
-              >
-                {currentCurrniesWithCategories[filteredCategory]
-                  ?.filter((currency) =>
-                    currency.name
-                      .toLowerCase()
-                      .includes(searchDeferredValue.toLowerCase())
-                  )
-                  .map((currency) => (
-                    <DrawerClose key={currency.id} asChild>
-                      <CurrencyCard
-                        active={currency.code_name === currencyInfo?.code_name}
-                        onClick={() => onClick?.(currency)}
-                        currency={currency}
-                      />
-                    </DrawerClose>
-                  ))}
-              </TabsContent>
-            ))}
-          </ScrollArea>
+          <div className="">
+            <ScrollArea data-vaul-no-drag className="h-[calc(100svh_-_336px)]">
+              {filteredCategories.categories.map((filteredCategory) => (
+                <TabsContent
+                  className="grid mt-0 grid-rows-1 gap-2"
+                  key={filteredCategory}
+                  value={filteredCategory}
+                >
+                  {currentCurrniesWithCategories[filteredCategory]
+                    ?.filter((currency) =>
+                      currency.name
+                        .toLowerCase()
+                        .includes(searchDeferredValue.toLowerCase())
+                    )
+                    .map((currency) => (
+                      <DrawerClose key={currency.id} asChild>
+                        <CurrencyCard
+                          active={
+                            currency.code_name === currencyInfo?.code_name
+                          }
+                          onClick={() => onClick?.(currency)}
+                          currency={currency}
+                        />
+                      </DrawerClose>
+                    ))}
+                </TabsContent>
+              ))}
+            </ScrollArea>
+          </div>
         </Tabs>
       </DrawerContent>
     </Drawer>

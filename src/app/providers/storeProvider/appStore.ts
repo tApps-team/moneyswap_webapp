@@ -15,6 +15,7 @@ import {
   persistStore,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { currencyFormSlice } from "@/widgets/currencyForm";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   [locationSlice.name]: locationSlice.reducer,
   [directionSlice.name]: directionSlice.reducer,
   [baseApi.reducerPath]: baseApi.reducer,
+  [currencyFormSlice.name]: currencyFormSlice.reducer,
   [currencySlice.name]: currencySlice.reducer,
 });
 

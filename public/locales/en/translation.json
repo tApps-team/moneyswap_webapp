@@ -30,5 +30,16 @@
     "cash": "cash",
     "noncash": "non-cash"
   },
-  "Отзывы": "Reviews"
+  "Отзывы": "Reviews",
+  "Пн": "Mo",
+  "Вт": "Tu",
+  "Ср": "We",
+  "Чт": "Th",
+  "Пт": "Fr",
+  "Сб": "Sa",
+  "Вс": "Su",
+  "Доставка": "Delivery",
+  "Офис": "Office",
+  "VIP-партнер": "VIP-partner",
+  "Amount_null": "___"
 }
