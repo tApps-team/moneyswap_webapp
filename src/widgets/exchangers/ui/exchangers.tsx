@@ -1,15 +1,14 @@
-import styles from "./exchangers.module.scss";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks";
-import { Preloader, SystemError } from "@/shared/ui";
-import { ExchangerList } from "@/features/exchanger";
-import { FC, useEffect } from "react";
 import { directions } from "@/entities/direction";
 import {
   useGetExchangersCashQuery,
   useGetExchangersNoncashQuery,
 } from "@/entities/exchanger";
-import { currencyActions } from "@/entities/currency";
+import { ExchangerList } from "@/features/exchanger";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks";
+import { Preloader, SystemError } from "@/shared/ui";
 import { currencyFormActions } from "@/widgets/currencyForm";
+import { FC, useEffect } from "react";
+import styles from "./exchangers.module.scss";
 
 interface ExchangersProps {}
 
