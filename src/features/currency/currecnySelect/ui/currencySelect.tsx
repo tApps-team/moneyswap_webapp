@@ -61,7 +61,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       categories: filteredKeys,
     };
   }, [currentCurrniesWithCategories, searchDeferredValue]);
-  console.log(currencyInfo);
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
