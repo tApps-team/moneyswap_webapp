@@ -101,7 +101,7 @@ export const CurrencyForm = () => {
   useEffect(() => {
     if (getCurrencyError) {
       toast({
-        title: t("Обмен этих пар пока что недоступен"),
+        title: t("Выбранное направление недоступно"),
       });
       if (direction === directions.cash) {
         dispatch(currencyActions.resetCashCurrency());
