@@ -93,9 +93,9 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             <div className={styles.info__block}>
               <Clock width={12} height={12} />
               <div className="truncate flex items-center">
-                <span>{card?.info?.time_from}</span>{" "}
+                <span>{card?.info?.time_from || "00:00"}</span>{" "}
                 <Minus width={8} height={8} />{" "}
-                <span>{card?.info?.time_to}</span>
+                <span>{card?.info?.time_to || "00:00"}</span>
               </div>
             </div>
             <div className={styles.info__block}>
