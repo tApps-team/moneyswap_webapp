@@ -16,5 +16,5 @@ export const RoundValute: FC<RoundValuteProps> = ({ value }) => {
 
   const formattedValute = roundValue(value);
 
-  return <span>{formattedValute}</span>;
+  return <span className="whitespace-nowrap">{formattedValute}</span>;
 };

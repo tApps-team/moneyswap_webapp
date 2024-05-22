@@ -93,9 +93,9 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             <div className={styles.info__block}>
               <Clock width={12} height={12} />
               <div className="truncate flex items-center">
-                <span>{card?.info?.time_from}</span>{" "}
+                <span>{card?.info?.time_from || "00:00"}</span>{" "}
                 <Minus width={8} height={8} />{" "}
-                <span>{card?.info?.time_to}</span>
+                <span>{card?.info?.time_to || "00:00"}</span>
               </div>
             </div>
             <div className={styles.info__block}>
@@ -133,13 +133,14 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <div className={styles.valuteInfo}>
             <h2 className={styles.valuteExchange}>
               <RoundValute value={card?.in_count} />
-              <div className={styles.valuteIcon}>
+              {/* <div className={styles.valuteIcon}>
                 <img
                   src={card?.icon_valute_from}
                   alt={`Иконка ${card?.valute_from}`}
                   className={styles.valuteImage}
                 />
-              </div>
+              </div> */}
+              <p className="truncate ml-1 font-thin">{card?.valute_from}</p>
               <i className={styles.arrowIcon}>
                 <LogoArrow
                   fill="#f6ff5f"
@@ -151,13 +152,14 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             </h2>
             <h2 className={styles.valuteExchange}>
               <RoundValute value={card?.out_count} />
-              <div className={styles.valuteIcon}>
+              {/* <div className={styles.valuteIcon}>
                 <img
                   src={card?.icon_valute_to}
                   alt={`Иконка ${card?.valute_to}`}
                   className={styles.valuteImage}
                 />
-              </div>
+              </div> */}
+              <p className="truncate ml-1 font-thin">{card?.valute_to}</p>
             </h2>
           </div>
           <span className={styles.valuteRange}>

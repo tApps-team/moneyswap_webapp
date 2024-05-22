@@ -55,8 +55,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
       <Button
         disabled={isDisabled}
         onClick={handleSwitchCurrency}
-        className="rounded-full h-16 w-16 absolute border-none disabled:opacity-100   disabled:bg-lightGray bg-[#F6FF5F]"
-        variant={"outline"}
+        className="rounded-full  h-16 w-16 absolute border-none disabled:opacity-100   disabled:bg-lightGray bg-[#F6FF5F]"
       >
         <LogoIcon className="w-12 h-12  " fill="black" />
       </Button>
