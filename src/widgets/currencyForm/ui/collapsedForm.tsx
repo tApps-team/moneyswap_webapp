@@ -18,7 +18,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
       <CardContent className="grid grid-cols-2  px-4 py-2 h-full w-full gap-4">
         <div className="flex items-center  gap-2">
           <div className="truncate">
-            <div className="font-bold">{t("ОТДАЮ")}</div>
+            <div className="font-bold text-sm">{t("ОТДАЮ")}</div>
             <div className="flex gap-1">
               <div className="truncate text-xs uppercase">
                 {giveCurrencyName}
@@ -36,7 +36,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
         </div>
         <div className="flex items-center gap-2">
           <div className="truncate">
-            <div className="font-bold">{t("ПОЛУЧАЮ")}</div>
+            <div className="font-bold text-sm">{t("ПОЛУЧАЮ")}</div>
             <div className="flex gap-1">
               <div className="truncate text-xs uppercase">
                 {getCurrencyName}
