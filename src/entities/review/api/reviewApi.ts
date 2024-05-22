@@ -3,6 +3,7 @@ import {
   ReviewsByExchangeDtoRequest,
   ReviewsByExchangeDtoResponse,
 } from "./reviewDto";
+import { createUrl } from "../utils/createUrl";
 
 export const reviewApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -10,14 +11,8 @@ export const reviewApi = baseApi.injectEndpoints({
       ReviewsByExchangeDtoResponse,
       ReviewsByExchangeDtoRequest
     >({
-      query: ({
-        element_on_page,
-        exchange_id,
-        exchange_marker,
-        grade_filter,
-        page,
-      }) => ({
-        url: `api/reviews/reviews_by_exchange?`,
+      query: (data) => ({
+        url: createUrl(data),
         method: "GET",
       }),
     }),
