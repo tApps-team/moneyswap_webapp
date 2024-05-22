@@ -7,6 +7,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTrigger,
+  Empty,
   Input,
   ScrollArea,
   Tabs,
@@ -84,9 +85,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           {currencyInfo ? (
             <div className="flex truncate  flex-col items-start text-black">
               <div className="font-bold  text-base uppercase">
-                {currencyInfo.name}
+                {currencyInfo?.name}
               </div>
-              <div className="text-base">{currencyInfo.code_name}</div>
+              <div className="text-base">{currencyInfo?.code_name}</div>
             </div>
           ) : (
             <div className="uppercase truncate text-white font-normal">
@@ -137,31 +138,35 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           </TabsList>
           <div className="">
             <ScrollArea data-vaul-no-drag className="h-[calc(100svh_-_336px)]">
-              {filteredCategories.categories.map((filteredCategory) => (
-                <TabsContent
-                  className="grid mt-0 grid-rows-1 gap-2"
-                  key={filteredCategory}
-                  value={filteredCategory}
-                >
-                  {currentCurrniesWithCategories[filteredCategory]
-                    ?.filter((currency) =>
-                      currency.name
-                        .toLowerCase()
-                        .includes(searchDeferredValue.toLowerCase())
-                    )
-                    .map((currency) => (
-                      <DrawerClose key={currency.id} asChild>
-                        <CurrencyCard
-                          active={
-                            currency.code_name === currencyInfo?.code_name
-                          }
-                          onClick={() => onClick?.(currency)}
-                          currency={currency}
-                        />
-                      </DrawerClose>
-                    ))}
-                </TabsContent>
-              ))}
+              {filteredCategories?.categories.length ? (
+                filteredCategories?.categories.map((filteredCategory) => (
+                  <TabsContent
+                    className="grid mt-0 grid-rows-1 gap-2"
+                    key={filteredCategory}
+                    value={filteredCategory}
+                  >
+                    {currentCurrniesWithCategories[filteredCategory]
+                      ?.filter((currency) =>
+                        currency.name
+                          .toLowerCase()
+                          .includes(searchDeferredValue?.toLowerCase())
+                      )
+                      .map((currency) => (
+                        <DrawerClose key={currency?.id} asChild>
+                          <CurrencyCard
+                            active={
+                              currency.code_name === currencyInfo?.code_name
+                            }
+                            onClick={() => onClick?.(currency)}
+                            currency={currency}
+                          />
+                        </DrawerClose>
+                      ))}
+                  </TabsContent>
+                ))
+              ) : (
+                <Empty text={t("Ничего не найдено...")} />
+              )}
             </ScrollArea>
           </div>
         </Tabs>

@@ -15,6 +15,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTrigger,
+  Empty,
   ScrollArea,
 } from "@/shared/ui";
 
@@ -119,11 +120,15 @@ export const Location = () => {
             />
           </DrawerHeader>
           <ScrollArea data-vaul-no-drag className="h-full p-4 pt-0 w-full ">
-            <LocationList
-              countries={filteredCountries!}
-              setSearchValue={setSearchValue}
-              searchValue={searchValue}
-            />
+            {filteredCountries?.length ? (
+              <LocationList
+                countries={filteredCountries}
+                setSearchValue={setSearchValue}
+                searchValue={searchValue}
+              />
+            ) : (
+              <Empty text={t("Ничего не найдено...")} />
+            )}
           </ScrollArea>
         </DrawerContent>
       </Drawer>
