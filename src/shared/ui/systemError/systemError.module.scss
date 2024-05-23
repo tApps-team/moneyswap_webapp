@@ -1,0 +1,19 @@
+.systemError {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 50px 20px;
+    border-radius: 30px;
+    background: var(--light-grey);
+    color: var(--dark-grey);
+    margin-bottom: 30px;
+
+    .errorText {
+      font-size: var(--font-size-ls);
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.5;
+    }  
+  }
+  

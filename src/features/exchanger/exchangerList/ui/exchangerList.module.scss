@@ -1,0 +1,25 @@
+.exchangersList {
+    padding-bottom: 20px;
+  
+    .header {
+      color: var( --white-color);
+      font-size: var(--text-xs);
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      margin: 0px 3%;
+      text-transform: uppercase;
+      margin-top: 10px;
+
+      span {
+      }
+
+      // @media (max-width: 380px) {
+      //   font-size: var(--text-xs);
+      // }
+    }
+  
+    .cards {
+      padding: 15px 0px
+    }
+  }
