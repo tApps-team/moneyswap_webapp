@@ -18,3 +18,4 @@ export const reviewApi = baseApi.injectEndpoints({
     }),
   }),
 });
+export const { useReviewsByExchangeQuery } = reviewApi;
