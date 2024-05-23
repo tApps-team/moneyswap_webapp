@@ -131,7 +131,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         )}
         <footer className={styles.cardFooter}>
           <div className={styles.valuteInfo}>
-            <h2 className={styles.valuteExchange}>
+            <div className={styles.valuteExchange}>
               <RoundValute value={card?.in_count} />
               {/* <div className={styles.valuteIcon}>
                 <img
@@ -149,8 +149,8 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                   className="rotate-180"
                 />
               </i>
-            </h2>
-            <h2 className={styles.valuteExchange}>
+            </div>
+            <div className={`${styles.valuteExchange} overflow-hidden`}>
               <RoundValute value={card?.out_count} />
               {/* <div className={styles.valuteIcon}>
                 <img
@@ -160,7 +160,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                 />
               </div> */}
               <p className="truncate ml-1 font-thin">{card?.valute_to}</p>
-            </h2>
+            </div>
           </div>
           <span className={styles.valuteRange}>
             {t("Обмен от")}{" "}
