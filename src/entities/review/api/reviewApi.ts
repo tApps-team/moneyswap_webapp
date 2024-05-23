@@ -1,5 +1,9 @@
 import { baseApi } from "@/shared/api";
 import {
+  AddReviewByExchangeDtoRequset,
+  AddReviewByExchangeDtoResponse,
+  CheckUserReviewPermissionDtoRequest,
+  CheckUserReviewPermissionDtoResponse,
   ReviewsByExchangeDtoRequest,
   ReviewsByExchangeDtoResponse,
 } from "./reviewDto";
@@ -15,7 +19,32 @@ export const reviewApi = baseApi.injectEndpoints({
         url: createUrl(data),
         method: "GET",
       }),
+      providesTags: ["REVIEW"],
+    }),
+    addReviewByExchange: build.mutation<
+      AddReviewByExchangeDtoResponse,
+      AddReviewByExchangeDtoRequset
+    >({
+      query: (data) => ({
+        url: `/api/reviews/add_review_by_exchange`,
+        body: data,
+        method: "POST",
+      }),
+      invalidatesTags: ["REVIEW"],
+    }),
+    checkUserReviewPermission: build.query<
+      CheckUserReviewPermissionDtoResponse,
+      CheckUserReviewPermissionDtoRequest
+    >({
+      query: ({ exchange_id, exchange_marker, tg_id }) => ({
+        url: `/api/reviews/check_user_review_permission?exchange_id=${exchange_id}&exchange_marker=${exchange_marker}&tg_id=${tg_id}`,
+        method: "GET",
+      }),
     }),
   }),
 });
-export const { useReviewsByExchangeQuery } = reviewApi;
+export const {
+  useReviewsByExchangeQuery,
+  useAddReviewByExchangeMutation,
+  useLazyCheckUserReviewPermissionQuery,
+} = reviewApi;
