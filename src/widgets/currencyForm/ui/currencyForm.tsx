@@ -19,6 +19,11 @@ import { cx } from "class-variance-authority";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
+import { useReviewsByExchangeQuery } from "@/entities/review";
+import {
+  ExchangerMarker,
+  Grade,
+} from "@/entities/review/model/types/reviewType";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();
@@ -174,7 +179,14 @@ export const CurrencyForm = () => {
     );
   };
   console.log(isCollapse);
-
+  const { data } = useReviewsByExchangeQuery({
+    exchange_id: 1,
+    exchange_marker: ExchangerMarker.cash,
+    page: 1,
+    element_on_page: 5,
+    grade_filter: Grade.neutral,
+  });
+  console.log(data);
   return (
     <div className="relative ">
       {isCollapse ? (
