@@ -1,5 +1,5 @@
 import { Currency, CurrencyCard, CurrencyCategory } from "@/entities/currency";
-import { CloseDrawerIcon, LogoIcon, SearchIcon } from "@/shared/assets";
+import { CloseDrawerIcon, SearchIcon } from "@/shared/assets";
 import {
   Button,
   Drawer,
@@ -97,10 +97,10 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
         </Button>
       </DrawerTrigger>
       <DrawerContent className="h-[100svh] p-4 bg-transparent border-none">
-        <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4">
-          <div className="flex justify-center items-center">
+        <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
+          {/* <div className="flex justify-center items-center">
             <LogoIcon width="80px" height="80px" />
-          </div>
+          </div> */}
           <div className="relative">
             <h2 className="text-left text-base uppercase text-[#f6ff5f]">
               {label}
@@ -137,7 +137,10 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             ))}
           </TabsList>
           <div className="">
-            <ScrollArea data-vaul-no-drag className="h-[calc(100svh_-_336px)]">
+            <ScrollArea
+              data-vaul-no-drag
+              className="h-[calc(100svh_-_256px)] px-4 -mx-4"
+            >
               {filteredCategories?.categories.length ? (
                 filteredCategories?.categories.map((filteredCategory) => (
                   <TabsContent

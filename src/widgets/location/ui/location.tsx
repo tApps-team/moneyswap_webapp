@@ -5,7 +5,7 @@ import { useAppSelector } from "@/shared/hooks";
 import { useMemo, useState } from "react";
 import styles from "./locations.module.scss";
 import { useTranslation } from "react-i18next";
-import { CloseDrawerIcon, LocationIcon, LogoIcon } from "@/shared/assets";
+import { CloseDrawerIcon, LocationIcon } from "@/shared/assets";
 import clsx from "clsx";
 import { Country } from "@/entities/location";
 import { Lang } from "@/shared/config";
@@ -103,9 +103,9 @@ export const Location = () => {
         </DrawerTrigger>
         <DrawerContent className="h-[100svh] border-none rounded-none bg-transparent">
           <DrawerHeader className="gap-4 pt-8">
-            <div className="flex justify-center items-center">
+            {/* <div className="flex justify-center items-center">
               <LogoIcon width="80px" height="80px" />
-            </div>
+            </div> */}
             <div className="relative">
               <h2 className="text-left text-base uppercase text-[#f6ff5f]">
                 {t("Выбор страны и города")}

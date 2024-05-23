@@ -73,8 +73,8 @@ export const CurrencyForm = () => {
   // Запросы на получения валюты
   const {
     data: giveCurrencies,
-    error: giveCurrencyError,
-    isError: isGiveCurrencyError,
+    // error: giveCurrencyError,
+    // isError: isGiveCurrencyError,
   } = useAvailableValutesQuery({
     base: "all",
     city: direction === directions.cash ? code_name : undefined,
@@ -84,7 +84,7 @@ export const CurrencyForm = () => {
     data: getCurrencies,
     error: getCurrencyError,
     isError: isGetCurrencyError,
-    isLoading: isGetCurrencyLoading,
+    // isLoading: isGetCurrencyLoading,
     isFetching: isGetCurrencyFetching,
   } = useAvailableValutesQuery(
     {
@@ -176,7 +176,7 @@ export const CurrencyForm = () => {
   console.log(isCollapse);
 
   return (
-    <div className="relative ">
+    <div className="relative mb-4">
       {isCollapse ? (
         <CollapsedForm
           getCurrency={currentGetCurrency!}

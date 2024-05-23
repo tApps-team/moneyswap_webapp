@@ -13,8 +13,6 @@ export const Directions: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleDirection = (direction: directions) => {
-    //   setGetSelect(null);
-    //   setGiveSelect(null);
     setCity(null);
     setCountry(null);
     clearExchangers();

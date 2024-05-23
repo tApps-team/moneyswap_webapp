@@ -12,7 +12,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   return (
     <Card
       className={cx(
-        "h-[70px] rounded-full border-2 active:bg-mainColor bg-darkGray text-white",
+        "h-[70px] rounded-full border-2 bg-darkGray text-white",
         active && "bg-mainColor border-mainColor text-black"
       )}
       onClick={onClick}

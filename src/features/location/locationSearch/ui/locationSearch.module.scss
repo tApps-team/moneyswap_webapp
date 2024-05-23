@@ -6,6 +6,10 @@
     width: 100%;
     font-size: var(--text-sm);
     color: var(--dark-grey);
+
+    &:hover {
+      outline: 1px solid #fff;
+    }
   
     .icon {
       display: flex;
