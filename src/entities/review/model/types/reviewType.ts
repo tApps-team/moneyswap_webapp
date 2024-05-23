@@ -3,7 +3,7 @@ export type Review = {
   username: string;
   review_date: string;
   review_time: string;
-  grade: number;
+  grade: Grade;
   text: string;
 };
 export type ReviewResponse = {
@@ -11,4 +11,13 @@ export type ReviewResponse = {
   element_on_page: number;
   content: Review[];
 };
-export type CurrencyType = "cash" | "no_cash";
+export enum ExchangerMarker {
+  cash = "cash",
+  no_cash = "no_cash",
+  partner = "partner",
+}
+export enum Grade {
+  positive = 1,
+  neutral = 0,
+  negative = -1,
+}
