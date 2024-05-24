@@ -73,7 +73,7 @@ export const CurrencyForm = () => {
   // Запросы на получения валюты
   const {
     data: giveCurrencies,
-    // error: giveCurrencyError,
+    error: giveCurrencyError,
     // isError: isGiveCurrencyError,
   } = useAvailableValutesQuery({
     base: "all",
@@ -183,7 +183,7 @@ export const CurrencyForm = () => {
           giveCurrency={currentGiveCurrency!}
         />
       ) : (
-        <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr]   bg-darkGray rounded-3xl gap-2 p-4 ">
+        <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] bg-darkGray rounded-3xl gap-2 p-4">
           <div className="flex flex-col gap-2">
             <div
               className={cx(
@@ -209,7 +209,10 @@ export const CurrencyForm = () => {
                     }
                   : undefined
               }
-              disabled={direction === directions.cash && !code_name}
+              disabled={
+                (direction === directions.cash && !code_name) ||
+                (giveCurrencyError && true)
+              }
               emptyLabel={t("Выберите валюту")}
               currencies={currentGiveCurrencies}
               onClick={onGiveCurrencyClick}

@@ -101,7 +101,7 @@ export const Location = () => {
             </h2>
           </header>
         </DrawerTrigger>
-        <DrawerContent className="h-[100svh] border-none rounded-none bg-transparent">
+        <DrawerContent className="h-[100svh] border-none rounded-none bg-color-none">
           <DrawerHeader className="gap-4 pt-8">
             {/* <div className="flex justify-center items-center">
               <LogoIcon width="80px" height="80px" />
