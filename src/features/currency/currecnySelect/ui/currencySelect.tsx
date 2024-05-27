@@ -113,7 +113,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
             <Input
               placeholder={t("ПОИСК ВАЛЮТЫ")}
-              className="rounded-2xl pl-12 bg-lightGray border-none placeholder:text-darkGray text-darkGray uppercase"
+              className="rounded-2xl pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
@@ -127,7 +127,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             {filteredCategories.categories?.map((filteredCategory) => (
               <TabsTrigger
                 className={
-                  "rounded-2xl uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white border-2 h-11 data-[state=active]:bg-mainColor"
+                  "rounded-2xl border-lightGray uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white border-2 h-11 data-[state=active]:bg-mainColor"
                 }
                 key={filteredCategory}
                 value={filteredCategory}

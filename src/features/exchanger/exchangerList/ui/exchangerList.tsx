@@ -36,9 +36,7 @@ export const ExchangerList: FC<ExchangersListProps> = memo(
         ? giveCurrency?.name?.ru
         : giveCurrency?.name?.en;
     const getCurrencyName =
-      i18n.language === Lang.ru
-        ? getCurrency?.name?.ru
-        : giveCurrency?.name?.en;
+      i18n.language === Lang.ru ? getCurrency?.name?.ru : getCurrency?.name?.en;
     return (
       <section className={styles.exchangersList}>
         <h2 className={styles.header}>
