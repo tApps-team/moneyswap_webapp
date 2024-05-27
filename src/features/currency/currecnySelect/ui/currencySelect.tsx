@@ -127,7 +127,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             {filteredCategories.categories?.map((filteredCategory) => (
               <TabsTrigger
                 className={
-                  "rounded-2xl uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white border-2 h-11 data-[state=active]:bg-mainColor"
+                  "rounded-2xl border-lightGray uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white border-2 h-11 data-[state=active]:bg-mainColor"
                 }
                 key={filteredCategory}
                 value={filteredCategory}

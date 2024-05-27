@@ -102,11 +102,7 @@ export const Location = () => {
           </header>
         </DrawerTrigger>
         <DrawerContent className="h-[100svh] border-none rounded-none bg-color-none">
-          <div className={styles.overlay}></div>
           <DrawerHeader className="gap-4 pt-8">
-            {/* <div className="flex justify-center items-center">
-              <LogoIcon width="80px" height="80px" />
-            </div> */}
             <div className="relative">
               <h2 className="text-left text-base uppercase text-[#f6ff5f]">
                 {t("Выбор страны и города")}

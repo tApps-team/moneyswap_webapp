@@ -62,13 +62,3 @@
 
 
 }
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%);
-    backdrop-filter: blur(20px);
-    height: 100svh;
-    width: 100vw;
-    transition: all 1s;
-}
