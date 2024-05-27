@@ -36,8 +36,9 @@ export const reviewApi = baseApi.injectEndpoints({
       CheckUserReviewPermissionDtoResponse,
       CheckUserReviewPermissionDtoRequest
     >({
-      query: ({ exchange_id, exchange_marker, tg_id }) => ({
-        url: `/api/reviews/check_user_review_permission?exchange_id=${exchange_id}&exchange_marker=${exchange_marker}&tg_id=${tg_id}`,
+      query: (params) => ({
+        url: `/api/reviews/check_user_review_permission`,
+        params: params,
         method: "GET",
       }),
     }),
