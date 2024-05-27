@@ -178,15 +178,7 @@ export const CurrencyForm = () => {
         : currencyActions.setGetCashCurrency(currencyObject)
     );
   };
-  console.log(isCollapse);
-  const { data } = useReviewsByExchangeQuery({
-    exchange_id: 1,
-    exchange_marker: ExchangerMarker.cash,
-    page: 1,
-    element_on_page: 5,
-    grade_filter: Grade.neutral,
-  });
-  console.log(data);
+
   return (
     <div className="relative ">
       {isCollapse ? (
