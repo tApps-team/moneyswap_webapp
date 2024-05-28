@@ -4,6 +4,7 @@ export {
   reviewApi,
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
+  useLazyReviewsByExchangeQuery,
 } from "./api/reviewApi";
 export { ReviewCard } from "./ui/reviewCard";
 export {
