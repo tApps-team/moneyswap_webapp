@@ -29,16 +29,14 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <div className="text-center">{review.grade}</div>
           </div>
         </div>
-        <CardHeader className="mt-4">
-          <div className="flex justify-between">
-            <div className="text-white">{review.username}</div>
-            <div className="text-lightGray">
-              {formatDate(review.review_date)} / {review.review_time}
-            </div>
+        <CardHeader className="">
+          <div className="text-white">{review.username}</div>
+          <div className="text-lightGray">
+            {formatDate(review.review_date)} / {review.review_time}
           </div>
         </CardHeader>
         <CardContent className="">
-          <p className="overflow-hidden text-ellipsis">{review.text}</p>
+          <p className="truncate">{review.text}</p>
         </CardContent>
       </Card>
     );
