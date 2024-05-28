@@ -4,4 +4,5 @@ export {
   type RootState,
   appStore,
   setupStore,
+  persistedStore,
 } from "./appStore";

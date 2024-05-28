@@ -20,7 +20,7 @@ import { currencyFormSlice } from "@/widgets/currencyForm";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [],
+  whitelist: ["direction", "location", "currency"],
 };
 
 const rootReducer = combineReducers({
