@@ -17,7 +17,9 @@ export const reviewApi = baseApi.injectEndpoints({
       ReviewsByExchangeDtoRequest
     >({
       query: (data) => ({
-        url: createUrl(data),
+        // url: createUrl(data),
+        url: `api/reviews/reviews_by_exchange`,
+        params: data,
         method: "GET",
       }),
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
@@ -61,10 +63,8 @@ export const reviewApi = baseApi.injectEndpoints({
 });
 
 export const selectCacheByKey = (exchange_id: number) => (state: RootState) => {
-  return (
-    state.api.queries["reviewsByExchange" + exchange_id]
-      ?.data as ReviewsByExchangeDtoResponse
-  )?.page;
+  return state.api.queries["reviewsByExchange" + exchange_id]
+    ?.data as ReviewsByExchangeDtoResponse;
 };
 
 export const {
