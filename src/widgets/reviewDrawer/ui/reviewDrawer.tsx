@@ -36,7 +36,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
       </DrawerTrigger>
       <DrawerContent
         onClick={(e) => e.stopPropagation()}
-        className="h-svh p-2 w-full grid gap-5 bg-transparent"
+        className="h-svh p-2 w-full grid grid-rows-[1fr,1fr] grid-cols-1 gap-5 bg-transparent"
       >
         <AddReview
           exchange_id={exchanger?.exchange_id}
