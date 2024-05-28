@@ -6,18 +6,10 @@ import {
 } from "@/entities/review";
 import {
   Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
   Form,
   FormControl,
@@ -26,10 +18,10 @@ import {
   FormLabel,
   Input,
 } from "@/shared/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
@@ -67,43 +59,37 @@ export const AddReview = (props: AddReviewProps) => {
   };
   console.log(data);
   return (
-    <>
-      {/* {data?.status === "success" ? ( */}
-      <Drawer direction="right">
-        <DrawerTrigger asChild>
-          <Button
-            className="border-2 rounded-2xl border-lightGray text-white text-center bg-darkGray"
-            onClick={handleClick}
-          >
-            {t("ДОБАВИТЬ ОТЗЫВ ОБ ОБМЕННИКЕ")}
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className="h-svh">
-          <DrawerHeader>
-            <DrawerClose>ВЫЙТИ</DrawerClose>
-          </DrawerHeader>
-          <Form {...reviewForm}>
-            <form onSubmit={reviewForm.handleSubmit(onSubmit)}>
-              <FormField
-                control={reviewForm.control}
-                name="review"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("ОСТАВИТЬ ОТЗЫВ")}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t("Введите отзыв...")} {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <Button type="submit">{t("ОТПРАВИТЬ ОТЗЫВ")}</Button>
-            </form>
-          </Form>
-        </DrawerContent>
-      </Drawer>
-      {/* ) : (
-        <div>Ошибка</div>
-      )} */}
-    </>
+    <Drawer direction="right">
+      <DrawerTrigger asChild>
+        <Button
+          className="border-2 rounded-2xl w-full truncate text-xs border-lightGray text-white text-center bg-darkGray"
+          onClick={handleClick}
+        >
+          {t("ДОБАВИТЬ ОТЗЫВ ОБ ОБМЕННИКЕ")}
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent className="h-svh">
+        <DrawerHeader>
+          <DrawerClose>ВЫЙТИ</DrawerClose>
+        </DrawerHeader>
+        <Form {...reviewForm}>
+          <form onSubmit={reviewForm.handleSubmit(onSubmit)}>
+            <FormField
+              control={reviewForm.control}
+              name="review"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("ОСТАВИТЬ ОТЗЫВ")}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t("Введите отзыв...")} {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button type="submit">{t("ОТПРАВИТЬ ОТЗЫВ")}</Button>
+          </form>
+        </Form>
+      </DrawerContent>
+    </Drawer>
   );
 };
