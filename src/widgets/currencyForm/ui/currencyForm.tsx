@@ -19,6 +19,11 @@ import { cx } from "class-variance-authority";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
+import { useReviewsByExchangeQuery } from "@/entities/review";
+import {
+  ExchangerMarker,
+  Grade,
+} from "@/entities/review/model/types/reviewType";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();

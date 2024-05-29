@@ -169,7 +169,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                 ))
               ) : (
                 <div className="grid justify-items-center gap-6 mt-8">
-                  <img src="/img/notfound.gif" className="w-[60px] h-full" />
+                  <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
                   <Empty text={t("Ничего не найдено...")} />
                 </div>
               )}
