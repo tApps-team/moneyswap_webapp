@@ -1,15 +1,10 @@
-import {
-  Exchanger,
-  ExchangerCard,
-  exchangerActions,
-} from "@/entities/exchanger";
+import { Exchanger, ExchangerCard } from "@/entities/exchanger";
 import { FC, memo } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./exchangerList.module.scss";
 import { City } from "@/entities/location";
 import { CurrencyLang } from "@/entities/currency";
 import { Lang } from "@/shared/config";
-import { useAppDispatch } from "@/shared/hooks";
 import { ReviewDrawer } from "@/widgets/reviewDrawer";
 
 interface ExchangersListProps {
@@ -22,7 +17,6 @@ interface ExchangersListProps {
 export const ExchangerList: FC<ExchangersListProps> = memo(
   ({ exchangers, giveCurrency, getCurrency, city }) => {
     const { t, i18n } = useTranslation();
-    const dispatch = useAppDispatch();
     // telegram open link method
     const tg = window.Telegram.WebApp;
     const options = [{ try_instant_view: true }];
