@@ -28,31 +28,38 @@ export const ReviewList = (props: ReviewListProps) => {
   const { exchanger, isOpen } = props;
   const { t } = useTranslation();
   const [grade, setGrade] = useState<Grade>(Grade.all);
-  const cachePage = useSelector(selectCacheByKey(exchanger?.exchange_id));
+  const cachePage = useSelector(
+    selectCacheByKey(exchanger?.exchange_id, +grade)
+  );
   const [page, setPage] = useState<number>(cachePage?.page || 1);
-  console.log(cachePage?.content);
+
   const { ref, inView, entry } = useInView({
     threshold: 0,
-    triggerOnce: true,
   });
-  useEffect(() => {
-    if (inView) {
-      setPage((prev) => prev + 1);
-    }
-  }, [inView]);
 
   const { data: reviews } = useReviewsByExchangeQuery(
     {
       exchange_id: exchanger.exchange_id,
       exchange_marker: exchanger.exchange_marker,
       page: page,
-      element_on_page: 3,
+      element_on_page: 4,
       grade_filter: grade === Grade.all ? undefined : grade,
     },
     {
       skip: !isOpen,
     }
   );
+  console.log(reviews);
+  // console.log(
+  //   exchanger?.review_count[Grade[grade] as keyof typeof exchanger.review_count]
+  // );
+  useEffect(() => {
+    console.log(inView);
+    if (inView) {
+      setPage((prev) => prev + 1);
+    }
+    console.log(page);
+  }, [inView]);
 
   const tabItems: {
     tabValue: Grade;
@@ -74,7 +81,6 @@ export const ReviewList = (props: ReviewListProps) => {
     },
     {
       tabValue: Grade.neutral,
-
       tabName: t("НЕЙТРАЛЬНЫЕ"),
       tabReviewValue: exchanger?.review_count.neutral,
     },
@@ -86,12 +92,20 @@ export const ReviewList = (props: ReviewListProps) => {
   ];
   return (
     <div>
-      <Tabs onValueChange={(e) => setGrade(e)} className="">
+      <Tabs
+        defaultValue="all"
+        onValueChange={(e) => {
+          setPage(1);
+          setGrade(e as Grade);
+        }}
+        className=""
+      >
         <TabsList className="bg-transparent grid grid-rows-2 grid-cols-2 gap-2 h-full ">
           {tabItems.map((tab) => (
             <TabsTrigger
+              key={tab.tabValue}
               className="rounded-3xl bg-darkGray   uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white border-2 h-11 data-[state=active]:bg-mainColor"
-              value={tab.tabValue}
+              value={String(tab.tabValue)}
             >
               <div className="flex truncate items-center gap-1">
                 <p className="truncate text-xs">{tab.tabName}</p>
@@ -101,13 +115,20 @@ export const ReviewList = (props: ReviewListProps) => {
           ))}
         </TabsList>
         {tabItems.map((tab) => (
-          <TabsContent value={tab.tabValue}>
+          <TabsContent key={tab.tabValue} value={String(tab.tabValue)}>
             <ScrollArea className=" h-[70svh] w-full p-2">
               <div className="grid gap-2">
-                {reviews?.content.map((review) => (
-                  <ReviewCard ref={ref} key={review.id} review={review} />
+                {reviews?.content.map((review, index) => (
+                  <ReviewCard
+                    // ref={reviews.content.length - 1 === index ? ref : null}
+                    key={review.id}
+                    review={review}
+                  />
                 ))}
+
+                <div ref={ref} className="h-32 bg-red-900 w-full"></div>
               </div>
+
               <ScrollBar className="" />
             </ScrollArea>
           </TabsContent>
