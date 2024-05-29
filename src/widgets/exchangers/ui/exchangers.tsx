@@ -67,11 +67,6 @@ export const Exchangers: FC<ExchangersProps> = () => {
   const exchangers =
     activeDirection === directions.cash ? exchangersCash : exchangersNoncash;
 
-  // if (cashError || noncashError) {
-  //   dispatch(currencyActions.setGiveCashCurrency(null));
-  //   dispatch(currencyActions.setGetCashCurrency(null));
-  // }
-
   return (
     <section className={styles.exchangers}>
       {isCashFetching || isNoncashFetching ? (

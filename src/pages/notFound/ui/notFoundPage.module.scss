@@ -1,0 +1,20 @@
+.systemError {
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    gap: 30px;
+
+    img {
+        width: 100px;
+        height: 100%;
+    }
+
+    .errorText {
+      font-size: var(--font-size-ls);
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.5;
+      color: #fff;
+    }  
+  }
+  

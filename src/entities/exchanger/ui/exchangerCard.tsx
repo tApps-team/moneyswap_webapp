@@ -39,18 +39,20 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
       ref={ref}
       style={springs}
       className={`${styles.exchangerCard__container} ${
-        card?.vip && styles.vip
+        card?.is_vip && styles.vip
       }`}
     >
-      {card?.vip && (
+      {card?.is_vip && (
         <div className={styles.vip_partner}>
           <p>{t("VIP-партнер")}</p>
         </div>
       )}
       <a
-        onClick={() => openLink(card.partner_link)}
+        onClick={() => openLink(card?.partner_link)}
         rel="noopener noreferrer"
-        className={`${styles.exchangerCard} ${card?.info && styles.partner}`}
+        className={`${styles.exchangerCard} ${
+          card?.is_vip || card?.info ? styles.partner : ""
+        }`}
       >
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>

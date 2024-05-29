@@ -5,7 +5,7 @@ export interface Exchanger {
   name: Name;
   exchange_id: number;
   exchange_marker: ExchangerMarker;
-  vip?: boolean;
+  is_vip: boolean;
   partner_link: string;
   valute_from: string;
   icon_valute_from: string;
