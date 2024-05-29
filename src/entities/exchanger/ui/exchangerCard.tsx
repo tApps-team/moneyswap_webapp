@@ -13,12 +13,14 @@ interface ExchangerCardProps {
   card: Exchanger;
   city: City | null;
   openLink: (url: string) => void;
-  openReviews?: () => void;
+
+  ReviewSlot: React.ReactNode;
 }
 
 export const ExchangerCard: FC<ExchangerCardProps> = ({
   card,
   city,
+  ReviewSlot,
   openLink,
 }) => {
   const { t, i18n } = useTranslation();
@@ -70,24 +72,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                   : t("Онлайн обмен")}
               </h3>
             </div>
-            <div
-              className={styles.reviewCountWrapper}
-              onClick={(e) => {
-                e.stopPropagation();
-                openReviews();
-              }}
-            >
-              <p className={styles.reviewTitle}>{t("Отзывы")}</p>
-              <div className={styles.reviews}>
-                <h3 className={styles.reviewCountPositive}>
-                  {card?.review_count?.positive}
-                </h3>
-                <span className={styles.separator}></span>
-                <h3 className={styles.reviewCountNegative}>
-                  {card?.review_count?.neutral}
-                </h3>
-              </div>
-            </div>
+            <div>{ReviewSlot}</div>
           </div>
         </header>
         {card?.info ? (

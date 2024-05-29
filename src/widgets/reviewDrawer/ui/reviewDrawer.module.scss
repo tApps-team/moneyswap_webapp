@@ -1,0 +1,55 @@
+.reviewCountWrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: grid;
+  align-self: end;
+  grid-template: 1fr / 1fr 0.3fr;
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+  border: 1px solid var(--light-grey);
+  border-radius: var(--border-radius-l);
+  padding: 5px 10px;
+  height: 75%;
+
+  @media (max-width: 380px) {
+    gap: 5px;
+  }
+
+  .reviewTitle {
+    font-size: 12px;
+
+    @media (max-width: 380px) {
+      font-size: 10px;
+    }
+  }
+
+  .reviews {
+    display: grid;
+    grid-template: 1fr / 1fr 10px 1fr;
+    align-items: center;
+    justify-items: center;
+    font-size: 12px;
+
+    @media (max-width: 380px) {
+      font-size: 10px;
+    }
+
+    .reviewCountPositive {
+      color: var(--main-color);
+    }
+
+    .separator {
+      background: var(--light-grey);
+      margin-inline: 3px;
+      width: 2px;
+      height: 50%;
+      border-radius: var(--border-radius-xs);
+    }
+
+    .reviewCountNegative {
+      color: var(--light-grey);
+    }
+  }
+}
