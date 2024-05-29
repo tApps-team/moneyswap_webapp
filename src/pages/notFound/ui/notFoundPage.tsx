@@ -2,9 +2,12 @@ import styles from "./notFoundPage.module.scss";
 
 export const NotFoundPage = () => {
   return (
-    <div>
+    <div className="h-full w-full flex justify-center items-center">
       <div className={styles.container}></div>
-      <h1>Oops! Page not found - 404</h1>
+      <section className={styles.systemError}>
+        <img src="/img/notfound.gif" />
+        <p className={styles.errorText}>Oops! Page not found - 404</p>
+      </section>
     </div>
   );
 };

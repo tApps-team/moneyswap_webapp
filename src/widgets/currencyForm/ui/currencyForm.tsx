@@ -242,7 +242,10 @@ export const CurrencyForm = () => {
                     }
                   : undefined
               }
-              disabled={!currentGiveCurrency || !getCurrencies}
+              disabled={
+                (!currentGetCurrency && !currentGiveCurrency) ||
+                (!currentGetCurrency && !getCurrencies)
+              }
               currencies={currentGetCurrencies}
               onClick={onGetCurrencyClick}
             />
