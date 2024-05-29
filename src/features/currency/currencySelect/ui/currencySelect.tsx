@@ -67,8 +67,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       <DrawerTrigger asChild>
         <Button
           className={cx(
-            "w-full h-[70px] disabled:bg-lightGray bg-transparent border disabled:bg-opacity-0 flex items-center justify-start gap-3 rounded-full",
-            currencyInfo && "bg-mainColor border-mainColor"
+            "w-full h-[70px] transition-none bg-transparent border disabled:bg-opacity-0 flex items-center justify-start gap-3 rounded-full",
+            currencyInfo && "border-mainColor bg-mainColor"
           )}
           disabled={disabled}
         >
@@ -168,7 +168,10 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                   </TabsContent>
                 ))
               ) : (
-                <Empty text={t("Ничего не найдено...")} />
+                <div className="grid justify-items-center gap-6 mt-8">
+                  <img src="/img/notfound.gif" className="w-[60px] h-full" />
+                  <Empty text={t("Ничего не найдено...")} />
+                </div>
               )}
             </ScrollArea>
           </div>

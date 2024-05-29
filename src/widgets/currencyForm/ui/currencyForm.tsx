@@ -71,20 +71,16 @@ export const CurrencyForm = () => {
   const currentGetCurrency =
     direction === directions.noncash ? getCurrencyValue : getCashCurrencyValue;
   // Запросы на получения валюты
-  const {
-    data: giveCurrencies,
-    error: giveCurrencyError,
-    // isError: isGiveCurrencyError,
-  } = useAvailableValutesQuery({
-    base: "all",
-    city: direction === directions.cash ? code_name : undefined,
-  });
+  const { data: giveCurrencies, error: giveCurrencyError } =
+    useAvailableValutesQuery({
+      base: "all",
+      city: direction === directions.cash ? code_name : undefined,
+    });
 
   const {
     data: getCurrencies,
     error: getCurrencyError,
     isError: isGetCurrencyError,
-    // isLoading: isGetCurrencyLoading,
     isFetching: isGetCurrencyFetching,
   } = useAvailableValutesQuery(
     {
@@ -173,7 +169,6 @@ export const CurrencyForm = () => {
         : currencyActions.setGetCashCurrency(currencyObject)
     );
   };
-  console.log(isCollapse);
 
   return (
     <div className="relative mb-4">
@@ -247,7 +242,10 @@ export const CurrencyForm = () => {
                     }
                   : undefined
               }
-              disabled={!currentGiveCurrency || !getCurrencies}
+              disabled={
+                (!currentGetCurrency && !currentGiveCurrency) ||
+                (!currentGetCurrency && !getCurrencies)
+              }
               currencies={currentGetCurrencies}
               onClick={onGetCurrencyClick}
             />
