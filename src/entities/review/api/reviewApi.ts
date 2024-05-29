@@ -22,20 +22,26 @@ export const reviewApi = baseApi.injectEndpoints({
         params: data,
         method: "GET",
       }),
+
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        const { exchange_id, page } = queryArgs;
-        return endpointName + exchange_id;
+        const { exchange_id, page, grade_filter } = queryArgs;
+        return endpointName + exchange_id + grade_filter;
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems) => {
         currentCache.content.push(...newItems.content);
+
         currentCache.page = newItems.page;
       },
       // Refetch when the page arg changes
-      forceRefetch({ currentArg, previousArg }) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        return currentArg?.page! > previousArg?.page!;
+      forceRefetch({ currentArg, previousArg, endpointState, state }) {
+        return (
+          currentArg?.grade_filter !== previousArg?.grade_filter ||
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+          currentArg?.page! > previousArg?.page!
+        );
       },
+
       providesTags: ["REVIEW"],
     }),
     addReviewByExchange: build.mutation<
@@ -62,10 +68,12 @@ export const reviewApi = baseApi.injectEndpoints({
   }),
 });
 
-export const selectCacheByKey = (exchange_id: number) => (state: RootState) => {
-  return state.api.queries["reviewsByExchange" + exchange_id]
-    ?.data as ReviewsByExchangeDtoResponse;
-};
+export const selectCacheByKey =
+  (exchange_id: number, grade_filter?: number) => (state: RootState) => {
+    return state.api.queries[
+      "reviewsByExchange" + exchange_id + (grade_filter ? grade_filter : "")
+    ]?.data as ReviewsByExchangeDtoResponse;
+  };
 
 export const {
   useReviewsByExchangeQuery,
@@ -73,3 +81,9 @@ export const {
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
 } = reviewApi;
+// console.log(
+//   "reviewsByExchange" +
+//     exchange_id +
+//     exchange_marker +
+//     (grade_filter ? grade_filter : "")
+// );
