@@ -51,6 +51,13 @@
     "show_comments": "Смотреть комментарии",
     "show_more": "Развернуть",
     "show_less": "Свернуть",
-    "exchanger_link": "Ссылка на обменник"
+    "exchanger_link": "Ссылка на обменник",
+    "add_review_btn": "Добавить отзыв об обменнике",
+    "exit_add_review": "Выйти",
+    "add_review_success": "Ваш отзыв успешно добавлен",
+    "add_review_title": "Пожалуйста, оставьте свой отзыв о нашем обменнике",
+    "review_placeholder": "Введите отзыв...",
+    "transaction_placeholder": "Введите номер транзакции...",
+    "send_review": "Отправить отзыв"
   }
 }

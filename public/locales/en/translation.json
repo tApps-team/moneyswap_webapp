@@ -52,6 +52,13 @@
     "show_comments": "Show comments",
     "show_more": "Show more",
     "show_less": "Show less",
-    "exchanger_link": "Link to exchanger"
+    "exchanger_link": "Link to exchanger",
+    "add_review_btn": "Add a review about exchanger",
+    "exit_add_review": "Back",
+    "add_review_success": "Your review has been successfully added",
+    "add_review_title": "Please leave your review about our exchanger",
+    "review_placeholder": "Write review...",
+    "transaction_placeholder": "Enter transaction number...",
+    "send_review": "Post a review"
   }
 }

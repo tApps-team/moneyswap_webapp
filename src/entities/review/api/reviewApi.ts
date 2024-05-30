@@ -25,7 +25,9 @@ export const reviewApi = baseApi.injectEndpoints({
 
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
         const { exchange_id, page, grade_filter } = queryArgs;
-        return endpointName + exchange_id + grade_filter;
+        return (
+          endpointName + exchange_id + (grade_filter ? grade_filter : "all")
+        );
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems) => {
@@ -69,9 +71,17 @@ export const reviewApi = baseApi.injectEndpoints({
 });
 
 export const selectCacheByKey =
-  (exchange_id: number, grade_filter?: number) => (state: RootState) => {
+  (exchange_id: number, grade_filter?: number | "all") =>
+  (state: RootState) => {
+    // console.log(
+    //   state.api.queries[
+    //     "reviewsByExchange" +
+    //       exchange_id +
+    //       (grade_filter ? grade_filter : "all")
+    //   ]?.data?.page as ReviewsByExchangeDtoResponse
+    // );
     return state.api.queries[
-      "reviewsByExchange" + exchange_id + (grade_filter ? grade_filter : "")
+      "reviewsByExchange" + exchange_id + (grade_filter ? grade_filter : "all")
     ]?.data as ReviewsByExchangeDtoResponse;
   };
 
