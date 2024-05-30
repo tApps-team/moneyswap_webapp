@@ -13,3 +13,5 @@ export { SearchIcon } from "./SearchIcon";
 export { LogoArrow } from "./logoArrow";
 export { LogoIcon } from "./logoIcon";
 export { CloseDrawerIcon } from "./closeDrawer";
+export { CommentIcon } from "./Comment";
+export { LogoBig } from "./logoBig";

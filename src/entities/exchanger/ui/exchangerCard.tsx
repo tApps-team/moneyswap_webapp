@@ -13,7 +13,6 @@ interface ExchangerCardProps {
   card: Exchanger;
   city: City | null;
   openLink: (url: string) => void;
-
   ReviewSlot: React.ReactNode;
 }
 
@@ -32,10 +31,6 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
       opacity: 1,
     },
   }));
-
-  const openReviews = () => {
-    console.log("открыть отзывы");
-  };
   return (
     <animated.article
       ref={ref}

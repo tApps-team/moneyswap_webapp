@@ -5,11 +5,13 @@ export type Review = {
   review_time: string;
   grade: Grade;
   text: string;
+  comment_count: number;
 };
 export type ReviewResponse = {
   page: number;
   element_on_page: number;
   content: Review[];
+  pages: number;
 };
 export enum ExchangerMarker {
   cash = "cash",

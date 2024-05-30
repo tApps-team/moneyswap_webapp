@@ -108,7 +108,7 @@ export const Location = () => {
                 {t("Выбор страны и города")}
               </h2>
               <DrawerClose className="absolute right-0 top-0">
-                <CloseDrawerIcon width={26} height={26} />
+                <CloseDrawerIcon width={26} height={26} fill={"#f6ff5f"} />
               </DrawerClose>
             </div>
             <LocationSearch
