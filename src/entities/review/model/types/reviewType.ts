@@ -5,6 +5,7 @@ export type Review = {
   review_time: string;
   grade: Grade;
   text: string;
+  comment_count: number;
 };
 export type ReviewResponse = {
   page: number;

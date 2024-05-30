@@ -40,5 +40,18 @@
   "Доставка": "Delivery",
   "Офис": "Office",
   "VIP-партнер": "VIP-partner",
-  "Amount_null": "___"
+  "Amount_null": "___",
+  "reviews": {
+    "title": "Reviews",
+    "grade": {
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "negative": "Negative",
+      "all": "All"
+    },
+    "show_comments": "Show comments",
+    "show_more": "Show more",
+    "show_less": "Show less",
+    "exchanger_link": "Link to exchanger"
+  }
 }

@@ -81,14 +81,14 @@ export const AddReview = (props: AddReviewProps) => {
     <Drawer direction="right">
       <DrawerTrigger asChild>
         <Button
-          className="border-2 rounded-2xl w-full truncate text-xs border-lightGray text-white text-center bg-darkGray"
+          className="border-none w-[90%] py-3 h-full rounded-[16px] mx-auto font-light truncate text-xs border-lightGray text-black text-center bg-mainColor"
           onClick={handleClick}
         >
           {t("ДОБАВИТЬ ОТЗЫВ ОБ ОБМЕННИКЕ")}
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="h-svh">
+        <DrawerContent className="h-svh border-none">
           <DrawerHeader>
             <DrawerClose>ВЫЙТИ</DrawerClose>
           </DrawerHeader>
