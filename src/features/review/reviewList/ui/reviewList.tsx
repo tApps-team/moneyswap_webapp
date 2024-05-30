@@ -16,6 +16,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shared/ui";
+import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useInView } from "react-intersection-observer";
@@ -29,15 +30,20 @@ export const ReviewList = (props: ReviewListProps) => {
   const { t } = useTranslation();
   const [grade, setGrade] = useState<Grade>(Grade.all);
   const cachePage = useSelector(
-    selectCacheByKey(exchanger?.exchange_id, +grade)
+    selectCacheByKey(exchanger?.exchange_id, grade)
   );
   const [page, setPage] = useState<number>(cachePage?.page || 1);
 
   const { ref, inView, entry } = useInView({
     threshold: 0,
+    triggerOnce: true,
   });
 
-  const { data: reviews } = useReviewsByExchangeQuery(
+  const {
+    data: reviews,
+    isLoading: reviewsIsLoading,
+    isFetching,
+  } = useReviewsByExchangeQuery(
     {
       exchange_id: exchanger.exchange_id,
       exchange_marker: exchanger.exchange_marker,
@@ -49,16 +55,14 @@ export const ReviewList = (props: ReviewListProps) => {
       skip: !isOpen,
     }
   );
-  console.log(reviews);
+
   // console.log(
   //   exchanger?.review_count[Grade[grade] as keyof typeof exchanger.review_count]
   // );
   useEffect(() => {
-    console.log(inView);
-    if (inView) {
-      setPage((prev) => prev + 1);
+    if (inView && page < reviews?.pages) {
+      setPage((prev) => (cachePage?.page ? cachePage?.page + 1 : prev + 1));
     }
-    console.log(page);
   }, [inView]);
 
   const tabItems: {
@@ -90,6 +94,7 @@ export const ReviewList = (props: ReviewListProps) => {
       tabReviewValue: exchanger?.review_count.negative,
     },
   ];
+
   return (
     <div>
       <Tabs
@@ -117,16 +122,22 @@ export const ReviewList = (props: ReviewListProps) => {
         {tabItems.map((tab) => (
           <TabsContent key={tab.tabValue} value={String(tab.tabValue)}>
             <ScrollArea className=" h-[70svh] w-full p-2">
-              <div className="grid gap-2">
+              <div className="grid items-center gap-2">
                 {reviews?.content.map((review, index) => (
                   <ReviewCard
-                    // ref={reviews.content.length - 1 === index ? ref : null}
+                    ref={reviews.content.length - 1 === index ? ref : null}
                     key={review.id}
                     review={review}
                   />
                 ))}
-
-                <div ref={ref} className="h-32 bg-red-900 w-full"></div>
+                {isFetching && (
+                  <div className="flex justify-center items-center ">
+                    <Loader
+                      color="#F6FF5F"
+                      className="fill-mainColor  animate-spin h-12 w-12"
+                    />
+                  </div>
+                )}
               </div>
 
               <ScrollBar className="" />
