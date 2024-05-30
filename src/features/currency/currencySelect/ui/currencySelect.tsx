@@ -98,15 +98,12 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       </DrawerTrigger>
       <DrawerContent className="h-[100svh] p-4 bg-transparent border-none">
         <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
-          {/* <div className="flex justify-center items-center">
-            <LogoIcon width="80px" height="80px" />
-          </div> */}
           <div className="relative">
             <h2 className="text-left text-base uppercase text-[#f6ff5f]">
               {label}
             </h2>
             <DrawerClose className="absolute right-0 top-0">
-              <CloseDrawerIcon width={26} height={26} />
+              <CloseDrawerIcon width={26} height={26} fill={"#f6ff5f"} />
             </DrawerClose>
           </div>
           <div className="relative">
@@ -169,7 +166,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                 ))
               ) : (
                 <div className="grid justify-items-center gap-6 mt-8">
-                  <img src="/img/notfound.gif" className="w-[60px] h-full" />
+                  <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
                   <Empty text={t("Ничего не найдено...")} />
                 </div>
               )}

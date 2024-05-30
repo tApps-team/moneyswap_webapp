@@ -108,7 +108,7 @@ export const Location = () => {
                 {t("Выбор страны и города")}
               </h2>
               <DrawerClose className="absolute right-0 top-0">
-                <CloseDrawerIcon width={26} height={26} />
+                <CloseDrawerIcon width={26} height={26} fill={"#f6ff5f"} />
               </DrawerClose>
             </div>
             <LocationSearch
@@ -125,7 +125,7 @@ export const Location = () => {
               />
             ) : (
               <div className="grid justify-items-center gap-6 mt-8">
-                <img src="/img/notfound.gif" className="w-[60px] h-full" />
+                <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
                 <Empty text={t("Ничего не найдено...")} />
               </div>
             )}

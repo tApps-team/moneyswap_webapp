@@ -16,6 +16,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { currencyFormSlice } from "@/widgets/currencyForm";
+import { exchangerSlice } from "@/entities/exchanger";
+import { userSlice } from "@/entities/user";
 
 const persistConfig = {
   key: "root",
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   [currencyFormSlice.name]: currencyFormSlice.reducer,
   [currencySlice.name]: currencySlice.reducer,
+  [exchangerSlice.name]: exchangerSlice.reducer,
+  [userSlice.name]: userSlice.reducer,
 });
 
 export const setupStore = () => {

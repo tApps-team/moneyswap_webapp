@@ -1,2 +1,3 @@
 export const EXCHANGER_CASH = "EXCHANGER_CASH";
 export const EXCHANGER_NONCASH = "EXCHANGER_NONCASH";
+export const REVIEW = "REVIEW";
