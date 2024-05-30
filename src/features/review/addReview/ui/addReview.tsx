@@ -4,9 +4,9 @@ import {
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
 } from "@/entities/review";
+import { CloseDrawerIcon } from "@/shared/assets";
 import {
   Button,
-  Card,
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -17,15 +17,18 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  Input,
-  RadioGroup,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  Textarea,
   useToast,
 } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
-import { useEffect } from "react";
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
@@ -39,20 +42,22 @@ export const AddReview = (props: AddReviewProps) => {
     resolver: zodResolver(addReviewSchema),
     defaultValues: {
       review: "",
+      transaction_id: "",
     },
   });
-  const [addReview, {}] = useAddReviewByExchangeMutation();
+  const [addReview, { isSuccess }] = useAddReviewByExchangeMutation();
   const onSubmit = (review: AddReviewSchemaType) => {
     console.log(review);
     addReview({
       exchange_id: exchange_id,
       exchange_marker: exchange_marker,
-      grade: Grade.negative,
+      grade: reviewForm.getValues("grade") as Grade,
       text: review.review,
       tg_id: 686339126,
-      transaction_id: "123123123123",
+      transaction_id: reviewForm.getValues("transaction_id") || null,
     });
   };
+  reviewForm.watch("grade");
   const [
     checkUserReviewPermission,
     {
@@ -76,7 +81,24 @@ export const AddReview = (props: AddReviewProps) => {
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);
-  console.log(data);
+  // const gradeItems: {
+  //   tabValue: Grade;
+  //   tabName: string;
+  // }[] = [
+  //   {
+  //     tabValue: Grade.positive,
+  //     tabName: t("ПОЛОЖИТЕЛЬНЫЕ"),
+  //   },
+  //   {
+  //     tabValue: Grade.neutral,
+  //     tabName: t("НЕЙТРАЛЬНЫЕ"),
+  //   },
+  //   {
+  //     tabValue: Grade.negative,
+  //     tabName: t("ОТРИЦАТЕЛЬНЫЕ"),
+  //   },
+  // ];
+
   return (
     <Drawer direction="right">
       <DrawerTrigger asChild>
@@ -88,47 +110,117 @@ export const AddReview = (props: AddReviewProps) => {
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="h-svh">
-          <DrawerHeader>
-            <DrawerClose>ВЫЙТИ</DrawerClose>
+        <DrawerContent className="h-svh grid items-center p-2 ">
+          <DrawerHeader className="px-0">
+            <DrawerClose>
+              <div className="flex items-center gap-2">
+                <CloseDrawerIcon
+                  className="rotate-90 fill-white"
+                  color={"#fff"}
+                  width={26}
+                  height={26}
+                />
+                <p>{t("ВЫЙТИ")}</p>
+              </div>
+            </DrawerClose>
           </DrawerHeader>
-
           <Form {...reviewForm}>
             <form
-              className="border-2 border-mainColor grid "
+              className="grid items-center gap-4 border-2  grid-cols-1 border-mainColor rounded-2xl p-4"
               onSubmit={reviewForm.handleSubmit(onSubmit)}
             >
-              {t("ПОЖАЛУЙСТА, ОСТАВЬТЕ СВОЙ ОТЗЫВ О НАШЕМ ОБМЕННИКЕ")}
-              {/* <FormField
-                control={reviewForm.control}
-                name="grade"
-                render={({ field }) => {
-                  <FormItem>
-                    <FormControl>
-                      <RadioGroup>
-                        
-                      </RadioGroup>
-                    </FormControl>
-                  </FormItem>;
-                }}
-              /> */}
-              <FormField
-                control={reviewForm.control}
-                name="review"
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel></FormLabel>
-                    <FormControl>
-                      <Input
-                        className="h-32"
-                        placeholder={t("Введите отзыв...")}
-                        {...field}
+              {isSuccess ? (
+                <p className="text-mainColor text-center">
+                  {t("ВАШ ОТЗЫВ УСПЕШНО ДОБАВЛЕН")}
+                </p>
+              ) : (
+                <>
+                  <p className="text-mainColor text-center">
+                    {t("ПОЖАЛУЙСТА, ОСТАВЬТЕ СВОЙ ОТЗЫВ О НАШЕМ ОБМЕННИКЕ")}
+                  </p>
+                  <FormField
+                    control={reviewForm.control}
+                    name="grade"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Tabs
+                            onValueChange={(e) => {
+                              field.onChange(e);
+                            }}
+                          >
+                            <TabsList className="grid h-auto  grid-rows-2 grid-cols-[1fr,0.5fr] gap-3 items-center bg-transparent ">
+                              <TabsTrigger
+                                className="rounded-full col-span-2 mx-auto text-xs  border-2  "
+                                value="1"
+                              >
+                                {t("ПОЛОЖИТЕЛЬНЫЙ")}
+                              </TabsTrigger>
+
+                              <TabsTrigger
+                                className="rounded-full border-2 text-xs "
+                                value="0"
+                              >
+                                {t("НЕЙТРАЛЬНЫЙ")}
+                              </TabsTrigger>
+                              <TabsTrigger
+                                className="rounded-full border-2 text-xs "
+                                value="-1"
+                              >
+                                {t("ОТРИЦАТЕЛЬНЫЙ")}
+                              </TabsTrigger>
+                            </TabsList>
+                          </Tabs>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <div>
+                    <FormField
+                      control={reviewForm.control}
+                      name="review"
+                      render={({ field }) => (
+                        <FormItem className="">
+                          <FormLabel></FormLabel>
+                          <FormControl>
+                            <Textarea
+                              className="rounded-2xl"
+                              placeholder={t("Введите отзыв...")}
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    {reviewForm.getValues("grade") === "-1" && (
+                      <FormField
+                        control={reviewForm.control}
+                        name="transaction_id"
+                        render={({ field }) => (
+                          <FormItem className="">
+                            <FormLabel></FormLabel>
+                            <FormControl>
+                              <Textarea
+                                className="rounded-2xl w-full"
+                                placeholder={t("Введите номер транзакции...")}
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
                       />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <Button type="submit">{t("ОТПРАВИТЬ ОТЗЫВ")}</Button>
+                    )}
+                  </div>
+
+                  <Button
+                    className="rounded-full h-[70px] bg-mainColor text-black "
+                    type="submit"
+                  >
+                    {t("ОТПРАВИТЬ ОТЗЫВ")}
+                  </Button>
+                </>
+              )}
             </form>
           </Form>
         </DrawerContent>
@@ -136,3 +228,73 @@ export const AddReview = (props: AddReviewProps) => {
     </Drawer>
   );
 };
+{
+  /* <Tabs>
+                        <TabsList className="grid grid-rows-2 ">
+                          {tabItems.map((tab) => (
+                            <TabsTrigger
+                              className="w-full"
+                              key={tab.tabValue}
+                              value={tab.tabName}
+                            >
+                              {tab.tabName}
+                            </TabsTrigger>
+                          ))}
+                        </TabsList>
+                        {tabItems.map((tab) => (
+                          <TabsContent value={tab.tabName}>
+                            
+                          </TabsContent>
+                        ))}
+                      </Tabs> */
+}
+{
+  /* <RadioGroup className="grid">
+                        <FormItem>
+                          <FormControl>
+                            <RadioGroupItem
+                              className="w-full h-10"
+                              value="positive"
+                            />
+                          </FormControl>
+                        </FormItem>
+                        <FormItem>
+                          <FormControl>
+                            <RadioGroupItem value="negative" />
+                          </FormControl>
+                        </FormItem>
+                        <FormItem>
+                          <FormControl>
+                            <RadioGroupItem value="neutral" />
+                          </FormControl>
+                        </FormItem>
+                      </RadioGroup> */
+}
+{
+  /* <Tabs
+onValueChange={(e) => {
+  field.onChange(e);
+}}
+>
+<TabsList className="grid ">
+  <TabsTrigger
+    className="rounded-full border-2"
+    value="1"
+  >
+    {t("ПОЛОЖИТЕЛЬНЫЙ")}
+  </TabsTrigger>
+  <TabsTrigger
+    className="rounded-full border-2"
+    value="0"
+  >
+    {t("НЕЙТРАЛЬНЫЙ")}
+  </TabsTrigger>
+  <TabsTrigger
+    className="rounded-full border-2"
+    value="-1"
+  >
+    {t("ОТРИЦАТЕЛЬНЫЙ")}
+  </TabsTrigger>
+</TabsList>
+</Tabs> */
+}
