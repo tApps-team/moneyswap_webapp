@@ -60,7 +60,7 @@ export const ReviewList = (props: ReviewListProps) => {
   //   exchanger?.review_count[Grade[grade] as keyof typeof exchanger.review_count]
   // );
   useEffect(() => {
-    if (inView && page < reviews?.pages) {
+    if (inView && cachePage?.page < reviews?.pages) {
       setPage((prev) => (cachePage?.page ? cachePage?.page + 1 : prev + 1));
     }
   }, [inView]);

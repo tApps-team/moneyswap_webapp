@@ -17,6 +17,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  Input,
   Tabs,
   TabsList,
   TabsTrigger,
@@ -29,6 +30,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
+import { cx } from "class-variance-authority";
+import { Loader } from "lucide-react";
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
@@ -45,7 +48,8 @@ export const AddReview = (props: AddReviewProps) => {
       transaction_id: "",
     },
   });
-  const [addReview, { isSuccess }] = useAddReviewByExchangeMutation();
+  const [addReview, { isSuccess, isLoading: addReviewLoading }] =
+    useAddReviewByExchangeMutation();
   const onSubmit = (review: AddReviewSchemaType) => {
     console.log(review);
     addReview({
@@ -81,23 +85,23 @@ export const AddReview = (props: AddReviewProps) => {
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);
-  // const gradeItems: {
-  //   tabValue: Grade;
-  //   tabName: string;
-  // }[] = [
-  //   {
-  //     tabValue: Grade.positive,
-  //     tabName: t("ПОЛОЖИТЕЛЬНЫЕ"),
-  //   },
-  //   {
-  //     tabValue: Grade.neutral,
-  //     tabName: t("НЕЙТРАЛЬНЫЕ"),
-  //   },
-  //   {
-  //     tabValue: Grade.negative,
-  //     tabName: t("ОТРИЦАТЕЛЬНЫЕ"),
-  //   },
-  // ];
+  const tabItems: {
+    tabValue: Grade;
+    tabName: string;
+  }[] = [
+    {
+      tabValue: Grade.positive,
+      tabName: t("ПОЛОЖИТЕЛЬНЫЕ"),
+    },
+    {
+      tabValue: Grade.neutral,
+      tabName: t("НЕЙТРАЛЬНЫЕ"),
+    },
+    {
+      tabValue: Grade.negative,
+      tabName: t("ОТРИЦАТЕЛЬНЫЕ"),
+    },
+  ];
 
   return (
     <Drawer direction="right">
@@ -110,35 +114,37 @@ export const AddReview = (props: AddReviewProps) => {
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="h-svh grid grid-rows-[1fr_1fr_1fr] grid-cols-1 gap-4    p-2 ">
-          <DrawerHeader className="px-0 ">
+        <DrawerContent className="h-svh border-none gap-10 grid grid-rows-[_0.3fr,_1fr,_0.3fr] grid-cols-1   p-2 ">
+          <DrawerHeader className="px-0 gap-10 ">
             <DrawerClose asChild>
-              <Button variant={"default"} className="flex justify-start gap-2">
+              <div className="flex justify-start items-center gap-2">
                 <CloseDrawerIcon
                   className="rotate-90 fill-white"
                   color={"#fff"}
                   width={26}
                   height={26}
                 />
-                <p>{t("ВЫЙТИ")}</p>
-              </Button>
+                <p className="text-white">{t("ВЫЙТИ")}</p>
+              </div>
             </DrawerClose>
-            <div className="flex items-center ">
-              <LogoBig className="h-14 w-96" />
-            </div>
+
+            <LogoBig className="h-14 w-80 mx-auto" />
           </DrawerHeader>
           <Form {...reviewForm}>
             <form
-              className="grid items-center gap-4 border-2  grid-cols-1 border-mainColor rounded-2xl p-4"
+              className={cx(
+                "grid items-center gap-4 border-2   grid-cols-1 border-mainColor rounded-2xl p-4 ",
+                isSuccess && "bg-mainColor "
+              )}
               onSubmit={reviewForm.handleSubmit(onSubmit)}
             >
               {isSuccess ? (
-                <p className="text-mainColor text-center">
+                <p className="text-darkGray text-xl text-center font-bold ">
                   {t("ВАШ ОТЗЫВ УСПЕШНО ДОБАВЛЕН")}
                 </p>
               ) : (
-                <>
-                  <p className="text-mainColor text-center">
+                <div className="grid gap-4">
+                  <p className="text-mainColor text-center ">
                     {t("ПОЖАЛУЙСТА, ОСТАВЬТЕ СВОЙ ОТЗЫВ О НАШЕМ ОБМЕННИКЕ")}
                   </p>
                   <FormField
@@ -148,30 +154,26 @@ export const AddReview = (props: AddReviewProps) => {
                       <FormItem>
                         <FormControl>
                           <Tabs
+                            className=""
                             onValueChange={(e) => {
                               field.onChange(e);
                             }}
                           >
-                            <TabsList className="grid h-auto  grid-rows-2 grid-cols-[1fr,0.5fr] gap-3 items-center bg-transparent ">
-                              <TabsTrigger
-                                className="rounded-full col-span-2 mx-auto text-xs  border-2  "
-                                value="1"
-                              >
-                                {t("ПОЛОЖИТЕЛЬНЫЙ")}
-                              </TabsTrigger>
-
-                              <TabsTrigger
-                                className="rounded-full border-2 text-xs "
-                                value="0"
-                              >
-                                {t("НЕЙТРАЛЬНЫЙ")}
-                              </TabsTrigger>
-                              <TabsTrigger
-                                className="rounded-full border-2 text-xs "
-                                value="-1"
-                              >
-                                {t("ОТРИЦАТЕЛЬНЫЙ")}
-                              </TabsTrigger>
+                            <TabsList className="grid h-auto max-[350px]:grid-rows-3 max-[350px]:grid-cols-1 grid-rows-2 grid-cols-2 gap-2  items-center bg-transparent ">
+                              {tabItems.map((tab, index) => (
+                                <TabsTrigger
+                                  key={index}
+                                  className={cx(
+                                    `text-white  data-[state=active]:border-mainColor data-[state=active]:bg-mainColor bg-darkGray rounded-full h-12 border-2 text-xs`,
+                                    index === 0
+                                      ? "col-span-2 max-[350px]:col-span-1 mx-auto max-[350px]:mx-0"
+                                      : ""
+                                  )}
+                                  value={String(tab.tabValue)}
+                                >
+                                  {tab.tabName}
+                                </TabsTrigger>
+                              ))}
                             </TabsList>
                           </Tabs>
                         </FormControl>
@@ -187,7 +189,12 @@ export const AddReview = (props: AddReviewProps) => {
                           <FormLabel></FormLabel>
                           <FormControl>
                             <Textarea
-                              className="rounded-2xl"
+                              className={cx(
+                                "rounded-2xl bg-darkGray text-white placeholder:text-lightGray",
+                                reviewForm.getValues("grade") === "-1"
+                                  ? "h-24"
+                                  : "h-36"
+                              )}
                               placeholder={t("Введите отзыв...")}
                               {...field}
                             />
@@ -204,8 +211,8 @@ export const AddReview = (props: AddReviewProps) => {
                           <FormItem className="">
                             <FormLabel></FormLabel>
                             <FormControl>
-                              <Textarea
-                                className="rounded-2xl w-full"
+                              <Input
+                                className="rounded-2xl bg-darkGray text-white placeholder:text-lightGray"
                                 placeholder={t("Введите номер транзакции...")}
                                 {...field}
                               />
@@ -220,9 +227,13 @@ export const AddReview = (props: AddReviewProps) => {
                     className="rounded-full h-[70px] bg-mainColor text-black "
                     type="submit"
                   >
-                    {t("ОТПРАВИТЬ ОТЗЫВ")}
+                    {addReviewLoading ? (
+                      <Loader className="animate-spin" />
+                    ) : (
+                      t("ОТПРАВИТЬ ОТЗЫВ")
+                    )}
                   </Button>
-                </>
+                </div>
               )}
             </form>
           </Form>
