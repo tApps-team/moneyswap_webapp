@@ -4,7 +4,7 @@ import {
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
 } from "@/entities/review";
-import { CloseDrawerIcon } from "@/shared/assets";
+import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import {
   Button,
   Drawer,
@@ -110,10 +110,10 @@ export const AddReview = (props: AddReviewProps) => {
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="h-svh grid items-center p-2 ">
-          <DrawerHeader className="px-0">
-            <DrawerClose>
-              <div className="flex items-center gap-2">
+        <DrawerContent className="h-svh grid grid-rows-[1fr_1fr_1fr] grid-cols-1 gap-4    p-2 ">
+          <DrawerHeader className="px-0 ">
+            <DrawerClose asChild>
+              <Button variant={"default"} className="flex justify-start gap-2">
                 <CloseDrawerIcon
                   className="rotate-90 fill-white"
                   color={"#fff"}
@@ -121,8 +121,11 @@ export const AddReview = (props: AddReviewProps) => {
                   height={26}
                 />
                 <p>{t("ВЫЙТИ")}</p>
-              </div>
+              </Button>
             </DrawerClose>
+            <div className="flex items-center ">
+              <LogoBig className="h-14 w-96" />
+            </div>
           </DrawerHeader>
           <Form {...reviewForm}>
             <form
