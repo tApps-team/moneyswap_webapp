@@ -19,3 +19,4 @@ export * from "./empty";
 export * from "./dialog";
 export * from "./form";
 export * from "./radio-group";
+export * from "./textarea";
