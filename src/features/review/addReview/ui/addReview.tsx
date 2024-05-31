@@ -159,6 +159,7 @@ export const AddReview = (props: AddReviewProps) => {
                             onValueChange={(e) => {
                               field.onChange(e);
                             }}
+                            // defaultValue={String(tabItems[0]?.tabValue)}
                           >
                             <TabsList className="grid h-auto max-[350px]:grid-rows-3 max-[350px]:grid-cols-1 grid-rows-2 grid-cols-2 gap-2  items-center bg-transparent ">
                               {tabItems.map((tab, index) => (
