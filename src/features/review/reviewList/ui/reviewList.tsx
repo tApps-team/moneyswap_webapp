@@ -122,7 +122,10 @@ export const ReviewList = (props: ReviewListProps) => {
             value={String(tab?.tabValue)}
             className="m-0"
           >
-            <ScrollArea className="h-[calc(100svh_-_282px)] w-full px-4 pb-2 pt-0">
+            <ScrollArea
+              data-vaul-no-drag
+              className="h-[calc(100svh_-_282px)] w-full px-4 pb-2 pt-0"
+            >
               {reviews?.content?.length ? (
                 <div className="grid gap-4">
                   {reviews?.content?.map((review, index) => (

@@ -26,12 +26,12 @@ import {
 } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { cx } from "class-variance-authority";
+import { Loader } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
-import { cx } from "class-variance-authority";
-import { Loader } from "lucide-react";
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
@@ -45,23 +45,23 @@ export const AddReview = (props: AddReviewProps) => {
     resolver: zodResolver(addReviewSchema),
     defaultValues: {
       review: "",
-      transaction_id: "",
     },
   });
   const [addReview, { isSuccess, isLoading: addReviewLoading }] =
     useAddReviewByExchangeMutation();
+
   const onSubmit = (review: AddReviewSchemaType) => {
     console.log(review);
     addReview({
       exchange_id: exchange_id,
       exchange_marker: exchange_marker,
-      grade: reviewForm.getValues("grade") as Grade,
+      grade: review.grade as Grade,
       text: review.review,
       tg_id: 686339126,
-      transaction_id: reviewForm.getValues("transaction_id") || null,
+      transaction_id: review.grade === "-1" ? review.transaction_id : null,
     });
   };
-  reviewForm.watch("grade");
+  reviewForm.watch(["grade", "transaction_id", "review"]);
   const [
     checkUserReviewPermission,
     {
@@ -81,7 +81,7 @@ export const AddReview = (props: AddReviewProps) => {
   useEffect(() => {
     if (checkUserReviewPermissionIsError) {
       toast({
-        title: "Ошибка",
+        title: "Вы уже отставляли коментарий на этот обменник",
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);
@@ -159,7 +159,7 @@ export const AddReview = (props: AddReviewProps) => {
                             onValueChange={(e) => {
                               field.onChange(e);
                             }}
-                            defaultValue={String(tabItems[0]?.tabValue)}
+                            // defaultValue={String(tabItems[0]?.tabValue)}
                           >
                             <TabsList className="grid h-auto max-[350px]:grid-rows-3 max-[350px]:grid-cols-1 grid-rows-2 grid-cols-2 gap-2  items-center bg-transparent ">
                               {tabItems.map((tab, index) => (
@@ -232,6 +232,7 @@ export const AddReview = (props: AddReviewProps) => {
                   <Button
                     className="rounded-full h-full py-6 bg-mainColor text-black uppercase"
                     type="submit"
+                    disabled={addReviewLoading}
                   >
                     {addReviewLoading ? (
                       <Loader className="animate-spin" />

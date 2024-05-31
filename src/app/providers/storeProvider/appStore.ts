@@ -22,7 +22,7 @@ import { userSlice } from "@/entities/user";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["direction", "location", "currency"],
+  whitelist: ["location", "currency"],
 };
 
 const rootReducer = combineReducers({
