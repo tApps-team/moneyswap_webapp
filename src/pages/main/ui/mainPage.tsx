@@ -8,10 +8,20 @@ import { Directions } from "@/widgets/directions";
 import { Preloader } from "@/shared/ui";
 import { CurrencyForm } from "@/widgets/currencyForm";
 import { LanguageSwitcher } from "@/features/languageSwitch";
+import { useAppDispatch } from "@/shared/hooks";
+import { directions, setActiveDirection } from "@/entities/direction";
+import { CheckQueries } from "@/features/checkQueries";
 
 export const MainPage = () => {
   const [preloaderFinished, setPreloaderFinished] = useState(false);
   const [preloaderExtro, setPreloaderExtro] = useState(false);
+
+  //check queries
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const activeDirection = CheckQueries().direction || directions.cash;
+    dispatch(setActiveDirection(activeDirection as directions));
+  }, []);
 
   // telegram object
   const tg = window.Telegram.WebApp;
