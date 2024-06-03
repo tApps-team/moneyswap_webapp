@@ -139,13 +139,13 @@ export const AddReview = (props: AddReviewProps) => {
               <form
                 data-vaul-no-drag
                 className={cx(
-                  "grid items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 h-[100%]",
+                  "grid mx-2 items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 h-[100%] min-h-[50svh]",
                   isSuccess && "bg-mainColor"
                 )}
                 onSubmit={reviewForm.handleSubmit(onSubmit)}
               >
                 {isSuccess ? (
-                  <p className="text-darkGray text-xl text-center font-bold uppercase">
+                  <p className="text-darkGray text-xl text-center font-bold uppercase w-[80%] mx-auto">
                     {t("reviews.add_review_success")}
                   </p>
                 ) : (
@@ -211,7 +211,6 @@ export const AddReview = (props: AddReviewProps) => {
                           </FormItem>
                         )}
                       />
-
                       {reviewForm.getValues("grade") === "-1" && (
                         <FormField
                           control={reviewForm.control}
@@ -233,7 +232,6 @@ export const AddReview = (props: AddReviewProps) => {
                         />
                       )}
                     </div>
-
                     <Button
                       className="rounded-full h-full py-6 bg-mainColor text-black uppercase"
                       type="submit"
