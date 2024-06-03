@@ -42,7 +42,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         <Card
           ref={ref}
           className={cx(
-            "rounded-3xl w-full border-2 border-lightGray overflow-hidden text-balck bg-darkGray relative grid grid-rows-[auto_1fr_auto] transition-all z-1",
+            "rounded-[30px] w-full border-2 border-lightGray overflow-hidden text-balck bg-darkGray relative grid grid-rows-[auto_1fr_auto] transition-all z-1",
             review.grade === Grade.positive && "border-mainColor",
             showMore ? "h-calc" : "h-[180px]"
           )}
@@ -121,16 +121,16 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </p>
           </div>
         </Card>
-        {/* <div
+        <div
           className={cx(
-            "relative w-full bg-mainColor text-black transition-all p-4 pt-[40px] rounded-b-[30px] z-[-1]",
+            "relative w-full bg-mainColor text-black transition-opacity p-4 pt-[40px] rounded-b-[30px] z-[-1]",
             showComment
-              ? "translate-y-[0%] -mt-[50px]"
-              : "translate-y-[-100%] -mt-[100px]"
+              ? "-translate-y-[30px] -mb-[30px] opacity-1"
+              : "translate-y-[-100%] h-[50px] opacity-0 hidden"
           )}
         >
           COMMENT CARD
-        </div> */}
+        </div>
       </div>
     );
   }

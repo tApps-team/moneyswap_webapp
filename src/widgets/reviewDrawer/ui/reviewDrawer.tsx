@@ -91,9 +91,9 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
         </div>
         <ScrollArea
           data-vaul-no-drag
-          className="h-[calc(100svh_-_118px)] w-full px-4 pb-2 pt-0"
+          className="h-[calc(100svh_-_138px)] w-full px-4 pb-2 pt-0"
         >
-          <div className="pb-4 sticky top-0 z-50 bg-darkGray">
+          <div className="pb-4">
             <AddReview
               exchange_id={exchanger?.exchange_id}
               exchange_marker={exchanger?.exchange_marker}
@@ -102,12 +102,6 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
           </div>
           <ReviewList exchanger={exchanger} isOpen={isOpen} />
         </ScrollArea>
-        {/* <AddReview
-              exchange_id={exchanger?.exchange_id}
-              exchange_marker={exchanger?.exchange_marker}
-              tg_id={686339126}
-            />
-          <ReviewList exchanger={exchanger} isOpen={isOpen} /> */}
       </DrawerContent>
     </Drawer>
   );
