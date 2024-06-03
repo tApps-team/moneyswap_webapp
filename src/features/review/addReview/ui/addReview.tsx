@@ -33,6 +33,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
+
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
@@ -83,7 +84,7 @@ export const AddReview = (props: AddReviewProps) => {
   useEffect(() => {
     if (checkUserReviewPermissionIsError) {
       toast({
-        title: "Вы уже отставляли коментарий на этот обменник",
+        title: t("reviews.permission_error"),
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);
@@ -109,14 +110,14 @@ export const AddReview = (props: AddReviewProps) => {
     <Drawer direction="right">
       <DrawerTrigger asChild>
         <Button
-          className="border-none w-[90%] py-3 h-full rounded-[16px] mx-auto font-light truncate text-xs border-lightGray text-black text-center bg-mainColor uppercase"
+          className="border-none w-full py-3 h-full rounded-[16px] mx-auto font-light truncate text-xs border-lightGray text-black text-center bg-mainColor uppercase"
           onClick={handleClick}
         >
           {t("reviews.add_review_btn")}
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="min-h-svh max-h-svh border-none gap-10 grid-rows  grid-cols-1   p-2 ">
+        <DrawerContent className="min-h-svh max-h-svh border-none gap-10 grid-rows grid-cols-1 p-2">
           <ScrollArea className="overflow-y-auto">
             <DrawerHeader className="px-0 gap-10 ">
               <DrawerClose asChild>
@@ -132,14 +133,14 @@ export const AddReview = (props: AddReviewProps) => {
                   </p>
                 </div>
               </DrawerClose>
-              <LogoBig className="h-full my-2 w-[60%] mx-auto" />
             </DrawerHeader>
+            <LogoBig className="h-full mt-6 mb-12 w-[60%] mx-auto" />
             <Form {...reviewForm}>
               <form
                 data-vaul-no-drag
                 className={cx(
-                  "grid items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 ",
-                  isSuccess && "bg-mainColor "
+                  "grid items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 h-[100%]",
+                  isSuccess && "bg-mainColor"
                 )}
                 onSubmit={reviewForm.handleSubmit(onSubmit)}
               >

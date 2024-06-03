@@ -54,6 +54,7 @@
     "exchanger_link": "Ссылка на обменник",
     "add_review_btn": "Добавить отзыв об обменнике",
     "exit_add_review": "Выйти",
+    "permission_error": "Вы уже оставляли коментарий на этот обменник",
     "add_review_success": "Ваш отзыв успешно добавлен",
     "add_review_title": "Пожалуйста, оставьте свой отзыв о нашем обменнике",
     "review_placeholder": "Введите отзыв...",
