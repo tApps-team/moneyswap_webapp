@@ -19,4 +19,5 @@ export const commentApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCommentsByReviewQuery } = commentApi;
+export const { useCommentsByReviewQuery, useLazyCommentsByReviewQuery } =
+  commentApi;

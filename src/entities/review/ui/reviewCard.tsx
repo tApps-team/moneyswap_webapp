@@ -8,10 +8,11 @@ import { CommentIcon } from "@/shared/assets";
 
 type ReviewCardProps = {
   review: Review;
+  CommentSlot?: React.ReactNode;
 };
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review } = props;
+    const { review, CommentSlot } = props;
     const { t } = useTranslation();
     const gradeName =
       review.grade === Grade.positive
@@ -108,7 +109,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               </span>
             )}
           </div>
-          <div
+          {/* <div
             className="p-4 pt-2 flex"
             onClick={() => setShowComment(!showComment)}
           >
@@ -119,7 +120,8 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <p className="text-[9px] text-lightGray font-light uppercase ml-2 mt-[1px]">
               {t("reviews.show_comments")} ({review?.comment_count})
             </p>
-          </div>
+          </div> */}
+          <div>{CommentSlot}</div>
         </Card>
         {/* <div
           className={cx(

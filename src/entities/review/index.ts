@@ -6,6 +6,10 @@ export {
   useLazyCheckUserReviewPermissionQuery,
   useLazyReviewsByExchangeQuery,
 } from "./api/reviewApi";
+export {
+  useCommentsByReviewQuery,
+  useLazyCommentsByReviewQuery,
+} from "./api/commentApi";
 export { ReviewCard } from "./ui/reviewCard";
 export {
   ExchangerMarker,
