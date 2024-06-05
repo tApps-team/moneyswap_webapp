@@ -8,10 +8,11 @@ import { CommentIcon } from "@/shared/assets";
 
 type ReviewCardProps = {
   review: Review;
+  CommentSlot?: React.ReactNode;
 };
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review } = props;
+    const { review, CommentSlot } = props;
     const { t } = useTranslation();
     const gradeName =
       review.grade === Grade.positive
@@ -38,7 +39,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     const [showComment, setShowComment] = useState(false);
 
     return (
-      <div className={cx(showComment ? "h-full" : showMore ? "" : "h-[180px]")}>
+      <div className={"relative"}>
         <Card
           ref={ref}
           className={cx(
@@ -108,7 +109,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               </span>
             )}
           </div>
-          <div
+          {/* <div
             className="p-4 pt-2 flex"
             onClick={() => setShowComment(!showComment)}
           >
@@ -119,18 +120,19 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <p className="text-[9px] text-lightGray font-light uppercase ml-2 mt-[1px]">
               {t("reviews.show_comments")} ({review?.comment_count})
             </p>
-          </div>
+          </div> */}
         </Card>
-        <div
+        <div>{CommentSlot}</div>
+        {/* <div
           className={cx(
-            "relative w-full bg-mainColor text-black transition-opacity p-4 pt-[40px] rounded-b-[30px] z-[-1]",
+            "relative w-full bg-mainColor text-black transition-all p-4 pt-[40px] rounded-b-[30px] z-[-1]",
             showComment
-              ? "-translate-y-[30px] -mb-[30px] opacity-1"
-              : "translate-y-[-100%] h-[50px] opacity-0 hidden"
+              ? "translate-y-[0%] -mt-[50px]"
+              : "translate-y-[-100%] -mt-[100px]"
           )}
         >
           COMMENT CARD
-        </div>
+        </div> */}
       </div>
     );
   }

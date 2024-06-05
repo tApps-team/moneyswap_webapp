@@ -1,5 +1,5 @@
-import { Comment } from "../model/types/commentType";
-import { ExchangerMarker } from "../model/types/reviewType";
+import { ExchangerMarker } from "../../review/model/types/reviewType";
+import { Comment } from "../model/types/commentTypes";
 
 export type CommentsByReviewRequest = {
   exchange_id: number;
