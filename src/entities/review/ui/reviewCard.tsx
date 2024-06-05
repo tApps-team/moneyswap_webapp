@@ -39,7 +39,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     const [showComment, setShowComment] = useState(false);
 
     return (
-      <div className={cx(showComment ? "h-full" : showMore ? "" : "h-[180px]")}>
+      <div className={"relative"}>
         <Card
           ref={ref}
           className={cx(
@@ -121,8 +121,8 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               {t("reviews.show_comments")} ({review?.comment_count})
             </p>
           </div> */}
-          <div>{CommentSlot}</div>
         </Card>
+        <div>{CommentSlot}</div>
         {/* <div
           className={cx(
             "relative w-full bg-mainColor text-black transition-all p-4 pt-[40px] rounded-b-[30px] z-[-1]",
