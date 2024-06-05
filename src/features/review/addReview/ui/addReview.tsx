@@ -62,15 +62,21 @@ export const AddReview = (props: AddReviewProps) => {
       text: review.review,
       tg_id: 686339126,
       transaction_id: review.grade === "-1" ? review.transaction_id : null,
-    });
+    })
+      .unwrap()
+      .catch((error) => {
+        if (error?.status === 423) {
+          toast({
+            title: t("reviews.permission_error"),
+          });
+        }
+      });
   };
   reviewForm.watch(["grade", "transaction_id", "review"]);
   const [
     checkUserReviewPermission,
     {
-      data,
       isError: checkUserReviewPermissionIsError,
-      isLoading,
       isSuccess: checkUserPermissionIsSuccess,
     },
   ] = useLazyCheckUserReviewPermissionQuery();
@@ -78,7 +84,7 @@ export const AddReview = (props: AddReviewProps) => {
     checkUserReviewPermission({
       exchange_id,
       exchange_marker,
-      tg_id: 686339127,
+      tg_id: 686339126,
     });
   };
   useEffect(() => {
@@ -117,30 +123,27 @@ export const AddReview = (props: AddReviewProps) => {
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="min-h-svh max-h-svh border-none gap-10 grid-rows grid-cols-1 p-2">
-          <ScrollArea className="overflow-y-auto">
-            <DrawerHeader className="px-0 gap-10 ">
-              <DrawerClose asChild>
-                <div className="flex justify-start items-center gap-2">
-                  <CloseDrawerIcon
-                    className="rotate-90 fill-white"
-                    color={"#fff"}
-                    width={22}
-                    height={22}
-                  />
-                  <p className="text-[14px] font-medium text-white uppercase">
-                    {t("reviews.exit_add_review")}
-                  </p>
-                </div>
-              </DrawerClose>
-            </DrawerHeader>
-            <LogoBig className="h-full mt-6 mb-12 w-[60%] mx-auto" />
+        <DrawerContent className="border-none gap-10 grid-rows grid-cols-1 p-2">
+          <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
+            <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
+              <div className="rotate-90">
+                <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
+              </div>
+              <p className="text-[14px] uppercase text-white font-medium">
+                {t("reviews.exit_add_review")}
+              </p>
+            </DrawerClose>
+            <div className="absolute right-2 top-4">
+              <LogoBig width={130} />
+            </div>
+          </DrawerHeader>
+          <ScrollArea className="h-[calc(100svh_-_60px)] pt-[24px]">
             <Form {...reviewForm}>
               <form
                 data-vaul-no-drag
                 className={cx(
-                  "grid mx-2 items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 h-[100%] min-h-[50svh]",
-                  isSuccess && "bg-mainColor"
+                  "flex mx-2 items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 min-h-[50svh]",
+                  isSuccess && "bg-mainColor h-[calc(100svh_-_100px)]"
                 )}
                 onSubmit={reviewForm.handleSubmit(onSubmit)}
               >
@@ -199,7 +202,7 @@ export const AddReview = (props: AddReviewProps) => {
                             <FormControl>
                               <Textarea
                                 className={cx(
-                                  "rounded-2xl bg-darkGray text-white placeholder:text-lightGray placeholder:font-light",
+                                  "rounded-2xl bg-darkGray text-white placeholder:text-lightGray placeholder:font-light focus:placeholder:opacity-0 text-[16px]",
                                   reviewForm.getValues("grade") === "-1"
                                     ? "h-24"
                                     : "h-36"
@@ -220,7 +223,7 @@ export const AddReview = (props: AddReviewProps) => {
                               <FormLabel></FormLabel>
                               <FormControl>
                                 <Input
-                                  className="rounded-2xl bg-darkGray text-white placeholder:text-lightGray placeholder:font-light"
+                                  className="rounded-2xl text-[16px] bg-darkGray text-white placeholder:text-lightGray focus:placeholder:opacity-0 placeholder:font-light"
                                   placeholder={t(
                                     "reviews.transaction_placeholder"
                                   )}

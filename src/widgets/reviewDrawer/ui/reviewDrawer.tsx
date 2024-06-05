@@ -62,7 +62,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
       </DrawerTrigger>
       <DrawerContent
         onClick={(e) => e.stopPropagation()}
-        className="min-h-svh p-0 w-full grid gap-4 bg-transparent border-none"
+        className="p-0 w-full grid gap-4 bg-transparent border-none"
       >
         <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
           <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">

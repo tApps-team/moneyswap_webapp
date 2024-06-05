@@ -5,14 +5,7 @@ import {
   useReviewsByExchangeQuery,
 } from "@/entities/review";
 import { selectCacheByKey } from "@/entities/review/api/reviewApi";
-import {
-  Empty,
-  ScrollArea,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/shared/ui";
+import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -122,10 +115,6 @@ export const ReviewList = (props: ReviewListProps) => {
             value={String(tab?.tabValue)}
             className="m-0"
           >
-            {/* <ScrollArea
-              data-vaul-no-drag
-              className="h-[calc(100svh_-_282px)] w-full px-4 pb-2 pt-0"
-            > */}
             {reviews?.content?.length ? (
               <div className="grid gap-4">
                 {reviews?.content?.map((review, index) => (
@@ -150,7 +139,6 @@ export const ReviewList = (props: ReviewListProps) => {
                 />
               </div>
             )}
-            {/* </ScrollArea> */}
           </TabsContent>
         ))}
       </Tabs>

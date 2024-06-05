@@ -116,7 +116,10 @@ export const Location = () => {
               searchValue={searchValue}
             />
           </DrawerHeader>
-          <ScrollArea data-vaul-no-drag className="h-svh p-4 pt-0">
+          <ScrollArea
+            data-vaul-no-drag
+            className="p-4 pt-0 h-[calc(100svh_-_129px)]"
+          >
             {filteredCountries?.length ? (
               <LocationList
                 countries={filteredCountries}

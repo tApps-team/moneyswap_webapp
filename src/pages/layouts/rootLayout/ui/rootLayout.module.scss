@@ -4,6 +4,7 @@
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
+    overflow: auto !important;
 
     @media (max-width: 380px) {
         padding: 15px;
@@ -14,26 +15,3 @@
         height: calc(100svh - 100px);
     }
 }
-
-// Scroll bar stylings
-
-// ::-webkit-scrollbar {
-//     width: 5px;
-//     height: 5px;
-// }
-
-// // Track
-// ::-webkit-scrollbar-track {
-//     background: transparent;
-// }
-
-// // Handle
-// ::-webkit-scrollbar-thumb {
-//     background: var(--main-color);
-//     border-radius: 5px;
-// }
-
-// // Handle on hover
-// ::-webkit-scrollbar-thumb:hover {
-//     background: var(--main-color);
-// }

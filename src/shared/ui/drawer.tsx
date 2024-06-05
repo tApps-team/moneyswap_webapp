@@ -20,8 +20,6 @@ const DrawerPortal = DrawerPrimitive.Portal;
 
 const DrawerClose = DrawerPrimitive.Close;
 
-const supportsBackdropFilter = CSS.supports("backdrop-filter", "blur(20px)");
-
 const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
@@ -29,9 +27,7 @@ const DrawerOverlay = React.forwardRef<
   <DrawerPrimitive.Overlay
     ref={ref}
     className={cn(
-      `fixed inset-0 -top-1 z-50 ${
-        supportsBackdropFilter ? "backdrop-blur-[50px]" : "bg-darkGray"
-      } focus-visible:outline-none `,
+      `fixed h-[101svh] inset-0 -top-1 z-50 focus-visible:outline-none `,
       className,
       "drawer_overlay"
     )}
@@ -49,7 +45,7 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col border focus-visible:outline-none max-w-[500px] mx-auto",
+        "fixed top-0 left-0 w-full bottom-0 z-50 h-full border focus-visible:outline-none",
         className
       )}
       {...props}
