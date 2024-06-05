@@ -5,14 +5,8 @@ import {
   useReviewsByExchangeQuery,
 } from "@/entities/review";
 import { selectCacheByKey } from "@/entities/review/api/reviewApi";
-import {
-  Empty,
-  ScrollArea,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/shared/ui";
+import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
+import { Comment } from "@/widgets/comment";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -102,7 +96,7 @@ export const ReviewList = (props: ReviewListProps) => {
         }}
         className="grid gap-4"
       >
-        <TabsList className="bg-transparent grid grid-rows-2 grid-cols-2 gap-2 h-full w-[90%] mx-auto px-4 py-0">
+        <TabsList className="bg-transparent grid grid-rows-2 grid-cols-2 gap-2 h-full w-[90%] mx-auto px-0 py-0">
           {tabItems.map((tab) => (
             <TabsTrigger
               key={tab?.tabValue}
@@ -122,35 +116,31 @@ export const ReviewList = (props: ReviewListProps) => {
             value={String(tab?.tabValue)}
             className="m-0"
           >
-            <ScrollArea
-              data-vaul-no-drag
-              className="h-[calc(100svh_-_282px)] w-full px-4 pb-2 pt-0"
-            >
-              {reviews?.content?.length ? (
-                <div className="grid gap-4">
-                  {reviews?.content?.map((review, index) => (
-                    <ReviewCard
-                      ref={reviews?.content?.length - 1 === index ? ref : null}
-                      key={review?.id}
-                      review={review}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="grid justify-items-center gap-6 mt-8">
-                  <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
-                  <Empty text={t("Ничего не найдено...")} />
-                </div>
-              )}
-              {isFetching && (
-                <div className="flex justify-center items-center ">
-                  <Loader
-                    color="#F6FF5F"
-                    className="fill-mainColor  animate-spin h-12 w-12"
+            {reviews?.content?.length ? (
+              <div className="grid gap-4">
+                {reviews?.content?.map((review, index) => (
+                  <ReviewCard
+                    ref={reviews?.content?.length - 1 === index ? ref : null}
+                    key={review?.id}
+                    review={review}
+                    CommentSlot={<Comment review={review} />}
                   />
-                </div>
-              )}
-            </ScrollArea>
+                ))}
+              </div>
+            ) : (
+              <div className="grid justify-items-center gap-6 mt-8">
+                <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
+                <Empty text={t("Ничего не найдено...")} />
+              </div>
+            )}
+            {isFetching && (
+              <div className="flex justify-center items-center ">
+                <Loader
+                  color="#F6FF5F"
+                  className="fill-mainColor mt-4 animate-spin h-8 w-8"
+                />
+              </div>
+            )}
           </TabsContent>
         ))}
       </Tabs>

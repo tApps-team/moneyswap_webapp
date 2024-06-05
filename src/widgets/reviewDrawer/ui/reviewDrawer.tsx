@@ -62,7 +62,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
       </DrawerTrigger>
       <DrawerContent
         onClick={(e) => e.stopPropagation()}
-        className="min-h-svh p-0 w-full grid gap-4 bg-transparent border-none"
+        className="p-0 w-full grid gap-4 bg-transparent border-none"
       >
         <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
           <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
@@ -89,12 +89,19 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             {t("reviews.exchanger_link")}
           </a>
         </div>
-        <AddReview
-          exchange_id={exchanger?.exchange_id}
-          exchange_marker={exchanger?.exchange_marker}
-          tg_id={686339126}
-        />
-        <ReviewList exchanger={exchanger} isOpen={isOpen} />
+        <ScrollArea
+          data-vaul-no-drag
+          className="h-[calc(100svh_-_138px)] w-full px-4 pb-2 pt-0"
+        >
+          <div className="pb-4">
+            <AddReview
+              exchange_id={exchanger?.exchange_id}
+              exchange_marker={exchanger?.exchange_marker}
+              tg_id={686339126}
+            />
+          </div>
+          <ReviewList exchanger={exchanger} isOpen={isOpen} />
+        </ScrollArea>
       </DrawerContent>
     </Drawer>
   );

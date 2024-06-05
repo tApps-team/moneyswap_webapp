@@ -33,6 +33,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
+
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
@@ -61,15 +62,21 @@ export const AddReview = (props: AddReviewProps) => {
       text: review.review,
       tg_id: 686339126,
       transaction_id: review.grade === "-1" ? review.transaction_id : null,
-    });
+    })
+      .unwrap()
+      .catch((error) => {
+        if (error?.status === 423) {
+          toast({
+            title: t("reviews.permission_error"),
+          });
+        }
+      });
   };
   reviewForm.watch(["grade", "transaction_id", "review"]);
   const [
     checkUserReviewPermission,
     {
-      data,
       isError: checkUserReviewPermissionIsError,
-      isLoading,
       isSuccess: checkUserPermissionIsSuccess,
     },
   ] = useLazyCheckUserReviewPermissionQuery();
@@ -77,13 +84,13 @@ export const AddReview = (props: AddReviewProps) => {
     checkUserReviewPermission({
       exchange_id,
       exchange_marker,
-      tg_id: 686339127,
+      tg_id: 686339126,
     });
   };
   useEffect(() => {
     if (checkUserReviewPermissionIsError) {
       toast({
-        title: "Вы уже отставляли коментарий на этот обменник",
+        title: t("reviews.permission_error"),
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);
@@ -109,42 +116,39 @@ export const AddReview = (props: AddReviewProps) => {
     <Drawer direction="right">
       <DrawerTrigger asChild>
         <Button
-          className="border-none w-[90%] py-3 h-full rounded-[16px] mx-auto font-light truncate text-xs border-lightGray text-black text-center bg-mainColor uppercase"
+          className="border-none w-full py-3 h-full rounded-[16px] mx-auto font-light truncate text-xs border-lightGray text-black text-center bg-mainColor uppercase"
           onClick={handleClick}
         >
           {t("reviews.add_review_btn")}
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="min-h-svh max-h-svh border-none gap-10 grid-rows  grid-cols-1   p-2 ">
-          <ScrollArea className="overflow-y-auto">
-            <DrawerHeader className="px-0 gap-10 ">
-              <DrawerClose asChild>
-                <div className="flex justify-start items-center gap-2">
-                  <CloseDrawerIcon
-                    className="rotate-90 fill-white"
-                    color={"#fff"}
-                    width={22}
-                    height={22}
-                  />
-                  <p className="text-[14px] font-medium text-white uppercase">
-                    {t("reviews.exit_add_review")}
-                  </p>
-                </div>
-              </DrawerClose>
-              <LogoBig className="h-full my-2 w-[60%] mx-auto" />
-            </DrawerHeader>
+        <DrawerContent className="border-none gap-10 grid-rows grid-cols-1 p-2">
+          <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
+            <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
+              <div className="rotate-90">
+                <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
+              </div>
+              <p className="text-[14px] uppercase text-white font-medium">
+                {t("reviews.exit_add_review")}
+              </p>
+            </DrawerClose>
+            <div className="absolute right-2 top-4">
+              <LogoBig width={130} />
+            </div>
+          </DrawerHeader>
+          <ScrollArea className="h-[calc(100svh_-_60px)] pt-[24px]">
             <Form {...reviewForm}>
               <form
                 data-vaul-no-drag
                 className={cx(
-                  "grid items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 ",
-                  isSuccess && "bg-mainColor "
+                  "flex mx-2 items-center gap-4 border-2 grid-cols-1 border-mainColor rounded-2xl p-4 min-h-[50svh]",
+                  isSuccess && "bg-mainColor h-[calc(100svh_-_100px)]"
                 )}
                 onSubmit={reviewForm.handleSubmit(onSubmit)}
               >
                 {isSuccess ? (
-                  <p className="text-darkGray text-xl text-center font-bold uppercase">
+                  <p className="text-darkGray text-xl text-center font-bold uppercase w-[80%] mx-auto">
                     {t("reviews.add_review_success")}
                   </p>
                 ) : (
@@ -198,7 +202,7 @@ export const AddReview = (props: AddReviewProps) => {
                             <FormControl>
                               <Textarea
                                 className={cx(
-                                  "rounded-2xl bg-darkGray text-white placeholder:text-lightGray placeholder:font-light",
+                                  "rounded-2xl bg-darkGray text-white placeholder:text-lightGray placeholder:font-light focus:placeholder:opacity-0 text-[16px]",
                                   reviewForm.getValues("grade") === "-1"
                                     ? "h-24"
                                     : "h-36"
@@ -210,7 +214,6 @@ export const AddReview = (props: AddReviewProps) => {
                           </FormItem>
                         )}
                       />
-
                       {reviewForm.getValues("grade") === "-1" && (
                         <FormField
                           control={reviewForm.control}
@@ -220,7 +223,7 @@ export const AddReview = (props: AddReviewProps) => {
                               <FormLabel></FormLabel>
                               <FormControl>
                                 <Input
-                                  className="rounded-2xl bg-darkGray text-white placeholder:text-lightGray placeholder:font-light"
+                                  className="rounded-2xl text-[16px] bg-darkGray text-white placeholder:text-lightGray focus:placeholder:opacity-0 placeholder:font-light"
                                   placeholder={t(
                                     "reviews.transaction_placeholder"
                                   )}
@@ -232,7 +235,6 @@ export const AddReview = (props: AddReviewProps) => {
                         />
                       )}
                     </div>
-
                     <Button
                       className="rounded-full h-full py-6 bg-mainColor text-black uppercase"
                       type="submit"
