@@ -88,7 +88,7 @@ const mockComments: Comment[] = [
 ];
 
 export const CommentList = (props: CommentListProps) => {
-  const { comments, isOpen } = props;
+  const { comments } = props;
   return (
     <div>
       {mockComments.map((comment) => (
