@@ -6,16 +6,18 @@ import { Grade, Review } from "../model/types/reviewType";
 import { useTranslation } from "react-i18next";
 import { CommentIcon } from "@/shared/assets";
 import { CommentList } from "@/features/comment";
+import { Exchanger } from "@/entities/exchanger";
 
 type ReviewCardProps = {
   review: Review;
   CommentSlot?: React.ReactNode;
+  exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
   // CommentList?: React.ReactNode;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review, CommentSlot } = props;
+    const { review, CommentSlot, exchangerInfo } = props;
     const { t } = useTranslation();
     const gradeName =
       review.grade === Grade.positive
@@ -120,7 +122,10 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             )}
           </div>
           <div
-            className="p-4 pt-2 flex "
+            className={cx(
+              "p-4 pt-2 flex  ",
+              review?.comment_count < 1 && "pointer-events-none"
+            )}
             onClick={() => setIsOpen((prev) => !prev)}
           >
             <CommentIcon
@@ -132,7 +137,12 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </p>
           </div>
         </Card>
-        <CommentList isOpen={isOpen} />
+        <CommentList
+          commentCount={review.comment_count}
+          exchangerInfo={exchangerInfo}
+          reviewId={review.id}
+          isOpen={isOpen}
+        />
       </div>
     );
   }
