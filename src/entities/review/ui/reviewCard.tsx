@@ -5,11 +5,14 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import { Grade, Review } from "../model/types/reviewType";
 import { useTranslation } from "react-i18next";
 import { CommentIcon } from "@/shared/assets";
+import { CommentList } from "@/features/comment";
 
 type ReviewCardProps = {
   review: Review;
   CommentSlot?: React.ReactNode;
+  // CommentList?: React.ReactNode;
 };
+
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
     const { review, CommentSlot } = props;
@@ -20,10 +23,11 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         : review.grade === Grade.neutral
         ? t("reviews.grade.neutral")
         : t("reviews.grade.negative");
-
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const [showMore, setShowMore] = useState(false);
     const [isOverflowing, setIsOverflowing] = useState(false);
     const textRef = useRef<HTMLParagraphElement>(null);
+    const [cardHeight, setCardHeight] = useState("auto");
 
     useEffect(() => {
       if (textRef.current) {
@@ -36,16 +40,22 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
       }
     }, [review.text]);
 
-    const [showComment, setShowComment] = useState(false);
+    useEffect(() => {
+      if (textRef.current) {
+        setCardHeight(
+          showMore ? textRef.current.scrollHeight + 140 + "px" : "180px"
+        );
+      }
+    }, [showMore]);
 
     return (
-      <div className={"relative"}>
+      <div className={cx("relative")}>
         <Card
           ref={ref}
+          style={{ height: cardHeight }}
           className={cx(
-            "rounded-[30px] w-full border-2 border-lightGray overflow-hidden text-balck bg-darkGray relative grid grid-rows-[auto_1fr_auto] transition-all z-1",
-            review.grade === Grade.positive && "border-mainColor",
-            showMore ? "h-calc" : "h-[180px]"
+            "rounded-[30px] w-full border-2 border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-1",
+            review.grade === Grade.positive && "border-mainColor"
           )}
         >
           <div
@@ -78,7 +88,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           <div
             className={cx(
               "p-0 relative",
-              showMore ? "h-[100%]" : "h-[74px] overflow-hidden"
+              showMore ? "h-auto" : "h-[74px] overflow-hidden"
             )}
           >
             <p
@@ -109,9 +119,9 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               </span>
             )}
           </div>
-          {/* <div
-            className="p-4 pt-2 flex"
-            onClick={() => setShowComment(!showComment)}
+          <div
+            className="p-4 pt-2 flex "
+            onClick={() => setIsOpen((prev) => !prev)}
           >
             <CommentIcon
               width={"20px"}
@@ -120,19 +130,9 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <p className="text-[9px] text-lightGray font-light uppercase ml-2 mt-[1px]">
               {t("reviews.show_comments")} ({review?.comment_count})
             </p>
-          </div> */}
+          </div>
         </Card>
-        <div>{CommentSlot}</div>
-        {/* <div
-          className={cx(
-            "relative w-full bg-mainColor text-black transition-all p-4 pt-[40px] rounded-b-[30px] z-[-1]",
-            showComment
-              ? "translate-y-[0%] -mt-[50px]"
-              : "translate-y-[-100%] -mt-[100px]"
-          )}
-        >
-          COMMENT CARD
-        </div> */}
+        <CommentList isOpen={isOpen} />
       </div>
     );
   }
