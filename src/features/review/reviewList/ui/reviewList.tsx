@@ -5,6 +5,7 @@ import {
   useReviewsByExchangeQuery,
 } from "@/entities/review";
 import { selectCacheByKey } from "@/entities/review/api/reviewApi";
+import { CommentList } from "@/features/comment";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 import { Comment } from "@/widgets/comment";
 import { Loader } from "lucide-react";
@@ -123,7 +124,7 @@ export const ReviewList = (props: ReviewListProps) => {
                     ref={reviews?.content?.length - 1 === index ? ref : null}
                     key={review?.id}
                     review={review}
-                    CommentSlot={<Comment review={review} />}
+                    // CommentSlot={<Comment review={review} />}
                   />
                 ))}
               </div>
