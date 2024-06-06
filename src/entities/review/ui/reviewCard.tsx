@@ -51,7 +51,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     return (
       <div className={cx("", "")}>
         <Card
-          // ref={ref}
+          ref={ref}
           // style={{ height: cardHeight }}
           className={cx(
             "rounded-[25px] w-full border-2 border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-1",
