@@ -9,7 +9,7 @@ type CommentCardProps = {
 export const CommentCard = (props: CommentCardProps) => {
   const { comment } = props;
   return (
-    <Card className="border-none">
+    <Card className="border-none ">
       <CardHeader>
         <p>
           {comment?.role === Role.admin
