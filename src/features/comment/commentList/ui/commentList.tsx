@@ -1,9 +1,8 @@
 import { Comment, CommentCard } from "@/entities/comment";
 import { Role } from "@/shared/types";
+import { cx } from "class-variance-authority";
+import { useState, useEffect, useRef } from "react";
 
-type CommentListProps = {
-  comments?: Comment[];
-};
 const mockComments: Comment[] = [
   {
     id: 1,
@@ -87,13 +86,39 @@ const mockComments: Comment[] = [
   },
 ];
 
+type CommentListProps = {
+  comments?: Comment[];
+  isOpen: boolean;
+};
+
 export const CommentList = (props: CommentListProps) => {
-  const { comments } = props;
+  const { comments = mockComments, isOpen } = props;
+  const [height, setHeight] = useState<undefined | number | string>(
+    isOpen ? "auto" : 0
+  );
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setHeight(ref.current?.scrollHeight);
+    } else {
+      setHeight(0);
+    }
+  }, [isOpen]);
+
   return (
-    <div>
-      {mockComments.map((comment) => (
-        <CommentCard key={comment.id} comment={comment} />
-      ))}
+    <div
+      ref={ref}
+      style={{ height }}
+      className={cx(
+        " -translate-y-10 transition-all relative  z-[-1]  duration-500 ease-in-out overflow-hidden rounded-2xl  bg-mainColor "
+      )}
+    >
+      <div className={cx("p-4 grid gap-2 ")}>
+        {comments.map((comment) => (
+          <CommentCard key={comment.id} comment={comment} />
+        ))}
+      </div>
     </div>
   );
 };
