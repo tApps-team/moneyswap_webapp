@@ -61,5 +61,11 @@
     "review_placeholder": "Write review...",
     "transaction_placeholder": "Enter transaction number...",
     "send_review": "Post a review"
+  },
+  "comments": {
+    "admin": "MONEYSWAP",
+    "comment_from_admin": "Answer from administration",
+    "comment_from_exchanger": "Answer from exchanger",
+    "comment_from_user": "Answer from user"
   }
 }

@@ -60,5 +60,11 @@
     "review_placeholder": "Введите отзыв...",
     "transaction_placeholder": "Введите номер транзакции...",
     "send_review": "Отправить отзыв"
+  },
+  "comments": {
+    "admin": "MONEYSWAP",
+    "comment_from_admin": "Ответ от администрации",
+    "comment_from_exchanger": "Ответ от обменника",
+    "comment_from_user": "Ответ от пользователя"
   }
 }

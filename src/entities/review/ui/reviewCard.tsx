@@ -15,19 +15,19 @@ type ReviewCardProps = {
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review, CommentSlot } = props;
+    const { review } = props;
     const { t } = useTranslation();
     const gradeName =
-      review.grade === Grade.positive
+      review?.grade === Grade.positive
         ? t("reviews.grade.positive")
-        : review.grade === Grade.neutral
+        : review?.grade === Grade.neutral
         ? t("reviews.grade.neutral")
         : t("reviews.grade.negative");
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [showMore, setShowMore] = useState(false);
     const [isOverflowing, setIsOverflowing] = useState(false);
     const textRef = useRef<HTMLParagraphElement>(null);
-    const [cardHeight, setCardHeight] = useState("auto");
+    // const [cardHeight, setCardHeight] = useState("auto");
 
     useEffect(() => {
       if (textRef.current) {
@@ -38,32 +38,32 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         const lines = Math.floor(totalHeight / lineHeight);
         setIsOverflowing(lines > 4);
       }
-    }, [review.text]);
+    }, [review?.text]);
 
-    useEffect(() => {
-      if (textRef.current) {
-        setCardHeight(
-          showMore ? textRef.current.scrollHeight + 140 + "px" : "180px"
-        );
-      }
-    }, [showMore]);
+    // useEffect(() => {
+    //   if (textRef.current) {
+    //     setCardHeight(
+    //       showMore ? textRef.current.scrollHeight + 108 + "px" : "180px"
+    //     );
+    //   }
+    // }, [showMore]);
 
     return (
-      <div className={cx("relative")}>
+      <div className={cx("", "")}>
         <Card
-          ref={ref}
-          style={{ height: cardHeight }}
+          // ref={ref}
+          // style={{ height: cardHeight }}
           className={cx(
-            "rounded-[30px] w-full border-2 border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-1",
-            review.grade === Grade.positive && "border-mainColor"
+            "rounded-[25px] w-full border-2 border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-1",
+            review?.grade === Grade.positive && "border-mainColor"
           )}
         >
           <div
             className={cx(
               "w-[40%] p-2 pl-3 flex justify-center items-center rounded-bl-3xl rounded-tr-xl absolute top-0 right-0 border-2 border-t-0 border-r-0",
-              review.grade === Grade.positive
+              review?.grade === Grade.positive
                 ? "bg-mainColor border-none"
-                : review.grade === Grade.neutral
+                : review?.grade === Grade.neutral
                 ? "bg-lightGray border-none"
                 : "bg-darkGray border-[2px] border-lightGray"
             )}
@@ -71,7 +71,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <div
               className={cx(
                 "text-center truncate text-[9px] uppercase font-medium",
-                review.grade === Grade.negative && "text-lightGray"
+                review?.grade === Grade.negative && "text-lightGray"
               )}
             >
               {gradeName}
@@ -79,10 +79,10 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           </div>
           <div className="p-3 pl-4">
             <p className="text-white uppercase text-[14px] truncate w-[60%]">
-              {review.username}
+              {review?.username}
             </p>
             <p className="text-lightGray font-light text-[12px] uppercase">
-              {formatDate(review.review_date)} / {review.review_time}
+              {formatDate(review?.review_date)} / {review?.review_time}
             </p>
           </div>
           <div
@@ -95,7 +95,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               ref={textRef}
               className={cx("text-white text-[12px] font-normal relative px-6")}
             >
-              {review.text}
+              {review?.text}
               {showMore && (
                 <span className="uppercase pl-4 opacity-0">
                   {t("reviews.show_less")}
