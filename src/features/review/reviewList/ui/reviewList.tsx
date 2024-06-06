@@ -124,6 +124,7 @@ export const ReviewList = (props: ReviewListProps) => {
                     ref={reviews?.content?.length - 1 === index ? ref : null}
                     key={review?.id}
                     review={review}
+                    exchangerInfo={exchanger}
                     // CommentSlot={<Comment review={review} />}
                   />
                 ))}
