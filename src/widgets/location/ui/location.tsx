@@ -101,7 +101,7 @@ export const Location = () => {
             </h2>
           </header>
         </DrawerTrigger>
-        <DrawerContent className="h-[100svh] border-none rounded-none bg-color-none">
+        <DrawerContent className="h-svh border-none rounded-none bg-color-none">
           <DrawerHeader className="gap-4 pt-8">
             <div className="relative">
               <h2 className="text-left text-base uppercase text-[#f6ff5f]">
@@ -116,7 +116,10 @@ export const Location = () => {
               searchValue={searchValue}
             />
           </DrawerHeader>
-          <ScrollArea data-vaul-no-drag className="h-full p-4 pt-0 w-full ">
+          <ScrollArea
+            data-vaul-no-drag
+            className="p-4 pt-0 h-[calc(100svh_-_129px)]"
+          >
             {filteredCountries?.length ? (
               <LocationList
                 countries={filteredCountries}

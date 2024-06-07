@@ -91,14 +91,12 @@
 
 html {
   scroll-behavior: smooth;
+  overflow: hidden !important;
 }
 
 body {
   background: #2d2d2d;
-}
-
-body.modal-open {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .drawer_overlay {

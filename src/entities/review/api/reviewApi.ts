@@ -43,8 +43,7 @@ export const reviewApi = baseApi.injectEndpoints({
           currentArg?.page! > previousArg?.page!
         );
       },
-
-      providesTags: ["REVIEW"],
+      // providesTags: ["REVIEW"],
     }),
     addReviewByExchange: build.mutation<
       AddReviewByExchangeDtoResponse,
@@ -55,7 +54,7 @@ export const reviewApi = baseApi.injectEndpoints({
         body: data,
         method: "POST",
       }),
-      invalidatesTags: ["REVIEW"],
+      // invalidatesTags: ["REVIEW"],
     }),
     checkUserReviewPermission: build.query<
       CheckUserReviewPermissionDtoResponse,
