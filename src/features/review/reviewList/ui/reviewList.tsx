@@ -6,7 +6,6 @@ import {
 } from "@/entities/review";
 import { selectCacheByKey } from "@/entities/review/api/reviewApi";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
-import { Comment } from "@/widgets/comment";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,14 +24,14 @@ export const ReviewList = (props: ReviewListProps) => {
   );
   const [page, setPage] = useState<number>(cachePage?.page || 1);
 
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
   });
 
   const {
     data: reviews,
-    isLoading: reviewsIsLoading,
+    // isLoading: reviewsIsLoading,
     isFetching,
   } = useReviewsByExchangeQuery(
     {
@@ -47,9 +46,6 @@ export const ReviewList = (props: ReviewListProps) => {
     }
   );
 
-  // console.log(
-  //   exchanger?.review_count[Grade[grade] as keyof typeof exchanger.review_count]
-  // );
   useEffect(() => {
     if (reviews?.pages && inView && cachePage?.page < reviews?.pages) {
       setPage((prev) => (cachePage?.page ? cachePage?.page + 1 : prev + 1));
@@ -123,7 +119,7 @@ export const ReviewList = (props: ReviewListProps) => {
                     ref={reviews?.content?.length - 1 === index ? ref : null}
                     key={review?.id}
                     review={review}
-                    CommentSlot={<Comment review={review} />}
+                    exchangerInfo={exchanger}
                   />
                 ))}
               </div>

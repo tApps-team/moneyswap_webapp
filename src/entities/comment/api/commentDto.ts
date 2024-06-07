@@ -6,6 +6,4 @@ export type CommentsByReviewRequest = {
   exchange_marker: ExchangerMarker;
   review_id: number;
 };
-export type CommentsByReviewResponse = {
-  reviews: Comment[];
-};
+export type CommentsByReviewResponse = Comment[];
