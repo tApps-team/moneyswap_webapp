@@ -102,4 +102,5 @@ body {
 .drawer_overlay {
   background: url("/img/authBg.png") no-repeat;
   background-size: cover;
+  position: fixed !important;
 }
