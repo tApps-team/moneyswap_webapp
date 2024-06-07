@@ -1,5 +1,4 @@
 import { Review } from "@/entities/review";
-import { CommentList } from "@/features/comment";
 import { CommentIcon } from "@/shared/assets";
 import { cx } from "class-variance-authority";
 import { useState } from "react";
@@ -23,9 +22,7 @@ export const Comment = (props: CommentProps) => {
           {t("reviews.show_comments")} ({review?.comment_count})
         </p>
       </div>
-      <div className={cx("mt-3 ")}>
-        <CommentList isOpen={isOpen} />
-      </div>
+      <div className={cx("mt-3 ")}>{/* <CommentList isOpen={isOpen} /> */}</div>
     </div>
   );
 };

@@ -6,16 +6,16 @@ import { Grade, Review } from "../model/types/reviewType";
 import { useTranslation } from "react-i18next";
 import { CommentIcon } from "@/shared/assets";
 import { CommentList } from "@/features/comment";
+import { Exchanger } from "@/entities/exchanger";
 
 type ReviewCardProps = {
   review: Review;
-  CommentSlot?: React.ReactNode;
-  // CommentList?: React.ReactNode;
+  exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review } = props;
+    const { review, exchangerInfo } = props;
     const { t } = useTranslation();
     const gradeName =
       review?.grade === Grade.positive
@@ -27,7 +27,6 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     const [showMore, setShowMore] = useState(false);
     const [isOverflowing, setIsOverflowing] = useState(false);
     const textRef = useRef<HTMLParagraphElement>(null);
-    // const [cardHeight, setCardHeight] = useState("auto");
 
     useEffect(() => {
       if (textRef.current) {
@@ -40,19 +39,10 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
       }
     }, [review?.text]);
 
-    // useEffect(() => {
-    //   if (textRef.current) {
-    //     setCardHeight(
-    //       showMore ? textRef.current.scrollHeight + 108 + "px" : "180px"
-    //     );
-    //   }
-    // }, [showMore]);
-
     return (
-      <div className={cx("", "")}>
+      <div>
         <Card
           ref={ref}
-          // style={{ height: cardHeight }}
           className={cx(
             "rounded-[25px] w-full border-2 border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-1",
             review?.grade === Grade.positive && "border-mainColor"
@@ -120,7 +110,10 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             )}
           </div>
           <div
-            className="p-4 pt-2 flex "
+            className={cx(
+              "p-4 pt-2 flex  ",
+              review?.comment_count < 1 && "pointer-events-none"
+            )}
             onClick={() => setIsOpen((prev) => !prev)}
           >
             <CommentIcon
@@ -132,7 +125,12 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </p>
           </div>
         </Card>
-        <CommentList isOpen={isOpen} />
+        <CommentList
+          commentCount={review?.comment_count}
+          exchangerInfo={exchangerInfo}
+          reviewId={review?.id}
+          isOpen={isOpen}
+        />
       </div>
     );
   }
