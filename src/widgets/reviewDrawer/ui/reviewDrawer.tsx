@@ -83,7 +83,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
           </p>
           <a
             onClick={() => openLink(exchanger?.partner_link)}
-            target="_black"
+            target="_blank"
             className="text-[12px] text-mainColor underline"
           >
             {t("reviews.exchanger_link")}
