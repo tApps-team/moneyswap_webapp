@@ -89,6 +89,8 @@ export const AddReview = (props: AddReviewProps) => {
         exchange_marker,
         tg_id: tg_id,
       });
+    } else {
+      alert("tg_id is null...");
     }
   };
   useEffect(() => {
