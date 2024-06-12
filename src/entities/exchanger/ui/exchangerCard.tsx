@@ -115,7 +115,8 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <div className={styles.valuteInfo}>
             <div className={styles.valuteExchange}>
               <RoundValute value={card?.in_count} />
-              <p className="truncate ml-1 font-thin">{card?.valute_from}</p>
+              <p className="truncate ml-1   font-thin">{card?.valute_from}</p>
+              {/* // change */}
               <i className={styles.arrowIcon}>
                 <LogoArrow
                   fill="#f6ff5f"
