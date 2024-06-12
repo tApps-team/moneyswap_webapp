@@ -24,7 +24,7 @@
     <title>Лучшие курсы онлайн и оффлайн обмена криптовалюты | MONEYSWAP</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" class="scrollable-element"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -34,7 +34,7 @@
         if (!isScrollable) {
           document.documentElement.style.setProperty(
             "height",
-            "calc(100vh + 100px)",
+            "calc(100vh + 1000px)",
             "important"
           );
         }

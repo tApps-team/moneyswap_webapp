@@ -11,6 +11,7 @@ import { LanguageSwitcher } from "@/features/languageSwitch";
 import { useAppDispatch } from "@/shared/hooks";
 import { directions, setActiveDirection } from "@/entities/direction";
 import { CheckQueries } from "@/features/checkQueries";
+import { setUserId } from "@/entities/user";
 
 export const MainPage = () => {
   const [preloaderFinished, setPreloaderFinished] = useState(false);
@@ -20,7 +21,9 @@ export const MainPage = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const activeDirection = CheckQueries().direction || directions.cash;
+    const user_id = Number(CheckQueries().user_id);
     dispatch(setActiveDirection(activeDirection as directions));
+    dispatch(setUserId(user_id || null));
   }, []);
 
   // telegram object

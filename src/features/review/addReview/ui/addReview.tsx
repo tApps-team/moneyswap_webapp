@@ -37,7 +37,7 @@ import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
-  tg_id: number;
+  tg_id: number | null;
 };
 export const AddReview = (props: AddReviewProps) => {
   const { exchange_id, exchange_marker, tg_id } = props;
@@ -55,22 +55,24 @@ export const AddReview = (props: AddReviewProps) => {
 
   const onSubmit = (review: AddReviewSchemaType) => {
     console.log(review);
-    addReview({
-      exchange_id: exchange_id,
-      exchange_marker: exchange_marker,
-      grade: (review.grade as Grade) || 1,
-      text: review.review,
-      tg_id: 686339126,
-      transaction_id: review.grade === "-1" ? review.transaction_id : null,
-    })
-      .unwrap()
-      .catch((error) => {
-        if (error?.status === 423) {
-          toast({
-            title: t("reviews.permission_error"),
-          });
-        }
-      });
+    if (tg_id) {
+      addReview({
+        exchange_id: exchange_id,
+        exchange_marker: exchange_marker,
+        grade: (review?.grade as Grade) || 1,
+        text: review?.review,
+        tg_id: tg_id,
+        transaction_id: review?.grade === "-1" ? review?.transaction_id : null,
+      })
+        .unwrap()
+        .catch((error) => {
+          if (error?.status === 423) {
+            toast({
+              title: t("reviews.permission_error"),
+            });
+          }
+        });
+    }
   };
   reviewForm.watch(["grade", "transaction_id", "review"]);
   const [
@@ -81,11 +83,14 @@ export const AddReview = (props: AddReviewProps) => {
     },
   ] = useLazyCheckUserReviewPermissionQuery();
   const handleClick = () => {
-    checkUserReviewPermission({
-      exchange_id,
-      exchange_marker,
-      tg_id: 686339126,
-    });
+    alert(tg_id);
+    if (tg_id) {
+      checkUserReviewPermission({
+        exchange_id,
+        exchange_marker,
+        tg_id: tg_id,
+      });
+    }
   };
   useEffect(() => {
     if (checkUserReviewPermissionIsError) {
