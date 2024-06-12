@@ -1,21 +1,23 @@
+import { Exchanger } from "@/entities/exchanger";
 import { formatDate } from "@/shared/lib";
 import { Card } from "@/shared/ui";
 import { cx } from "class-variance-authority";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { Grade, Review } from "../model/types/reviewType";
 import { useTranslation } from "react-i18next";
+import { Grade, Review } from "../model/types/reviewType";
 import { CommentIcon } from "@/shared/assets";
 import { CommentList } from "@/features/comment";
-import { Exchanger } from "@/entities/exchanger";
+import { Loader } from "lucide-react";
 
 type ReviewCardProps = {
   review: Review;
   exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
+  CommentSlot?: React.ReactNode;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review, exchangerInfo } = props;
+    const { review, CommentSlot, exchangerInfo } = props;
     const { t } = useTranslation();
     const gradeName =
       review?.grade === Grade.positive
@@ -27,6 +29,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     const [showMore, setShowMore] = useState(false);
     const [isOverflowing, setIsOverflowing] = useState(false);
     const textRef = useRef<HTMLParagraphElement>(null);
+    const [commentIsLoading, setCommentIsLoading] = useState(false);
 
     useEffect(() => {
       if (textRef.current) {
@@ -40,11 +43,11 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     }, [review?.text]);
 
     return (
-      <div>
+      <div className="relative ">
         <Card
           ref={ref}
           className={cx(
-            "rounded-[25px] w-full border-2 border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-1",
+            "rounded-[25px] w-full border-2 h-auto  border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-0",
             review?.grade === Grade.positive && "border-mainColor"
           )}
         >
@@ -111,21 +114,32 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           </div>
           <div
             className={cx(
-              "p-4 pt-2 flex  ",
+              "p-4 rounded-b-3xl bg-darkGray  flex  ",
+              commentIsLoading && "items-center justify-center",
               review?.comment_count < 1 && "pointer-events-none"
             )}
             onClick={() => setIsOpen((prev) => !prev)}
           >
-            <CommentIcon
-              width={"20px"}
-              fill={review?.comment_count > 0 ? "#F6FF5F" : "#BBB"}
-            />
-            <p className="text-[9px] text-lightGray font-light uppercase ml-2 mt-[1px]">
-              {t("reviews.show_comments")} ({review?.comment_count})
-            </p>
+            {commentIsLoading ? (
+              <div className="flex justify-center items-center mb-0 ">
+                <Loader color="#F6FF5F" className="animate-spin h-4 w-4" />
+              </div>
+            ) : (
+              <>
+                <CommentIcon
+                  width={"20px"}
+                  fill={review?.comment_count > 0 ? "#F6FF5F" : "#BBB"}
+                />
+                <p className="text-[9px] text-lightGray font-light uppercase ml-2 mt-[1px]">
+                  {t("reviews.show_comments")} ({review?.comment_count})
+                </p>
+              </>
+            )}
           </div>
+          {/* <div className="">{CommentSlot}</div> */}
         </Card>
         <CommentList
+          onLoadingChange={setCommentIsLoading}
           commentCount={review?.comment_count}
           exchangerInfo={exchangerInfo}
           reviewId={review?.id}

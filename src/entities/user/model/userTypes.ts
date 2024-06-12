@@ -1,5 +1,5 @@
 export interface User {
-  user_id: number;
+  id: number;
   is_bot: boolean;
   first_name: string;
   last_name: string;

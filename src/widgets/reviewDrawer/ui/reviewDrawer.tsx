@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./reviewDrawer.module.scss";
 import { Lang } from "@/shared/config";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
+import { useAppSelector } from "@/shared/hooks";
 type ReviewDrawerProps = {
   exchanger: Exchanger;
 };
@@ -37,6 +38,9 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
       tg.openLink(url, options);
     }
   };
+
+  //user info
+  const { user, user_id } = useAppSelector((state) => state.user);
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
@@ -83,7 +87,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
           </p>
           <a
             onClick={() => openLink(exchanger?.partner_link)}
-            target="_black"
+            target="_blank"
             className="text-[12px] text-mainColor underline"
           >
             {t("reviews.exchanger_link")}
@@ -97,7 +101,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             <AddReview
               exchange_id={exchanger?.exchange_id}
               exchange_marker={exchanger?.exchange_marker}
-              tg_id={686339126}
+              tg_id={user ? user?.id : user_id}
             />
           </div>
           <ReviewList exchanger={exchanger} isOpen={isOpen} />
