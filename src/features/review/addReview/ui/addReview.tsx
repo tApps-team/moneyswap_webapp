@@ -54,7 +54,6 @@ export const AddReview = (props: AddReviewProps) => {
     useAddReviewByExchangeMutation();
 
   const onSubmit = (review: AddReviewSchemaType) => {
-    console.log(review);
     if (tg_id) {
       addReview({
         exchange_id: exchange_id,
@@ -83,7 +82,6 @@ export const AddReview = (props: AddReviewProps) => {
     },
   ] = useLazyCheckUserReviewPermissionQuery();
   const handleClick = () => {
-    alert(tg_id);
     if (tg_id) {
       checkUserReviewPermission({
         exchange_id,

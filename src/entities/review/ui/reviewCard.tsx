@@ -111,7 +111,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           </div>
           <div
             className={cx(
-              "p-4 pt-2 flex  ",
+              "p-4 pt-2 flex",
               review?.comment_count < 1 && "pointer-events-none"
             )}
             onClick={() => setIsOpen((prev) => !prev)}
