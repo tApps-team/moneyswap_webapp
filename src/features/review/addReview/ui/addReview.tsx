@@ -79,6 +79,7 @@ export const AddReview = (props: AddReviewProps) => {
     {
       isError: checkUserReviewPermissionIsError,
       isSuccess: checkUserPermissionIsSuccess,
+      isLoading: checkUserPermissionIsLoading,
     },
   ] = useLazyCheckUserReviewPermissionQuery();
   const handleClick = () => {
@@ -122,7 +123,11 @@ export const AddReview = (props: AddReviewProps) => {
           className="border-none w-full py-3 h-full rounded-[16px] mx-auto font-light truncate text-xs border-lightGray text-black text-center bg-mainColor uppercase"
           onClick={handleClick}
         >
-          {t("reviews.add_review_btn")}
+          {checkUserPermissionIsLoading ? (
+            <Loader className="animate-spin h-4" />
+          ) : (
+            t("reviews.add_review_btn")
+          )}
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (

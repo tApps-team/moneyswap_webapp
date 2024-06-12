@@ -72,69 +72,74 @@ export const Location = () => {
   );
 
   return (
-    <section
-      className={clsx(styles.location, {
-        [styles.location__active]: activeDirection === directions.cash,
-      })}
-    >
-      <Drawer>
-        <DrawerTrigger asChild>
-          <header className={styles.header}>
-            <figure className={styles.figure}>
-              {country ? (
-                <img
-                  src={country?.icon_url}
-                  alt={`Иконка ${currentCountryName}`}
-                />
-              ) : (
-                <LocationIcon />
-              )}
-            </figure>
-            <h2 className={styles.locationSelect}>
-              {city && country ? (
-                <p>
-                  <span>{currentCountryName},</span> {currentCityName}
-                </p>
-              ) : (
-                t("Выберите страну и город")
-              )}
-            </h2>
-          </header>
-        </DrawerTrigger>
-        <DrawerContent className="h-svh border-none rounded-none bg-color-none">
-          <DrawerHeader className="gap-4 pt-8">
-            <div className="relative">
-              <h2 className="text-left text-base uppercase text-[#f6ff5f]">
-                {t("Выбор страны и города")}
+    <>
+      {activeDirection === directions.noncash && (
+        <div className="h-[46px] w-full"> </div>
+      )}
+      <section
+        className={clsx(styles.location, {
+          [styles.location__active]: activeDirection === directions.cash,
+        })}
+      >
+        <Drawer>
+          <DrawerTrigger asChild>
+            <header className={styles.header}>
+              <figure className={styles.figure}>
+                {country ? (
+                  <img
+                    src={country?.icon_url}
+                    alt={`Иконка ${currentCountryName}`}
+                  />
+                ) : (
+                  <LocationIcon />
+                )}
+              </figure>
+              <h2 className={styles.locationSelect}>
+                {city && country ? (
+                  <p>
+                    <span>{currentCountryName},</span> {currentCityName}
+                  </p>
+                ) : (
+                  t("Выберите страну и город")
+                )}
               </h2>
-              <DrawerClose className="absolute right-0 top-0">
-                <CloseDrawerIcon width={26} height={26} fill={"#f6ff5f"} />
-              </DrawerClose>
-            </div>
-            <LocationSearch
-              onChange={setSearchValue}
-              searchValue={searchValue}
-            />
-          </DrawerHeader>
-          <ScrollArea
-            data-vaul-no-drag
-            className="p-4 pt-0 h-[calc(100svh_-_129px)]"
-          >
-            {filteredCountries?.length ? (
-              <LocationList
-                countries={filteredCountries}
-                setSearchValue={setSearchValue}
+            </header>
+          </DrawerTrigger>
+          <DrawerContent className="min-h-svh border-none rounded-none bg-color-none">
+            <DrawerHeader className="gap-4 pt-8">
+              <div className="relative">
+                <h2 className="text-left text-base uppercase text-[#f6ff5f]">
+                  {t("Выбор страны и города")}
+                </h2>
+                <DrawerClose className="absolute right-0 top-0">
+                  <CloseDrawerIcon width={26} height={26} fill={"#f6ff5f"} />
+                </DrawerClose>
+              </div>
+              <LocationSearch
+                onChange={setSearchValue}
                 searchValue={searchValue}
               />
-            ) : (
-              <div className="grid justify-items-center gap-6 mt-8">
-                <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
-                <Empty text={t("Ничего не найдено...")} />
-              </div>
-            )}
-          </ScrollArea>
-        </DrawerContent>
-      </Drawer>
-    </section>
+            </DrawerHeader>
+            <ScrollArea
+              data-vaul-no-drag
+              className="p-4 pt-0 h-[calc(100svh_-_129px)]"
+            >
+              {filteredCountries?.length ? (
+                <LocationList
+                  countries={filteredCountries}
+                  setSearchValue={setSearchValue}
+                  searchValue={searchValue}
+                />
+              ) : (
+                <div className="grid justify-items-center gap-6 mt-8">
+                  <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
+                  <Empty text={t("Ничего не найдено...")} />
+                </div>
+              )}
+            </ScrollArea>
+          </DrawerContent>
+        </Drawer>
+      </section>
+    </>
   );
 };
