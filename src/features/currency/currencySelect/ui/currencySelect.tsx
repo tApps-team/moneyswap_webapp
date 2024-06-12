@@ -78,6 +78,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               alt={`иконка ${currencyInfo?.name}`}
               width={40}
               height={40}
+              loading="lazy"
             />
           ) : (
             <div className="border rounded-full size-10" />
@@ -96,7 +97,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-svh p-4 bg-transparent border-none">
+      <DrawerContent className="min-h-svh p-4 bg-transparent border-none">
         <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
           <div className="relative">
             <h2 className="text-left text-base uppercase text-[#f6ff5f]">
