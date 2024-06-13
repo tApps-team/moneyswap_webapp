@@ -115,7 +115,9 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <div className={styles.valuteInfo}>
             <div className={styles.valuteExchange}>
               <RoundValute value={card?.in_count} />
-              <p className="truncate ml-1   font-thin">{card?.valute_from}</p>
+              <p className="truncate ml-1 text-xs  font-thin">
+                {card?.valute_from}
+              </p>
               {/* // change */}
               <i className={styles.arrowIcon}>
                 <LogoArrow
@@ -128,11 +130,13 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             </div>
             <div className={`${styles.valuteExchange} overflow-hidden`}>
               <RoundValute value={card?.out_count} />
-              <p className="truncate ml-1 font-thin">{card?.valute_to}</p>
+              <p className="truncate ml-1 text-xs font-thin">
+                {card?.valute_to}
+              </p>
             </div>
           </div>
           <span className={styles.valuteRange}>
-            {t("Обмен от")}{" "}
+            {t("от")}{" "}
             {card?.min_amount ? (
               <RoundValute value={card?.min_amount} />
             ) : (
