@@ -12,7 +12,7 @@ export const CommentCard = (props: CommentCardProps) => {
   return (
     <div className="grid gap-2 bg-transparent pt-3">
       <div className="grid gap-0.5">
-        <p className="text-[10px] uppercase text-darkGray font-normal">
+        <p className="text-[10px] uppercase text-darkGray font-medium">
           {comment?.role === Role.admin
             ? t("comments.comment_from_admin")
             : comment?.role === Role.exchanger
@@ -20,7 +20,7 @@ export const CommentCard = (props: CommentCardProps) => {
             : t("comments.comment_from_user")}
         </p>
         <div className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
-          <p className="truncate uppercase text-[14px] font-medium">
+          <p className="truncate uppercase text-[14px] font-semibold">
             {comment?.role === Role.admin
               ? t("comments.admin")
               : comment?.name || "(exchanger)"}

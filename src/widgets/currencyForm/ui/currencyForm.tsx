@@ -19,11 +19,6 @@ import { cx } from "class-variance-authority";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
-import { useReviewsByExchangeQuery } from "@/entities/review";
-import {
-  ExchangerMarker,
-  Grade,
-} from "@/entities/review/model/types/reviewType";
 
 export const CurrencyForm = () => {
   const { t, i18n } = useTranslation();
@@ -185,15 +180,16 @@ export const CurrencyForm = () => {
       ) : (
         <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] bg-darkGray rounded-3xl gap-2 p-4">
           <div className="flex flex-col gap-2">
-            <div
+            <p
               className={cx(
+                "leading-0 font-semibold",
                 currentGiveCurrency && currentGetCurrency
                   ? "text-mainColor"
                   : "text-lightGray"
               )}
             >
               {t("ОТДАЮ")}
-            </div>
+            </p>
 
             <CurrencySelect
               label={t("ОТДАЮ")}
@@ -223,15 +219,16 @@ export const CurrencyForm = () => {
             getError={isGetCurrencyError}
           />
           <div className="flex flex-col gap-2">
-            <div
+            <p
               className={cx(
+                "leading-0 font-semibold",
                 currentGiveCurrency && currentGetCurrency
                   ? "text-mainColor"
                   : "text-lightGray"
               )}
             >
               {t("ПОЛУЧАЮ")}
-            </div>
+            </p>
             <CurrencySelect
               label={t("ПОЛУЧАЮ")}
               emptyLabel={t("Выберите валюту")}
