@@ -1,11 +1,11 @@
 .direction {
   //   color: var(--dark-grey);
   color: black;
-  padding: 15px 10px;
+  padding: 20px 10px;
   background: var(--light-grey);
   border: 2px solid var(--light-grey);
   // border-radius: var(--border-radius-l);
-  height: var(--main-height);
+  // height: var(--main-height);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,11 +14,11 @@
     font-size: var(--text-sm);
     text-align: center;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   @media (max-width: 380px) {
-    height: (var(--second-height));
+    // height: (var(--second-height));
 
     .direction__title {
       font-size: var(--text-xs);

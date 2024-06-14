@@ -13,7 +13,7 @@
     left: 50%;
     transform: translate(-50%);
 
-    > p {
+    >p {
       text-transform: uppercase;
       color: #000;
       text-align: center;
@@ -200,8 +200,17 @@
             font-size: var(--text-sm);
           }
 
-          .valuteValue {
-            margin-top: 5px;
+          .valuteName {
+            font-weight: 100;
+            font-size: 13px;
+            margin-left: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            @media (max-width: 380px) {
+              font-size: 12px;
+            }
           }
 
           .arrowIcon {
