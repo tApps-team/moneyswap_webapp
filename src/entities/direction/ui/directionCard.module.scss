@@ -1,6 +1,5 @@
 .direction {
-  //   color: var(--dark-grey);
-  color: black;
+    color: var(--dark-grey);
   padding: 20px 10px;
   background: var(--light-grey);
   border: 2px solid var(--light-grey);
@@ -27,7 +26,6 @@
 }
 
 .active {
-  color: var(--dark-grey);
   background: var(--main-color);
   border: 2px solid var(--main-color);
 }

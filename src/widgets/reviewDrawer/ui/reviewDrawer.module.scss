@@ -1,7 +1,7 @@
 .reviewCountWrapper {
-  position: absolute;
-  right: 0;
-  top: 0;
+  // position: absolute;
+  // right: 0;
+  // top: 0;
   display: grid;
   align-self: end;
   grid-template: 1fr / 1fr 0.3fr;
@@ -10,8 +10,7 @@
   align-items: center;
   border: 1px solid var(--light-grey);
   border-radius: var(--border-radius-l);
-  padding: 1px 8px;
-  height: 55%;
+  padding: 4px 8px;
 
   @media (max-width: 380px) {
     gap: 5px;

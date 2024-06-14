@@ -53,7 +53,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
       >
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>
-            <div>
+            <div className={styles.exchangerInfo}>
               <h2 className={styles.cardName}>
                 {i18n.language === Lang.ru ? card?.name?.ru : card?.name?.en}
               </h2>
@@ -67,7 +67,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                   : t("Онлайн обмен")}
               </h3>
             </div>
-            <div>{ReviewSlot}</div>
+            <div className={styles.reviewSlot}>{ReviewSlot}</div>
           </div>
         </header>
         {card?.info ? (
