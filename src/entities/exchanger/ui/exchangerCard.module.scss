@@ -154,7 +154,7 @@
 
           .valuteName {
             font-weight: 100;
-            font-size: 8px;
+            font-size: 10px;
             margin-left: 4px;
             margin-top: 4px;
             overflow: hidden;
@@ -162,7 +162,8 @@
             white-space: nowrap;
 
             @media (max-width: 380px) {
-              font-size: 7px;
+              font-size: 9px;
+              margin-top: 2px;
             }
           }
 
