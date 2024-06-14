@@ -1,23 +1,19 @@
 .direction {
-    color: var(--dark-grey);
-  padding: 20px 10px;
-  background: var(--light-grey);
-  border: 2px solid var(--light-grey);
-  // border-radius: var(--border-radius-l);
-  // height: var(--main-height);
+  color: var(--light-grey);
+  padding: 15px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 2px solid var(--main-color);
 
   .direction__title {
     font-size: var(--text-sm);
     text-align: center;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   @media (max-width: 380px) {
-    // height: (var(--second-height));
 
     .direction__title {
       font-size: var(--text-xs);
@@ -26,6 +22,7 @@
 }
 
 .active {
+  color: var(--dark-grey);
   background: var(--main-color);
-  border: 2px solid var(--main-color);
+  border-bottom: 0;
 }
