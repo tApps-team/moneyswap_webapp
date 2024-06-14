@@ -104,7 +104,7 @@ export const Location = () => {
         <DrawerContent className="min-h-svh border-none rounded-none bg-color-none">
           <DrawerHeader className="gap-4 pt-8">
             <div className="relative">
-              <h2 className="text-left text-base uppercase text-[#f6ff5f]">
+              <h2 className="text-left text-base uppercase text-[#f6ff5f] font-semibold">
                 {t("Выбор страны и города")}
               </h2>
               <DrawerClose className="absolute right-0 top-0">

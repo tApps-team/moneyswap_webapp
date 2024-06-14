@@ -84,11 +84,13 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <div className="border rounded-full size-10" />
           )}
           {currencyInfo ? (
-            <div className="flex truncate  flex-col items-start text-black">
-              <div className="font-bold  text-base uppercase">
+            <div className="grid grid-rows-2 items-center justify-start h-full text-darkGray text-[16px]">
+              <p className="font-bold text-start uppercase leading-0 truncate">
                 {currencyInfo?.name}
-              </div>
-              <div className="text-base">{currencyInfo?.code_name}</div>
+              </p>
+              <p className="leading-0 truncate text-start font-normal">
+                {currencyInfo?.code_name}
+              </p>
             </div>
           ) : (
             <div className="uppercase truncate text-white font-normal">
@@ -100,7 +102,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       <DrawerContent className="min-h-svh p-4 bg-transparent border-none">
         <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
           <div className="relative">
-            <h2 className="text-left text-base uppercase text-[#f6ff5f]">
+            <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
               {label}
             </h2>
             <DrawerClose className="absolute right-0 top-0">
@@ -111,7 +113,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
             <Input
               placeholder={t("ПОИСК ВАЛЮТЫ")}
-              className="rounded-2xl pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
+              className="rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
@@ -130,7 +132,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                 key={filteredCategory}
                 value={filteredCategory}
               >
-                <div className="truncate">{filteredCategory}</div>
+                <p className="truncate leading-0 font-medium">
+                  {filteredCategory}
+                </p>
               </TabsTrigger>
             ))}
           </TabsList>

@@ -102,10 +102,10 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </div>
           </div>
           <div className="p-3 pl-4">
-            <p className="text-white uppercase text-[14px] truncate w-[60%]">
+            <p className="text-white uppercase text-[14px] truncate w-[60%] font-medium">
               {review?.username}
             </p>
-            <p className="text-lightGray font-light text-[12px] uppercase">
+            <p className="text-lightGray font-normal text-[12px] uppercase">
               {formatDate(review?.review_date)} / {review?.review_time}
             </p>
           </div>
@@ -167,13 +167,12 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
                   width={"20px"}
                   fill={review?.comment_count > 0 ? "#F6FF5F" : "#BBB"}
                 />
-                <p className="text-[9px] text-lightGray font-light uppercase ml-2 mt-[1px]">
+                <p className="text-[9px] text-lightGray font-normal uppercase ml-2 mt-[1px]">
                   {t("reviews.show_comments")} ({review?.comment_count})
                 </p>
               </>
             )}
           </div>
-          {/* <div className="">{CommentSlot}</div> */}
         </Card>
         <CommentList
           onLoadingChange={setCommentIsLoading}

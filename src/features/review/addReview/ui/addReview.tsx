@@ -122,7 +122,7 @@ export const AddReview = (props: AddReviewProps) => {
     <Drawer direction="right">
       <DrawerTrigger asChild>
         <Button
-          className="border-none w-full py-3 h-full rounded-[16px] mx-auto font-light truncate text-xs border-lightGray text-black text-center bg-mainColor uppercase"
+          className="border-none font-normal w-full py-3 h-full rounded-[16px] mx-auto truncate text-xs border-lightGray text-black text-center bg-mainColor uppercase"
           onClick={handleClick}
         >
           {checkUserPermissionIsLoading ? (
@@ -139,7 +139,7 @@ export const AddReview = (props: AddReviewProps) => {
               <div className="rotate-90">
                 <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
               </div>
-              <p className="text-[14px] uppercase text-white font-medium">
+              <p className="text-[14px] uppercase text-white font-semibold">
                 {t("reviews.exit_add_review")}
               </p>
             </DrawerClose>
