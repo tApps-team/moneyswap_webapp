@@ -85,7 +85,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           )}
           {currencyInfo ? (
             <div className="grid grid-rows-2 items-center justify-start h-full text-darkGray text-[16px]">
-              <p className="font-bold text-start uppercase leading-0 truncate">
+              <p className="font-semibold text-start uppercase leading-0 truncate">
                 {currencyInfo?.name}
               </p>
               <p className="leading-0 truncate text-start font-normal">

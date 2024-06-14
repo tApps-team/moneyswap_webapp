@@ -25,7 +25,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
           height={36}
         />
         <div className="grid grid-rows-2 items-center h-full">
-          <p className="truncate font-bold uppercase">{currency.name}</p>
+          <p className="truncate font-semibold uppercase">{currency.name}</p>
           <p className="truncate uppercase">{currency.code_name}</p>
         </div>
       </CardContent>
