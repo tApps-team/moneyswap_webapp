@@ -1,23 +1,15 @@
 .reviewCountWrapper {
-  // position: absolute;
-  // right: 0;
-  // top: 0;
   display: grid;
-  align-self: end;
   grid-template: 1fr / 1fr 0.3fr;
-  gap: 10px;
+  gap: 5px;
   justify-items: center;
   align-items: center;
   border: 1px solid var(--light-grey);
   border-radius: var(--border-radius-l);
-  padding: 4px 8px;
-
-  @media (max-width: 380px) {
-    gap: 5px;
-  }
+  padding: 5px 8px;
 
   .reviewTitle {
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     @media (max-width: 380px) {
       font-size: 8px;
@@ -29,7 +21,7 @@
     grid-template: 1fr / 1fr 10px 1fr;
     align-items: center;
     justify-items: center;
-    font-size: 10px;
+    font-size: 9px;
 
     @media (max-width: 380px) {
       font-size: 8px;

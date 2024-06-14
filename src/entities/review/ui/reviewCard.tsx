@@ -42,8 +42,39 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
       }
     }, [review?.text]);
 
+    // проверка каждого слова в отзыве на длину, чтобы слово не было длиннее ширины экрана иначе стили ломаются
+    const [isBreakall, setIsBreakAll] = useState(false);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    useEffect(() => {
+      if (!review?.text) return;
+
+      const words = review.text.split(" ");
+      const canvas = canvasRef.current;
+
+      if (!canvas) return;
+
+      const context = canvas.getContext("2d");
+
+      if (!context) return;
+
+      context.font = "14px Unbounded";
+
+      const screenWidth = window.innerWidth - 40;
+
+      for (const word of words) {
+        const wordWidth = context.measureText(word).width;
+        if (wordWidth > screenWidth) {
+          setIsBreakAll(true);
+          return;
+        }
+      }
+
+      setIsBreakAll(false);
+    }, [review]);
+
     return (
       <div className="relative ">
+        <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
         <Card
           ref={ref}
           className={cx(
@@ -86,7 +117,13 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           >
             <p
               ref={textRef}
-              className={cx("text-white text-[12px] font-normal relative px-6")}
+              className={cx(
+                "text-white text-[12px] font-normal relative px-6",
+                {
+                  "break-words": !isBreakall,
+                  "break-all": isBreakall,
+                }
+              )}
             >
               {review?.text}
               {showMore && (
