@@ -20,6 +20,7 @@ export const DirectionCard: FC<DirectionCardProps> = ({
     <div
       className={clsx(styles.direction, {
         [styles.active]: isActive,
+        [styles.cash_active]: !isActive && type === directions.cash,
       })}
       onClick={() => handleDirection(type)}
     >

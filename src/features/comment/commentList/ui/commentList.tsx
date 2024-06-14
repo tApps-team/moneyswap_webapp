@@ -1,17 +1,25 @@
-import { CommentCard, useCommentsByReviewQuery } from "@/entities/comment";
+import {
+  Comment,
+  CommentCard,
+  useCommentsByReviewQuery,
+} from "@/entities/comment";
 import { Exchanger } from "@/entities/exchanger";
 import { cx } from "class-variance-authority";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type CommentListProps = {
   isOpen: boolean;
   reviewId: number;
   commentCount: number;
+  // isLoading: boolean;
+  // comments: Comment[];
+  onLoadingChange: (isLoading: boolean) => void;
   exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
 };
 
 export const CommentList = (props: CommentListProps) => {
-  const { reviewId, isOpen, exchangerInfo, commentCount } = props;
+  const { reviewId, isOpen, exchangerInfo, commentCount, onLoadingChange } =
+    props;
   const [height, setHeight] = useState<undefined | number | string>(
     isOpen ? "auto" : 0
   );
@@ -21,7 +29,7 @@ export const CommentList = (props: CommentListProps) => {
       exchange_id: exchangerInfo?.exchange_id,
       exchange_marker: exchangerInfo?.exchange_marker,
     },
-    { skip: !isOpen || commentCount < 1 }
+    { skip: !isOpen || reviewId < 1 }
   );
   const ref = useRef<HTMLDivElement>(null);
 
@@ -32,7 +40,9 @@ export const CommentList = (props: CommentListProps) => {
       setHeight(0);
     }
   }, [isOpen, isLoading]);
-
+  useEffect(() => {
+    onLoadingChange(isLoading);
+  }, [isLoading, onLoadingChange]);
   return (
     <div className="">
       <div

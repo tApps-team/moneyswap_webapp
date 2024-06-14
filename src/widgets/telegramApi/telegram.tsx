@@ -10,7 +10,9 @@ export const TelegramApi = () => {
   useEffect(() => {
     tg.enableClosingConfirmation();
     tg.ready();
-    dispatch(setUser(tg.initDataUnsafe.user));
+    if (tg?.initDataUnsafe) {
+      dispatch(setUser(tg?.initDataUnsafe?.user));
+    }
   }, []);
 
   return <div></div>;

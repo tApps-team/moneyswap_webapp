@@ -31,7 +31,7 @@ export const CommentCard = (props: CommentCardProps) => {
         </div>
       </div>
       <div className="px-0 relative">
-        <p className="text-darkGray text-[12px] font-normal relative pl-3">
+        <p className="text-darkGray text-[12px] font-normal relative pl-3 break-words">
           {comment?.text}
           <span className="absolute left-0 top-[2px] w-[4px] rounded-md bg-darkGray h-[calc(100%_-_4px)]"></span>
         </p>

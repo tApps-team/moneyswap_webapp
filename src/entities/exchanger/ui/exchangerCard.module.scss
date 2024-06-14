@@ -13,7 +13,7 @@
     left: 50%;
     transform: translate(-50%);
 
-    > p {
+    >p {
       text-transform: uppercase;
       color: #000;
       text-align: center;
@@ -39,7 +39,6 @@
       border: 2px solid var(--main-color);
     }
 
-
     @media (max-width: 380px) {
       padding: 15px;
     }
@@ -47,94 +46,43 @@
     .cardHeader {
 
       .cardInfo {
-        position: relative;
+        display: grid;
+        grid-template: 1fr / 1fr auto;
+        gap: 10px;
 
-        .cardName {
-          font-size: 16px;
-          font-weight: 500;
-          width: 60%;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          text-transform: uppercase;
-
-          @media (max-width: 380px) {
-            font-size: var(--text-sm);
-          }
-        }
-
-        .reviewCountWrapper {
-          position: absolute;
-          bottom: 0;
-          right: 0;
+        .exchangerInfo {
           display: grid;
-          align-self: end;
-          grid-template: 1fr / 1fr 0.3fr;
-          gap: 10px;
-          justify-items: center;
-          align-items: center;
-          border: 2px solid var(--light-grey);
-          border-radius: var(--border-radius-l);
-          padding: 2px 10px;
-          height: 60%;
 
-          @media (max-width: 380px) {
-            gap: 5px;
-          }
-
-          .reviewTitle {
-            font-size: 10px;
-
+          .cardName {
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            text-transform: uppercase;
+  
             @media (max-width: 380px) {
-              font-size: 8px;
+              font-size: var(--text-sm);
             }
           }
-
-          .reviews {
-            display: grid;
-            grid-template: 1fr / 1fr 10px 1fr;
-            align-items: center;
-            justify-items: center;
-            font-size: 10px;
-
+  
+          .cityName {
+            color: var(--main-color);
+            font-size: var(--text-sm);
+            text-align: left;
+            margin: 0;
+            font-weight: 400;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+  
             @media (max-width: 380px) {
-              font-size: 8px;
-            }
-
-            .reviewCountPositive {
-              color: var(--main-color);
-
-            }
-
-            .separator {
-              background: var(--light-grey);
-              margin-inline: 3px;
-              width: 2px;
-              height: 50%;
-              border-radius: var(--border-radius-xs);
-            }
-
-            .reviewCountNegative {
-              color: var(--light-grey)
+              font-size: var(--text-xs);
             }
           }
-
         }
 
-        .cityName {
-          color: var(--main-color);
-          font-size: var(--text-sm);
-          text-align: left;
-          margin: 0;
-          font-weight: 400;
-          width: 45vw;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-
-          @media (max-width: 380px) {
-            font-size: var(--text-xs);
-          }
+        .reviewSlot {
         }
       }
     }
@@ -167,7 +115,6 @@
         }
 
         .days {
-
           span {
             margin-right: 5px;
 
@@ -191,7 +138,7 @@
     .cardFooter {
       .valuteInfo {
         display: flex;
-        align-items: center;
+        align-items: start;
 
         .valuteExchange {
           font-size: 16px;
@@ -205,8 +152,18 @@
             font-size: var(--text-sm);
           }
 
-          .valuteValue {
-            margin-top: 5px;
+          .valuteName {
+            font-weight: 100;
+            font-size: 8px;
+            margin-left: 4px;
+            margin-top: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            @media (max-width: 380px) {
+              font-size: 7px;
+            }
           }
 
           .arrowIcon {

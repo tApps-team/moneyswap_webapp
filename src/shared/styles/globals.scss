@@ -91,16 +91,15 @@
 
 html {
   scroll-behavior: smooth;
-  // overflow: hidden !important;
+  overflow: hidden;
 }
 
 body {
   background: #2d2d2d;
-  // overflow: hidden !important;
+  overflow: hidden;
 }
 
 .drawer_overlay {
   background: url("/img/authBg.png") no-repeat;
   background-size: cover;
-  position: fixed !important;
 }

@@ -7,12 +7,12 @@ declare global {
         expand: () => void;
         ready: () => void;
         WebAppUser: {
-          user_id: number;
+          id: number;
         };
         initData: string;
         initDataUnsafe: {
           user: {
-            user_id: number;
+            id: number;
             is_bot: boolean;
             first_name: string;
             last_name: string;

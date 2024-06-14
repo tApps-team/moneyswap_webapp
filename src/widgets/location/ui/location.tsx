@@ -101,7 +101,7 @@ export const Location = () => {
             </h2>
           </header>
         </DrawerTrigger>
-        <DrawerContent className="h-svh border-none rounded-none bg-color-none">
+        <DrawerContent className="min-h-svh border-none rounded-none bg-color-none">
           <DrawerHeader className="gap-4 pt-8">
             <div className="relative">
               <h2 className="text-left text-base uppercase text-[#f6ff5f]">
