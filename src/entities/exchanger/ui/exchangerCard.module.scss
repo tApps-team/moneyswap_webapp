@@ -13,7 +13,7 @@
     left: 50%;
     transform: translate(-50%);
 
-    > p {
+    >p {
       text-transform: uppercase;
       color: #000;
       text-align: center;
@@ -39,13 +39,11 @@
       border: 2px solid var(--main-color);
     }
 
-
     @media (max-width: 380px) {
       padding: 15px;
     }
 
     .cardHeader {
-
       .cardInfo {
         position: relative;
 
@@ -103,7 +101,6 @@
 
             .reviewCountPositive {
               color: var(--main-color);
-
             }
 
             .separator {
@@ -115,10 +112,9 @@
             }
 
             .reviewCountNegative {
-              color: var(--light-grey)
+              color: var(--light-grey);
             }
           }
-
         }
 
         .cityName {
@@ -167,7 +163,6 @@
         }
 
         .days {
-
           span {
             margin-right: 5px;
 
@@ -191,7 +186,7 @@
     .cardFooter {
       .valuteInfo {
         display: flex;
-        align-items: center;
+        align-items: start;
 
         .valuteExchange {
           font-size: 16px;
@@ -205,8 +200,17 @@
             font-size: var(--text-sm);
           }
 
-          .valuteValue {
-            margin-top: 5px;
+          .valuteName {
+            font-weight: 100;
+            font-size: 13px;
+            margin-left: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            @media (max-width: 380px) {
+              font-size: 12px;
+            }
           }
 
           .arrowIcon {
