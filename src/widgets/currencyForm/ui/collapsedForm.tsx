@@ -36,7 +36,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
         </div>
         <div className="flex items-center gap-2">
           <div className="truncate">
-            <div className="font-bold text-sm">{t("ПОЛУЧАЮ")}</div>
+            <div className="font-semibold text-sm">{t("ПОЛУЧАЮ")}</div>
             <div className="flex gap-1">
               <div className="truncate text-xs uppercase">
                 {getCurrencyName}
