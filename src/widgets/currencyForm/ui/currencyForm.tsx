@@ -5,7 +5,6 @@ import {
   useAvailableValutesQuery,
 } from "@/entities/currency";
 import { directions } from "@/entities/direction";
-import { exchangerAPI } from "@/entities/exchanger";
 import {
   CollapseButton,
   CurrencySelect,
@@ -145,7 +144,6 @@ export const CurrencyForm = () => {
         ? currencyActions.setGetCurrency(null)
         : currencyActions.setGetCashCurrency(null)
     );
-    dispatch(exchangerAPI.util.resetApiState());
   };
   const onGetCurrencyClick = (currency: Currency) => {
     const currencyRu = getCurrencies?.filteredCurrency?.ru.find(
