@@ -31,12 +31,12 @@ export const LocationList: FC<LocationListProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const changeLocation = (location: { city: City; country: Country }) => {
-    dispatch(setCity(location.city));
-    dispatch(setCountry(location.country));
+    dispatch(setCity(location?.city));
+    dispatch(setCountry(location?.country));
     setSearchValue("");
     dispatch(currencyActions.setGetCashCurrency(null));
     dispatch(currencyActions.setGiveCashCurrency(null));
-    dispatch(exchangerAPI.util.resetApiState());
+    // dispatch(exchangerAPI.util.resetApiState());
   };
 
   const filteredCountries = countries?.map((country) => `item-${country?.id}`);
