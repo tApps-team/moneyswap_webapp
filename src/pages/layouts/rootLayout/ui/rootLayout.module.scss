@@ -4,7 +4,7 @@
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
-    overflow: auto !important;
+    overflow-y: auto !important;
 
     @media (max-width: 380px) {
         padding: 15px;
