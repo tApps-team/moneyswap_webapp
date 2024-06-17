@@ -90,7 +90,11 @@ export const Location = () => {
                 <LocationIcon />
               )}
             </figure>
-            <h2 className={styles.locationSelect}>
+            <h2
+              className={`${styles.locationSelect} ${
+                activeDirection === directions.cash && "truncate"
+              }`}
+            >
               {city && country ? (
                 <p>
                   <span>{currentCountryName},</span> {currentCityName}
