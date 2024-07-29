@@ -51,9 +51,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     const filteredKeys = Object.keys(currentCurrniesWithCategories).filter(
       (filterKey) =>
         currentCurrniesWithCategories[filterKey].some((currency) =>
-          currency.name
-            .toLowerCase()
-            .includes(searchDeferredValue.toLowerCase())
+          currency?.name
+            ?.toLowerCase()
+            ?.includes(searchDeferredValue?.toLowerCase())
         )
     );
 
@@ -152,9 +152,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                   >
                     {currentCurrniesWithCategories[filteredCategory]
                       ?.filter((currency) =>
-                        currency.name
-                          .toLowerCase()
-                          .includes(searchDeferredValue?.toLowerCase())
+                        currency?.name
+                          ?.toLowerCase()
+                          ?.includes(searchDeferredValue?.toLowerCase())
                       )
                       .map((currency) => (
                         <DrawerClose key={currency?.id} asChild>

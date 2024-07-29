@@ -43,11 +43,11 @@ export const Location = () => {
           const isCountryMatch =
             i18n.language === Lang.ru
               ? country?.name?.ru
-                  .toLowerCase()
-                  .includes(searchValue.toLowerCase())
+                  ?.toLowerCase()
+                  ?.includes(searchValue?.toLowerCase())
               : country?.name?.en
-                  .toLowerCase()
-                  .includes(searchValue.toLowerCase());
+                  ?.toLowerCase()
+                  ?.includes(searchValue?.toLowerCase());
           const filteredCountry = {
             ...country,
             cities: isCountryMatch
@@ -55,11 +55,11 @@ export const Location = () => {
               : country.cities.filter((city) =>
                   i18n.language === Lang.ru
                     ? city?.name?.ru
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase())
+                        ?.toLowerCase()
+                        ?.includes(searchValue?.toLowerCase())
                     : city?.name?.en
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase())
+                        ?.toLowerCase()
+                        ?.includes(searchValue?.toLowerCase())
                 ),
           };
           if (isCountryMatch || filteredCountry?.cities?.length > 0) {
