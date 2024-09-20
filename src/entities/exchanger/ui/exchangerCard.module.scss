@@ -32,11 +32,13 @@
     padding: 20px;
     color: var(--white-color);
     transition: transform 0.15s ease-in;
-    border: 2px solid var(--light-grey);
+    // border: 2px solid var(--light-grey);
+    box-shadow: 1px 3px 8px 1.5px rgba(0,0,0,0.7);
     text-decoration: none;
 
     &.partner {
       border: 2px solid var(--main-color);
+      box-shadow: none;
     }
 
     @media (max-width: 380px) {

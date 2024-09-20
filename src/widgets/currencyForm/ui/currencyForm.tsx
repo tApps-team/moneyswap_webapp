@@ -176,7 +176,7 @@ export const CurrencyForm = () => {
           giveCurrency={currentGiveCurrency!}
         />
       ) : (
-        <Card className="grid  grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] bg-darkGray rounded-3xl gap-2 p-4">
+        <Card className="grid border-0 grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] bg-darkGray rounded-3xl gap-2 p-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
           <div className="flex flex-col gap-2">
             <p
               className={cx(
