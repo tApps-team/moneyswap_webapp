@@ -157,9 +157,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           </TabsList>
           <div className="bg-lightGray pb-[2px] rounded-xl -mx-4" />
           <div className="">
-            <ScrollArea
+            <div
               data-vaul-no-drag
-              className="h-[calc(100svh_-_240px)] -mx-4 bg-[url('/img/authBg_rotate_cut.jpg')] bg-cover py-4"
+              className="h-[calc(100svh_-_240px)] -mx-4 bg-[url('/img/authBg_rotate_cut.jpg')] bg-cover py-4 overflow-auto"
             >
               {filteredCategories?.categories.map((filteredCategory) => {
                 if (filteredCategory !== activeTab) return null;
@@ -189,7 +189,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                   </TabsContent>
                 );
               })}
-            </ScrollArea>
+            </div>
           </div>
         </Tabs>
       </DrawerContent>
