@@ -122,7 +122,7 @@ export const Location = () => {
           </DrawerHeader>
           <ScrollArea
             data-vaul-no-drag
-            className="p-4 pt-0 h-[calc(100svh_-_129px)]"
+            className="p-4 px-0 pt-0 h-[calc(100svh_-_129px)]"
           >
             {filteredCountries?.length ? (
               <LocationList

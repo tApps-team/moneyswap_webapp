@@ -38,6 +38,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const searchDeferredValue = useDeferredValue(searchValue);
   const allKey = t("ВСЕ");
 
+  const [activeTab, setActiveTab] = useState<string>(allKey);
+
   const currentCurrniesWithCategories: CurrencyCategory = useMemo(
     () => ({
       [allKey]: Object.values(currencies || {}).flat() || [],
@@ -46,6 +48,11 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currencies]
   );
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+    setActiveTab(filteredCategories.categories[0] || allKey);
+  };
 
   const filteredCategories = useMemo(() => {
     const filteredKeys = Object.keys(currentCurrniesWithCategories).filter(
@@ -115,14 +122,18 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               placeholder={t("ПОИСК ВАЛЮТЫ")}
               className="rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
               value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
+              onChange={handleSearchChange}
             />
           </div>
         </DrawerHeader>
-        <Tabs defaultValue={allKey} className="grid grid-flow-row">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="grid grid-flow-row"
+        >
           <TabsList
             data-vaul-no-drag
-            className="bg-transparent grid grid-cols-2 gap-2 h-full py-4 px-0"
+            className="bg-transparent grid grid-cols-2 gap-2 h-full py-4 min-h-[128px] items-start"
           >
             {filteredCategories.categories?.map((filteredCategory) => (
               <TabsTrigger
@@ -137,16 +148,24 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                 </p>
               </TabsTrigger>
             ))}
+            {filteredCategories.categories.length === 0 && (
+              <div className="grid justify-items-center gap-4 col-span-2">
+                <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
+                <Empty text={t("Ничего не найдено...")} />
+              </div>
+            )}
           </TabsList>
+          <div className="bg-lightGray pb-[2px] rounded-xl -mx-4" />
           <div className="">
             <ScrollArea
               data-vaul-no-drag
-              className="h-[calc(100svh_-_256px)] px-4 -mx-4"
+              className="h-[calc(100svh_-_240px)] -mx-4 bg-[url('/img/authBg_rotate_cut.jpg')] bg-cover py-4"
             >
-              {filteredCategories?.categories.length ? (
-                filteredCategories?.categories.map((filteredCategory) => (
+              {filteredCategories?.categories.map((filteredCategory) => {
+                if (filteredCategory !== activeTab) return null;
+                return (
                   <TabsContent
-                    className="grid mt-0 grid-rows-1 gap-2"
+                    className="grid mt-0 grid-rows-1 gap-2 px-4 pb-2 pt-1"
                     key={filteredCategory}
                     value={filteredCategory}
                   >
@@ -168,13 +187,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                         </DrawerClose>
                       ))}
                   </TabsContent>
-                ))
-              ) : (
-                <div className="grid justify-items-center gap-6 mt-8">
-                  <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
-                  <Empty text={t("Ничего не найдено...")} />
-                </div>
-              )}
+                );
+              })}
             </ScrollArea>
           </div>
         </Tabs>

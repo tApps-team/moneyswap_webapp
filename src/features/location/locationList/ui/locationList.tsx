@@ -16,7 +16,6 @@ import {
 } from "@/shared/ui";
 import { useAppDispatch } from "@/shared/hooks";
 import { currencyActions } from "@/entities/currency";
-import { exchangerAPI } from "@/entities/exchanger";
 
 interface LocationListProps {
   countries: Country[];
@@ -36,7 +35,6 @@ export const LocationList: FC<LocationListProps> = ({
     setSearchValue("");
     dispatch(currencyActions.setGetCashCurrency(null));
     dispatch(currencyActions.setGiveCashCurrency(null));
-    // dispatch(exchangerAPI.util.resetApiState());
   };
 
   const filteredCountries = countries?.map((country) => `item-${country?.id}`);
@@ -45,16 +43,16 @@ export const LocationList: FC<LocationListProps> = ({
     <Accordion
       value={searchValue.length > 0 ? filteredCountries : undefined}
       type="multiple"
-      className="grid gap-[10px]"
+      className="grid gap-[10px] px-4"
     >
       {countries?.map((country) => (
         <AccordionItem value={`item-${country?.id}`} key={country?.id}>
-          <AccordionTrigger className="px-[15px] py-[20px] relative bg-[#2d2d2d] rounded-[35px] h-[70px]">
+          <AccordionTrigger className="px-[15px] py-[20px] relative bg-[#2d2d2d] rounded-[35px] h-[70px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] border-0">
             <CountryCard country={country} />
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="py-2 grid gap-2">
             {country?.cities?.map((city) => (
-              <DrawerClose key={city?.id} className="w-full">
+              <DrawerClose key={city?.id} className="w-full px-2">
                 <CityCard
                   city={city}
                   changeLocation={() => changeLocation({ city, country })}

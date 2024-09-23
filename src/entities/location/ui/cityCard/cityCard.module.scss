@@ -3,12 +3,11 @@
     align-items: center;
     width: 100%;
     height: var(--second-height);
-    margin-top: 10px;
     padding: 20px 15px;
     position: relative;
     background: #2d2d2d;
     border-radius: var(--border-radius-l);
-    border: 2px solid var(--light-grey);
+    box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
 
     .icon {
         margin-right: 10px;
