@@ -20,7 +20,7 @@ export const MainPage = () => {
   //check queries
   const dispatch = useAppDispatch();
   useEffect(() => {
-    const activeDirection = CheckQueries().direction || directions.cash;
+    const activeDirection = CheckQueries().direction || directions.noncash;
     const user_id = Number(CheckQueries().user_id);
     dispatch(setActiveDirection(activeDirection as directions));
     dispatch(setUserId(user_id || null));

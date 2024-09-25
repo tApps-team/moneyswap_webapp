@@ -6,7 +6,7 @@ interface directionState {
 }
 
 const initialState: directionState = {
-  activeDirection: directions.cash,
+  activeDirection: directions.noncash,
 };
 
 export const directionSlice = createSlice({
