@@ -8,6 +8,8 @@ import { Lang } from "@/shared/config";
 import { LogoArrow } from "@/shared/assets";
 import { RoundValute } from "@/shared/ui";
 import { Ban, CalendarDays, Check, Clock, Minus } from "lucide-react";
+import { useAppSelector } from "@/shared/hooks";
+import { useIncreaseLinkCountMutation } from "@/entities/user";
 
 interface ExchangerCardProps {
   card: Exchanger;
@@ -31,6 +33,23 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
       opacity: 1,
     },
   }));
+
+  //user info
+  const { user_id } = useAppSelector((state) => state.user);
+  const [increaseLinkCount] = useIncreaseLinkCountMutation();
+
+  const handleClick = (exchanger: Exchanger) => {
+    openLink(exchanger.partner_link);
+    if (user_id) {
+      const increaseincreaseLinkCountReq = {
+        user_id,
+        exchange_id: exchanger.exchange_id,
+        exchange_marker: exchanger.exchange_marker,
+        exchange_direction_id: exchanger.exchange_direction_id,
+      };
+      increaseLinkCount(increaseincreaseLinkCountReq);
+    }
+  };
   return (
     <animated.article
       ref={ref}
@@ -45,7 +64,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         </div>
       )}
       <a
-        onClick={() => openLink(card?.partner_link)}
+        onClick={() => handleClick(card)}
         rel="noopener noreferrer"
         className={`${styles.exchangerCard} ${
           card?.is_vip || card?.info ? styles.partner : ""

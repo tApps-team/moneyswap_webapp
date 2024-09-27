@@ -37,6 +37,7 @@ export interface Exchanger {
   };
   params: string;
   fromfee: number | null;
+  exchange_direction_id: number;
 }
 
 export enum ExchangerMarker {
