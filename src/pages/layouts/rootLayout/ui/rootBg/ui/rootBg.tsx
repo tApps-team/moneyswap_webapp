@@ -7,7 +7,7 @@ export const RootBg = () => {
   useEffect(() => {
     setTimeout(() => {
       setActiveOverlay(false);
-    }, 2000);
+    }, 100);
   }, []);
   return (
     <div className={clsx(styles.container)}>

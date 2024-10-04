@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import styles from "./mainPage.module.scss";
 import clsx from "clsx";
 import { TelegramApi } from "@/widgets/telegramApi";
@@ -14,8 +14,12 @@ import { CheckQueries } from "@/features/checkQueries";
 import { setUserId } from "@/entities/user";
 
 export const MainPage = () => {
-  const [preloaderFinished, setPreloaderFinished] = useState(false);
+  // const [preloaderFinished, setPreloaderFinished] = useState(false);
   const [preloaderExtro, setPreloaderExtro] = useState(false);
+
+  //without preloader
+  const [preloaderFinished, setPreloaderFinished] = useState(false);
+  //without preloader
 
   //check queries
   const dispatch = useAppDispatch();
@@ -47,7 +51,7 @@ export const MainPage = () => {
   return (
     <div data-testid="main-page">
       <TelegramApi />
-      {preloaderFinished ? (
+      {/* {preloaderFinished ? (
         <div
           className={clsx(styles.content, {
             [styles.active_content]: preloaderFinished,
@@ -68,7 +72,17 @@ export const MainPage = () => {
         >
           <Preloader step={25} progress={0} strokeWidth={20} />
         </div>
-      )}
+      )} */}
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className={clsx(styles.content, {})}>
+          <Directions />
+          <Location />
+          <CurrencyForm />
+          <Exchangers />
+          <LanguageSwitcher />
+        </div>
+      </Suspense>
     </div>
   );
 };
