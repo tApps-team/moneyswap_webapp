@@ -33,15 +33,15 @@ export const MainPage = () => {
     // preloader scale and opacity
     setTimeout(() => {
       setPreloaderExtro(true);
-    }, 1200);
+    }, 600);
     // webapp 100% height
     setTimeout(() => {
       tg.expand();
-    }, 1900);
+    }, 900);
     // preloader ends
     setTimeout(() => {
       setPreloaderFinished((prev) => !prev);
-    }, 2000);
+    }, 1000);
   }, []);
 
   return (
@@ -66,7 +66,7 @@ export const MainPage = () => {
             [styles.preloaderOpcacity]: preloaderExtro,
           })}
         >
-          <Preloader step={25} progress={0} strokeWidth={20} />
+          <Preloader step={50} progress={0} strokeWidth={20} />
         </div>
       )}
     </div>
