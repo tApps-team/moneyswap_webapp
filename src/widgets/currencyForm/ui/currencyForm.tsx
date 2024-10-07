@@ -172,6 +172,7 @@ export const CurrencyForm = () => {
     <div className="relative mb-4">
       {isCollapse ? (
         <CollapsedForm
+          onClick={() => setIsCollapse((prev) => !prev)}
           getCurrency={currentGetCurrency!}
           giveCurrency={currentGiveCurrency!}
         />
