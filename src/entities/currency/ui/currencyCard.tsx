@@ -23,6 +23,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
           alt={`Валюта ${currency.name}`}
           width={36}
           height={36}
+          className="rounded-full"
         />
         <div className="grid grid-rows-2 items-center h-full">
           <p className="truncate font-semibold uppercase">{currency.name}</p>

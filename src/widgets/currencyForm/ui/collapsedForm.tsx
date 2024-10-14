@@ -31,7 +31,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
             </div>
           </div>
           <img
-            className="size-8"
+            className="size-8 rounded-full"
             src={giveCurrency?.icon_url}
             alt={`${"Валюта"} ${giveCurrencyName}}`}
           />
@@ -47,7 +47,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
             </div>
           </div>
           <img
-            className="size-8"
+            className="size-8 rounded-full"
             src={getCurrency?.icon_url}
             alt={`${"Валюта"} ${getCurrency?.name}}`}
           />
