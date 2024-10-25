@@ -144,32 +144,29 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
             <Input
               placeholder={t("ПОИСК ВАЛЮТЫ")}
-              className="rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
+              className="text-[16px] rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
               value={searchValue}
               onChange={handleSearchChange}
             />
           </div>
         </DrawerHeader>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="">
-          <TabsList
-            data-vaul-no-drag
-            className="bg-transparent  w-full h-full py-4"
-          >
+          <TabsList data-vaul-no-drag className="bg-transparent  w-full h-full">
             <Carousel
               ref={carouselRef}
               setApi={setApi}
               opts={{ slidesToScroll: 1 }}
-              className=" w-full"
+              className="w-full"
             >
-              <CarouselContent className="m-0 w-full gap-2 ">
+              <CarouselContent className="m-0 w-full gap-3 py-3">
                 {filteredCategories.categories?.map((filteredCategory) => (
                   <CarouselItem
                     key={filteredCategory}
-                    className="w-full  basis-2/5"
+                    className="w-full pl-0 basis-2/5"
                   >
                     <TabsTrigger
                       className={
-                        "rounded-2xl border-lightGray  border w-full  uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white  h-11 data-[state=active]:bg-mainColor shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
+                        "rounded-2xl shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] w-full uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white  h-11 data-[state=active]:bg-mainColor shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
                       }
                       value={filteredCategory}
                     >

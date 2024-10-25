@@ -7,10 +7,6 @@
   font-size: var(--text-sm);
   color: var(--dark-grey);
 
-  &:hover {
-    outline: 1px solid #fff;
-  }
-
   .icon {
     display: flex;
     justify-content: center;
@@ -29,6 +25,7 @@
     font-size: inherit;
     text-transform: uppercase;
     font-weight: 500;
+    font-size: 16px;
 
     &::placeholder {
       color: #000;
