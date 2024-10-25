@@ -32,8 +32,8 @@ export interface Exchanger {
       Сб: boolean;
       Вс: boolean;
     };
-    time_from: string;
-    time_to: string;
+    weekdays: { time_from: string; time_to: string };
+    weekends: { time_from: string; time_to: string };
   };
   params: string;
   fromfee: number | null;
