@@ -154,8 +154,10 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           <TabsList data-vaul-no-drag className="bg-transparent  w-full h-full">
             <Carousel
               ref={carouselRef}
+              opts={{
+                dragFree: true,
+              }}
               setApi={setApi}
-              opts={{ slidesToScroll: 1 }}
               className="w-full"
             >
               <CarouselContent className="m-0 w-full gap-3 py-3">
@@ -166,7 +168,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                   >
                     <TabsTrigger
                       className={
-                        "rounded-2xl shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] w-full uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white  h-11 data-[state=active]:bg-mainColor shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
+                        "rounded-2xl w-full uppercase data-[state=active]:text-black data-[state=active]:border-mainColor text-white  h-11 data-[state=active]:bg-mainColor shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
                       }
                       value={filteredCategory}
                     >
