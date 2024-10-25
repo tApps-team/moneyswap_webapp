@@ -43,7 +43,7 @@ export const LocationList: FC<LocationListProps> = ({
     <Accordion
       value={searchValue.length > 0 ? filteredCountries : undefined}
       type="multiple"
-      className="grid gap-[10px] px-4"
+      className="grid gap-[10px] px-4 py-2"
     >
       {countries?.map((country) => (
         <AccordionItem value={`item-${country?.id}`} key={country?.id}>
