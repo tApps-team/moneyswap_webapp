@@ -1,7 +1,7 @@
 import { animated, useInView } from "react-spring";
 import styles from "./exchangerCard.module.scss";
 import { FC } from "react";
-import { Exchanger } from "../model";
+import { Exchanger, ExchangerMarker } from "../model";
 import { City } from "@/entities/location";
 import { useTranslation } from "react-i18next";
 import { Lang } from "@/shared/config";
@@ -168,13 +168,19 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <span className={styles.valuteRange}>
             {t("от")}{" "}
             {card?.min_amount ? (
-              <RoundValute value={card?.min_amount} />
+              <>
+                <RoundValute value={card?.min_amount} />
+                {card?.exchange_marker === ExchangerMarker.partner && "$"}
+              </>
             ) : (
               t("Amount_null")
             )}{" "}
             {t("до")}{" "}
             {card?.max_amount ? (
-              <RoundValute value={card?.max_amount} />
+              <>
+                <RoundValute value={card?.max_amount} />
+                {card?.exchange_marker === ExchangerMarker.partner && "$"}
+              </>
             ) : (
               t("Amount_null")
             )}
