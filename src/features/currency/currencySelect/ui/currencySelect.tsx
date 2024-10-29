@@ -110,6 +110,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               width={40}
               height={40}
               loading="lazy"
+              className="rounded-full"
             />
           ) : (
             <div className="border rounded-full size-10" />
