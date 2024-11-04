@@ -43,7 +43,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     props;
   const [api, setApi] = useState<CarouselApi>();
   const carouselRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const [searchValue, setSearchValue] = useState<string>("");
   const searchDeferredValue = useDeferredValue(searchValue);
@@ -51,7 +51,12 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
 
   const [activeTab, setActiveTab] = useState<string>(allKey);
 
-  const currentCurrniesWithCategories: CurrencyCategory = useMemo(
+  // при смене языка возвращаем "Все" как активную табу
+  useEffect(() => {
+    setActiveTab(allKey);
+  }, [i18n.language]);
+
+  const currentCurrenciesWithCategories: CurrencyCategory = useMemo(
     () => ({
       [allKey]: Object.values(currencies || {}).flat() || [],
       ...currencies,
@@ -66,33 +71,34 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   };
 
   const filteredCategories = useMemo(() => {
-    const filteredKeys = Object.keys(currentCurrniesWithCategories).filter(
+    const filteredKeys = Object.keys(currentCurrenciesWithCategories).filter(
       (filterKey) =>
-        currentCurrniesWithCategories[filterKey].some((currency) =>
-          currency?.name
-            ?.toLowerCase()
-            ?.includes(searchDeferredValue?.toLowerCase())
+        currentCurrenciesWithCategories[filterKey].some((currency) =>
+          [currency?.name, currency?.code_name].some((field) =>
+            field?.toLowerCase().includes(searchDeferredValue?.toLowerCase())
+          )
         )
     );
-
     return {
       categories: filteredKeys,
     };
-  }, [currentCurrniesWithCategories, searchDeferredValue]);
+  }, [currentCurrenciesWithCategories, searchDeferredValue]);
+
   const scrollToActiveTab = useCallback(() => {
     if (api) {
-      const scrollIndex = Object.keys(currentCurrniesWithCategories).findIndex(
-        (tab) => tab === activeTab
-      );
+      const scrollIndex = Object.keys(
+        currentCurrenciesWithCategories
+      ).findIndex((tab) => tab === activeTab);
 
       api?.scrollTo(scrollIndex);
     }
-  }, [activeTab, api, currentCurrniesWithCategories]);
+  }, [activeTab, api, currentCurrenciesWithCategories]);
   useEffect(() => {
     if (api) {
       scrollToActiveTab();
     }
   }, [api, scrollToActiveTab]);
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -183,7 +189,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             </Carousel>
           </TabsList>
           {filteredCategories.categories.length === 0 && (
-            <div className="grid justify-items-center gap-4 col-span-2">
+            <div className="grid justify-items-center gap-4 col-span-2 mb-[24px]">
               <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
               <Empty text={t("Ничего не найдено...")} />
             </div>
@@ -202,11 +208,13 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                     key={filteredCategory}
                     value={filteredCategory}
                   >
-                    {currentCurrniesWithCategories[filteredCategory]
+                    {currentCurrenciesWithCategories[filteredCategory]
                       ?.filter((currency) =>
-                        currency?.name
-                          ?.toLowerCase()
-                          ?.includes(searchDeferredValue?.toLowerCase())
+                        [currency?.name, currency?.code_name].some((field) =>
+                          field
+                            ?.toLowerCase()
+                            .includes(searchDeferredValue?.toLowerCase())
+                        )
                       )
                       .map((currency) => (
                         <DrawerClose key={currency?.id} asChild>
