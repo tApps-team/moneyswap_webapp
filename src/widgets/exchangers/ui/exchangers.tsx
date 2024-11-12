@@ -40,6 +40,8 @@ export const Exchangers: FC<ExchangersProps> = () => {
     isSuccess: isCashSuccess,
   } = useGetExchangersCashQuery(exchangersCashReq, {
     skip: activeDirection === directions.noncash || !city || !give || !get,
+    refetchOnMountOrArgChange: true,
+    // pollingInterval: 5000,
   });
   const {
     data: exchangersNoncash,
@@ -48,6 +50,8 @@ export const Exchangers: FC<ExchangersProps> = () => {
     isSuccess: isNoCashSuccess,
   } = useGetExchangersNoncashQuery(exchangersNoncashReq, {
     skip: activeDirection === directions.cash || !get || !get,
+    refetchOnMountOrArgChange: true,
+    // pollingInterval: 5000,
   });
 
   useEffect(() => {
