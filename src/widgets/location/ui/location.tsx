@@ -41,34 +41,36 @@ export const Location = () => {
       countries
         .map((country) => {
           const isCountryMatch =
-            i18n.language === Lang.ru
-              ? country?.name?.ru
-                  ?.toLowerCase()
-                  ?.includes(searchValue?.toLowerCase())
-              : country?.name?.en
-                  ?.toLowerCase()
-                  ?.includes(searchValue?.toLowerCase());
-          const filteredCountry = {
-            ...country,
-            cities: isCountryMatch
-              ? country.cities
-              : country.cities.filter((city) =>
-                  i18n.language === Lang.ru
-                    ? city?.name?.ru
-                        ?.toLowerCase()
-                        ?.includes(searchValue?.toLowerCase())
-                    : city?.name?.en
-                        ?.toLowerCase()
-                        ?.includes(searchValue?.toLowerCase())
-                ),
-          };
-          if (isCountryMatch || filteredCountry?.cities?.length > 0) {
-            return filteredCountry;
+            country?.name?.ru
+              ?.toLowerCase()
+              ?.includes(searchValue?.toLowerCase()) ||
+            country?.name?.en
+              ?.toLowerCase()
+              ?.includes(searchValue?.toLowerCase());
+
+          const filteredCities = country.cities.filter(
+            (city) =>
+              city?.name?.ru
+                ?.toLowerCase()
+                ?.includes(searchValue?.toLowerCase()) ||
+              city?.name?.en
+                ?.toLowerCase()
+                ?.includes(searchValue?.toLowerCase()) ||
+              city?.code_name
+                ?.toLowerCase()
+                ?.includes(searchValue?.toLowerCase())
+          );
+
+          if (isCountryMatch || filteredCities.length > 0) {
+            return {
+              ...country,
+              cities: isCountryMatch ? country.cities : filteredCities,
+            };
           }
           return null;
         })
         .filter((country): country is Country => country !== null),
-    [countries, i18n.language, searchValue]
+    [countries, searchValue]
   );
 
   return (

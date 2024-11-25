@@ -9,6 +9,7 @@ import { CurrencyForm } from "@/widgets/currencyForm";
 import { LanguageSwitcher } from "@/features/languageSwitch";
 import { useAppDispatch } from "@/shared/hooks";
 import { directions, setActiveDirection } from "@/entities/direction";
+import { LanguageDetector } from "@/features/languageDetector";
 import { CheckQueries } from "@/features/checkQueries";
 import { setUserId } from "@/entities/user";
 
@@ -34,6 +35,7 @@ export const MainPage = () => {
       <TelegramApi />
       <Suspense fallback={<div>Loading...</div>}>
         <div className={clsx(styles.content, {})}>
+          <LanguageDetector />
           <Directions />
           <Location />
           <CurrencyForm />
