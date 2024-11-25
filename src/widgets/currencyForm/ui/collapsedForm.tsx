@@ -27,7 +27,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
               <div className="truncate text-xs uppercase">
                 {giveCurrencyName}
               </div>
-              <div className="text-xs uppercase">{giveCurrency?.code_name}</div>
+              {/* <div className="text-xs uppercase">{giveCurrency?.code_name}</div> */}
             </div>
           </div>
           <img
@@ -43,7 +43,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
               <div className="truncate text-xs uppercase">
                 {getCurrencyName}
               </div>
-              <div className="text-xs uppercase">{getCurrency?.code_name}</div>
+              {/* <div className="text-xs uppercase">{getCurrency?.code_name}</div> */}
             </div>
           </div>
           <img
