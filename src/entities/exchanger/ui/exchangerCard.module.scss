@@ -64,7 +64,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-            text-transform: uppercase;
+            // text-transform: uppercase;
   
             @media (max-width: 380px) {
               font-size: var(--text-sm);

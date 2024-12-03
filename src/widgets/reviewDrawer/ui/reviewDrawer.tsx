@@ -82,7 +82,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
           </div>
         </DrawerHeader>
         <div className="grid grid-flow-col justify-between items-center gap-3 mx-4 pt-4 border-t-2 border-mainColor">
-          <p className="text-[16px] truncate text-white font-semibold uppercase">
+          <p className="text-[16px] truncate text-white font-semibold">
             {exchangerName}
           </p>
           <a

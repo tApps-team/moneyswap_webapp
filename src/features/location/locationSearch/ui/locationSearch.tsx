@@ -30,7 +30,7 @@ export const LocationSearch: FC<LocationSearchProps> = ({
       <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
       <Input
         placeholder={t("Поиск страны и города")}
-        className="text-[16px] rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
+        className="text-[16px] rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray focus:placeholder:opacity-0"
         value={searchValue}
         onChange={(e) => onChange(e.target.value)}
       />
