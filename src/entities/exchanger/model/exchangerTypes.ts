@@ -21,7 +21,7 @@ export interface Exchanger {
     negative: number;
   };
   info?: {
-    bankomats: Bankomat[];
+    bankomats: Bankomat[] | null;
     delivery: boolean;
     office: boolean;
     working_days: {
