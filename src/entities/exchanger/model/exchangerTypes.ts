@@ -21,6 +21,7 @@ export interface Exchanger {
     negative: number;
   };
   info?: {
+    bankomats: Bankomat[];
     delivery: boolean;
     office: boolean;
     working_days: {
@@ -44,4 +45,11 @@ export enum ExchangerMarker {
   cash = "cash",
   no_cash = "no_cash",
   partner = "partner",
+}
+
+export interface Bankomat {
+  id: number;
+  available: boolean;
+  name: string;
+  icon: string;
 }

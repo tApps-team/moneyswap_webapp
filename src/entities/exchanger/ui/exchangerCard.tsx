@@ -150,7 +150,9 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <div className={styles.valuteInfo}>
             <div className={styles.valuteExchange}>
               <RoundValute value={card?.in_count} />
-              <p className={styles.valuteName}>{card?.valute_from}</p>
+              <p className={`${styles.valuteName} truncate`}>
+                {card?.valute_from}
+              </p>
               <i className={styles.arrowIcon}>
                 <LogoArrow
                   fill="#f6ff5f"
@@ -162,7 +164,19 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             </div>
             <div className={`${styles.valuteExchange} overflow-hidden`}>
               <RoundValute value={card?.out_count} />
-              <p className={styles.valuteName}>{card?.valute_to}</p>
+              <p className={`${styles.valuteName}`}>{card?.valute_to}</p>
+              {card?.info && card?.info?.bankomats.length > 0 && (
+                <div className="pl-2 w-full justify-start inline-flex flex-row gap-1 overflow-auto cursor-pointer">
+                  {card.info.bankomats?.map((bank) => (
+                    <div
+                      key={bank?.id}
+                      className="rounded-full overflow-hidden w-5 h-5 flex-shrink-0 cursor-pointer"
+                    >
+                      <img src={bank?.icon} alt="icon" className="w-5 h-5" />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <span className={styles.valuteRange}>
