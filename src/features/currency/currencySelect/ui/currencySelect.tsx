@@ -158,7 +158,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           </div>
         </DrawerHeader>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="">
-          <TabsList data-vaul-no-drag className="bg-transparent  w-full h-full">
+          <TabsList data-vaul-no-drag className="bg-transparent w-full h-full">
             <Carousel
               ref={carouselRef}
               opts={{
