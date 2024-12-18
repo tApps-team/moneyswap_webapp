@@ -100,7 +100,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </div>
           </div>
           <div className="p-3 pl-4">
-            <p className="font_unbounded text-white uppercase text-[14px] truncate w-[60%] font-medium">
+            <p className="font_unbounded text-white uppercase text-[14px] truncate w-[50vw] font-medium">
               {review?.username}
             </p>
             <p className="font_unbounded text-mainColor font-light text-[12px] uppercase">
