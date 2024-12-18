@@ -3,7 +3,7 @@ import styles from "./mainPage.module.scss";
 import clsx from "clsx";
 import { TelegramApi } from "@/widgets/telegramApi";
 import { Exchangers } from "@/widgets/exchangers";
-import { Location } from "@/widgets/location";
+import { Location, LocationSecond } from "@/widgets/location";
 import { Directions } from "@/widgets/directions";
 import { CurrencyForm } from "@/widgets/currencyForm";
 import { LanguageSwitcher } from "@/features/languageSwitch";
@@ -38,6 +38,7 @@ export const MainPage = () => {
           <LanguageDetector />
           <Directions />
           <Location />
+          <LocationSecond />
           <CurrencyForm />
           <Exchangers />
           <LanguageSwitcher />

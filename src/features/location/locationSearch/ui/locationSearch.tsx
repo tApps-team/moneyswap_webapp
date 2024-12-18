@@ -1,5 +1,4 @@
 import { FC } from "react";
-import styles from "./locationSearch.module.scss";
 import { SearchIcon } from "@/shared/assets";
 import { useTranslation } from "react-i18next";
 import { Input } from "@/shared/ui";
@@ -15,22 +14,11 @@ export const LocationSearch: FC<LocationSearchProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    // <section className={styles.search}>
-    //   <span className={styles.icon}>
-    //     <SearchIcon width="30px" height="30px" />
-    //   </span>
-    //   <Input
-    //     className={styles.input}
-    //     value={searchValue}
-    //     onChange={(e) => onChange(e.target.value)}
-    //     placeholder={t("Поиск страны и города")}
-    //   />
-    // </section>
     <div className="relative">
-      <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
+      <SearchIcon className="absolute left-2 translate-y-[8px] size-[30px]" />
       <Input
         placeholder={t("Поиск страны и города")}
-        className="text-[16px] rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray focus:placeholder:opacity-0"
+        className="h-[45px] text-[#b9b9b9] text-[16px] rounded-[10px] font-medium pl-12 bg-new-light-grey border-none placeholder:text-[#b9b9b9] placeholder:transition-opacity focus:placeholder:opacity-0"
         value={searchValue}
         onChange={(e) => onChange(e.target.value)}
       />

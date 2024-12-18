@@ -39,10 +39,13 @@ export const ExchangerList: FC<ExchangersListProps> = memo(
       i18n.language === Lang.ru ? getCurrency?.name?.ru : getCurrency?.name?.en;
     return (
       <section className={styles.exchangersList}>
-        <h2 className={styles.header}>
-          {t("Лучшие курсы")} <span>{giveCurrencyName}</span> {t("на")}{" "}
-          <span>{getCurrencyName}</span>
-        </h2>
+        <div className={styles.header}>
+          <h2 className="font_unbounded">{t("Лучшие курсы")}</h2>
+          <h3>
+            <span>{giveCurrencyName}</span> {t("на")}{" "}
+            <span>{getCurrencyName}</span>
+          </h3>
+        </div>
         <div className={styles.cards}>
           {exchangers &&
             exchangers.map((exchanger) => (

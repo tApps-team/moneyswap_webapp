@@ -1,6 +1,6 @@
 import { directions } from "@/entities/direction";
 import { useGetCountriesQuery } from "@/entities/location/api/locationApi";
-import { LocationList, LocationSearch } from "@/features/location";
+import { LocationListSecond, LocationSearch } from "@/features/location";
 import { useAppSelector } from "@/shared/hooks";
 import { useMemo, useState } from "react";
 import styles from "./locations.module.scss";
@@ -20,7 +20,7 @@ import {
 } from "@/shared/ui";
 import { SquareChevronRight } from "lucide-react";
 
-export const Location = () => {
+export const LocationSecond = () => {
   const { t, i18n } = useTranslation();
   const [searchValue, setSearchValue] = useState<string>("");
   const { activeDirection } = useAppSelector((state) => state.direction);
@@ -118,7 +118,7 @@ export const Location = () => {
           </header>
         </DrawerTrigger>
         <DrawerContent className="min-h-svh border-none rounded-none bg-new-dark-grey">
-          <DrawerHeader className="gap-7 pt-8 pb-5 px-8">
+          <DrawerHeader className="gap-7 py-8 px-8">
             <div className="relative">
               <h2 className="font_unbounded text-left text-base uppercase text-[#f6ff5f] font-semibold">
                 {t("Выбор страны и города")}
@@ -134,10 +134,10 @@ export const Location = () => {
           </DrawerHeader>
           <ScrollArea
             data-vaul-no-drag
-            className="px-0 pt-0 h-[calc(100svh_-_149px)]"
+            className="px-8 pt-0 pb-4 h-[calc(100svh_-_177px)]"
           >
             {filteredCountries?.length ? (
-              <LocationList
+              <LocationListSecond
                 countries={filteredCountries}
                 setSearchValue={setSearchValue}
                 searchValue={searchValue}

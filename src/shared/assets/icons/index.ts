@@ -15,3 +15,4 @@ export { LogoIcon } from "./logoIcon";
 export { CloseDrawerIcon } from "./closeDrawer";
 export { CommentIcon } from "./Comment";
 export { LogoBig } from "./logoBig";
+export * from "./LocationArrow";

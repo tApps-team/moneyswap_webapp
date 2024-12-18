@@ -17,7 +17,7 @@
   "Лучшие курсы": "The best exchange rate of",
   "на": "to",
   "Выбранное направление недоступно": "Selected direction is not available",
-  "ПЕРЕКЛЮЧИТЬ НА ЯЗЫК": "ПЕРЕКЛЮЧИТЬ НА РУССКИЙ",
+  "ПЕРЕКЛЮЧИТЬ НА ЯЗЫК": "Переключить на русский",
   "Онлайн обмен": "Online exchange",
   "Обмен от": "Exchange from",
   "от": "from",
@@ -27,8 +27,8 @@
   "Системная ошибка": "System error",
   "Поиск страны и города": "Search for country and city",
   "directions": {
-    "cash": "cash",
-    "noncash": "non-cash"
+    "cash": "Cash",
+    "noncash": "Non-cash"
   },
   "Отзывы": "Reviews",
   "Пн": "Mo",
@@ -40,7 +40,8 @@
   "Вс": "Su",
   "Доставка": "Delivery",
   "Офис": "Office",
-  "VIP-партнер": "Best offer",
+  "Лучшее": "Best",
+  "предложение": "offer!",
   "Amount_null": "___",
   "reviews": {
     "title": "Reviews",

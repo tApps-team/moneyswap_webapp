@@ -12,12 +12,11 @@ import { Loader } from "lucide-react";
 type ReviewCardProps = {
   review: Review;
   exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
-  CommentSlot?: React.ReactNode;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review, CommentSlot, exchangerInfo } = props;
+    const { review, exchangerInfo } = props;
     const { t } = useTranslation();
     const gradeName =
       review?.grade === Grade.positive
@@ -78,23 +77,22 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         <Card
           ref={ref}
           className={cx(
-            "rounded-[25px] w-full border-2 h-auto  border-lightGray overflow-hidden text-black bg-darkGray relative transition-all z-0",
-            review?.grade === Grade.positive && "border-mainColor"
+            "border-none rounded-[10px] w-full h-auto overflow-hidden text-black bg-new-dark-grey relative transition-all z-0"
           )}
         >
           <div
             className={cx(
-              "w-[40%] p-2 pl-3 flex justify-center items-center rounded-bl-3xl rounded-tr-xl absolute top-0 right-0 border-2 border-t-0 border-r-0",
+              "w-[40%] p-2 pl-3 flex justify-center items-center rounded-bl-[10px] rounded-tr-[10px] absolute top-0 right-0 border-2 border-t-0 border-r-0 leading-none",
               review?.grade === Grade.positive
                 ? "bg-mainColor border-none"
                 : review?.grade === Grade.neutral
                 ? "bg-lightGray border-none"
-                : "bg-darkGray border-[2px] border-lightGray"
+                : "bg-darkGray"
             )}
           >
             <div
               className={cx(
-                "text-center truncate text-[9px] uppercase font-medium",
+                "text-center truncate text-[9px] uppercase font-semibold",
                 review?.grade === Grade.negative && "text-lightGray"
               )}
             >
@@ -102,10 +100,10 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </div>
           </div>
           <div className="p-3 pl-4">
-            <p className="text-white uppercase text-[14px] truncate w-[60%] font-medium">
+            <p className="font_unbounded text-white uppercase text-[14px] truncate w-[60%] font-medium">
               {review?.username}
             </p>
-            <p className="text-lightGray font-normal text-[12px] uppercase">
+            <p className="font_unbounded text-mainColor font-light text-[12px] uppercase">
               {formatDate(review?.review_date)} / {review?.review_time}
             </p>
           </div>
@@ -127,21 +125,21 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             >
               {review?.text}
               {showMore && (
-                <span className="uppercase pl-4 opacity-0">
+                <span className="uppercase pl-4 opacity-0 font_unbounded">
                   {t("reviews.show_less")}
                 </span>
               )}
-              <span className="absolute left-4 top-0 w-[2px] rounded-md bg-lightGray h-full"></span>
+              <span className="absolute left-4 top-0 w-[2px] rounded-md bg-[#414141] h-full"></span>
             </p>
             {isOverflowing && (
               <span
                 onClick={() => setShowMore(!showMore)}
                 className={cx(
-                  "bg-darkGray cursor-pointer text-[12px] uppercase text-mainColor pl-4 absolute bottom-0 right-4"
+                  "font_unbounded bg-new-dark-grey cursor-pointer text-[10px] uppercase text-mainColor pl-4 absolute bottom-0.5 right-4"
                 )}
               >
                 {!showMore && (
-                  <span className="text-white absolute left-0 bottom-[2px]">
+                  <span className="text-white absolute left-0 bottom-[1px]">
                     ...
                   </span>
                 )}
@@ -151,7 +149,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           </div>
           <div
             className={cx(
-              "p-4 rounded-b-3xl bg-darkGray  flex  ",
+              "p-4 rounded-b-[10px] bg-new-dark-grey flex",
               commentIsLoading && "items-center justify-center",
               review?.comment_count < 1 && "pointer-events-none"
             )}

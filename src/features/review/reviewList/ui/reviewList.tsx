@@ -6,7 +6,6 @@ import {
 } from "@/entities/review";
 import { selectCacheByKey } from "@/entities/review/api/reviewApi";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
-import { Comment } from "@/widgets/comment";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -93,14 +92,14 @@ export const ReviewList = (props: ReviewListProps) => {
         }}
         className="grid gap-4"
       >
-        <TabsList className="bg-transparent grid grid-rows-2 grid-cols-2 gap-2 h-full w-[90%] mx-auto px-0 py-0">
+        <TabsList className="bg-transparent h-auto flex flex-wrap gap-2 w-[90%] mx-auto px-0 py-0">
           {tabItems.map((tab) => (
             <TabsTrigger
               key={tab?.tabValue}
-              className="rounded-3xl bg-darkGray border-lightGray uppercase text-white data-[state=active]:text-black data-[state=active]:border-mainColor border-2 h-full data-[state=active]:bg-mainColor"
+              className="rounded-[7px] font-medium bg-new-medium-grey text-white data-[state=active]:text-black leading-none data-[state=active]:bg-mainColor"
               value={String(tab?.tabValue)}
             >
-              <div className="flex truncate items-center gap-1 text-[10px]">
+              <div className="flex truncate items-center gap-1 text-[12px]">
                 <p className="truncate">{tab?.tabName}</p>
                 <p className="">({tab?.tabReviewValue})</p>
               </div>
@@ -121,9 +120,6 @@ export const ReviewList = (props: ReviewListProps) => {
                     key={review?.id}
                     review={review}
                     exchangerInfo={exchanger}
-                    // CommentSlot={
-                    //   <Comment exchangerInfo={exchanger} review={review} />
-                    // }
                   />
                 ))}
               </div>
