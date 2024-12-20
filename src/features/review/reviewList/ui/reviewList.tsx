@@ -130,10 +130,10 @@ export const ReviewList = (props: ReviewListProps) => {
               </div>
             )}
             {isFetching && (
-              <div className="flex justify-center items-center ">
+              <div className="flex justify-center items-center mt-4">
                 <Loader
                   color="#F6FF5F"
-                  className="fill-mainColor mt-4 animate-spin h-8 w-8"
+                  className="fill-mainColor animate-spin h-8 w-8"
                 />
               </div>
             )}
