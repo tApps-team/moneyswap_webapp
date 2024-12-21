@@ -1,28 +1,20 @@
+import { Name } from "@/shared/config";
+
 export type Currency = {
   id: number;
-  name: string;
+  name: Name;
   code_name: string;
   icon_url: string;
+  is_popular?: boolean;
 };
-export type CurrencyCategory = {
-  [key: string]: Currency[];
-};
-export type CurrencyLangCategory = {
-  ru: CurrencyCategory;
-  en: CurrencyCategory;
-};
-export type CurrencyLang = {
+export type CurrencyValutes = {
   id: number;
-  name: {
-    ru?: string;
-    en?: string;
-  };
-  code_name: string;
-  icon_url: string;
+  name: Name;
+  currencies: Currency[];
 };
-export type CurrencySchema = {
-  giveCurrency?: CurrencyLang | null;
-  getCurrency?: CurrencyLang | null;
-  giveCashCurrency?: CurrencyLang | null;
-  getCashCurrency?: CurrencyLang | null;
-};
+// export type CurrencySchema = {
+//   giveCurrency?: CurrencyLang | null;
+//   getCurrency?: CurrencyLang | null;
+//   giveCashCurrency?: CurrencyLang | null;
+//   getCashCurrency?: CurrencyLang | null;
+// };

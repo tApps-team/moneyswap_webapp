@@ -1,9 +1,4 @@
-import {
-  Currency,
-  CurrencyLang,
-  currencyActions,
-  useAvailableValutesQuery,
-} from "@/entities/currency";
+import { currencyActions, useAvailableValutesQuery } from "@/entities/currency";
 import { directions } from "@/entities/direction";
 import {
   CollapseButton,
@@ -11,7 +6,6 @@ import {
   CurrencySwitcher,
 } from "@/features/currency";
 
-import { Lang } from "@/shared/config";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Card, useToast } from "@/shared/ui";
 import { cx } from "class-variance-authority";
@@ -107,66 +101,66 @@ export const CurrencyForm = () => {
   }, [direction, dispatch, getCurrencyError, t, toast]);
 
   // В зависимости от языка выбираем нужные нам объекты
-  const currentGiveCurrencies =
-    i18n.language === Lang.ru
-      ? giveCurrencies?.currencies.ru
-      : giveCurrencies?.currencies.en;
+  // const currentGiveCurrencies =
+  //   i18n.language === Lang.ru
+  //     ? giveCurrencies?.currencies.ru
+  //     : giveCurrencies?.currencies.en;
 
-  const currentGetCurrencies =
-    i18n.language === Lang.ru
-      ? getCurrencies?.currencies.ru
-      : getCurrencies?.currencies.en;
+  // const currentGetCurrencies =
+  //   i18n.language === Lang.ru
+  //     ? getCurrencies?.currencies.ru
+  //     : getCurrencies?.currencies.en;
 
-  // Функции при клике на карточку в разных селектах
-  const onGiveCurrencyClick = (currency: Currency) => {
-    const currencyRuName = giveCurrencies?.filteredCurrency?.ru.find(
-      (curr) => curr.id === currency?.id
-    )?.name;
-    const currencyEnName = giveCurrencies?.filteredCurrency?.en.find(
-      (curr) => curr.id === currency?.id
-    )?.name;
-    const currencyObject: CurrencyLang = {
-      code_name: currency.code_name,
-      icon_url: currency.icon_url,
-      id: currency.id,
-      name: {
-        en: currencyEnName || "",
-        ru: currencyRuName || "",
-      },
-    };
-    dispatch(
-      direction === directions.noncash
-        ? currencyActions.setGiveCurrency(currencyObject)
-        : currencyActions.setGiveCashCurrency(currencyObject)
-    );
-    dispatch(
-      direction === directions.noncash
-        ? currencyActions.setGetCurrency(null)
-        : currencyActions.setGetCashCurrency(null)
-    );
-  };
-  const onGetCurrencyClick = (currency: Currency) => {
-    const currencyRu = getCurrencies?.filteredCurrency?.ru.find(
-      (curr) => curr.id === currency?.id
-    );
-    const currencyEn = getCurrencies?.filteredCurrency?.en.find(
-      (curr) => curr.id === currency?.id
-    );
-    const currencyObject: CurrencyLang = {
-      code_name: currency.code_name,
-      icon_url: currency.icon_url,
-      id: currency.id,
-      name: {
-        en: currencyEn?.name,
-        ru: currencyRu?.name,
-      },
-    };
-    dispatch(
-      direction === directions.noncash
-        ? currencyActions.setGetCurrency(currencyObject)
-        : currencyActions.setGetCashCurrency(currencyObject)
-    );
-  };
+  // // Функции при клике на карточку в разных селектах
+  // const onGiveCurrencyClick = (currency: Currency) => {
+  //   const currencyRuName = giveCurrencies?.filteredCurrency?.ru.find(
+  //     (curr) => curr.id === currency?.id
+  //   )?.name;
+  //   const currencyEnName = giveCurrencies?.filteredCurrency?.en.find(
+  //     (curr) => curr.id === currency?.id
+  //   )?.name;
+  //   const currencyObject: CurrencyLang = {
+  //     code_name: currency.code_name,
+  //     icon_url: currency.icon_url,
+  //     id: currency.id,
+  //     name: {
+  //       en: currencyEnName || "",
+  //       ru: currencyRuName || "",
+  //     },
+  //   };
+  //   dispatch(
+  //     direction === directions.noncash
+  //       ? currencyActions.setGiveCurrency(currencyObject)
+  //       : currencyActions.setGiveCashCurrency(currencyObject)
+  //   );
+  //   dispatch(
+  //     direction === directions.noncash
+  //       ? currencyActions.setGetCurrency(null)
+  //       : currencyActions.setGetCashCurrency(null)
+  //   );
+  // };
+  // const onGetCurrencyClick = (currency: Currency) => {
+  //   const currencyRu = getCurrencies?.filteredCurrency?.ru.find(
+  //     (curr) => curr.id === currency?.id
+  //   );
+  //   const currencyEn = getCurrencies?.filteredCurrency?.en.find(
+  //     (curr) => curr.id === currency?.id
+  //   );
+  //   const currencyObject: CurrencyLang = {
+  //     code_name: currency.code_name,
+  //     icon_url: currency.icon_url,
+  //     id: currency.id,
+  //     name: {
+  //       en: currencyEn?.name,
+  //       ru: currencyRu?.name,
+  //     },
+  //   };
+  //   dispatch(
+  //     direction === directions.noncash
+  //       ? currencyActions.setGetCurrency(currencyObject)
+  //       : currencyActions.setGetCashCurrency(currencyObject)
+  //   );
+  // };
 
   return (
     <div className="relative mb-4">
@@ -177,7 +171,7 @@ export const CurrencyForm = () => {
           giveCurrency={currentGiveCurrency!}
         />
       ) : (
-        <Card className="grid border-0 grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] bg-darkGray rounded-3xl gap-2 p-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+        <Card className="grid border-0 grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] bg-new-dark-grey rounded-3xl gap-2 p-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
           <div className="flex flex-col gap-2">
             <p
               className={cx(
@@ -209,8 +203,8 @@ export const CurrencyForm = () => {
                 (giveCurrencyError && true)
               }
               emptyLabel={t("Выберите валюту")}
-              currencies={currentGiveCurrencies}
-              onClick={onGiveCurrencyClick}
+              currencies={giveCurrencies}
+              // onClick={onGiveCurrencyClick}
             />
           </div>
           <CurrencySwitcher
@@ -247,8 +241,8 @@ export const CurrencyForm = () => {
                 (!currentGetCurrency && !currentGiveCurrency) ||
                 (!currentGetCurrency && !getCurrencies)
               }
-              currencies={currentGetCurrencies}
-              onClick={onGetCurrencyClick}
+              // currencies={currentGetCurrencies}
+              // onClick={onGetCurrencyClick}
             />
           </div>
         </Card>
@@ -258,7 +252,7 @@ export const CurrencyForm = () => {
         onClick={() => setIsCollapse((prev) => !prev)}
         currenctExchangersIsSuccessState={currenctExchangersIsSuccessState}
         currentGiveCurrency={!!currentGiveCurrency}
-        currentGetCurrencies={!!currentGetCurrencies}
+        // currentGetCurrencies={!!currentGetCurrencies}
       />
     </div>
   );

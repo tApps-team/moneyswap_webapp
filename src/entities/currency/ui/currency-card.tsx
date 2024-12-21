@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/shared/ui";
 import { Currency } from "../model/types/currency";
 import { cx } from "class-variance-authority";
+import { useTranslation } from "react-i18next";
+import { Lang } from "@/shared/config";
 
 type CurrencyCardProps = {
   currency: Currency;
@@ -9,11 +11,17 @@ type CurrencyCardProps = {
 };
 export const CurrencyCard = (props: CurrencyCardProps) => {
   const { currency, onClick, active } = props;
+
+  const { t, i18n } = useTranslation();
+
+  const currencyName =
+    i18n.language === Lang.ru ? currency.name.ru : currency.name.en;
+
   return (
     <Card
       className={cx(
-        "h-[70px] rounded-full border-0 bg-darkGray text-white border-lightGray shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)] cursor-pointer",
-        active && ""
+        "h-14  border-0 bg-transparent text-white   cursor-pointer",
+        active && "bg-mainColor text-black"
       )}
       onClick={onClick}
     >
@@ -25,9 +33,11 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
           height={36}
           className="rounded-full"
         />
-        <div className="grid grid-rows-2 items-center h-full">
-          <p className="truncate font-semibold uppercase">{currency.name}</p>
-          <p className="truncate uppercase">{currency.code_name}</p>
+        <div className="flex flex-col items-start gap-1">
+          <p className="truncate font-semibold uppercase">{currencyName}</p>
+          <p className="truncate uppercase text-[#6F6F6F]">
+            {currency.code_name}
+          </p>
         </div>
       </CardContent>
     </Card>
