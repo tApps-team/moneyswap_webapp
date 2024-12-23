@@ -149,7 +149,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <div className={styles.valuteInfo}>
             <div className={styles.valuteExchange}>
               <RoundValute value={card?.in_count} />
-              <p className={`${styles.valuteName} truncate`}>
+              <p className={`${styles.valuteName} truncate max-w-[18vw]`}>
                 {card?.valute_from}
               </p>
               <i className={styles.arrowIcon}>
@@ -163,7 +163,9 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             </div>
             <div className={`${styles.valuteExchange} overflow-hidden`}>
               <RoundValute value={card?.out_count} />
-              <p className={`${styles.valuteName}`}>{card?.valute_to}</p>
+              <p className={`${styles.valuteName} truncate max-w-[18vw]`}>
+                {card?.valute_to}
+              </p>
             </div>
           </div>
           <span className={styles.valuteRange}>
