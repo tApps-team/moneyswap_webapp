@@ -1,6 +1,7 @@
 import { currencyActions } from "@/entities/currency";
 import { directions } from "@/entities/direction";
 import { LogoIcon } from "@/shared/assets";
+import { RefreshIcon } from "@/shared/assets/icons/refresh-icon";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Button } from "@/shared/ui";
 import { cx } from "class-variance-authority";
@@ -53,7 +54,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
         onClick={handleSwitchCurrency}
         className="rounded-full flex items-center justify-center  size-12  border-none disabled:opacity-100   disabled:bg-lightGray bg-new-light-grey"
       >
-        <LogoIcon className="scale-[150%]" />
+        <RefreshIcon className="" />
       </Button>
     </div>
   );

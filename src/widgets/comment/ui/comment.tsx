@@ -1,4 +1,3 @@
-import { useCommentsByReviewQuery } from "@/entities/comment";
 import { Exchanger } from "@/entities/exchanger";
 import { Review } from "@/entities/review";
 import { CommentList } from "@/features/comment";

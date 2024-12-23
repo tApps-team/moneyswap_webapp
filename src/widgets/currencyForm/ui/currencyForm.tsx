@@ -1,4 +1,8 @@
-import { currencyActions, useAvailableValutesQuery } from "@/entities/currency";
+import {
+  Currency,
+  currencyActions,
+  useAvailableValutesQuery,
+} from "@/entities/currency";
 import { directions } from "@/entities/direction";
 import {
   CollapseButton,
@@ -9,20 +13,19 @@ import {
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Card, useToast } from "@/shared/ui";
 import { cx } from "class-variance-authority";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
 
 export const CurrencyForm = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
 
   const { activeDirection: direction } = useAppSelector(
     (state) => state.direction
   );
   const code_name = useAppSelector((state) => state.location.city?.code_name);
-
-  const dispatch = useAppDispatch();
 
   const cashExchangersIsSuccess = useAppSelector(
     (state) => state.currencyForm.cashExchangersIsSuccess
@@ -41,6 +44,7 @@ export const CurrencyForm = () => {
   useEffect(() => {
     setIsCollapse(currenctExchangersIsSuccessState);
   }, [currenctExchangersIsSuccessState]);
+
   // Селекторы для получения выбранной валюты
   const giveCurrencyValue = useAppSelector(
     (state) => state.currency.giveCurrency
@@ -100,67 +104,26 @@ export const CurrencyForm = () => {
     }
   }, [direction, dispatch, getCurrencyError, t, toast]);
 
-  // В зависимости от языка выбираем нужные нам объекты
-  // const currentGiveCurrencies =
-  //   i18n.language === Lang.ru
-  //     ? giveCurrencies?.currencies.ru
-  //     : giveCurrencies?.currencies.en;
-
-  // const currentGetCurrencies =
-  //   i18n.language === Lang.ru
-  //     ? getCurrencies?.currencies.ru
-  //     : getCurrencies?.currencies.en;
-
-  // // Функции при клике на карточку в разных селектах
-  // const onGiveCurrencyClick = (currency: Currency) => {
-  //   const currencyRuName = giveCurrencies?.filteredCurrency?.ru.find(
-  //     (curr) => curr.id === currency?.id
-  //   )?.name;
-  //   const currencyEnName = giveCurrencies?.filteredCurrency?.en.find(
-  //     (curr) => curr.id === currency?.id
-  //   )?.name;
-  //   const currencyObject: CurrencyLang = {
-  //     code_name: currency.code_name,
-  //     icon_url: currency.icon_url,
-  //     id: currency.id,
-  //     name: {
-  //       en: currencyEnName || "",
-  //       ru: currencyRuName || "",
-  //     },
-  //   };
-  //   dispatch(
-  //     direction === directions.noncash
-  //       ? currencyActions.setGiveCurrency(currencyObject)
-  //       : currencyActions.setGiveCashCurrency(currencyObject)
-  //   );
-  //   dispatch(
-  //     direction === directions.noncash
-  //       ? currencyActions.setGetCurrency(null)
-  //       : currencyActions.setGetCashCurrency(null)
-  //   );
-  // };
-  // const onGetCurrencyClick = (currency: Currency) => {
-  //   const currencyRu = getCurrencies?.filteredCurrency?.ru.find(
-  //     (curr) => curr.id === currency?.id
-  //   );
-  //   const currencyEn = getCurrencies?.filteredCurrency?.en.find(
-  //     (curr) => curr.id === currency?.id
-  //   );
-  //   const currencyObject: CurrencyLang = {
-  //     code_name: currency.code_name,
-  //     icon_url: currency.icon_url,
-  //     id: currency.id,
-  //     name: {
-  //       en: currencyEn?.name,
-  //       ru: currencyRu?.name,
-  //     },
-  //   };
-  //   dispatch(
-  //     direction === directions.noncash
-  //       ? currencyActions.setGetCurrency(currencyObject)
-  //       : currencyActions.setGetCashCurrency(currencyObject)
-  //   );
-  // };
+  const onClickGiveCurrency = useCallback(
+    (currency: Currency) => {
+      dispatch(
+        direction === directions.noncash
+          ? currencyActions.setGiveCurrency(currency)
+          : currencyActions.setGiveCashCurrency(currency)
+      );
+    },
+    [direction, dispatch]
+  );
+  const onClickGetCurrency = useCallback(
+    (currency: Currency) => {
+      dispatch(
+        direction === directions.noncash
+          ? currencyActions.setGetCurrency(currency)
+          : currencyActions.setGetCashCurrency(currency)
+      );
+    },
+    [direction, dispatch]
+  );
 
   return (
     <div className="relative mb-4">
@@ -186,25 +149,14 @@ export const CurrencyForm = () => {
 
             <CurrencySelect
               label={t("ОТДАЮ")}
-              currencyInfo={
-                currentGiveCurrency
-                  ? {
-                      code_name: currentGiveCurrency?.code_name,
-                      icon_url: currentGiveCurrency?.icon_url,
-                      name:
-                        i18n.language === "ru"
-                          ? currentGiveCurrency?.name.ru
-                          : currentGiveCurrency?.name.en,
-                    }
-                  : undefined
-              }
+              currencyInfo={currentGiveCurrency}
               disabled={
                 (direction === directions.cash && !code_name) ||
                 (giveCurrencyError && true)
               }
               emptyLabel={t("Выберите валюту")}
               currencies={giveCurrencies}
-              // onClick={onGiveCurrencyClick}
+              onClick={onClickGiveCurrency}
             />
           </div>
           <CurrencySwitcher
@@ -225,24 +177,13 @@ export const CurrencyForm = () => {
             <CurrencySelect
               label={t("ПОЛУЧАЮ")}
               emptyLabel={t("Выберите валюту")}
-              currencyInfo={
-                currentGetCurrency
-                  ? {
-                      code_name: currentGetCurrency?.code_name,
-                      icon_url: currentGetCurrency?.icon_url,
-                      name:
-                        i18n.language === "ru"
-                          ? currentGetCurrency?.name.ru
-                          : currentGetCurrency?.name.en,
-                    }
-                  : undefined
-              }
+              currencyInfo={currentGetCurrency}
               disabled={
                 (!currentGetCurrency && !currentGiveCurrency) ||
                 (!currentGetCurrency && !getCurrencies)
               }
-              // currencies={currentGetCurrencies}
-              // onClick={onGetCurrencyClick}
+              currencies={getCurrencies}
+              onClick={onClickGetCurrency}
             />
           </div>
         </Card>
@@ -252,7 +193,7 @@ export const CurrencyForm = () => {
         onClick={() => setIsCollapse((prev) => !prev)}
         currenctExchangersIsSuccessState={currenctExchangersIsSuccessState}
         currentGiveCurrency={!!currentGiveCurrency}
-        // currentGetCurrencies={!!currentGetCurrencies}
+        currentGetCurrencies={!!currentGetCurrency}
       />
     </div>
   );

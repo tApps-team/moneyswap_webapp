@@ -12,9 +12,9 @@ export type CurrencyValutes = {
   name: Name;
   currencies: Currency[];
 };
-// export type CurrencySchema = {
-//   giveCurrency?: CurrencyLang | null;
-//   getCurrency?: CurrencyLang | null;
-//   giveCashCurrency?: CurrencyLang | null;
-//   getCashCurrency?: CurrencyLang | null;
-// };
+export type CurrencySchema = {
+  giveCurrency: Currency | null;
+  getCurrency: Currency | null;
+  giveCashCurrency: Currency | null;
+  getCashCurrency: Currency | null;
+};

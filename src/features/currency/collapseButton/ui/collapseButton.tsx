@@ -8,6 +8,7 @@ type CollapseButtonProps = {
   currenctExchangersIsSuccessState: boolean;
   onClick: () => void;
 };
+
 export const CollapseButton = (props: CollapseButtonProps) => {
   const { isCollapse, currenctExchangersIsSuccessState, onClick } = props;
 

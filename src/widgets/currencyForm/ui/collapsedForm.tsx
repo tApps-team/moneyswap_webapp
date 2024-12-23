@@ -1,10 +1,9 @@
-import { CurrencyLang } from "@/entities/currency";
+import { Currency } from "@/entities/currency";
 import { Lang } from "@/shared/config";
-import { Card, CardContent } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
 type CollapsedFormProps = {
-  giveCurrency: CurrencyLang;
-  getCurrency: CurrencyLang;
+  giveCurrency: Currency;
+  getCurrency: Currency;
   onClick: () => void;
 };
 export const CollapsedForm = (props: CollapsedFormProps) => {
