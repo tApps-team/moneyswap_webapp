@@ -1,6 +1,7 @@
 import { FC } from "react";
 import styles from "./systemError.module.scss";
 import { useTranslation } from "react-i18next";
+import { ErrorIcon } from "@/shared/assets";
 
 interface SystemErrorProps {
   network?: boolean;
@@ -12,7 +13,10 @@ export const SystemError: FC<SystemErrorProps> = ({ direction, response }) => {
   const { t } = useTranslation();
   return (
     <section className={styles.systemError}>
-      <p className={styles.errorText}>
+      <div className="mx-auto">
+        <ErrorIcon />
+      </div>
+      <p className={`${styles.errorText} font_unbounded`}>
         {direction
           ? `${t("Выбранное направление недоступно")}`
           : response && `${t("Системная ошибка")}`}

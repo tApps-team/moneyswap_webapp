@@ -118,13 +118,13 @@ export const Location = () => {
           </header>
         </DrawerTrigger>
         <DrawerContent className="min-h-svh border-none rounded-none bg-new-dark-grey">
-          <DrawerHeader className="gap-7 pt-8 pb-5 px-8">
+          <DrawerHeader className="gap-5 pt-6 pb-5 px-5">
             <div className="relative">
               <h2 className="font_unbounded text-left text-base uppercase text-[#f6ff5f] font-semibold">
                 {t("Выбор страны и города")}
               </h2>
               <DrawerClose className="absolute right-0 top-0">
-                <CloseDrawerIcon width={26} height={26} fill={"#f6ff5f"} />
+                <CloseDrawerIcon width={22} height={22} fill={"#f6ff5f"} />
               </DrawerClose>
             </div>
             <LocationSearch

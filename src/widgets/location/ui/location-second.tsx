@@ -118,13 +118,13 @@ export const LocationSecond = () => {
           </header>
         </DrawerTrigger>
         <DrawerContent className="min-h-svh border-none rounded-none bg-new-dark-grey">
-          <DrawerHeader className="gap-7 py-8 px-8">
+          <DrawerHeader className="gap-5 py-6 px-5">
             <div className="relative">
               <h2 className="font_unbounded text-left text-base uppercase text-[#f6ff5f] font-semibold">
                 {t("Выбор страны и города")}
               </h2>
               <DrawerClose className="absolute right-0 top-0">
-                <CloseDrawerIcon width={26} height={26} fill={"#f6ff5f"} />
+                <CloseDrawerIcon width={22} height={22} fill={"#f6ff5f"} />
               </DrawerClose>
             </div>
             <LocationSearch
@@ -134,7 +134,7 @@ export const LocationSecond = () => {
           </DrawerHeader>
           <ScrollArea
             data-vaul-no-drag
-            className="px-8 pt-0 pb-4 h-[calc(100svh_-_177px)]"
+            className="px-5 pt-0 pb-4 h-[calc(100svh_-_137px)]"
           >
             {filteredCountries?.length ? (
               <LocationListSecond

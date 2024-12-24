@@ -3,14 +3,14 @@ import { FC, memo } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./exchangerList.module.scss";
 import { City } from "@/entities/location";
-import { CurrencyLang } from "@/entities/currency";
 import { Lang } from "@/shared/config";
 import { ReviewDrawer } from "@/widgets/reviewDrawer";
+import { Currency } from "@/entities/currency";
 
 interface ExchangersListProps {
   exchangers: Exchanger[];
-  giveCurrency: CurrencyLang;
-  getCurrency: CurrencyLang;
+  giveCurrency: Currency;
+  getCurrency: Currency;
   city: City | null;
 }
 

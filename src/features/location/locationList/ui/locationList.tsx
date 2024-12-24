@@ -49,7 +49,7 @@ export const LocationList: FC<LocationListProps> = ({
         <AccordionItem
           value={`item-${country?.id}`}
           key={country?.id}
-          className="px-8 py-3 grid [&[data-state=open]]:bg-mainColor"
+          className="px-5 py-3 grid [&[data-state=open]]:bg-mainColor"
         >
           <AccordionTrigger className="relative border-0 px-0 py-0 [&[data-state=open]]:text-black">
             <CountryCard country={country} />

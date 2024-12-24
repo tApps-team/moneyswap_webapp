@@ -1,6 +1,5 @@
 import { currencyActions } from "@/entities/currency";
 import { directions } from "@/entities/direction";
-import { LogoIcon } from "@/shared/assets";
 import { RefreshIcon } from "@/shared/assets/icons/refresh-icon";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Button } from "@/shared/ui";
@@ -11,7 +10,7 @@ type CurrencySwitcherProps = {
   hide?: boolean;
 };
 export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
-  const { getError, isGetCurrencyFetching, hide } = props;
+  const { hide } = props;
 
   const dispatch = useAppDispatch();
   const direction = useAppSelector((state) => state.direction.activeDirection);
@@ -52,9 +51,11 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
       <Button
         disabled={isDisabled}
         onClick={handleSwitchCurrency}
-        className="rounded-full flex items-center justify-center  size-12  border-none disabled:opacity-100   disabled:bg-lightGray bg-new-light-grey"
+        className={`rounded-full flex items-center justify-center size-12 border-none disabled:opacity-100 bg-new-light-grey p-2.5 ${
+          isDisabled ? "[&>svg]:fill-new-dark-grey" : "[&>svg]:fill-mainColor"
+        }`}
       >
-        <RefreshIcon className="" />
+        <RefreshIcon />
       </Button>
     </div>
   );

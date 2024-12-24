@@ -22,7 +22,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   return (
     <Card
       className={cx(
-        "h-14 relative rounded-none shadow-none  border-0 bg-transparent text-white min-w-0   cursor-pointer",
+        "h-auto relative rounded-none shadow-none border-0 bg-transparent text-white min-w-0 cursor-pointer",
         active && "bg-mainColor text-black"
       )}
       onClick={onClick}
@@ -30,26 +30,28 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
       {currency.is_popular && (
         <span
           className={cn(
-            "absolute right-0  -translate-y-3 text-[10px] rounded-[3px] bg-mainColor text-black text-center py-[2px] px-2 font-medium",
+            "absolute right-2  -translate-y-3 text-[10px] rounded-[3px] bg-mainColor text-black text-center py-[2px] px-2 font-medium",
             active && "border border-mainColor bg-new-dark-grey text-mainColor"
           )}
         >
           {t("Popular")}
         </span>
       )}
-      <CardContent className="grid h-full grid-cols-[auto_1fr] px-4 py-2 justify-start gap-3 gap-y-0 items-center leading-none">
+      <CardContent className="grid h-full grid-cols-[auto_1fr] px-5 py-2 justify-start gap-5 gap-y-0 items-center leading-none">
         <img
           src={currency.icon_url}
           alt={`Валюта ${currency.name}`}
-          width={36}
-          height={36}
-          className="rounded-full size-9 object-cover"
+          width={32}
+          height={32}
+          className="rounded-full size-8 object-cover"
         />
-        <div className="flex flex-col min-w-0 items-start gap-1">
-          <p className="line-clamp-1 text-start font-semibold uppercase">
+        <div className="flex flex-col min-w-0 items-start gap-0">
+          <p className="font_unbounded text-sm line-clamp-1 text-start font-semibold uppercase">
             {currencyName}
           </p>
-          <p className=" uppercase text-[#6F6F6F]">{currency.code_name}</p>
+          <p className="text-sm uppercase text-[#6F6F6F]">
+            {currency.code_name}
+          </p>
         </div>
       </CardContent>
     </Card>

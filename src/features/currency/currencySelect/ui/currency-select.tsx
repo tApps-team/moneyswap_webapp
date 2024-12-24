@@ -1,5 +1,5 @@
 import { Currency, CurrencyCard, CurrencyValutes } from "@/entities/currency";
-import { SearchIcon } from "@/shared/assets";
+import { CloseDrawerIcon, SearchIcon } from "@/shared/assets";
 import {
   Button,
   Drawer,
@@ -16,7 +16,6 @@ import {
   TabsTrigger,
 } from "@/shared/ui";
 import { cx } from "class-variance-authority";
-import { X } from "lucide-react";
 
 import { Lang } from "@/shared/config";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
@@ -96,8 +95,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       <DrawerTrigger asChild>
         <Button
           className={cx(
-            "w-full h-[70px] transition-none bg-transparent border disabled:bg-opacity-0 flex items-center justify-start gap-3 rounded-[10px]",
-            currencyInfo && "border-mainColor bg-mainColor"
+            "w-full h-[54px] transition-none bg-new-light-grey disabled:bg-opacity-70 flex items-center justify-start gap-3 rounded-[10px] p-[10px]",
+            currencyInfo && "bg-mainColor"
           )}
           disabled={disabled}
         >
@@ -105,72 +104,72 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <img
               src={currencyInfo.icon_url}
               alt={`иконка ${currencyName}`}
-              width={40}
-              height={40}
+              width={32}
+              height={32}
               loading="lazy"
               className="rounded-full "
             />
           ) : (
-            <div className="border rounded-full size-10" />
+            <div className="border rounded-full size-8" />
           )}
           {currencyInfo ? (
-            <div className="grid grid-rows-2 items-center justify-start h-full text-darkGray text-[16px]">
-              <p className="font-semibold text-start uppercase leading-0 truncate">
+            <div className="grid grid-rows-2 gap-1 items-center justify-start h-full text-darkGray text-[16px]">
+              <p className="text-sm font_unbounded font-semibold text-start uppercase leading-0 truncate">
                 {currencyName}
               </p>
-              <p className="leading-0 truncate text-start font-normal">
+              <p className="leading-0 truncate text-start font-normal text-[#6F6F6F] text-sm">
                 {currencyInfo?.code_name}
               </p>
             </div>
           ) : (
-            <div className="uppercase truncate text-white font-normal">
+            <div className="text-sm truncate text-white font-normal">
               {emptyLabel}
             </div>
           )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-svh p-4 flex gap-6 flex-col bg-new-dark-grey border-none">
-        <DrawerHeader className="text-start text-mainColor  text-lg p-0 grid gap-6  pt-4">
-          <div className="flex  justify-between items-center">
-            <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
+      <DrawerContent className="h-svh p-0 flex gap-6 flex-col bg-new-dark-grey border-none">
+        <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-6 px-5 pt-6">
+          <div className="flex justify-between items-center">
+            <h2 className="font_unbounded text-left font-semibold text-base uppercase text-[#f6ff5f]">
               {label}
             </h2>
-            <DrawerClose className=" rounded-full size-4 bg-mainColor">
-              <X className="size-4" color="black" />
+            <DrawerClose className="">
+              <CloseDrawerIcon width={22} height={22} fill={"#f6ff5f"} />
             </DrawerClose>
           </div>
           <div className="relative flex items-center">
-            <SearchIcon className="absolute left-2   size-6" />
+            <SearchIcon className="absolute left-2 size-6" />
             <Input
               placeholder={t("Поиск валюты")}
-              className="text-[16px] rounded-[10px] font-medium pl-12 bg-new-light-grey border-none placeholder:text-[#B9B9B9] placeholder:transition-opacity text-white  focus:placeholder:opacity-0"
+              className="text-[16px] rounded-[10px] font-normal pl-12 bg-new-light-grey border-none placeholder:text-[#B9B9B9] placeholder:transition-opacity text-[#b9b9b9] focus:placeholder:opacity-0"
               value={searchValue}
               onChange={handleSearchChange}
             />
           </div>
         </DrawerHeader>
         {filteredCurrencies.length > 0 ? (
-          <div>
+          <div className="">
             <Tabs
               value={activeTab}
               defaultValue={allKey}
               onValueChange={setActiveTab}
-              className="flex  flex-col gap-3 "
+              className="flex flex-col gap-5 p-0"
             >
               <TabsList
                 ref={tabRef}
                 data-vaul-no-drag
-                className="bg-transparent flex  flex-wrap justify-start gap-2 w-full h-full "
+                className="bg-transparent flex px-5 py-0 flex-wrap justify-start gap-2 w-full h-full "
               >
                 {filteredCurrencies?.map((tab) => (
                   <TabsTrigger
                     key={tab?.id}
                     className={
-                      "rounded-[7px] py-1 w-fit max-w-48 bg-new-tabs-grey min-w-16  data-[state=active]:text-black data-[state=active]:border-mainColor text-white  h-[26px] data-[state=active]:bg-mainColor "
+                      "font-normal rounded-[7px] py-1 w-fit max-w-48 bg-new-tabs-grey min-w-16 data-[state=active]:text-black data-[state=active]:border-mainColor text-white h-[26px] data-[state=active]:bg-mainColor"
                     }
                     value={tab?.name?.[i18n.language as Lang] || ""}
                   >
-                    <p className="truncate leading-0 font-bold">
+                    <p className="truncate leading-0 font-medium text-xs">
                       {tab?.name?.[i18n.language as Lang]}
                     </p>
                   </TabsTrigger>
@@ -188,7 +187,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                     className="h-full"
                     value={tab?.name?.[i18n.language as Lang] || ""}
                   >
-                    <div className="flex gap-4 mt-4 flex-col ">
+                    <div className="flex gap-4 mt-4 flex-col">
                       {tab?.currencies?.map((currency) => (
                         <DrawerClose key={currency?.id}>
                           <CurrencyCard

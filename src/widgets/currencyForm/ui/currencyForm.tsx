@@ -134,14 +134,11 @@ export const CurrencyForm = () => {
           giveCurrency={currentGiveCurrency!}
         />
       ) : (
-        <Card className="grid border-0 grid-cols-1 grid-rows-[1fr,1fr,1fr,0.1fr] bg-new-dark-grey rounded-3xl gap-2 p-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
-          <div className="flex flex-col gap-2">
+        <Card className="rounded-[10px] grid border-0 grid-cols-1 grid-rows-[1fr,0.8fr,1fr,0.1fr] bg-new-dark-grey gap-2 p-5">
+          <div className="flex flex-col gap-4">
             <p
               className={cx(
-                "leading-0 font-semibold",
-                currentGiveCurrency && currentGetCurrency
-                  ? "text-mainColor"
-                  : "text-lightGray"
+                "font_unbounded leading-0 font-semibold text-mainColor"
               )}
             >
               {t("ОТДАЮ")}
@@ -163,13 +160,10 @@ export const CurrencyForm = () => {
             isGetCurrencyFetching={isGetCurrencyFetching}
             getError={isGetCurrencyError}
           />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <p
               className={cx(
-                "leading-0 font-semibold",
-                currentGiveCurrency && currentGetCurrency
-                  ? "text-mainColor"
-                  : "text-lightGray"
+                "font_unbounded leading-0 font-semibold text-mainColor"
               )}
             >
               {t("ПОЛУЧАЮ")}
