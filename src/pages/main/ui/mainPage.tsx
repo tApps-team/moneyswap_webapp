@@ -5,9 +5,9 @@ import { TelegramApi } from "@/widgets/telegramApi";
 import { Exchangers } from "@/widgets/exchangers";
 import { Location, LocationSecond } from "@/widgets/location";
 import { Directions } from "@/widgets/directions";
-import { CurrencyForm } from "@/widgets/currencyForm";
+import { CurrencyForm, CurrencyFormCash } from "@/widgets/currencyForm";
 import { LanguageSwitcher } from "@/features/languageSwitch";
-import { useAppDispatch } from "@/shared/hooks";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { directions, setActiveDirection } from "@/entities/direction";
 import { LanguageDetector } from "@/features/languageDetector";
 import { CheckQueries } from "@/features/checkQueries";
@@ -30,6 +30,10 @@ export const MainPage = () => {
     tg.expand();
   }, []);
 
+  const { activeDirection: direction } = useAppSelector(
+    (state) => state.direction
+  );
+
   return (
     <div data-testid="main-page">
       <TelegramApi />
@@ -39,7 +43,11 @@ export const MainPage = () => {
           <Directions />
           <Location />
           <LocationSecond />
-          <CurrencyForm />
+          {direction === directions.cash ? (
+            <CurrencyFormCash />
+          ) : (
+            <CurrencyForm />
+          )}
           <Exchangers />
           <LanguageSwitcher />
         </div>

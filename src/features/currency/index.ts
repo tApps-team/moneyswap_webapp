@@ -1,3 +1,3 @@
 export { CurrencySwitcher } from "./currencySwitcher";
-export { CurrencySelect } from "./currencySelect";
+export { CurrencySelect, CurrencySelectCash } from "./currencySelect";
 export { CollapseButton } from "./collapseButton";
