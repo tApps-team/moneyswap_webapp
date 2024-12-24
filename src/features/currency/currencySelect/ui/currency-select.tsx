@@ -18,9 +18,17 @@ import {
 import { cx } from "class-variance-authority";
 
 import { Lang } from "@/shared/config";
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useDeferredValue,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { filterTabList } from "../lib/filter-currency";
+import { useAppSelector } from "@/shared/hooks";
 
 type CurrecnySelectProps = {
   label: string;
@@ -34,12 +42,14 @@ type CurrecnySelectProps = {
 export const CurrencySelect = (props: CurrecnySelectProps) => {
   const { currencies, disabled, emptyLabel, onClick, currencyInfo, label } =
     props;
-
+  const activeDirection = useAppSelector(
+    (state) => state.direction.activeDirection
+  );
   const { i18n, t } = useTranslation();
   const allKey = t("Все");
 
   const tabRef = useRef<HTMLDivElement>(null);
-  const [tabHeight, setTabHeight] = useState<number | null>(null);
+  const [tabHeight, setTabHeight] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<string>(allKey);
 
   const [searchValue, setSearchValue] = useState<string>("");
@@ -50,7 +60,10 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       {
         name: { en: "All", ru: "Все" },
         currencies: Array.isArray(currencies)
-          ? currencies.map((currency) => currency?.currencies).flat()
+          ? currencies
+              .map((currency) => currency?.currencies)
+              .flat()
+              .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0))
           : [],
         id: 0,
       },
@@ -59,16 +72,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     ],
     [currencies]
   );
-
-  const filteredCurrencies = filterTabList({
-    tabList: tabList,
-    searchValue: searchDeferredValue,
-  });
-
-  useEffect(() => {
-    setActiveTab(allKey);
-  }, [allKey, i18n.language]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateHeight = () => {
       if (tabRef.current) {
         const tabHeight = tabRef.current.getBoundingClientRect().height;
@@ -83,6 +87,14 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       window.removeEventListener("resize", updateHeight);
     };
   }, []);
+  const filteredCurrencies = filterTabList({
+    tabList: tabList,
+    searchValue: searchDeferredValue,
+  });
+
+  useEffect(() => {
+    setActiveTab(allKey);
+  }, [allKey, i18n.language, activeDirection]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -90,8 +102,15 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   };
   const currencyName =
     i18n.language === Lang.ru ? currencyInfo?.name.ru : currencyInfo?.name.en;
+  console.log(tabHeight);
   return (
-    <Drawer>
+    <Drawer
+      onOpenChange={() => {
+        if (tabRef.current) {
+          setTabHeight(tabRef.current.getBoundingClientRect().height);
+        }
+      }}
+    >
       <DrawerTrigger asChild>
         <Button
           className={cx(
