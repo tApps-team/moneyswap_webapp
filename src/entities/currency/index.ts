@@ -1,4 +1,4 @@
-export { useAvailableValutesQuery, currencyApi } from "./api/currencyApi";
+export { currencyApi, useAvailableValutesQuery } from "./api/currencyApi";
 export {
   getCashCurrency,
   getCurrency,
@@ -6,16 +6,11 @@ export {
   giveCurrency,
 } from "./model/selectors/currencySelectors";
 export {
-  currencySlice,
   currencyActions,
   currencyReducer,
+  currencySlice,
 } from "./model/slice/currencySlice";
-export type {
-  Currency,
-  CurrencyLangCategory,
-  CurrencySchema,
-  CurrencyLang,
-  CurrencyCategory,
-} from "./model/types/currency";
+export type { Currency, CurrencyValutes } from "./model/types/currency";
 
-export { CurrencyCard } from "./ui/currencyCard";
+export { CurrencyCard } from "./ui/currency-card";
+export * from "./ui/currency-card-cash";

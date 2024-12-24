@@ -1,29 +1,28 @@
 .direction {
-  color: var(--light-grey);
+  background: var(--new-light-grey);
+  border-radius: 10px;
+  color: var(--white-color);
   padding: 15px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid var(--main-color);
   cursor: pointer;
-
+  
   .direction__title {
-    font-size: var(--text-sm);
+    font-size: 16px;
     text-align: center;
-    text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   @media (max-width: 380px) {
 
     .direction__title {
-      font-size: var(--text-xs);
+      font-size: var(--text-sm);
     }
   }
 }
 
 .active {
-  color: var(--dark-grey);
+  color: #121212;
   background: var(--main-color);
-  border-bottom: 0;
 }

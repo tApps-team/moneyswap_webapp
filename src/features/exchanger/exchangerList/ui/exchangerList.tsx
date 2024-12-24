@@ -3,14 +3,14 @@ import { FC, memo } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./exchangerList.module.scss";
 import { City } from "@/entities/location";
-import { CurrencyLang } from "@/entities/currency";
 import { Lang } from "@/shared/config";
 import { ReviewDrawer } from "@/widgets/reviewDrawer";
+import { Currency } from "@/entities/currency";
 
 interface ExchangersListProps {
   exchangers: Exchanger[];
-  giveCurrency: CurrencyLang;
-  getCurrency: CurrencyLang;
+  giveCurrency: Currency;
+  getCurrency: Currency;
   city: City | null;
 }
 
@@ -39,10 +39,13 @@ export const ExchangerList: FC<ExchangersListProps> = memo(
       i18n.language === Lang.ru ? getCurrency?.name?.ru : getCurrency?.name?.en;
     return (
       <section className={styles.exchangersList}>
-        <h2 className={styles.header}>
-          {t("Лучшие курсы")} <span>{giveCurrencyName}</span> {t("на")}{" "}
-          <span>{getCurrencyName}</span>
-        </h2>
+        <div className={styles.header}>
+          <h2 className="font_unbounded">{t("Лучшие курсы")}</h2>
+          <h3>
+            <span>{giveCurrencyName}</span> {t("на")}{" "}
+            <span>{getCurrencyName}</span>
+          </h3>
+        </div>
         <div className={styles.cards}>
           {exchangers &&
             exchangers.map((exchanger) => (

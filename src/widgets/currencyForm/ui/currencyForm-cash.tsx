@@ -6,7 +6,7 @@ import {
 import { directions } from "@/entities/direction";
 import {
   CollapseButton,
-  CurrencySelect,
+  CurrencySelectCash,
   CurrencySwitcher,
 } from "@/features/currency";
 
@@ -17,7 +17,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
 
-export const CurrencyForm = () => {
+export const CurrencyFormCash = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
   const dispatch = useAppDispatch();
@@ -144,7 +144,7 @@ export const CurrencyForm = () => {
               {t("ОТДАЮ")}
             </p>
 
-            <CurrencySelect
+            <CurrencySelectCash
               label={t("ОТДАЮ")}
               currencyInfo={currentGiveCurrency}
               disabled={
@@ -168,7 +168,7 @@ export const CurrencyForm = () => {
             >
               {t("ПОЛУЧАЮ")}
             </p>
-            <CurrencySelect
+            <CurrencySelectCash
               label={t("ПОЛУЧАЮ")}
               emptyLabel={t("Выберите валюту")}
               currencyInfo={currentGetCurrency}

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CurrencyLang, CurrencySchema } from "../types/currency";
+import { Currency, CurrencySchema } from "../types/currency";
+
 const initialState: CurrencySchema = {
   getCurrency: null,
   giveCurrency: null,
@@ -11,19 +12,16 @@ export const currencySlice = createSlice({
   name: "currency",
   initialState,
   reducers: {
-    setGetCurrency: (state, action: PayloadAction<CurrencyLang | null>) => {
+    setGetCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.getCurrency = action.payload;
     },
-    setGiveCurrency: (state, action: PayloadAction<CurrencyLang | null>) => {
+    setGiveCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.giveCurrency = action.payload;
     },
-    setGetCashCurrency: (state, action: PayloadAction<CurrencyLang | null>) => {
+    setGetCashCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.getCashCurrency = action.payload;
     },
-    setGiveCashCurrency: (
-      state,
-      action: PayloadAction<CurrencyLang | null>
-    ) => {
+    setGiveCashCurrency: (state, action: PayloadAction<Currency | null>) => {
       state.giveCashCurrency = action.payload;
     },
     resetCashCurrency: (state) => {
