@@ -8,6 +8,7 @@
   "Наличные": "Cash",
   "Поиск": "Search",
   "ВСЕ": "ALL",
+  "Все": "All",
   "Выберите валюту": "Select currency",
   "Выберите страну и город": "Select country and city",
   "Выбор страны и города": "Select country and city",
@@ -23,6 +24,7 @@
   "от": "from",
   "до": "to",
   "ПОИСК ВАЛЮТЫ": "CURRENCY SEARCH",
+  "Поиск валюты": "Currency search",
   "В г.": "In",
   "Системная ошибка": "System error",
   "Поиск страны и города": "Search for country and city",
@@ -69,5 +71,6 @@
     "comment_from_admin": "Answer from administration",
     "comment_from_exchanger": "Answer from exchanger",
     "comment_from_user": "Answer from user"
-  }
+  },
+  "Popular": "Popular"
 }

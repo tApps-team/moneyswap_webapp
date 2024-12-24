@@ -1,58 +1,61 @@
-import { CurrencyLang } from "@/entities/currency";
+import { Currency } from "@/entities/currency";
 import { Lang } from "@/shared/config";
-import { Card, CardContent } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
 type CollapsedFormProps = {
-  giveCurrency: CurrencyLang;
-  getCurrency: CurrencyLang;
+  giveCurrency: Currency;
+  getCurrency: Currency;
   onClick: () => void;
 };
 export const CollapsedForm = (props: CollapsedFormProps) => {
   const { getCurrency, giveCurrency, onClick } = props;
+
   const { t, i18n } = useTranslation();
   const giveCurrencyName =
     i18n.language === Lang.ru ? giveCurrency?.name.ru : giveCurrency?.name.en;
   const getCurrencyName =
     i18n.language === Lang.ru ? getCurrency?.name.ru : getCurrency?.name.en;
   return (
-    <Card
+    <section
       onClick={onClick}
-      className="h-[70px] border-mainColor  rounded-full bg-mainColor text-black -mb-4"
+      className="bg-new-dark-grey  grid grid-cols-[1fr,1px,1fr]   gap-6 rounded-xl p-[14px]"
     >
-      <CardContent className="grid grid-cols-2  px-4 py-2 h-full w-full gap-4">
-        <div className="flex items-center justify-between gap-2">
-          <div className="truncate">
-            <div className="font-semibold text-sm">{t("ОТДАЮ")}</div>
-            <div className="flex gap-1">
-              <div className="truncate text-xs uppercase">
-                {giveCurrencyName}
-              </div>
-              {/* <div className="text-xs uppercase">{giveCurrency?.code_name}</div> */}
-            </div>
-          </div>
+      <div className="flex min-w-0 flex-1 gap-1 flex-col">
+        <p className="text-white text-sm  font-semibold">{t("ОТДАЮ")}</p>
+        <div className="flex items-center gap-[10px]">
           <img
-            className="size-8 rounded-full"
+            className="size-7"
+            alt={`currency ${giveCurrencyName}`}
             src={giveCurrency?.icon_url}
-            alt={`${"Валюта"} ${giveCurrencyName}}`}
           />
-        </div>
-        <div className="flex items-center justify-between gap-2">
-          <div className="truncate">
-            <div className="font-semibold text-sm">{t("ПОЛУЧАЮ")}</div>
-            <div className="flex gap-1">
-              <div className="truncate text-xs uppercase">
-                {getCurrencyName}
-              </div>
-              {/* <div className="text-xs uppercase">{getCurrency?.code_name}</div> */}
-            </div>
+          <div className="flex flex-col min-w-0">
+            <p className="text-[#B9B9B9] text-sm font-medium truncate">
+              {giveCurrencyName}
+            </p>
+            <p className="text-new-secondary-text text-xs truncate ">
+              {giveCurrency?.code_name}
+            </p>
           </div>
-          <img
-            className="size-8 rounded-full"
-            src={getCurrency?.icon_url}
-            alt={`${"Валюта"} ${getCurrency?.name}}`}
-          />
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      <hr className="w-px border-none h-full mx-auto bg-[#5F5F5F] " />
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <p className="text-white text-sm  font-semibold">{t("ПОЛУЧАЮ")}</p>
+        <div className="flex items-center gap-[10px]">
+          <img
+            className="size-7"
+            alt={`currency ${getCurrencyName}`}
+            src={getCurrency?.icon_url}
+          />
+          <div className="flex flex-col min-w-0">
+            <p className="text-[#B9B9B9] text-sm font-medium truncate">
+              {getCurrencyName}
+            </p>
+            <p className="text-new-secondary-text text-xs truncate ">
+              {getCurrency?.code_name}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
