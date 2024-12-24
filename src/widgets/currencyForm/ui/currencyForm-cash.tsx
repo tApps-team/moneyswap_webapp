@@ -160,7 +160,7 @@ export const CurrencyFormCash = () => {
             isGetCurrencyFetching={isGetCurrencyFetching}
             getError={isGetCurrencyError}
           />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 -mt-2.5">
             <p
               className={cx(
                 "font_unbounded leading-0 font-semibold text-mainColor"
