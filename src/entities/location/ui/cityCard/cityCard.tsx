@@ -15,7 +15,7 @@ export const CityCard: FC<CityCardProps> = ({ city, changeLocation }) => {
   return (
     <header className={styles.item} onClick={changeLocation}>
       <figure className={styles.icon}>
-        <LogoArrow className="rotate-180 w-[22px] h-[22px]" fill="#000" />
+        <LogoArrow className="rotate-180 w-[22px] h-[22px]" fill="#fff" />
       </figure>
       <h3 className={styles.name}>
         {i18n.language === Lang.ru ? city?.name?.ru : city?.name?.en}

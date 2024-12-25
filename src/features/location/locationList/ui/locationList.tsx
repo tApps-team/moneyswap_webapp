@@ -43,18 +43,18 @@ export const LocationList: FC<LocationListProps> = ({
     <Accordion
       value={searchValue.length > 0 ? filteredCountries : undefined}
       type="multiple"
-      className="grid gap-2"
+      className="grid gap-0 pb-4"
     >
       {countries?.map((country) => (
         <AccordionItem
           value={`item-${country?.id}`}
           key={country?.id}
-          className="px-5 py-3 grid [&[data-state=open]]:bg-mainColor"
+          className="px-0 py-0 grid bg-transparent [&>div[data-state=open]]:bg-new-light-grey"
         >
-          <AccordionTrigger className="relative border-0 px-0 py-0 [&[data-state=open]]:text-black">
+          <AccordionTrigger className="relative border-0 px-5 py-3 [&[data-state=open]]:text-black [&[data-state=open]]:bg-mainColor">
             <CountryCard country={country} />
           </AccordionTrigger>
-          <AccordionContent className="py-0 pt-4 px-0 grid gap-4 [&[data-state=open]]:text-black">
+          <AccordionContent className="py-4 px-5 grid gap-6 text-white">
             {country?.cities?.map((city) => (
               <DrawerClose key={city?.id} className="w-full px-0 pl-[6px]">
                 <CityCard

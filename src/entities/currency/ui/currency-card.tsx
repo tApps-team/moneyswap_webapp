@@ -4,8 +4,8 @@ import { cx } from "class-variance-authority";
 import { useTranslation } from "react-i18next";
 import { Lang } from "@/shared/config";
 import { cn } from "@/shared/lib/utils";
-import { PinIcon } from "@/shared/assets";
-import { useMemo } from "react";
+// import { PinIcon } from "@/shared/assets";
+// import { useMemo } from "react";
 
 type CurrencyCardProps = {
   currency: Currency;
@@ -21,7 +21,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   const currencyName =
     i18n.language === Lang.ru ? currency.name.ru : currency.name.en;
 
-  const variant = useMemo(() => Math.floor(Math.random() * 3), []);
+  // const variant = useMemo(() => Math.floor(Math.random() * 3), []);
 
   return (
     <Card
@@ -31,17 +31,17 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
       )}
       onClick={onClick}
     >
-      {variant === 0 && currency.is_popular && (
+      {currency.is_popular && (
         <span
           className={cn(
-            "absolute right-2  -translate-y-3 text-[10px] rounded-[3px] bg-mainColor text-black text-center py-[2px] px-2 font-medium",
+            "absolute right-2 -translate-y-3 text-[10px] rounded-[3px] bg-mainColor text-black text-center py-[2px] px-2 font-medium",
             active && "border border-mainColor bg-new-dark-grey text-mainColor"
           )}
         >
           {t("Popular")}
         </span>
       )}
-      {variant === 1 && currency?.is_popular && (
+      {/* {variant === 1 && currency?.is_popular && (
         <span
           className={cn(
             "absolute right-5 top-[50%] -translate-y-[50%] font-medium"
@@ -66,7 +66,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
             }`}
           />
         </span>
-      )}
+      )} */}
       <CardContent className="grid h-full grid-cols-[auto_1fr] px-5 py-2 justify-start gap-5 gap-y-0 items-center leading-none">
         <img
           src={currency.icon_url}

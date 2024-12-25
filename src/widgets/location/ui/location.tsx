@@ -83,10 +83,10 @@ export const Location = () => {
       <Drawer>
         <DrawerTrigger asChild>
           <header
-            className={`${styles.header} gap-2 ${
+            className={`${styles.header} ${
               country
-                ? "bg-none mx-4 justify-between"
-                : "flex-col bg-[#43464E] justify-center"
+                ? "bg-none mx-4 justify-between gap-2"
+                : "flex-col bg-[#43464E] justify-center gap-1"
             }`}
           >
             {country && (
@@ -113,7 +113,7 @@ export const Location = () => {
             {country ? (
               <SquareChevronRight className="flex-shrink-0 w-6 h-6 stroke-white stroke-[1.5px]" />
             ) : (
-              <LocationArrow className="flex-shrink-0 w-4 stroke-white mt-2" />
+              <LocationArrow className="flex-shrink-0 w-4 stroke-white" />
             )}
           </header>
         </DrawerTrigger>
@@ -134,7 +134,7 @@ export const Location = () => {
           </DrawerHeader>
           <ScrollArea
             data-vaul-no-drag
-            className="px-0 pt-0 h-[calc(100svh_-_149px)]"
+            className="px-0 pt-0 h-[calc(100svh_-_133px)]"
           >
             {filteredCountries?.length ? (
               <LocationList

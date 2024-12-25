@@ -118,7 +118,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="h-svh p-0 flex gap-6 flex-col bg-new-dark-grey border-none">
+      <DrawerContent className="min-h-svh p-0 flex gap-6 flex-col bg-new-dark-grey border-none">
         <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-6 px-5 pt-6">
           <div className="flex justify-between items-center">
             <h2 className="font_unbounded text-left font-semibold text-base uppercase text-[#f6ff5f]">
@@ -152,7 +152,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               />
               <ScrollArea
                 style={{
-                  height: `calc(100dvh - ${tabHeight}px - 176px)`,
+                  height: `calc(100dvh - ${tabHeight}px - 156px)`,
                 }}
                 className=""
               >
@@ -162,7 +162,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                     className="h-full"
                     value={tab?.name?.[i18n.language as Lang] || ""}
                   >
-                    <div className="flex gap-4 mt-4 flex-col">
+                    <div className="flex gap-4 mt-4 flex-col pb-4">
                       {tab?.currencies?.map((currency) => (
                         <DrawerClose key={currency?.id}>
                           <CurrencyCard

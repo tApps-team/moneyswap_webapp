@@ -4,4 +4,3 @@ export {
   currencyFormReducer,
   currencyFormSlice,
 } from "./model/slice/currencyFormSlice";
-export * from "./ui/currencyForm-cash";

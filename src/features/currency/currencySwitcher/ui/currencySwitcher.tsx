@@ -1,6 +1,6 @@
 import { currencyActions } from "@/entities/currency";
 import { directions } from "@/entities/direction";
-import { RefreshIcon } from "@/shared/assets/icons/refresh-icon";
+import { RefreshIcon } from "@/shared/assets";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Button } from "@/shared/ui";
 import { cx } from "class-variance-authority";

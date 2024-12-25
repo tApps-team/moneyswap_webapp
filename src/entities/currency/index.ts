@@ -13,4 +13,3 @@ export {
 export type { Currency, CurrencyValutes } from "./model/types/currency";
 
 export { CurrencyCard } from "./ui/currency-card";
-export * from "./ui/currency-card-cash";

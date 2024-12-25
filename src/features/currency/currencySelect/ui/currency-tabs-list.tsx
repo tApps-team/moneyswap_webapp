@@ -25,7 +25,6 @@ export const CurrencyTabsList: FC<CurrencyTabsListProps> = ({
     };
 
     updateHeight();
-    console.log("rerender");
 
     window.addEventListener("resize", updateHeight);
 
