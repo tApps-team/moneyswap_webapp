@@ -83,9 +83,9 @@ export const Location = () => {
       <Drawer>
         <DrawerTrigger asChild>
           <header
-            className={`${styles.header} ${
+            className={`${styles.header} gap-2 ${
               country
-                ? "bg-none mx-4 justify-center gap-10"
+                ? "bg-none mx-4 justify-between"
                 : "flex-col bg-[#43464E] justify-center"
             }`}
           >
@@ -103,7 +103,7 @@ export const Location = () => {
               }`}
             >
               {city && country ? (
-                <p>
+                <p className="truncate">
                   <span>{currentCountryName},</span> {currentCityName}
                 </p>
               ) : (
@@ -111,9 +111,9 @@ export const Location = () => {
               )}
             </h2>
             {country ? (
-              <SquareChevronRight className="w-6 h-6 stroke-white stroke-[1.5px]" />
+              <SquareChevronRight className="flex-shrink-0 w-6 h-6 stroke-white stroke-[1.5px]" />
             ) : (
-              <LocationArrow className="w-4 stroke-white mt-2" />
+              <LocationArrow className="flex-shrink-0 w-4 stroke-white mt-2" />
             )}
           </header>
         </DrawerTrigger>

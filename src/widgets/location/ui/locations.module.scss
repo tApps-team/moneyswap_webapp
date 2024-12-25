@@ -29,6 +29,7 @@
             height: 30px;
             border-radius: 9999px;
             overflow: hidden;
+            flex-shrink: 0;
 
             img {
                 width: 100%;
