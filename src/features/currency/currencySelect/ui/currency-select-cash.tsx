@@ -16,23 +16,15 @@ import {
   ScrollArea,
   Tabs,
   TabsContent,
-  TabsList,
-  TabsTrigger,
 } from "@/shared/ui";
 import { cx } from "class-variance-authority";
 
 import { Lang } from "@/shared/config";
-import {
-  useDeferredValue,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { filterTabList } from "../lib/filter-currency";
 import { useAppSelector } from "@/shared/hooks";
+import { CurrencyTabsList } from "./currency-tabs-list";
 
 type CurrecnySelectProps = {
   label: string;
@@ -52,7 +44,6 @@ export const CurrencySelectCash = (props: CurrecnySelectProps) => {
   const { i18n, t } = useTranslation();
   const allKey = t("Все");
 
-  const tabRef = useRef<HTMLDivElement>(null);
   const [tabHeight, setTabHeight] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<string>(allKey);
 
@@ -76,21 +67,7 @@ export const CurrencySelectCash = (props: CurrecnySelectProps) => {
     ],
     [currencies]
   );
-  useLayoutEffect(() => {
-    const updateHeight = () => {
-      if (tabRef.current) {
-        const tabHeight = tabRef.current.getBoundingClientRect().height;
-        setTabHeight(tabHeight);
-      }
-    };
 
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-    };
-  }, []);
   const filteredCurrencies = filterTabList({
     tabList: tabList,
     searchValue: searchDeferredValue,
@@ -106,15 +83,9 @@ export const CurrencySelectCash = (props: CurrecnySelectProps) => {
   };
   const currencyName =
     i18n.language === Lang.ru ? currencyInfo?.name.ru : currencyInfo?.name.en;
-  console.log(tabHeight);
+
   return (
-    <Drawer
-      onOpenChange={() => {
-        if (tabRef.current) {
-          setTabHeight(tabRef.current.getBoundingClientRect().height);
-        }
-      }}
-    >
+    <Drawer>
       <DrawerTrigger asChild>
         <Button
           className={cx(
@@ -179,28 +150,13 @@ export const CurrencySelectCash = (props: CurrecnySelectProps) => {
               onValueChange={setActiveTab}
               className="flex flex-col gap-5 p-0"
             >
-              <TabsList
-                ref={tabRef}
-                data-vaul-no-drag
-                className="bg-transparent flex px-5 py-0 flex-wrap justify-start gap-2 w-full h-full "
-              >
-                {filteredCurrencies?.map((tab) => (
-                  <TabsTrigger
-                    key={tab?.id}
-                    className={
-                      "font-normal rounded-[7px] py-1 w-fit max-w-48 bg-new-tabs-grey min-w-16 data-[state=active]:text-black data-[state=active]:border-mainColor text-white h-[26px] data-[state=active]:bg-mainColor"
-                    }
-                    value={tab?.name?.[i18n.language as Lang] || ""}
-                  >
-                    <p className="truncate leading-0 font-medium text-xs">
-                      {tab?.name?.[i18n.language as Lang]}
-                    </p>
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+              <CurrencyTabsList
+                filteredCurrencies={filteredCurrencies}
+                setTabHeight={setTabHeight}
+              />
               <ScrollArea
                 style={{
-                  height: `calc(100svh - ${tabHeight}px - 156px)`,
+                  height: `calc(100dvh - ${tabHeight}px - 176px)`,
                 }}
                 className=""
               >
