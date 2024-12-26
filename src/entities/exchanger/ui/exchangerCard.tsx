@@ -74,9 +74,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
       <a
         onClick={() => handleClick(card)}
         rel="noopener noreferrer"
-        className={`${styles.exchangerCard} ${
-          card?.is_vip || card?.info ? styles.partner : ""
-        } ${card?.is_vip && styles.vip}`}
+        className={`${styles.exchangerCard} ${card?.is_vip && styles.vip}`}
       >
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>
