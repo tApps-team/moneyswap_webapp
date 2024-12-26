@@ -38,6 +38,7 @@ export const MainPage = () => {
           <LanguageDetector />
           <Directions />
           <Location />
+          {/* <LocationSecond /> */}
           <CurrencyForm />
           <Exchangers />
           <LanguageSwitcher />

@@ -15,11 +15,7 @@ export const Directions: FC = () => {
   const handleDirection = (direction: directions) => {
     setCity(null);
     setCountry(null);
-    clearExchangers();
     dispatch(setActiveDirection(direction));
-  };
-  const clearExchangers = () => {
-    // нужно очищать кэш exchangers
   };
 
   return (

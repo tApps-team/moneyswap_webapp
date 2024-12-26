@@ -12,7 +12,7 @@ export const CommentCard = (props: CommentCardProps) => {
   return (
     <div className="grid gap-2 bg-transparent pt-3">
       <div className="grid gap-0.5">
-        <p className="text-[10px] uppercase text-darkGray font-medium">
+        <p className="font_unbounded text-[10px] uppercase text-mainColor font-medium">
           {comment?.role === Role.admin
             ? t("comments.comment_from_admin")
             : comment?.role === Role.exchanger
@@ -20,20 +20,20 @@ export const CommentCard = (props: CommentCardProps) => {
             : t("comments.comment_from_user")}
         </p>
         <div className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
-          <p className="truncate uppercase text-[14px] font-semibold">
+          <p className="font_unbounded truncate uppercase text-[14px] font-semibold text-white">
             {comment?.role === Role.admin
               ? t("comments.admin")
               : comment?.name || "(exchanger)"}
           </p>
-          <p className="justify-self-end font-normal uppercase text-[14px]">
+          <p className="font_unbounded justify-self-end font-light uppercase text-[14px] text-mainColor">
             {formatDate(comment?.comment_date)} / {comment?.comment_time}
           </p>
         </div>
       </div>
       <div className="px-0 relative">
-        <p className="text-darkGray text-[12px] font-normal relative pl-3 break-words">
+        <p className="text-white text-[12px] font-normal relative pl-3 break-words">
           {comment?.text}
-          <span className="absolute left-0 top-[2px] w-[4px] rounded-md bg-darkGray h-[calc(100%_-_4px)]"></span>
+          <span className="absolute left-0 top-[2px] w-[2px] rounded-md bg-[#555555] h-[calc(100%_-_4px)]"></span>
         </p>
       </div>
     </div>

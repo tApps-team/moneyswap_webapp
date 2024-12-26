@@ -52,13 +52,15 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             setIsOpen((prev) => !prev);
           }}
         >
-          <p className={styles.reviewTitle}>{t("Отзывы")}</p>
+          <p className={`${styles.reviewTitle} font_unbounded`}>
+            {t("Отзывы")}
+          </p>
           <div className={styles.reviews}>
-            <h3 className={styles.reviewCountPositive}>
+            <h3 className={`${styles.reviewCountPositive} font_unbounded`}>
               {exchanger?.review_count?.positive}
             </h3>
             <span className={styles.separator}></span>
-            <h3 className={styles.reviewCountNegative}>
+            <h3 className={`${styles.reviewCountNegative} font_unbounded`}>
               {exchanger?.review_count?.neutral}
             </h3>
           </div>
@@ -66,14 +68,14 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
       </DrawerTrigger>
       <DrawerContent
         onClick={(e) => e.stopPropagation()}
-        className="p-0 w-full grid gap-4 bg-transparent border-none"
+        className="p-0 w-full grid gap-4 bg-[#191C25] border-none"
       >
         <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
           <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
             <div className="rotate-90">
               <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
             </div>
-            <p className="text-[14px] uppercase text-white font-semibold">
+            <p className="font_unbounded text-[14px] uppercase text-white font-semibold">
               {t("reviews.title")}
             </p>
           </DrawerClose>

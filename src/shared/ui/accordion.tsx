@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { cn } from "../lib/utils";
-import { LogoArrow } from "../assets";
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -21,17 +20,16 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex [&[data-state=open]>button]:bg-[#f6ff5f] [&[data-state=open]>button]:border-[#f6ff5f] [&[data-state=open]>button]:text-black">
+  <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 w-[300px] text-white items-center justify-between py-4 border-2 border-[#bbbbbb] font-medium transition-all [&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 w-[300px] text-white items-center justify-between py-4 border-2 border-[#bbbbbb]",
         className
       )}
       {...props}
     >
       {children}
-      {/* <LogoArrow className="w-[35px] h-[35px] shrink-0 transition-transform duration-200 rotate-90" /> */}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

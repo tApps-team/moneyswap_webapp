@@ -1,50 +1,38 @@
 .exchangerCard__container {
   position: relative;
 
-  &.vip {
-    padding-top: 40px;
-    background: var(--main-color);
-    border-radius: 30px;
-  }
-
   .vip_partner {
+    background: var(--main-color);
     position: absolute;
-    top: 14px;
-    left: 50%;
-    transform: translate(-50%);
-    width: 100%;
+    padding: 5px 8px;
+    top: -10px;
+    right: 20px;
+    border-radius: 3px;
 
-    >p {
-      text-transform: uppercase;
-      color: #000;
-      text-align: center;
-      font-weight: 600;
-      font-size: 14px;
-      width: 100%;
-      line-height: 1;
-    }
+    text-transform: uppercase;
+    color: #000;
+    text-align: end;
+    font-weight: 600;
+    font-size: 9px;
+    line-height: 1;
   }
 
   .exchangerCard {
     z-index: 1;
     display: block;
-    margin-bottom: 15px;
     cursor: pointer;
-    background: var(--dark-grey);
-    border-radius: 30px;
+    background: var(--new-dark-grey);
+    border-radius: 10px;
     padding: 20px;
     color: var(--white-color);
     transition: transform 0.15s ease-in;
-    // border: 2px solid var(--light-grey);
-    box-shadow: 1px 3px 8px 1.5px rgba(0,0,0,0.7);
     text-decoration: none;
 
-    &.partner {
+    &.vip {
       border: 2px solid var(--main-color);
-      box-shadow: none;
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 400px) {
       padding: 15px;
     }
 
@@ -59,18 +47,17 @@
           display: grid;
 
           .cardName {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-            // text-transform: uppercase;
-  
-            @media (max-width: 380px) {
+
+            @media (max-width: 400px) {
               font-size: var(--text-sm);
             }
           }
-  
+
           .cityName {
             color: var(--main-color);
             font-size: var(--text-sm);
@@ -80,14 +67,15 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-  
-            @media (max-width: 380px) {
+
+            @media (max-width: 400px) {
               font-size: var(--text-xs);
             }
           }
         }
 
         .reviewSlot {
+          // align-self: end;
         }
       }
     }
@@ -104,7 +92,7 @@
       background: var(--main-color);
       color: var(--dark-grey);
 
-      @media (max-width: 380px) {
+      @media (max-width: 400px) {
         margin: 15px -15px;
       }
 
@@ -121,6 +109,7 @@
         }
 
         .days {
+          margin-top: 1px;
           span {
             margin-right: 2px;
 
@@ -133,15 +122,20 @@
     }
 
     .cardSeparator {
-      margin: 10px -20px;
-      border: 1px solid var(--light-grey);
+      margin: 10px 0px;
+      border: 0.4px solid #575A62;
 
-      @media (max-width: 380px) {
-        margin: 10px -15px;
+      @media (max-width: 400px) {
+        margin: 10px 0px;
       }
     }
 
     .cardFooter {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+
       .valuteInfo {
         display: flex;
         align-items: start;
@@ -150,11 +144,11 @@
           font-size: 16px;
           color: var(--text-color);
           display: flex;
-          justify-content: center;
+          justify-content: start;
           align-items: center;
           font-weight: 500;
 
-          @media (max-width: 380px) {
+          @media (max-width: 400px) {
             font-size: var(--text-sm);
           }
 
@@ -164,9 +158,8 @@
             margin-left: 4px;
             margin-top: 4px;
 
-            @media (max-width: 380px) {
+            @media (max-width: 400px) {
               font-size: 9px;
-              margin-top: 2px;
             }
           }
 
@@ -189,7 +182,7 @@
         font-size: var(--text-sm);
         color: var(--main-color);
 
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
           font-size: var(--text-xs);
         }
       }

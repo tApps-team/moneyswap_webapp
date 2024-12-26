@@ -1,4 +1,4 @@
-import styles from "./cityCard.module.scss";
+import styles from "./cityCard-second.module.scss";
 import { FC } from "react";
 import { City } from "../../model";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,7 @@ interface CityCardProps {
   changeLocation: () => void;
 }
 
-export const CityCard: FC<CityCardProps> = ({ city, changeLocation }) => {
+export const CityCardSecond: FC<CityCardProps> = ({ city, changeLocation }) => {
   const { i18n } = useTranslation();
   return (
     <header className={styles.item} onClick={changeLocation}>

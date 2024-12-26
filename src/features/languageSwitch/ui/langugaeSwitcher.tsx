@@ -11,8 +11,8 @@ export const LanguageSwitcher = () => {
   }, [i18n]);
   return (
     <div className="absolute bottom-0 w-full mb-4">
-      <div className="flex items-center bg-lightGray p-4 justify-between rounded-full h-[50px]">
-        <Label htmlFor="switch-language" className="uppercase text-xs">
+      <div className="flex items-center bg-new-dark-grey p-4 justify-between rounded-[10px] h-[50px]">
+        <Label htmlFor="switch-language" className="text-[14px] text-white">
           {t("ПЕРЕКЛЮЧИТЬ НА ЯЗЫК")}
         </Label>
         <Switch onCheckedChange={toggle} id="switch-language" className="" />

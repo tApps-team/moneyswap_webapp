@@ -16,22 +16,20 @@
     }
 
     .header {
-        color: #000;
+        color: var(--white-color);
         padding: 8px 12px;
         position: relative;
-        background: var(--light-grey);
-        border-radius: var(--border-radius-m);
+        border-radius: 10px;
         display: flex;
         align-items: center;
-        margin: 0px 15px;
         font-size: 14px;
 
         .figure {
-            margin-right: 10px;
             width: 30px;
             height: 30px;
             border-radius: 9999px;
             overflow: hidden;
+            flex-shrink: 0;
 
             img {
                 width: 100%;
@@ -44,10 +42,8 @@
 
         .locationSelect {
             color: inherit;
-            font-weight: 500;
-            // text-transform: uppercase;
+            font-weight: 400;
             margin: 0;
-            margin-top: 1px;
             max-width: 95%;
 
             span {

@@ -1,17 +1,16 @@
 import { currencyActions } from "@/entities/currency";
 import { directions } from "@/entities/direction";
-import { LogoIcon } from "@/shared/assets";
+import { RefreshIcon } from "@/shared/assets";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { Button } from "@/shared/ui";
 import { cx } from "class-variance-authority";
-import { useEffect } from "react";
 type CurrencySwitcherProps = {
   getError?: boolean;
   isGetCurrencyFetching?: boolean;
   hide?: boolean;
 };
 export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
-  const { getError, isGetCurrencyFetching, hide } = props;
+  const { hide } = props;
 
   const dispatch = useAppDispatch();
   const direction = useAppSelector((state) => state.direction.activeDirection);
@@ -42,22 +41,21 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   return (
     <div
       className={cx(
-        "relative w-full flex items-center justify-center",
+        "relative w-full flex z-0 items-center justify-center",
         hide && "hidden"
       )}
     >
       <div
-        className={cx(
-          "absolute h-1 w-full ",
-          isDisabled ? "bg-lightGray" : "bg-mainColor"
-        )}
+        className={cx("absolute h-[2px] -z-10 w-full bg-new-light-grey ")}
       ></div>
       <Button
         disabled={isDisabled}
         onClick={handleSwitchCurrency}
-        className="rounded-full  h-16 w-16 absolute border-none disabled:opacity-100   disabled:bg-lightGray bg-[#F6FF5F]"
+        className={`rounded-full flex items-center justify-center size-12 border-none disabled:opacity-100 bg-new-light-grey p-2.5 ${
+          isDisabled ? "[&>svg]:fill-new-dark-grey" : "[&>svg]:fill-mainColor"
+        }`}
       >
-        <LogoIcon className="w-12 h-12  " fill="black" />
+        <RefreshIcon />
       </Button>
     </div>
   );

@@ -1,25 +1,37 @@
 .exchangersList {
-    padding-bottom: 20px;
-  
-    .header {
-      color: var( --white-color);
-      font-size: var(--text-xs);
-      font-weight: 400;
-      line-height: 1.5;
+  padding-bottom: 20px;
+
+  .header {
+    display: grid;
+    gap: 5px;
+    justify-content: center;
+    justify-items: center;
+    margin: 0px 3%;
+    margin-top: 10px;
+
+    h2 {
+      color: var(--white-color);
+      font-weight: 600;
+      font-size: 16px;
       text-align: center;
-      margin: 0px 3%;
       text-transform: uppercase;
-      margin-top: 10px;
+    }
+
+    h3 {
+      color: var(--white-color);
+      font-weight: 100;
+      font-size: 14px;
+      text-align: center;
 
       span {
+        font-weight: 100;
       }
-
-      // @media (max-width: 380px) {
-      //   font-size: var(--text-xs);
-      // }
-    }
-  
-    .cards {
-      padding: 15px 0px
     }
   }
+
+  .cards {
+    padding: 20px 0px;
+    display: grid;
+    gap: 20px;
+  }
+}

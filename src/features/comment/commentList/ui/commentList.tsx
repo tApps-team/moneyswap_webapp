@@ -49,7 +49,7 @@ export const CommentList = (props: CommentListProps) => {
         ref={ref}
         style={{ height }}
         className={cx(
-          " -translate-y-[50px] relative z-[-1] duration-500 ease-in-out overflow-hidden rounded-[25px] bg-mainColor",
+          " -translate-y-[50px] relative z-[-1] duration-500 ease-in-out overflow-hidden rounded-[10px] bg-new-light-grey",
           height !== 0 && "-mb-[50px]"
         )}
       >

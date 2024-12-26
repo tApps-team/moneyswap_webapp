@@ -56,30 +56,30 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
   // Проверяем, является ли текущий день будним или выходным
   const isWeekday = currentDay >= 1 && currentDay <= 5; // Пн-Пт
 
+  const isBankomats =
+    (card?.info && card.info.bankomats && card?.info?.bankomats.length > 0) ||
+    false;
+
   return (
     <animated.article
       ref={ref}
       style={springs}
-      className={`${styles.exchangerCard__container} ${
-        card?.is_vip && styles.vip
-      }`}
+      className={`${styles.exchangerCard__container}`}
     >
       {card?.is_vip && (
         <div className={styles.vip_partner}>
-          <p>{t("VIP-партнер")}</p>
+          {t("Лучшее")} {t("предложение")}
         </div>
       )}
       <a
         onClick={() => handleClick(card)}
         rel="noopener noreferrer"
-        className={`${styles.exchangerCard} ${
-          card?.is_vip || card?.info ? styles.partner : ""
-        }`}
+        className={`${styles.exchangerCard} ${card?.is_vip && styles.vip}`}
       >
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>
             <div className={styles.exchangerInfo}>
-              <h2 className={styles.cardName}>
+              <h2 className={`${styles.cardName} font_unbounded`}>
                 {i18n.language === Lang.ru ? card?.name?.ru : card?.name?.en}
               </h2>
               <h3 className={styles.cityName}>
@@ -99,8 +99,8 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <div className={styles.info}>
             <div className={styles.info__block}>
               <Clock width={12} height={12} />
-              <div className="truncate flex items-center">
-                <span>
+              <div className="truncate flex items-center mt-[1px]">
+                <span className="leading-none">
                   {isWeekday
                     ? card?.info?.weekdays?.time_from
                     : card?.info?.weekends?.time_from || "00:00"}
@@ -108,7 +108,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                 <div className="flex justify-center items-center">
                   <Minus width={8} height={8} />
                 </div>
-                <span>
+                <span className="leading-none">
                   {isWeekday
                     ? card?.info?.weekdays?.time_to
                     : card?.info?.weekends?.time_to || "00:00"}
@@ -146,11 +146,11 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         ) : (
           <hr className={styles.cardSeparator} />
         )}
-        <footer className={styles.cardFooter}>
+        <footer className={`${styles.cardFooter} relative`}>
           <div className={styles.valuteInfo}>
             <div className={styles.valuteExchange}>
               <RoundValute value={card?.in_count} />
-              <p className={`${styles.valuteName} truncate`}>
+              <p className={`${styles.valuteName} truncate max-w-[18vw]`}>
                 {card?.valute_from}
               </p>
               <i className={styles.arrowIcon}>
@@ -164,21 +164,13 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             </div>
             <div className={`${styles.valuteExchange} overflow-hidden`}>
               <RoundValute value={card?.out_count} />
-              <p className={`${styles.valuteName}`}>{card?.valute_to}</p>
-              {card?.info &&
-                card.info.bankomats &&
-                card?.info?.bankomats.length > 0 && (
-                  <div className="pl-2 w-full justify-start inline-flex flex-row gap-1 overflow-auto cursor-pointer">
-                    {card.info.bankomats?.map((bank) => (
-                      <div
-                        key={bank?.id}
-                        className="rounded-full overflow-hidden w-5 h-5 flex-shrink-0 cursor-pointer"
-                      >
-                        <img src={bank?.icon} alt="icon" className="w-5 h-5" />
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <p
+                className={`${styles.valuteName} ${
+                  isBankomats && "truncate max-w-[16vw]"
+                }`}
+              >
+                {card?.valute_to}
+              </p>
             </div>
           </div>
           <span className={styles.valuteRange}>
@@ -201,6 +193,18 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
               t("Amount_null")
             )}
           </span>
+          {isBankomats && (
+            <div className="mobile:mt-1 mt-0.5 absolute top-0 right-0 justify-start flex flex-wrap flex-row gap-x-1 gap-y-0.5 w-[96px]">
+              {card?.info?.bankomats?.map((bank) => (
+                <div
+                  key={bank?.id}
+                  className="rounded-full overflow-hidden w-4 h-4 flex-shrink-0 cursor-pointer"
+                >
+                  <img src={bank?.icon} alt="icon" className="w-4 h-4" />
+                </div>
+              ))}
+            </div>
+          )}
         </footer>
       </a>
     </animated.article>

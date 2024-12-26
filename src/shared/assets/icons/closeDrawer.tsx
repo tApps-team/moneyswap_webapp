@@ -6,9 +6,6 @@ export const CloseDrawerIcon = (props: any) => (
     viewBox="0 0 74.77 59.77"
     {...props}
   >
-    {/* <defs>
-      <style>{".cls-1{fill:#f6ff5f;stroke-width:0}"}</style>
-    </defs> */}
     <g
       id="_\u0421\u043B\u043E\u0439_1-2"
       data-name="\u0421\u043B\u043E\u0439 1"

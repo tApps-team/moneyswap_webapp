@@ -1,6 +1,6 @@
 import {
   City,
-  CityCard,
+  CityCardSecond,
   Country,
   CountryCard,
   setCity,
@@ -23,7 +23,7 @@ interface LocationListProps {
   searchValue: string;
 }
 
-export const LocationList: FC<LocationListProps> = ({
+export const LocationListSecond: FC<LocationListProps> = ({
   countries,
   setSearchValue,
   searchValue,
@@ -43,21 +43,21 @@ export const LocationList: FC<LocationListProps> = ({
     <Accordion
       value={searchValue.length > 0 ? filteredCountries : undefined}
       type="multiple"
-      className="grid gap-0 pb-4"
+      className="grid gap-2"
     >
       {countries?.map((country) => (
         <AccordionItem
           value={`item-${country?.id}`}
           key={country?.id}
-          className="px-0 py-0 grid bg-transparent [&>div[data-state=open]]:bg-new-light-grey"
+          className="px-0 py-0 rounded-[10px] bg-new-tabs-grey [&[data-state=open]]:bg-[#43464E]"
         >
-          <AccordionTrigger className="relative border-0 px-5 py-3 [&[data-state=open]]:text-black [&[data-state=open]]:bg-mainColor">
+          <AccordionTrigger className="relative border-0 rounded-[10px] px-4 py-3 [&[data-state=open]]:text-black [&[data-state=open]]:bg-mainColor">
             <CountryCard country={country} />
           </AccordionTrigger>
-          <AccordionContent className="py-4 px-5 grid gap-6 text-white">
+          <AccordionContent className="py-4 px-4 grid gap-6 [&[data-state=open]]:text-black">
             {country?.cities?.map((city) => (
               <DrawerClose key={city?.id} className="w-full px-0 pl-[6px]">
-                <CityCard
+                <CityCardSecond
                   city={city}
                   changeLocation={() => changeLocation({ city, country })}
                 />
