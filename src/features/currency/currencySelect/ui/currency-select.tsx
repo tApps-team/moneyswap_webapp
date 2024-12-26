@@ -46,23 +46,44 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const searchDeferredValue = useDeferredValue(searchValue);
 
-  const tabList: CurrencyValutes[] = useMemo(
-    () => [
+  // const tabList: CurrencyValutes[] = useMemo(
+  //   () => [
+  //     {
+  //       name: { en: "All", ru: "Все" },
+  //       currencies: Array.isArray(currencies)
+  //         ? currencies
+  //             .map((category) => category?.currencies)
+  //             .flat()
+  //             .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0))
+  //         : [],
+  //       id: 0,
+  //     },
+
+  //     ...(Array.isArray(currencies) ? currencies : []),
+  //   ],
+  //   [currencies]
+  // );
+
+  const tabList: CurrencyValutes[] = useMemo(() => {
+    if (!Array.isArray(currencies)) return [];
+
+    const sortedCurrencies = [
+      ...currencies.filter((category) => category.name.ru === "Криптовалюта"),
+      ...currencies.filter((category) => category.name.ru !== "Криптовалюта"),
+    ];
+
+    return [
       {
         name: { en: "All", ru: "Все" },
-        currencies: Array.isArray(currencies)
-          ? currencies
-              .map((currency) => currency?.currencies)
-              .flat()
-              .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0))
-          : [],
+        currencies: sortedCurrencies
+          .map((category) => category?.currencies)
+          .flat()
+          .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0)),
         id: 0,
       },
-
-      ...(Array.isArray(currencies) ? currencies : []),
-    ],
-    [currencies]
-  );
+      ...sortedCurrencies,
+    ];
+  }, [currencies]);
 
   const filteredCurrencies = filterTabList({
     tabList: tabList,
