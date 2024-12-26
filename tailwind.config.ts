@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        mobile: "401px",
+      },
       colors: {
         // new colors
         "new-dark-grey": "#252830",

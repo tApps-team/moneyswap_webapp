@@ -56,6 +56,10 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
   // Проверяем, является ли текущий день будним или выходным
   const isWeekday = currentDay >= 1 && currentDay <= 5; // Пн-Пт
 
+  const isBankomats =
+    (card?.info && card.info.bankomats && card?.info?.bankomats.length > 0) ||
+    false;
+
   return (
     <animated.article
       ref={ref}
@@ -64,8 +68,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
     >
       {card?.is_vip && (
         <div className={styles.vip_partner}>
-          <p>{t("Лучшее")}</p>
-          <p>{t("предложение")}</p>
+          {t("Лучшее")} {t("предложение")}
         </div>
       )}
       <a
@@ -163,7 +166,11 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             </div>
             <div className={`${styles.valuteExchange} overflow-hidden`}>
               <RoundValute value={card?.out_count} />
-              <p className={`${styles.valuteName} truncate max-w-[18vw]`}>
+              <p
+                className={`${styles.valuteName} ${
+                  isBankomats && "truncate max-w-[16vw]"
+                }`}
+              >
                 {card?.valute_to}
               </p>
             </div>
@@ -188,20 +195,18 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
               t("Amount_null")
             )}
           </span>
-          {card?.info &&
-            card.info.bankomats &&
-            card?.info?.bankomats.length > 0 && (
-              <div className="mt-1 absolute top-0 right-0 justify-start flex flex-wrap flex-row gap-x-1 gap-y-0.5 w-[96px]">
-                {card.info.bankomats?.map((bank) => (
-                  <div
-                    key={bank?.id}
-                    className="rounded-full overflow-hidden w-4 h-4 flex-shrink-0 cursor-pointer"
-                  >
-                    <img src={bank?.icon} alt="icon" className="w-4 h-4" />
-                  </div>
-                ))}
-              </div>
-            )}
+          {isBankomats && (
+            <div className="mobile:mt-1 mt-0.5 absolute top-0 right-0 justify-start flex flex-wrap flex-row gap-x-1 gap-y-0.5 w-[96px]">
+              {card?.info?.bankomats?.map((bank) => (
+                <div
+                  key={bank?.id}
+                  className="rounded-full overflow-hidden w-4 h-4 flex-shrink-0 cursor-pointer"
+                >
+                  <img src={bank?.icon} alt="icon" className="w-4 h-4" />
+                </div>
+              ))}
+            </div>
+          )}
         </footer>
       </a>
     </animated.article>

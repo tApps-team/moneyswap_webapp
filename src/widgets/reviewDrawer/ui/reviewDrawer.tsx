@@ -52,13 +52,15 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             setIsOpen((prev) => !prev);
           }}
         >
-          <p className={styles.reviewTitle}>{t("Отзывы")}</p>
+          <p className={`${styles.reviewTitle} font_unbounded`}>
+            {t("Отзывы")}
+          </p>
           <div className={styles.reviews}>
-            <h3 className={styles.reviewCountPositive}>
+            <h3 className={`${styles.reviewCountPositive} font_unbounded`}>
               {exchanger?.review_count?.positive}
             </h3>
             <span className={styles.separator}></span>
-            <h3 className={styles.reviewCountNegative}>
+            <h3 className={`${styles.reviewCountNegative} font_unbounded`}>
               {exchanger?.review_count?.neutral}
             </h3>
           </div>
