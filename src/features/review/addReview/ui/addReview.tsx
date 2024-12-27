@@ -139,7 +139,7 @@ export const AddReview = (props: AddReviewProps) => {
               <div className="rotate-90">
                 <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
               </div>
-              <p className="font_unbounded text-[14px] uppercase text-white font-semibold">
+              <p className="text-[14px] uppercase text-white font-semibold">
                 {t("reviews.exit_add_review")}
               </p>
             </DrawerClose>
@@ -159,7 +159,7 @@ export const AddReview = (props: AddReviewProps) => {
                 onSubmit={reviewForm.handleSubmit(onSubmit)}
               >
                 {isSuccess ? (
-                  <p className="font_unbounded text-mainColor text-xl text-center font-semibold uppercase w-[80%] mx-auto">
+                  <p className="text-mainColor text-xl text-center font-semibold uppercase w-[80%] mx-auto">
                     {t("reviews.add_review_success")}
                   </p>
                 ) : (

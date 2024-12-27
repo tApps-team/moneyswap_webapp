@@ -120,7 +120,7 @@ export const LocationSecond = () => {
         <DrawerContent className="min-h-svh border-none rounded-none bg-new-dark-grey">
           <DrawerHeader className="gap-5 py-6 px-5">
             <div className="relative">
-              <h2 className="font_unbounded text-left text-base uppercase text-[#f6ff5f] font-semibold">
+              <h2 className="text-left text-base uppercase text-[#f6ff5f] font-semibold">
                 {t("Выбор страны и города")}
               </h2>
               <DrawerClose className="absolute right-0 top-0">

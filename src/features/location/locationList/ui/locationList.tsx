@@ -16,6 +16,7 @@ import {
 } from "@/shared/ui";
 import { useAppDispatch } from "@/shared/hooks";
 import { currencyActions } from "@/entities/currency";
+import { useTranslation } from "react-i18next";
 
 interface LocationListProps {
   countries: Country[];
@@ -28,6 +29,7 @@ export const LocationList: FC<LocationListProps> = ({
   setSearchValue,
   searchValue,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const changeLocation = (location: { city: City; country: Country }) => {
     dispatch(setCity(location?.city));
@@ -43,18 +45,27 @@ export const LocationList: FC<LocationListProps> = ({
     <Accordion
       value={searchValue.length > 0 ? filteredCountries : undefined}
       type="multiple"
-      className="grid gap-0 pb-4"
+      className="grid gap-4 pb-4 pt-4"
     >
       {countries?.map((country) => (
         <AccordionItem
           value={`item-${country?.id}`}
           key={country?.id}
-          className="px-0 py-0 grid bg-transparent [&>div[data-state=open]]:bg-new-light-grey"
+          className="relative px-0 py-0 grid bg-transparent group"
         >
-          <AccordionTrigger className="relative border-0 px-5 py-3 [&[data-state=open]]:text-black [&[data-state=open]]:bg-mainColor">
+          {country.is_popular && (
+            <span
+              className={
+                "z-10 absolute right-2 -translate-y-3 text-[10px] rounded-[3px] bg-mainColor text-black text-center py-[2px] px-2 font-medium border border-new-dark-grey group-data-[state=open]:border-mainColor group-data-[state=open]:text-mainColor group-data-[state=open]:bg-new-dark-grey"
+              }
+            >
+              {t("Popular")}
+            </span>
+          )}
+          <AccordionTrigger className="relative border-0 px-5 py-2 group-data-[state=open]:text-black group-data-[state=open]:bg-mainColor">
             <CountryCard country={country} />
           </AccordionTrigger>
-          <AccordionContent className="py-4 px-5 grid gap-6 text-white">
+          <AccordionContent className="py-4 px-5 grid gap-6 text-white group-data-[state=open]:bg-new-light-grey">
             {country?.cities?.map((city) => (
               <DrawerClose key={city?.id} className="w-full px-0 pl-[6px]">
                 <CityCard

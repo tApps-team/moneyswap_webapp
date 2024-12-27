@@ -20,9 +20,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
       className="bg-new-dark-grey  grid grid-cols-[1fr,1px,1fr] gap-4 rounded-xl p-[14px] pb-4"
     >
       <div className="flex min-w-0 flex-1 gap-1 flex-col">
-        <p className="font_unbounded text-white text-sm font-semibold">
-          {t("ОТДАЮ")}
-        </p>
+        <p className="text-white text-sm font-semibold">{t("ОТДАЮ")}</p>
         <div className="flex items-center gap-[10px]">
           <img
             className="size-7"
@@ -41,9 +39,7 @@ export const CollapsedForm = (props: CollapsedFormProps) => {
       </div>
       <hr className="w-px border-none h-[80%] my-auto mx-auto bg-[#5F5F5F]" />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <p className="font_unbounded text-white text-sm font-semibold">
-          {t("ПОЛУЧАЮ")}
-        </p>
+        <p className="text-white text-sm font-semibold">{t("ПОЛУЧАЮ")}</p>
         <div className="flex items-center gap-[10px]">
           <img
             className="size-7"

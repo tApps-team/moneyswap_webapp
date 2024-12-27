@@ -79,7 +79,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>
             <div className={styles.exchangerInfo}>
-              <h2 className={`${styles.cardName} font_unbounded`}>
+              <h2 className={styles.cardName}>
                 {i18n.language === Lang.ru ? card?.name?.ru : card?.name?.en}
               </h2>
               <h3 className={styles.cityName}>

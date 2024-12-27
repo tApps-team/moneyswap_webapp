@@ -52,16 +52,18 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             setIsOpen((prev) => !prev);
           }}
         >
-          <p className={`${styles.reviewTitle} font_unbounded`}>
-            {t("Отзывы")}
-          </p>
+          <p className={styles.reviewTitle}>{t("Отзывы")}</p>
           <div className={styles.reviews}>
-            <h3 className={`${styles.reviewCountPositive} font_unbounded`}>
+            <h3 className={styles.reviewCountPositive}>
               {exchanger?.review_count?.positive}
             </h3>
             <span className={styles.separator}></span>
-            <h3 className={`${styles.reviewCountNegative} font_unbounded`}>
+            <h3 className={styles.reviewCountNeutral}>
               {exchanger?.review_count?.neutral}
+            </h3>
+            <span className={styles.separator}></span>
+            <h3 className={styles.reviewCountNegative}>
+              {exchanger?.review_count?.negative}
             </h3>
           </div>
         </div>
@@ -75,7 +77,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             <div className="rotate-90">
               <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
             </div>
-            <p className="font_unbounded text-[14px] uppercase text-white font-semibold">
+            <p className="text-[14px] uppercase text-white font-semibold">
               {t("reviews.title")}
             </p>
           </DrawerClose>
