@@ -100,10 +100,10 @@ export const Location = () => {
             <h2
               className={`${styles.locationSelect} ${
                 activeDirection === directions.cash && "truncate"
-              }`}
+              } font-semibold`}
             >
               {city && country ? (
-                <p className="truncate font-semibold">
+                <p className="truncate">
                   <span className="">{currentCountryName},</span>{" "}
                   {currentCityName}
                 </p>

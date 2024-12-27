@@ -46,6 +46,24 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const searchDeferredValue = useDeferredValue(searchValue);
 
+  // const tabList: CurrencyValutes[] = useMemo(
+  //   () => [
+  //     {
+  //       name: { en: "All", ru: "Все" },
+  //       currencies: Array.isArray(currencies)
+  //         ? currencies
+  //             .map((category) => category?.currencies)
+  //             .flat()
+  //             .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0))
+  //         : [],
+  //       id: 0,
+  //     },
+
+  //     ...(Array.isArray(currencies) ? currencies : []),
+  //   ],
+  //   [currencies]
+  // );
+
   const tabList: CurrencyValutes[] = useMemo(
     () => [
       {
@@ -54,14 +72,30 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           ? currencies
               .map((category) => category?.currencies)
               .flat()
-              .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0))
+              .sort((a, b) => {
+                if (b.is_popular !== a.is_popular) {
+                  return b.is_popular ? 1 : -1;
+                }
+
+                const nameA = a.name?.[i18n.language as Lang].toLowerCase();
+                const nameB = b.name?.[i18n.language as Lang].toLowerCase();
+
+                const isLatinA = /^[a-z]/i.test(nameA);
+                const isLatinB = /^[a-z]/i.test(nameB);
+
+                if (isLatinA !== isLatinB) {
+                  return isLatinA ? -1 : 1;
+                }
+
+                return nameA.localeCompare(nameB);
+              })
           : [],
         id: 0,
       },
 
       ...(Array.isArray(currencies) ? currencies : []),
     ],
-    [currencies]
+    [currencies, i18n.language]
   );
 
   const filteredCurrencies = filterTabList({
