@@ -40,7 +40,7 @@ export const ExchangerList: FC<ExchangersListProps> = memo(
     return (
       <section className={styles.exchangersList}>
         <div className={styles.header}>
-          <h2 className="font_unbounded">{t("Лучшие курсы")}</h2>
+          <h2>{t("Лучшие курсы")}</h2>
           <h3>
             <span>{giveCurrencyName}</span> {t("на")}{" "}
             <span>{getCurrencyName}</span>

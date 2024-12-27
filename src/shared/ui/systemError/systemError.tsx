@@ -16,7 +16,7 @@ export const SystemError: FC<SystemErrorProps> = ({ direction, response }) => {
       <div className="mx-auto">
         <ErrorIcon />
       </div>
-      <p className={`${styles.errorText} font_unbounded`}>
+      <p className={styles.errorText}>
         {direction
           ? `${t("Выбранное направление недоступно")}`
           : response && `${t("Системная ошибка")}`}

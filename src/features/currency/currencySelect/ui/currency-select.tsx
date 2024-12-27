@@ -64,26 +64,39 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   //   [currencies]
   // );
 
-  const tabList: CurrencyValutes[] = useMemo(() => {
-    if (!Array.isArray(currencies)) return [];
-
-    const sortedCurrencies = [
-      ...currencies.filter((category) => category.name.ru === "Криптовалюта"),
-      ...currencies.filter((category) => category.name.ru !== "Криптовалюта"),
-    ];
-
-    return [
+  const tabList: CurrencyValutes[] = useMemo(
+    () => [
       {
         name: { en: "All", ru: "Все" },
-        currencies: sortedCurrencies
-          .map((category) => category?.currencies)
-          .flat()
-          .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0)),
+        currencies: Array.isArray(currencies)
+          ? currencies
+              .map((category) => category?.currencies)
+              .flat()
+              .sort((a, b) => {
+                if (b.is_popular !== a.is_popular) {
+                  return b.is_popular ? 1 : -1;
+                }
+
+                const nameA = a.name?.[i18n.language as Lang].toLowerCase();
+                const nameB = b.name?.[i18n.language as Lang].toLowerCase();
+
+                const isLatinA = /^[a-z]/i.test(nameA);
+                const isLatinB = /^[a-z]/i.test(nameB);
+
+                if (isLatinA !== isLatinB) {
+                  return isLatinA ? -1 : 1;
+                }
+
+                return nameA.localeCompare(nameB);
+              })
+          : [],
         id: 0,
       },
-      ...sortedCurrencies,
-    ];
-  }, [currencies]);
+
+      ...(Array.isArray(currencies) ? currencies : []),
+    ],
+    [currencies, i18n.language]
+  );
 
   const filteredCurrencies = filterTabList({
     tabList: tabList,
@@ -125,7 +138,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           )}
           {currencyInfo ? (
             <div className="grid grid-rows-2 gap-1 items-center justify-start h-full text-darkGray text-[16px]">
-              <p className="text-sm font_unbounded font-semibold text-start uppercase leading-0 truncate">
+              <p className="text-sm font-bold text-start uppercase leading-0 truncate">
                 {currencyName}
               </p>
               <p className="leading-0 truncate text-start font-normal text-[#6F6F6F] text-sm">
@@ -142,7 +155,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       <DrawerContent className="min-h-svh p-0 flex gap-6 flex-col bg-new-dark-grey border-none">
         <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-6 px-5 pt-6">
           <div className="flex justify-between items-center">
-            <h2 className="font_unbounded text-left font-semibold text-base uppercase text-[#f6ff5f]">
+            <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
               {label}
             </h2>
             <DrawerClose className="">

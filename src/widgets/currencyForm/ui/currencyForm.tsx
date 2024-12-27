@@ -136,11 +136,7 @@ export const CurrencyForm = () => {
       ) : (
         <Card className="rounded-[10px] grid border-0 grid-cols-1 grid-rows-[1fr,0.8fr,1fr,0.1fr] bg-new-dark-grey gap-2 p-5">
           <div className="flex flex-col gap-4">
-            <p
-              className={cx(
-                "font_unbounded leading-0 font-semibold text-mainColor"
-              )}
-            >
+            <p className={cx("leading-0 font-semibold text-mainColor")}>
               {t("ОТДАЮ")}
             </p>
 
@@ -161,11 +157,7 @@ export const CurrencyForm = () => {
             getError={isGetCurrencyError}
           />
           <div className="flex flex-col gap-4 -mt-2.5">
-            <p
-              className={cx(
-                "font_unbounded leading-0 font-semibold text-mainColor"
-              )}
-            >
+            <p className={cx("leading-0 font-semibold text-mainColor")}>
               {t("ПОЛУЧАЮ")}
             </p>
             <CurrencySelect

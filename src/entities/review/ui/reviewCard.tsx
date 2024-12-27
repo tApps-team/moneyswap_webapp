@@ -100,10 +100,10 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </div>
           </div>
           <div className="p-3 pl-4">
-            <p className="font_unbounded text-white uppercase text-[14px] truncate w-[50vw] font-medium">
+            <p className="text-white uppercase text-[14px] truncate w-[50vw] font-medium">
               {review?.username}
             </p>
-            <p className="font_unbounded text-mainColor font-light text-[12px] uppercase">
+            <p className="text-mainColor font-light text-[12px] uppercase">
               {formatDate(review?.review_date)} / {review?.review_time}
             </p>
           </div>
@@ -125,7 +125,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             >
               {review?.text}
               {showMore && (
-                <span className="uppercase pl-4 opacity-0 font_unbounded">
+                <span className="uppercase pl-4 opacity-0">
                   {t("reviews.show_less")}
                 </span>
               )}
@@ -135,7 +135,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               <span
                 onClick={() => setShowMore(!showMore)}
                 className={cx(
-                  "font_unbounded bg-new-dark-grey cursor-pointer text-[10px] uppercase text-mainColor pl-4 absolute bottom-0.5 right-4"
+                  " bg-new-dark-grey cursor-pointer text-[10px] uppercase text-mainColor pl-4 absolute bottom-0.5 right-4"
                 )}
               >
                 {!showMore && (

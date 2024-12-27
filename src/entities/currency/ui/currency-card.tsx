@@ -76,7 +76,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
           className="rounded-full size-8 object-cover"
         />
         <div className="flex flex-col min-w-0 items-start gap-0">
-          <p className="font_unbounded text-sm line-clamp-1 text-start font-semibold uppercase">
+          <p className="text-sm line-clamp-1 text-start font-semibold uppercase">
             {currencyName}
           </p>
           <p className="text-sm uppercase text-[#6F6F6F]">

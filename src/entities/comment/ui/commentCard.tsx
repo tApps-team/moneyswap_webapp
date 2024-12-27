@@ -12,7 +12,7 @@ export const CommentCard = (props: CommentCardProps) => {
   return (
     <div className="grid gap-2 bg-transparent pt-3">
       <div className="grid gap-0.5">
-        <p className="font_unbounded text-[10px] uppercase text-mainColor font-medium">
+        <p className="text-[10px] uppercase text-mainColor font-medium">
           {comment?.role === Role.admin
             ? t("comments.comment_from_admin")
             : comment?.role === Role.exchanger
@@ -20,12 +20,12 @@ export const CommentCard = (props: CommentCardProps) => {
             : t("comments.comment_from_user")}
         </p>
         <div className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
-          <p className="font_unbounded truncate uppercase text-[14px] font-semibold text-white">
+          <p className="truncate uppercase text-[14px] font-semibold text-white">
             {comment?.role === Role.admin
               ? t("comments.admin")
               : comment?.name || "(exchanger)"}
           </p>
-          <p className="font_unbounded justify-self-end font-light uppercase text-[14px] text-mainColor">
+          <p className="justify-self-end font-light uppercase text-[14px] text-mainColor">
             {formatDate(comment?.comment_date)} / {comment?.comment_time}
           </p>
         </div>

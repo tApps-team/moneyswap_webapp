@@ -100,11 +100,12 @@ export const Location = () => {
             <h2
               className={`${styles.locationSelect} ${
                 activeDirection === directions.cash && "truncate"
-              }`}
+              } font-semibold`}
             >
               {city && country ? (
                 <p className="truncate">
-                  <span>{currentCountryName},</span> {currentCityName}
+                  <span className="">{currentCountryName},</span>{" "}
+                  {currentCityName}
                 </p>
               ) : (
                 t("Выберите страну и город")
@@ -120,7 +121,7 @@ export const Location = () => {
         <DrawerContent className="min-h-svh border-none rounded-none bg-new-dark-grey">
           <DrawerHeader className="gap-5 pt-6 pb-5 px-5">
             <div className="relative">
-              <h2 className="font_unbounded text-left text-base uppercase text-[#f6ff5f] font-semibold">
+              <h2 className="text-left text-base uppercase text-[#f6ff5f] font-semibold">
                 {t("Выбор страны и города")}
               </h2>
               <DrawerClose className="absolute right-0 top-0">
