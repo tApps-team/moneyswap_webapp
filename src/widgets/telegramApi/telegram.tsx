@@ -5,13 +5,15 @@ import { useEffect } from "react";
 export const TelegramApi = () => {
   const dispatch = useAppDispatch();
   // инициализация webapp
-  const tg = window.Telegram.WebApp;
+  const tg = window?.Telegram?.WebApp;
 
   useEffect(() => {
-    tg.enableClosingConfirmation();
-    tg.ready();
-    if (tg?.initDataUnsafe) {
-      dispatch(setUser(tg?.initDataUnsafe?.user));
+    if (tg) {
+      tg.enableClosingConfirmation();
+      tg.ready();
+      if (tg?.initDataUnsafe) {
+        dispatch(setUser(tg?.initDataUnsafe?.user));
+      }
     }
   }, []);
 
