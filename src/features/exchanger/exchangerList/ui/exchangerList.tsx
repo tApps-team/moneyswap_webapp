@@ -18,7 +18,7 @@ export const ExchangerList: FC<ExchangersListProps> = memo(
   ({ exchangers, giveCurrency, getCurrency, city }) => {
     const { t, i18n } = useTranslation();
     // telegram open link method
-    const tg = window.Telegram.WebApp;
+    const tg = window?.Telegram?.WebApp;
     const options = [{ try_instant_view: true }];
     const isTelegramLink = (url: string): boolean => {
       const telegramLinkPattern = /(?:t\.me|telegram\.me)\/[^/\s]+\/?$/;

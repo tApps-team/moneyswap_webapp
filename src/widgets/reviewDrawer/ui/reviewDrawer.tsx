@@ -25,7 +25,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
     i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
 
   // telegram open link method
-  const tg = window.Telegram.WebApp;
+  const tg = window?.Telegram?.WebApp;
   const options = [{ try_instant_view: true }];
   const isTelegramLink = (url: string): boolean => {
     const telegramLinkPattern = /(?:t\.me|telegram\.me)\/[^/\s]+\/?$/;

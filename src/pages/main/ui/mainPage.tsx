@@ -24,10 +24,12 @@ export const MainPage = () => {
   }, []);
 
   // telegram object
-  const tg = window.Telegram.WebApp;
+  const tg = window?.Telegram?.WebApp;
 
   useEffect(() => {
-    tg.expand();
+    if (tg) {
+      tg.expand();
+    }
   }, []);
 
   return (
