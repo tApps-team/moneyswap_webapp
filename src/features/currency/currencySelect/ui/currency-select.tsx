@@ -16,12 +16,13 @@ import {
 import { cx } from "class-variance-authority";
 
 import { Lang } from "@/shared/config";
+import { useAppSelector } from "@/shared/hooks";
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { filterTabList } from "../lib/filter-currency";
-import { useAppSelector } from "@/shared/hooks";
 import { CurrencyTabsList } from "./currency-tabs-list";
 
+import { cn } from "@/shared/lib/utils";
 type CurrecnySelectProps = {
   label: string;
   currencyInfo: Currency | null;
@@ -37,6 +38,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const activeDirection = useAppSelector(
     (state) => state.direction.activeDirection
   );
+  const tgPlatform = window.Telegram.WebApp.platform;
+
   const { i18n, t } = useTranslation();
   const allKey = t("Все");
 
@@ -115,7 +118,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     i18n.language === Lang.ru ? currencyInfo?.name.ru : currencyInfo?.name.en;
 
   return (
-    <Drawer>
+    <Drawer direction={tgPlatform === "web" ? "top" : "bottom"}>
       <DrawerTrigger asChild>
         <Button
           className={cx(
@@ -152,7 +155,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
           )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="min-h-svh p-0 flex gap-6 flex-col bg-new-dark-grey border-none">
+      <DrawerContent
+        className={cn("p-0 flex gap-6 flex-col bg-new-dark-grey border-none")}
+      >
         <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-6 px-5 pt-6">
           <div className="flex justify-between items-center">
             <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">

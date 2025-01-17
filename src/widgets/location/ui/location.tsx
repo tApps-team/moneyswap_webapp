@@ -22,6 +22,7 @@ import { SquareChevronRight } from "lucide-react";
 
 export const Location = () => {
   const { t, i18n } = useTranslation();
+  const tgPlatform = window.Telegram.WebApp.platform;
   const [searchValue, setSearchValue] = useState<string>("");
   const { activeDirection } = useAppSelector((state) => state.direction);
   const { city, country } = useAppSelector((state) => state.location);
@@ -80,7 +81,7 @@ export const Location = () => {
         [styles.location__active]: activeDirection === directions.cash,
       })}
     >
-      <Drawer>
+      <Drawer direction={tgPlatform === "web" ? "top" : "bottom"}>
         <DrawerTrigger asChild>
           <header
             className={`${styles.header} ${

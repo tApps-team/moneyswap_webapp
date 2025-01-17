@@ -9,6 +9,7 @@ declare global {
         WebAppUser: {
           id: number;
         };
+        platform: string;
         initData: string;
         initDataUnsafe: {
           user: {
