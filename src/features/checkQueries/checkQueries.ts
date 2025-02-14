@@ -1,6 +1,7 @@
 type QueryParams = {
   direction?: string | null;
   user_id?: string | null;
+  user_lang?: string | null;
 };
 
 export const CheckQueries = () => {
@@ -13,6 +14,9 @@ export const CheckQueries = () => {
   }
   if (urlParams.has("user_id")) {
     queryParams.user_id = urlParams.get("user_id");
+  }
+  if (urlParams.has("user_lang")) {
+    queryParams.user_lang = urlParams.get("user_lang");
   }
 
   return queryParams;
