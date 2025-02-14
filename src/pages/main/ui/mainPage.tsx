@@ -1,4 +1,5 @@
 import { Suspense, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./mainPage.module.scss";
 import clsx from "clsx";
 import { TelegramApi } from "@/widgets/telegramApi";
@@ -7,15 +8,29 @@ import { Location } from "@/widgets/location";
 import { Directions } from "@/widgets/directions";
 import { CurrencyForm } from "@/widgets/currencyForm";
 import { LanguageSwitcher } from "@/features/languageSwitch";
-import { useAppDispatch } from "@/shared/hooks";
 import { directions, setActiveDirection } from "@/entities/direction";
-import { LanguageDetector } from "@/features/languageDetector";
 import { CheckQueries } from "@/features/checkQueries";
 import { setUserId } from "@/entities/user";
+import { useAppDispatch } from "@/shared/hooks";
+import { Lang } from "@/shared/config";
 
 export const MainPage = () => {
   //check queries
   const dispatch = useAppDispatch();
+
+  const { i18n } = useTranslation();
+  const lang = CheckQueries().user_lang;
+  console.log(lang);
+
+  useEffect(() => {
+    if (lang && (lang === Lang.ru || lang === Lang.en)) {
+      i18n.changeLanguage(lang);
+    } else {
+      const currentLang = i18n.language.split("-");
+      i18n.changeLanguage(currentLang[0]);
+    }
+  }, []);
+
   useEffect(() => {
     const activeDirection = CheckQueries().direction || directions.noncash;
     const user_id = Number(CheckQueries().user_id);
@@ -37,10 +52,8 @@ export const MainPage = () => {
       <TelegramApi />
       <Suspense fallback={<div>Loading...</div>}>
         <div className={clsx(styles.content, {})}>
-          <LanguageDetector />
           <Directions />
           <Location />
-          {/* <LocationSecond /> */}
           <CurrencyForm />
           <Exchangers />
           <LanguageSwitcher />
