@@ -39,7 +39,10 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
   const [increaseLinkCount] = useIncreaseLinkCountMutation();
 
   const handleClick = (exchanger: Exchanger) => {
-    openLink(exchanger.partner_link);
+    alert(user_id);
+    alert(exchanger.exchange_id);
+    alert(exchanger.exchange_marker);
+    alert(exchanger.exchange_direction_id);
     if (user_id) {
       const increaseincreaseLinkCountReq = {
         user_id,
@@ -47,7 +50,14 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         exchange_marker: exchanger.exchange_marker,
         exchange_direction_id: exchanger.exchange_direction_id,
       };
-      increaseLinkCount(increaseincreaseLinkCountReq);
+      increaseLinkCount(increaseincreaseLinkCountReq)
+        .unwrap()
+        .then(() => {
+          alert("переход по ссылке");
+        })
+        .then(() => {
+          openLink(exchanger.partner_link);
+        });
     }
   };
 
