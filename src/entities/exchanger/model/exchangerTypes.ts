@@ -36,15 +36,21 @@ export interface Exchanger {
     weekdays: { time_from: string; time_to: string };
     weekends: { time_from: string; time_to: string };
   };
-  params: string;
-  fromfee: number | null;
+  params?: string;
+  fromfee?: number | null;
   exchange_direction_id: number;
+  direction_marker: DirectionMarker;
 }
 
 export enum ExchangerMarker {
   cash = "cash",
   no_cash = "no_cash",
   partner = "partner",
+}
+
+export enum DirectionMarker {
+  city = "city",
+  country = "country",
 }
 
 export interface Bankomat {

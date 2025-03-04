@@ -1,5 +1,5 @@
 import { baseApi } from "@/shared/api";
-import { IncreaseLinkCountReq } from "./userDto";
+import { IncreaseLinkCountPartnersReq, IncreaseLinkCountReq } from "./userDto";
 
 export const userAPI = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -10,6 +10,19 @@ export const userAPI = baseApi.injectEndpoints({
         body,
       }),
     }),
+    increaseLinkCountPartners: build.mutation<
+      void,
+      IncreaseLinkCountPartnersReq
+    >({
+      query: (body) => ({
+        url: `/api/partner/increase_link_count`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
-export const { useIncreaseLinkCountMutation } = userAPI;
+export const {
+  useIncreaseLinkCountMutation,
+  useIncreaseLinkCountPartnersMutation,
+} = userAPI;
