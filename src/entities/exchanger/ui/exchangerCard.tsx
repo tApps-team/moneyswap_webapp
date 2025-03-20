@@ -13,6 +13,7 @@ import {
   useIncreaseLinkCountMutation,
   useIncreaseLinkCountPartnersMutation,
 } from "@/entities/user";
+import { ExchangeRates } from "./components";
 
 interface ExchangerCardProps {
   card: Exchanger;
@@ -186,14 +187,8 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           </div>
           <span className={styles.valuteRange}>
             {t("от")}{" "}
-            {card?.min_amount ? (
-              <>
-                <RoundValute value={card?.min_amount} />
-                {card?.exchange_marker === ExchangerMarker.partner && "$"}
-              </>
-            ) : (
-              t("Amount_null")
-            )}{" "}
+            <RoundValute value={card?.min_amount ?? 0} />
+            {card?.exchange_marker === ExchangerMarker.partner && "$"}{" "}
             {t("до")}{" "}
             {card?.max_amount ? (
               <>
@@ -215,6 +210,13 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                 </div>
               ))}
             </div>
+          )}
+          {card?.exchange_rates && (
+            <ExchangeRates
+              rates={card?.exchange_rates}
+              valuteFrom={card?.valute_from}
+              valuteTo={card?.valute_to}
+            />
           )}
         </footer>
       </a>

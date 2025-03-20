@@ -38,6 +38,7 @@ export interface Exchanger {
   };
   params?: string;
   fromfee?: number | null;
+  exchange_rates: ExchangeRate[] | null;
   exchange_direction_id: number;
   direction_marker: DirectionMarker;
 }
@@ -59,3 +60,11 @@ export interface Bankomat {
   name: string;
   icon: string;
 }
+
+export type ExchangeRate = {
+  min_count: number | null;
+  max_count: number | null;
+  in_count: number;
+  out_count: number;
+  rate_coefficient: number;
+};
