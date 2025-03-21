@@ -7,7 +7,7 @@ export const exchangerAPI = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getExchangersNoncash: build.query<Exchanger[], DirectionsNoncashReq>({
       query: (params) => ({
-        url: `/api/directions`,
+        url: `/api/test/directions`,
         method: "GET",
         params: params,
       }),
@@ -15,7 +15,7 @@ export const exchangerAPI = baseApi.injectEndpoints({
     }),
     getExchangersCash: build.query<Exchanger[], DirectionsCashReq>({
       query: (params) => ({
-        url: `/api/directions`,
+        url: `/api/test/directions`,
         method: "GET",
         params: params,
       }),
