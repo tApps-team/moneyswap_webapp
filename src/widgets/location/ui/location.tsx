@@ -1,3 +1,4 @@
+import { Loader, SquareChevronRight } from "lucide-react";
 import { directions } from "@/entities/direction";
 import { useGetCountriesQuery } from "@/entities/location/api/locationApi";
 import { LocationList, LocationSearch } from "@/features/location";
@@ -18,7 +19,6 @@ import {
   Empty,
   ScrollArea,
 } from "@/shared/ui";
-import { SquareChevronRight } from "lucide-react";
 
 export const Location = () => {
   const { t, i18n } = useTranslation();
@@ -32,7 +32,7 @@ export const Location = () => {
     i18n.language === Lang.ru ? city?.name?.ru : city?.name?.en;
 
   // query rtk
-  const { data: countries } = useGetCountriesQuery("", {
+  const { data: countries, isLoading } = useGetCountriesQuery("", {
     skip: activeDirection !== directions.cash,
   });
 
@@ -144,6 +144,10 @@ export const Location = () => {
                 setSearchValue={setSearchValue}
                 searchValue={searchValue}
               />
+            ) : isLoading ? (
+              <div className="grid justify-items-center gap-6 mt-8">
+                <Loader className="animate-spin size-10 stroke-mainColor" />
+              </div>
             ) : (
               <div className="grid justify-items-center gap-6 mt-8">
                 <img src="/img/notfound.gif" className="w-[60px] h-[60px]" />
