@@ -72,5 +72,6 @@
     "comment_from_exchanger": "Answer from exchanger",
     "comment_from_user": "Answer from user"
   },
-  "Popular": "Popular"
+  "Popular": "Popular",
+  "AML": "This exchanger has high AML-risk indicators. We recommend exercising caution when exchanging"
 }

@@ -7,3 +7,4 @@ export * from "./LocationArrow";
 export * from "./ErrorIcon";
 export * from "./PinIcon";
 export * from "./refresh-icon";
+export * from "./aml-mobile-icon";
