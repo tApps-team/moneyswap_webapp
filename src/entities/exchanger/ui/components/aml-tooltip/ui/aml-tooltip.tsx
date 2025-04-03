@@ -26,7 +26,7 @@ export const AMLTooltip = () => {
           side="bottom"
           className="shadow-lg !z-[20] bg-new-light-grey rounded-[8px] lg:px-4 lg:py-3 px-2 py-2 border-none w-[70vw] max-w-[200px]"
         >
-          <p className="leading-3 mobile-xl:text-xs text-[10px] text-white text-wrap">{t("AML")}</p>
+          <p className="leading-3 mobile-xl:text-xs text-[10px] text-white text-wrap whitespace-normal overflow-wrap-anywhere">{t("AML")}</p>
         </TooltipContent>
       </Tooltip>
       </TooltipProvider>
