@@ -13,7 +13,7 @@ import {
   useIncreaseLinkCountMutation,
   useIncreaseLinkCountPartnersMutation,
 } from "@/entities/user";
-import { ExchangeRates } from "./components";
+import { ExchangeRates, AMLTooltip } from "./components";
 
 interface ExchangerCardProps {
   card: Exchanger;
@@ -69,7 +69,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
   const isWeekday = currentDay >= 1 && currentDay <= 5; // Пн-Пт
 
   const isBankomats =
-    (card?.info && card.info.bankomats && card?.info?.bankomats.length > 0) ||
+    (card.info?.bankomats && card?.info?.bankomats.length > 0) ||
     false;
 
   return (
@@ -91,9 +91,14 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>
             <div className={styles.exchangerInfo}>
+              <div className="flex items-center gap-3 truncate min-w-0">
               <h2 className={styles.cardName}>
                 {i18n.language === Lang.ru ? card?.name?.ru : card?.name?.en}
               </h2>
+              {card?.info?.high_aml && (
+                  <AMLTooltip />
+                )}
+              </div>
               <h3 className={styles.cityName}>
                 {city
                   ? `${t("В г.")} ${
@@ -107,7 +112,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             <div className={styles.reviewSlot}>{ReviewSlot}</div>
           </div>
         </header>
-        {card?.info ? (
+        {(card.exchange_marker === ExchangerMarker.partner || card.exchange_marker === ExchangerMarker.both) ? (
           <div className={styles.info}>
             <div className={styles.info__block}>
               <Clock width={12} height={12} />
