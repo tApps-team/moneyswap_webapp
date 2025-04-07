@@ -91,13 +91,11 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         <header className={styles.cardHeader}>
           <div className={styles.cardInfo}>
             <div className={styles.exchangerInfo}>
-              <div className="flex items-center gap-3 truncate min-w-0">
-              <h2 className={styles.cardName}>
+              <div className="flex items-center gap-3 truncate min-w-0 w-full justify-between">
+                <h2 className={styles.cardName}>
                 {i18n.language === Lang.ru ? card?.name?.ru : card?.name?.en}
-              </h2>
-              {card?.info?.high_aml && (
-                  <AMLTooltip />
-                )}
+                </h2>
+                <AMLTooltip isHighRisk={card?.info?.high_aml ?? false} />
               </div>
               <h3 className={styles.cityName}>
                 {city
