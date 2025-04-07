@@ -42,7 +42,7 @@
   "Вс": "Su",
   "Доставка": "Delivery",
   "Офис": "Office",
-  "Лучшее": "Best",
+  "Лучшее": "The best",
   "предложение": "offer!",
   "Amount_null": "___",
   "reviews": {
@@ -73,5 +73,6 @@
     "comment_from_user": "Answer from user"
   },
   "Popular": "Popular",
-  "AML": "This exchanger has high AML-risk indicators. We recommend exercising caution when exchanging"
+  "AML_high": "This exchanger has high AML-risk indicators. We recommend exercising caution when exchanging",
+  "AML_low": "This exchanger has low AML-risk indicators"
 }
