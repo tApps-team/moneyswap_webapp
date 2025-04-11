@@ -53,6 +53,12 @@
       "negative": "Negative",
       "all": "All"
     },
+    "from": {
+      "review": "Review",
+      "from": "from",
+      "moneyswap": "Moneyswap",
+      "bestchange": "Bestchange"
+    },
     "show_comments": "Show comments",
     "show_more": "Show more",
     "show_less": "Show less",

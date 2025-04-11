@@ -52,6 +52,12 @@
       "negative": "Отрицательный",
       "all": "Все"
     },
+    "from": {
+      "review": "Отзыв",
+      "from": "с",
+      "moneyswap": "Moneyswap",
+      "bestchange": "Bestchange"
+    },
     "show_comments": "Смотреть комментарии",
     "show_more": "Развернуть",
     "show_less": "Свернуть",
