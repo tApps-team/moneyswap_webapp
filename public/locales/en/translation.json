@@ -56,8 +56,8 @@
     "from": {
       "review": "Review",
       "from": "from",
-      "moneyswap": "Moneyswap",
-      "bestchange": "Bestchange"
+      "moneyswap": "MoneySwap",
+      "bestchange": "BestChange"
     },
     "show_comments": "Show comments",
     "show_more": "Show more",
