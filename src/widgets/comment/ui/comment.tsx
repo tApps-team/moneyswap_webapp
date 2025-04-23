@@ -23,7 +23,7 @@ export const Comment = (props: CommentProps) => {
     <div className=" bg-mainColor">
       <div
         className={cx(
-          "px-4  rounded-b-3xl bg-darkGray  py-2 flex  ",
+          "px-4 rounded-b-3xl bg-darkGray py-2 flex",
           commentIsLoading && "items-center justify-center",
           review?.comment_count < 1 && "pointer-events-none",
           isOpen && "border-b-2"
@@ -31,8 +31,8 @@ export const Comment = (props: CommentProps) => {
         onClick={onHandleClick}
       >
         {commentIsLoading ? (
-          <div className="flex justify-center items-center mb-2 ">
-            <Loader color="#F6FF5F" className="animate-spin  " />
+          <div className="flex justify-center items-center mb-2">
+            <Loader color="#F6FF5F" className="animate-spin" />
           </div>
         ) : (
           <>
