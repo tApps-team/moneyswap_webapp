@@ -15,14 +15,7 @@ export const Comment = (props: CommentProps) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [commentIsLoading, setCommentIsLoading] = useState(false);
-  // const { data: comments, isLoading } = useCommentsByReviewQuery(
-  //   {
-  //     review_id: review.id,
-  //     exchange_id: exchangerInfo?.exchange_id,
-  //     exchange_marker: exchangerInfo?.exchange_marker,
-  //   },
-  //   { skip: !isOpen || review.comment_count < 1 }
-  // );
+  
   const onHandleClick = useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
@@ -55,10 +48,7 @@ export const Comment = (props: CommentProps) => {
       </div>
 
       <CommentList
-        // comments={comments || []}
-        // isLoading={isLoading}
         onLoadingChange={setCommentIsLoading}
-        commentCount={review.comment_count}
         exchangerInfo={exchangerInfo}
         isOpen={isOpen}
         reviewId={review.id}
