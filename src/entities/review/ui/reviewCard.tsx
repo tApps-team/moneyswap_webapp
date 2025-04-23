@@ -157,13 +157,13 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           <div
             className={cx(
               "p-4 rounded-b-[10px] bg-new-dark-grey flex",
-              commentIsLoading && "items-center justify-center",
-              review?.comment_count < 1 && "pointer-events-none"
+              commentIsLoading && "items-center justify-start",
+              review?.comment_count < 1 ? "pointer-events-none" : "cursor-pointer"
             )}
             onClick={() => setIsOpen((prev) => !prev)}
           >
             {commentIsLoading ? (
-              <div className="flex justify-center items-center mb-0 ">
+              <div className="flex justify-start items-center mb-0 ">
                 <Loader color="#F6FF5F" className="animate-spin h-4 w-4" />
               </div>
             ) : (
