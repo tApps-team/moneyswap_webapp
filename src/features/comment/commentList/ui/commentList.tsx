@@ -1,5 +1,4 @@
 import {
-  Comment,
   CommentCard,
   useCommentsByReviewQuery,
 } from "@/entities/comment";
@@ -10,15 +9,12 @@ import { useEffect, useRef, useState } from "react";
 type CommentListProps = {
   isOpen: boolean;
   reviewId: number;
-  commentCount: number;
-  // isLoading: boolean;
-  // comments: Comment[];
   onLoadingChange: (isLoading: boolean) => void;
   exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
 };
 
 export const CommentList = (props: CommentListProps) => {
-  const { reviewId, isOpen, exchangerInfo, commentCount, onLoadingChange } =
+  const { reviewId, isOpen, exchangerInfo, onLoadingChange } =
     props;
   const [height, setHeight] = useState<undefined | number | string>(
     isOpen ? "auto" : 0

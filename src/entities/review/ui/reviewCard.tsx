@@ -181,7 +181,6 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         </Card>
         <CommentList
           onLoadingChange={setCommentIsLoading}
-          commentCount={review?.comment_count}
           exchangerInfo={exchangerInfo}
           reviewId={review?.id}
           isOpen={isOpen}

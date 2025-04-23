@@ -6,5 +6,5 @@ export type Comment = {
   comment_time: string;
   text: string;
   role: Role;
-  name?: string;
+  username?: string;
 };

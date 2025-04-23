@@ -20,12 +20,12 @@ export const CommentCard = (props: CommentCardProps) => {
             : t("comments.comment_from_user")}
         </p>
         <div className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
-          <p className="truncate uppercase text-[14px] font-semibold text-white">
+          <p className="truncate uppercase text-[12px] font-semibold text-white">
             {comment?.role === Role.admin
               ? t("comments.admin")
-              : comment?.name || "(exchanger)"}
+              : comment?.username || "Unknown..."}
           </p>
-          <p className="justify-self-end font-light uppercase text-[14px] text-mainColor">
+          <p className="justify-self-end font-light uppercase text-xs text-mainColor">
             {formatDate(comment?.comment_date)} / {comment?.comment_time}
           </p>
         </div>
