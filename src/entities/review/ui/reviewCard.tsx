@@ -87,7 +87,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
                 ? "bg-mainColor border-none"
                 : review?.grade === Grade.neutral
                 ? "bg-lightGray border-none"
-                : "bg-darkGray"
+                : "bg-new-light-grey border-none"
             )}
           >
             <div
