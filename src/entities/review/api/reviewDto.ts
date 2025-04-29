@@ -1,5 +1,5 @@
+import { ExchangerMarker } from "@/shared/types";
 import {
-  ExchangerMarker,
   Grade,
   ReviewResponse,
 } from "../model/types/reviewType";

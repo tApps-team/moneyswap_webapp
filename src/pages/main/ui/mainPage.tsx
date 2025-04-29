@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+import { Loader } from "lucide-react";
 import { Suspense, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./mainPage.module.scss";
@@ -12,13 +14,17 @@ import { CheckQueries } from "@/features/checkQueries";
 import { setUser, setUserId } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks";
 import { Lang } from "@/shared/config";
+import { AddReviewFromSite } from "@/features/review/addReview";
+import { ExchangerMarker } from "@/shared/types";
 
 export const MainPage = () => {
-  //check queries
+  const location = useLocation();
   const dispatch = useAppDispatch();
-
   const { i18n } = useTranslation();
   const lang = CheckQueries().user_lang;
+  // add_review_from_site
+  const { tgWebAppStartParam } = CheckQueries();
+  const [exchanger_id, exchanger_marker] = tgWebAppStartParam?.split("__") || [];
 
   useEffect(() => {
     if (lang && (lang === Lang.ru || lang === Lang.en)) {
@@ -39,6 +45,7 @@ export const MainPage = () => {
       tg.ready();
       tg?.initDataUnsafe && dispatch(setUser(tg?.initDataUnsafe?.user));
     }
+
     const activeDirection = CheckQueries().direction || directions.noncash;
     const user_id = Number(CheckQueries().user_id);
     dispatch(setActiveDirection(activeDirection as directions));
@@ -49,16 +56,27 @@ export const MainPage = () => {
     }
   }, []);
 
+  const shouldShowReviewForm = location.search.includes("tgWebAppStartParam");
+
   return (
     <div data-testid="main-page">
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className={clsx(styles.content, {})}>
-          <Directions />
-          <Location />
-          <CurrencyForm />
-          <Exchangers />
-          <LanguageSwitcher />
-        </div>
+      <Suspense fallback={
+        <div className="flex justify-center items-center h-screen"><Loader className="animate-spin size-6 text-mainColor" /></div>
+        }>
+        {shouldShowReviewForm ? (
+          <AddReviewFromSite
+            exchange_id={+exchanger_id}
+            exchange_marker={exchanger_marker as ExchangerMarker}
+          />
+        ) : (
+          <div className={clsx(styles.content, {})}>
+            <Directions />
+            <Location />
+            <CurrencyForm />
+            <Exchangers />
+            <LanguageSwitcher />
+          </div>
+        )}
       </Suspense>
     </div>
   );

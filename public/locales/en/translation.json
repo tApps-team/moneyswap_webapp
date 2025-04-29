@@ -66,6 +66,7 @@
     "add_review_btn": "Add a review about exchanger",
     "exit_add_review": "Back",
     "permission_error": "You have already send a comment for this exchanger within the last 24 hours",
+    "error": "Oops! Something went wrong... Please try again later",
     "add_review_success": "Your review has been successfully added",
     "add_review_title": "Please leave your review about our exchanger",
     "review_placeholder": "Write review...",

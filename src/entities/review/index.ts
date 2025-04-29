@@ -5,11 +5,11 @@ export {
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
   useLazyReviewsByExchangeQuery,
+  useCheckUserReviewPermissionQuery
 } from "./api/reviewApi";
 
 export { ReviewCard } from "./ui/reviewCard";
 export {
-  ExchangerMarker,
   Grade,
   ReviewFrom,
   type Review,
