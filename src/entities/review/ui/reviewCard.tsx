@@ -107,11 +107,11 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <p className="text-mainColor font-light text-[12px] uppercase">
               {formatDate(review?.review_date)} / {review?.review_time}
               </p>
-              {review?.review_from === ReviewFrom.bestchange && (
+              {/* {review?.review_from === ReviewFrom.bestchange && (
                 <p className="text-mainColor text-[12px] font-light truncate">
                 {t("reviews.from.review")} {t("reviews.from.from")} {t("reviews.from.bestchange")}
                 </p>
-              )}
+              )} */}
             </div>
           </div>
           <div
