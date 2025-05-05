@@ -1,4 +1,4 @@
-import { ExchangerMarker } from "../../review/model/types/reviewType";
+import { ExchangerMarker } from "@/shared/types";
 import { Comment } from "../model/types/commentTypes";
 
 export type CommentsByReviewRequest = {

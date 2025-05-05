@@ -1,7 +1,5 @@
 import { animated, useInView } from "react-spring";
-import styles from "./exchangerCard.module.scss";
 import { FC } from "react";
-import { Exchanger, ExchangerMarker } from "../model";
 import { City } from "@/entities/location";
 import { useTranslation } from "react-i18next";
 import { Lang } from "@/shared/config";
@@ -13,7 +11,10 @@ import {
   useIncreaseLinkCountMutation,
   useIncreaseLinkCountPartnersMutation,
 } from "@/entities/user";
+import { ExchangerMarker } from "@/shared/types";
+import { Exchanger } from "../model";
 import { ExchangeRates, AMLTooltip } from "./components";
+import styles from "./exchangerCard.module.scss";
 
 interface ExchangerCardProps {
   card: Exchanger;

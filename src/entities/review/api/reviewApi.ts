@@ -79,4 +79,5 @@ export const {
   useLazyReviewsByExchangeQuery,
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
+  useCheckUserReviewPermissionQuery,
 } = reviewApi;

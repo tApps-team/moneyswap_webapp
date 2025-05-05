@@ -2,6 +2,7 @@ type QueryParams = {
   direction?: string | null;
   user_id?: string | null;
   user_lang?: string | null;
+  tgWebAppStartParam?: string | null;
 };
 
 export const CheckQueries = () => {
@@ -17,6 +18,9 @@ export const CheckQueries = () => {
   }
   if (urlParams.has("user_lang")) {
     queryParams.user_lang = urlParams.get("user_lang");
+  }
+  if (urlParams.has("tgWebAppStartParam")) {
+    queryParams.tgWebAppStartParam = urlParams.get("tgWebAppStartParam");
   }
 
   return queryParams;

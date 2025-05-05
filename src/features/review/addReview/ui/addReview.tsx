@@ -1,4 +1,9 @@
-import { ExchangerMarker } from "@/entities/exchanger";
+import { Loader } from "lucide-react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { cx } from "class-variance-authority";
 import {
   Grade,
   useAddReviewByExchangeMutation,
@@ -25,13 +30,7 @@ import {
   Textarea,
   useToast,
 } from "@/shared/ui";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { cx } from "class-variance-authority";
-import { Loader } from "lucide-react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import { ExchangerMarker } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 
 type AddReviewProps = {
@@ -267,73 +266,3 @@ export const AddReview = (props: AddReviewProps) => {
     </Drawer>
   );
 };
-{
-  /* <Tabs>
-                        <TabsList className="grid grid-rows-2 ">
-                          {tabItems.map((tab) => (
-                            <TabsTrigger
-                              className="w-full"
-                              key={tab.tabValue}
-                              value={tab.tabName}
-                            >
-                              {tab.tabName}
-                            </TabsTrigger>
-                          ))}
-                        </TabsList>
-                        {tabItems.map((tab) => (
-                          <TabsContent value={tab.tabName}>
-                            
-                          </TabsContent>
-                        ))}
-                      </Tabs> */
-}
-{
-  /* <RadioGroup className="grid">
-                        <FormItem>
-                          <FormControl>
-                            <RadioGroupItem
-                              className="w-full h-10"
-                              value="positive"
-                            />
-                          </FormControl>
-                        </FormItem>
-                        <FormItem>
-                          <FormControl>
-                            <RadioGroupItem value="negative" />
-                          </FormControl>
-                        </FormItem>
-                        <FormItem>
-                          <FormControl>
-                            <RadioGroupItem value="neutral" />
-                          </FormControl>
-                        </FormItem>
-                      </RadioGroup> */
-}
-{
-  /* <Tabs
-onValueChange={(e) => {
-  field.onChange(e);
-}}
->
-<TabsList className="grid ">
-  <TabsTrigger
-    className="rounded-full border-2"
-    value="1"
-  >
-    {t("ПОЛОЖИТЕЛЬНЫЙ")}
-  </TabsTrigger>
-  <TabsTrigger
-    className="rounded-full border-2"
-    value="0"
-  >
-    {t("НЕЙТРАЛЬНЫЙ")}
-  </TabsTrigger>
-  <TabsTrigger
-    className="rounded-full border-2"
-    value="-1"
-  >
-    {t("ОТРИЦАТЕЛЬНЫЙ")}
-  </TabsTrigger>
-</TabsList>
-</Tabs> */
-}

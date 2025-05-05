@@ -1,4 +1,5 @@
 import { Name } from "@/shared/config";
+import { ExchangerMarker } from "@/shared/types";
 
 export interface Exchanger {
   id: number;
@@ -42,13 +43,6 @@ export interface Exchanger {
   exchange_rates: ExchangeRate[] | null;
   exchange_direction_id: number;
   direction_marker: DirectionMarker;
-}
-
-export enum ExchangerMarker {
-  cash = "cash",
-  no_cash = "no_cash",
-  partner = "partner",
-  both = "both",
 }
 
 export enum DirectionMarker {
