@@ -22,7 +22,7 @@ export const MainPage = () => {
   const dispatch = useAppDispatch();
   const { i18n } = useTranslation();
   const lang = CheckQueries().user_lang;
-  // add_review_from_site
+  // add_review_from_site_with_tg_web_app_start_param
   const { tgWebAppStartParam } = CheckQueries();
   const [exchanger_id, exchanger_marker] = tgWebAppStartParam?.split("__") || [];
 
