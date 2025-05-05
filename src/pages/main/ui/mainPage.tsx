@@ -14,7 +14,7 @@ import { CheckQueries } from "@/features/checkQueries";
 import { setUser, setUserId } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks";
 import { Lang } from "@/shared/config";
-import { AddReviewFromSite } from "@/features/review/addReview";
+import { AddReviewFromSite } from "@/features/review";
 import { ExchangerMarker } from "@/shared/types";
 
 export const MainPage = () => {
