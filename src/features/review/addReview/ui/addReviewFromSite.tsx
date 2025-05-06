@@ -83,7 +83,7 @@ export const AddReviewFromSite = (props: AddReviewFromSiteProps) => {
         });
     } else {
       toast({
-        title: t("reviews.error"),
+        title: t("reviews.permission_error"),
       });
     }
   };
@@ -100,7 +100,7 @@ export const AddReviewFromSite = (props: AddReviewFromSiteProps) => {
   useEffect(() => {
     if (checkUserReviewPermissionIsError) {
       toast({
-        title: t("reviews.error"),
+        title: t("reviews.permission_error"),
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);
