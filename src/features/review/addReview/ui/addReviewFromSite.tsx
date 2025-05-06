@@ -70,11 +70,15 @@ export const AddReviewFromSite = (props: AddReviewFromSiteProps) => {
             toast({
               title: t("reviews.permission_error"),
             });
+          } else if (error?.status === 404) {
+              toast({
+                title: t("reviews.error_404"),
+                variant: "destructive",
+              });
           } else {
             toast({
               title: t("reviews.error"),
             });
-            reviewForm.reset();
           }
         });
     } else {
