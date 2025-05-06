@@ -83,7 +83,7 @@ export const AddReviewFromSite = (props: AddReviewFromSiteProps) => {
         });
     } else {
       toast({
-        title: t("reviews.error"),
+        title: t("reviews.permission_error"),
       });
     }
   };
