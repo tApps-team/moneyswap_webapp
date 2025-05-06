@@ -65,7 +65,7 @@
     "exchanger_link": "Link to exchanger",
     "add_review_btn": "Add a review about exchanger",
     "exit_add_review": "Back",
-    "permission_error": "You have already send a comment for this exchanger within the last 24 hours",
+    "permission_error": "You have already send a review for this exchanger within the last 24 hours",
     "error": "Oops! Something went wrong... Please try again later",
     "error_404": "It is necessary to start working with our bot first. Please click the 'START' button in the bot",
     "add_review_success": "Your review has been successfully added",
