@@ -54,6 +54,7 @@ export const MainPage = () => {
     } else if (tg) {
       dispatch(setUserId(tg?.initDataUnsafe?.user?.id || null));
     }
+
   }, []);
 
   const shouldShowReviewForm = location.search.includes("tgWebAppStartParam");
