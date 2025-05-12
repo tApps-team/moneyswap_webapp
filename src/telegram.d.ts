@@ -31,6 +31,7 @@ declare global {
         ) => void;
         isExpanded?: boolean;
         openTelegramLink: (url: string) => void;
+        close: () => void;
       };
     };
   }

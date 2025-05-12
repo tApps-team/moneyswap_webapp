@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LogoBig } from "@/shared/assets";
 import { ExchangerMarker } from "@/shared/types";
@@ -13,7 +12,20 @@ interface UserNotFoundProps {
 
 export const UserNotFound: FC<UserNotFoundProps> = ({ exchanger_marker, exchanger_id }) => {
   const { t } = useTranslation();
+  const tg = window?.Telegram?.WebApp;
   
+  const goToBot = () => {
+    const botUrl = `${import.meta.env.VITE_TG_BOT_URL}?start=review_${exchanger_marker}_${exchanger_id}`;
+    tg?.close()
+    // Для мобильных платформ используем openTelegramLink
+    if (tg?.platform === 'ios' || tg?.platform === 'android') {
+      tg?.openTelegramLink(botUrl);
+    } else {
+      // Для десктопа и веб используем openLink
+      tg?.openLink(botUrl);
+    }
+  };
+
   return (
     <ScrollArea className="h-fit pt-6">
       <div className="flex justify-center items-center py-8">
@@ -31,12 +43,12 @@ export const UserNotFound: FC<UserNotFoundProps> = ({ exchanger_marker, exchange
             {t("reviews.error_404")}
           </p>
         </div>
-        <Link 
-          to={`${import.meta.env.VITE_TG_BOT_URL}?start=review_${exchanger_marker}_${exchanger_id}`} 
+        <button
+          onClick={goToBot}
           className="bg-mainColor text-base font-medium text-black px-5 py-3 rounded-[7px] truncate"
         >
           {t("reviews.error_404_btn")}
-        </Link>
+        </button>
       </div>
     </ScrollArea>
   );

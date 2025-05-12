@@ -70,7 +70,7 @@ export const AddReview = (props: AddReviewProps) => {
             toast({
               title: t("reviews.permission_error"),
             });
-          } else {
+          } else if (error?.status !== 404) {
             toast({
               title: t("reviews.error"),
             });
