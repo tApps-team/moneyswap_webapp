@@ -15,7 +15,7 @@ export const UserNotFound: FC<UserNotFoundProps> = ({ exchanger_marker, exchange
   const tg = window?.Telegram?.WebApp;
   
   const goToBot = () => {
-    const botUrl = `${import.meta.env.VITE_TG_BOT_URL}?start=review_${exchanger_marker}_${exchanger_id}`;
+    const botUrl = `${import.meta.env.VITE_TG_BOT_URL}?start=review__${exchanger_marker}__${exchanger_id}`;
     tg?.close()
     // Для мобильных платформ используем openTelegramLink
     if (tg?.platform === 'ios' || tg?.platform === 'android') {
