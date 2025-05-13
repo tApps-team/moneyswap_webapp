@@ -1,16 +1,17 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Loader } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 import { Exchanger } from "@/entities/exchanger";
 import {
   Grade,
   ReviewCard,
   useReviewsByExchangeQuery,
+  selectCacheByKey
 } from "@/entities/review";
-import { selectCacheByKey } from "@/entities/review/api/reviewApi";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
-import { Loader } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useInView } from "react-intersection-observer";
-import { useSelector } from "react-redux";
+
 type ReviewListProps = {
   exchanger: Exchanger;
   isOpen?: boolean;

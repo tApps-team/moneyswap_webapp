@@ -1,13 +1,15 @@
 import { Loader } from "lucide-react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { cx } from "class-variance-authority";
-import { CommentList } from "@/features/comment";
+// refactor
+import { AddComment, CommentList } from "@/features/comment";
+// refactor
 import { Exchanger } from "@/entities/exchanger";
 import { Card } from "@/shared/ui";
 import { formatDate } from "@/shared/lib";
 import { CommentIcon } from "@/shared/assets";
 import { useTranslation } from "react-i18next";
-import { Grade, Review, ReviewFrom } from "../model/types/reviewType";
+import { Grade, Review } from "../model/types/reviewType";
 
 type ReviewCardProps = {
   review: Review;
@@ -154,6 +156,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               </span>
             )}
           </div>
+          <AddComment review_id={review?.id} reviewText={review?.text} exchanger_id={exchangerInfo?.exchange_id} exchanger_marker={exchangerInfo?.exchange_marker}/>
           <div
             className={cx(
               "p-4 rounded-b-[10px] bg-new-dark-grey flex",
