@@ -111,9 +111,9 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             <div className={styles.reviewSlot}>{ReviewSlot}</div>
           </div>
         </header>
-        {(card.exchange_marker === ExchangerMarker.partner || card.exchange_marker === ExchangerMarker.both) ? (
+        {(card.exchange_marker === ExchangerMarker.partner || card.exchange_marker === ExchangerMarker.both) && (card?.info?.office || card?.info?.delivery || card?.info?.weekdays || card?.info?.weekends || card?.info?.working_days) ? (
           <div className={styles.info}>
-            <div className={styles.info__block}>
+            {(card?.info?.weekdays || card?.info?.weekends) &&             <div className={styles.info__block}>
               <Clock width={12} height={12} />
               <div className="truncate flex items-center mt-[1px]">
                 <span className="leading-none">
@@ -130,8 +130,8 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                     : card?.info?.weekends?.time_to || "00:00"}
                 </span>
               </div>
-            </div>
-            <div className={styles.info__block}>
+            </div>}
+            {card?.info?.working_days &&             <div className={styles.info__block}>
               <CalendarDays width={12} height={12} />
               <div className={styles.days}>
                 {Object.entries(card?.info?.working_days).map(
@@ -141,23 +141,23 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
                   }
                 )}
               </div>
-            </div>
-            <div className={styles.info__block}>
+            </div>}
+            {card?.info?.delivery &&            <div className={styles.info__block}>
               {card?.info?.delivery ? (
                 <Check width={10} height={10} />
               ) : (
                 <Ban width={10} height={10} />
               )}
               <p>{t("Доставка")}</p>
-            </div>
-            <div className={styles.info__block}>
+            </div> }
+            {card?.info?.office && <div className={styles.info__block}>
               {card?.info?.office ? (
                 <Check width={10} height={10} />
               ) : (
                 <Ban width={10} height={10} />
               )}
               <p>{t("Офис")}</p>
-            </div>
+            </div>}
           </div>
         ) : (
           <hr className={styles.cardSeparator} />
