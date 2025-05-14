@@ -1,2 +1,2 @@
 export * from "./addReview";
-export { ReviewList } from "./reviewList/";
+export * from "./reviewList/";

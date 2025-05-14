@@ -156,30 +156,38 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               </span>
             )}
           </div>
-          <AddComment review_id={review?.id} reviewText={review?.text} exchanger_id={exchangerInfo?.exchange_id} exchanger_marker={exchangerInfo?.exchange_marker}/>
-          <div
-            className={cx(
-              "p-4 rounded-b-[10px] bg-new-dark-grey flex",
-              commentIsLoading && "items-center justify-start",
-              review?.comment_count < 1 ? "pointer-events-none" : "cursor-pointer"
-            )}
-            onClick={() => setIsOpen((prev) => !prev)}
-          >
-            {commentIsLoading ? (
-              <div className="flex justify-start items-center mb-0 ">
-                <Loader color="#F6FF5F" className="animate-spin h-4 w-4" />
-              </div>
-            ) : (
-              <>
-                <CommentIcon
-                  width={"20px"}
-                  fill={review?.comment_count > 0 ? "#F6FF5F" : "#BBB"}
-                />
-                <p className="text-[9px] text-lightGray font-normal uppercase ml-2 mt-[1px]">
-                  {t("reviews.show_comments")} ({review?.comment_count})
-                </p>
-              </>
-            )}
+          <div className="grid grid-flow-col items-center justify-between gap-2 truncate w-full">
+            <div
+              className={cx(
+                "p-4 rounded-b-[10px] bg-new-dark-grey flex",
+                commentIsLoading && "items-center justify-start",
+                review?.comment_count < 1 ? "pointer-events-none" : "cursor-pointer"
+              )}
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
+              {commentIsLoading ? (
+                <div className="flex justify-start items-center">
+                  <Loader color="#F6FF5F" className="animate-spin size-5" />
+                </div>
+              ) : (
+                <>
+                  <div className="size-5">
+                    <CommentIcon
+                      width={"20px"}
+                      fill={review?.comment_count > 0 ? "#F6FF5F" : "#BBB"}
+                    />
+                  </div>
+                  <p className="text-[9px] text-lightGray font-normal uppercase ml-2 mt-[1px]">
+                    {t("reviews.show_comments")} ({review?.comment_count})
+                  </p>
+                </>
+              )}
+            </div>
+            <AddComment 
+              review_id={review?.id} 
+              exchanger_id={exchangerInfo?.exchange_id} 
+              exchanger_marker={exchangerInfo?.exchange_marker}
+            />
           </div>
         </Card>
         <CommentList

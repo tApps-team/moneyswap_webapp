@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Loader } from "lucide-react";
+import { CircleX, Loader } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { Exchanger } from "@/entities/exchanger";
 import {
@@ -15,10 +15,12 @@ import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 type ReviewListProps = {
   exchanger: Exchanger;
   isOpen?: boolean;
+  review_id?: number;
 };
 export const ReviewList = (props: ReviewListProps) => {
-  const { exchanger, isOpen } = props;
+  const { exchanger, isOpen, review_id } = props;
   const { t } = useTranslation();
+  const [oneReview, setOneReview] = useState<boolean>(review_id ? true : false);
   const [grade, setGrade] = useState<Grade>(Grade.all);
   const cachePage = useSelector(
     selectCacheByKey(exchanger?.exchange_id, grade)
@@ -32,8 +34,8 @@ export const ReviewList = (props: ReviewListProps) => {
 
   const {
     data: reviews,
-    // isLoading: reviewsIsLoading,
     isFetching,
+    // refetch
   } = useReviewsByExchangeQuery(
     {
       exchange_id: exchanger.exchange_id,
@@ -52,6 +54,12 @@ export const ReviewList = (props: ReviewListProps) => {
       setPage((prev) => (cachePage?.page ? cachePage?.page + 1 : prev + 1));
     }
   }, [inView]);
+
+  // useEffect(() => {
+  //   if (oneReview) {
+  //     refetch();
+  //   }
+  // }, [oneReview]);
 
   const tabItems: {
     tabValue: Grade;
@@ -94,18 +102,30 @@ export const ReviewList = (props: ReviewListProps) => {
         className="grid gap-4"
       >
         <TabsList className="bg-transparent h-auto flex flex-wrap gap-2 w-[90%] mx-auto px-0 py-0">
-          {tabItems.map((tab) => (
-            <TabsTrigger
-              key={tab?.tabValue}
-              className="rounded-[7px] font-medium bg-new-medium-grey text-white data-[state=active]:text-black leading-none data-[state=active]:bg-mainColor"
-              value={String(tab?.tabValue)}
+          {oneReview ? (
+            <div 
+              className="bg-new-light-grey rounded-[10px] py-2 px-3 flex items-center gap-2 text-mainColor text-xs font-semibold cursor-pointer" 
+              onClick={() => setOneReview(false)}
             >
-              <div className="flex truncate items-center gap-1 text-[12px]">
-                <p className="truncate">{tab?.tabName}</p>
-                <p className="">({tab?.tabReviewValue})</p>
-              </div>
-            </TabsTrigger>
-          ))}
+              {t("reviews.all_reviews")}
+              <CircleX className="size-4" />
+            </div>
+          ) : (
+            <>
+              {tabItems.map((tab) => (
+                <TabsTrigger
+                  key={tab?.tabValue}
+                  className="rounded-[7px] font-medium bg-new-medium-grey text-white data-[state=active]:text-black leading-none data-[state=active]:bg-mainColor"
+                  value={String(tab?.tabValue)}
+                >
+                  <div className="flex truncate items-center gap-1 text-[12px]">
+                    <p className="truncate">{tab?.tabName}</p>
+                    <p className="">({tab?.tabReviewValue})</p>
+                  </div>
+                </TabsTrigger>
+              ))}
+            </>
+          )}
         </TabsList>
         {tabItems?.map((tab) => (
           <TabsContent

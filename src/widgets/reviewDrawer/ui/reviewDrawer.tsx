@@ -1,5 +1,7 @@
-import { Exchanger } from "@/entities/exchanger";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { AddReview, ReviewList } from "@/features/review";
+import { Exchanger } from "@/entities/exchanger";
 import {
   Drawer,
   DrawerClose,
@@ -8,19 +10,19 @@ import {
   DrawerTrigger,
   ScrollArea,
 } from "@/shared/ui";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import styles from "./reviewDrawer.module.scss";
 import { Lang } from "@/shared/config";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import { useAppSelector } from "@/shared/hooks";
+import styles from "./reviewDrawer.module.scss";
+
 type ReviewDrawerProps = {
   exchanger: Exchanger;
+  review_id?: number;
 };
 export const ReviewDrawer = (props: ReviewDrawerProps) => {
-  const { exchanger } = props;
+  const { exchanger, review_id } = props;
   const { t, i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(review_id ? true : false);
   const exchangerName =
     i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
 
@@ -44,30 +46,32 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
-      <DrawerTrigger asChild>
-        <div
-          className={styles.reviewCountWrapper}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsOpen((prev) => !prev);
-          }}
-        >
-          <p className={styles.reviewTitle}>{t("Отзывы")}</p>
-          <div className={styles.reviews}>
-            <h3 className={styles.reviewCountPositive}>
-              {exchanger?.review_count?.positive}
-            </h3>
-            <span className={styles.separator}></span>
-            <h3 className={styles.reviewCountNeutral}>
-              {exchanger?.review_count?.neutral}
-            </h3>
-            <span className={styles.separator}></span>
-            <h3 className={styles.reviewCountNegative}>
-              {exchanger?.review_count?.negative}
-            </h3>
+      {!review_id && (
+        <DrawerTrigger asChild>
+          <div
+            className={styles.reviewCountWrapper}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen((prev) => !prev);
+            }}
+          >
+            <p className={styles.reviewTitle}>{t("Отзывы")}</p>
+            <div className={styles.reviews}>
+              <h3 className={styles.reviewCountPositive}>
+                {exchanger?.review_count?.positive}
+              </h3>
+              <span className={styles.separator}></span>
+              <h3 className={styles.reviewCountNeutral}>
+                {exchanger?.review_count?.neutral}
+              </h3>
+              <span className={styles.separator}></span>
+              <h3 className={styles.reviewCountNegative}>
+                {exchanger?.review_count?.negative}
+              </h3>
+            </div>
           </div>
-        </div>
-      </DrawerTrigger>
+        </DrawerTrigger>
+      )}
       <DrawerContent
         onClick={(e) => e.stopPropagation()}
         className="p-0 w-full grid gap-4 bg-[#191C25] border-none"
@@ -108,7 +112,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
               tg_id={user ? user?.id : user_id}
             />
           </div>
-          <ReviewList exchanger={exchanger} isOpen={isOpen} />
+          <ReviewList exchanger={exchanger} isOpen={isOpen} review_id={review_id} />
         </ScrollArea>
       </DrawerContent>
     </Drawer>
