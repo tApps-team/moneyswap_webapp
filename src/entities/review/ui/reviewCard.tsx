@@ -1,19 +1,20 @@
-import { Loader } from "lucide-react";
 import { forwardRef, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Loader } from "lucide-react";
 import { cx } from "class-variance-authority";
 // refactor
 import { AddComment, CommentList } from "@/features/comment";
 // refactor
 import { Exchanger } from "@/entities/exchanger";
+import { ExchangerMarker } from "@/shared/types";
 import { Card } from "@/shared/ui";
 import { formatDate } from "@/shared/lib";
 import { CommentIcon } from "@/shared/assets";
-import { useTranslation } from "react-i18next";
 import { Grade, Review } from "../model/types/reviewType";
 
 type ReviewCardProps = {
   review: Review;
-  exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
+  exchangerInfo?: Pick<Exchanger, "exchange_id" | "exchange_marker">;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
@@ -185,8 +186,8 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </div>
             <AddComment 
               review_id={review?.id} 
-              exchanger_id={exchangerInfo?.exchange_id} 
-              exchanger_marker={exchangerInfo?.exchange_marker}
+              exchanger_id={exchangerInfo?.exchange_id || 0} 
+              exchanger_marker={exchangerInfo?.exchange_marker || ExchangerMarker.no_cash}
             />
           </div>
         </Card>

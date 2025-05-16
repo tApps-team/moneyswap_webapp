@@ -1,7 +1,8 @@
 import { Loader } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cx } from "class-variance-authority";
 import {
@@ -10,40 +11,22 @@ import {
   useLazyCheckUserReviewPermissionQuery,
 } from "@/entities/review";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
-import {
-  Button,
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTrigger,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  Input,
-  ScrollArea,
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  Textarea,
-  useToast,
-} from "@/shared/ui";
+import { Button, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
 import { ExchangerMarker } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { UserNotFound } from "./userNotFound";
 
 type AddReviewProps = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
   tg_id: number | null;
+  isFromSite?: boolean;
 };
 export const AddReview = (props: AddReviewProps) => {
-  const { exchange_id, exchange_marker, tg_id } = props;
+  const { exchange_id, exchange_marker, tg_id, isFromSite } = props;
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [isOpen, setIsOpen] = useState(false);
   const reviewForm = useForm<AddReviewSchemaType>({
     resolver: zodResolver(addReviewSchema),
     defaultValues: {
@@ -91,6 +74,7 @@ export const AddReview = (props: AddReviewProps) => {
       isLoading: checkUserPermissionIsLoading,
     },
   ] = useLazyCheckUserReviewPermissionQuery();
+
   const handleClick = () => {
     if (tg_id) {
       checkUserReviewPermission({
@@ -98,10 +82,12 @@ export const AddReview = (props: AddReviewProps) => {
         exchange_marker,
         tg_id: tg_id,
       });
+      setIsOpen(true);
     } else {
       alert("tg_id is null...");
     }
   };
+
   useEffect(() => {
     if (checkUserReviewPermissionIsError) {
       toast({
@@ -109,6 +95,18 @@ export const AddReview = (props: AddReviewProps) => {
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);
+
+  useEffect(() => {
+    if (isFromSite && tg_id) {
+      checkUserReviewPermission({
+        exchange_id,
+        exchange_marker,
+        tg_id: tg_id,
+      });
+      setIsOpen(true);
+    }
+  }, [isFromSite]);
+
   const tabItems: {
     tabValue: Grade;
     tabName: string;
@@ -128,7 +126,12 @@ export const AddReview = (props: AddReviewProps) => {
   ];
 
   return (
-    <Drawer direction="right">
+    <Drawer direction="right" open={isOpen} onOpenChange={(open) => {
+      setIsOpen(open);
+      if (!open) {
+        reviewForm.reset();
+      }
+    }}>
       <DrawerTrigger asChild>
         <Button
           className="border-none w-full py-3 h-full rounded-[10px] mx-auto truncate text-xs text-black text-center bg-mainColor font-medium"

@@ -3,27 +3,29 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CircleX, Loader } from "lucide-react";
 import { useInView } from "react-intersection-observer";
-import { Exchanger } from "@/entities/exchanger";
+import { Exchanger, ExchangerDetail } from "@/entities/exchanger";
 import {
   Grade,
   ReviewCard,
   useReviewsByExchangeQuery,
   selectCacheByKey
 } from "@/entities/review";
+import { ExchangerMarker } from "@/shared/types";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 
 type ReviewListProps = {
-  exchanger: Exchanger;
+  exchanger?: Exchanger;
+  exchangerDetail?: ExchangerDetail;
   isOpen?: boolean;
   review_id?: number;
 };
 export const ReviewList = (props: ReviewListProps) => {
-  const { exchanger, isOpen, review_id } = props;
+  const { exchanger, exchangerDetail, isOpen, review_id } = props;
   const { t } = useTranslation();
   const [oneReview, setOneReview] = useState<boolean>(review_id ? true : false);
   const [grade, setGrade] = useState<Grade>(Grade.all);
   const cachePage = useSelector(
-    selectCacheByKey(exchanger?.exchange_id, grade)
+    selectCacheByKey(exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0, grade)
   );
   const [page, setPage] = useState<number>(cachePage?.page || 1);
 
@@ -38,8 +40,8 @@ export const ReviewList = (props: ReviewListProps) => {
     // refetch
   } = useReviewsByExchangeQuery(
     {
-      exchange_id: exchanger.exchange_id,
-      exchange_marker: exchanger.exchange_marker,
+      exchange_id: exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0,
+      exchange_marker: exchangerDetail ? exchangerDetail?.exchange_marker : exchanger?.exchange_marker || ExchangerMarker.no_cash,
       page: page,
       element_on_page: 4,
       grade_filter: grade === Grade.all ? undefined : grade,
@@ -69,25 +71,30 @@ export const ReviewList = (props: ReviewListProps) => {
     {
       tabValue: Grade.all,
       tabName: t("reviews.grade.all"),
-      tabReviewValue:
-        exchanger?.review_count.negative +
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.negative +
+        exchangerDetail?.reviews.neutral +
+        exchangerDetail?.reviews.positive : exchanger ? exchanger?.review_count.negative +
         exchanger?.review_count.neutral +
-        exchanger?.review_count.positive,
+        exchanger?.review_count.positive : 0,
     },
     {
       tabValue: Grade.positive,
       tabName: t("reviews.grade.positive"),
-      tabReviewValue: exchanger?.review_count.positive,
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.positive : exchanger?.review_count.positive || 0,
     },
     {
       tabValue: Grade.neutral,
       tabName: t("reviews.grade.neutral"),
-      tabReviewValue: exchanger?.review_count.neutral,
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.neutral : exchanger?.review_count.neutral || 0,
     },
     {
       tabValue: Grade.negative,
       tabName: t("reviews.grade.negative"),
-      tabReviewValue: exchanger?.review_count.negative,
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.negative : exchanger?.review_count.negative || 0,
     },
   ];
 
@@ -140,7 +147,7 @@ export const ReviewList = (props: ReviewListProps) => {
                     ref={reviews?.content?.length - 1 === index ? ref : null}
                     key={review?.id}
                     review={review}
-                    exchangerInfo={exchanger}
+                    exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
                   />
                 ))}
               </div>
