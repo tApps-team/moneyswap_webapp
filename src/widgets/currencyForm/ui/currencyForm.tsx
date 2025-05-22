@@ -102,7 +102,13 @@ export const CurrencyForm = () => {
         dispatch(currencyActions.resetNoCashCurrency());
       }
     }
-  }, [direction, dispatch, getCurrencyError, t, toast]);
+    if (giveCurrencyError) {
+      toast({
+        title: t("Выбранное направление недоступно"),
+        variant: "destructive",
+      });
+    }
+  }, [direction, dispatch, getCurrencyError, giveCurrencyError, t, toast]);
 
   const onClickGiveCurrency = useCallback(
     (currency: Currency) => {
