@@ -37,11 +37,12 @@ export const ReviewList = (props: ReviewListProps) => {
   const {
     data: reviews,
     isFetching,
-    // refetch
+    refetch
   } = useReviewsByExchangeQuery(
     {
       exchange_id: exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0,
       exchange_marker: exchangerDetail ? exchangerDetail?.exchange_marker : exchanger?.exchange_marker || ExchangerMarker.no_cash,
+      review_id: oneReview ? review_id : undefined,
       page: page,
       element_on_page: 4,
       grade_filter: grade === Grade.all ? undefined : grade,
@@ -51,17 +52,27 @@ export const ReviewList = (props: ReviewListProps) => {
     }
   );
 
+
+  // асинхронная функция для смены режима просмотра отзывов
+  const seeAllReviews = async () => {
+    await Promise.all([
+      new Promise<void>(resolve => {
+        setOneReview(false);
+        resolve();
+      }),
+      new Promise<void>(resolve => {
+        setPage(1);
+        resolve();
+      })
+    ]);
+    await refetch();
+  }
+
   useEffect(() => {
     if (reviews?.pages && inView && cachePage?.page < reviews?.pages) {
       setPage((prev) => (cachePage?.page ? cachePage?.page + 1 : prev + 1));
     }
   }, [inView]);
-
-  // useEffect(() => {
-  //   if (oneReview) {
-  //     refetch();
-  //   }
-  // }, [oneReview]);
 
   const tabItems: {
     tabValue: Grade;
@@ -112,7 +123,7 @@ export const ReviewList = (props: ReviewListProps) => {
           {oneReview ? (
             <div 
               className="bg-new-light-grey rounded-[10px] py-2 px-3 flex items-center gap-2 text-mainColor text-xs font-semibold cursor-pointer" 
-              onClick={() => setOneReview(false)}
+              onClick={seeAllReviews}
             >
               {t("reviews.all_reviews")}
               <CircleX className="size-4" />

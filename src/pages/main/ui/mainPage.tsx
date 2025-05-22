@@ -26,7 +26,7 @@ export const MainPage = () => {
   const { from_site } = CheckQueries();
   const [exchanger_id, exchanger_marker, review_id] = from_site?.split("__") || [];
 
-  const {data: exchangerDetailData, isSuccess: isExchangerDetailSuccess} = useGetExchangerDetailQuery({exchange_id: +exchanger_id, exchange_marker: exchanger_marker as ExchangerMarker});
+  const {data: exchangerDetailData, isSuccess: isExchangerDetailSuccess} = useGetExchangerDetailQuery({exchange_id: +exchanger_id, exchange_marker: exchanger_marker as ExchangerMarker}, {skip: !exchanger_id});
 
   const exchangerDetail = exchangerDetailData ? {
     ...exchangerDetailData,

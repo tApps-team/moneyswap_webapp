@@ -66,7 +66,7 @@
     "comment_placeholder": "Write a comment...",
     "send": "Send",
     "comment_empty": "Comment cannot be empty...",
-    "comment_permission_error": "Oops! Something went wrong... Please try again later",
+    "comment_permission_error": "Only the user who left this review can leave a comment",
     "comment_permission_error_423": "You have already left a comment within the last __ minutes, please try again later",
     "show_more": "Show more",
     "show_less": "Show less",

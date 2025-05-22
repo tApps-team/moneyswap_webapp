@@ -4,8 +4,8 @@ import { Loader } from "lucide-react";
 import { cx } from "class-variance-authority";
 // refactor
 import { AddComment, CommentList } from "@/features/comment";
-// refactor
 import { Exchanger } from "@/entities/exchanger";
+// refactor
 import { ExchangerMarker } from "@/shared/types";
 import { Card } from "@/shared/ui";
 import { formatDate } from "@/shared/lib";
@@ -110,11 +110,6 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <p className="text-mainColor font-light text-[12px] uppercase">
               {formatDate(review?.review_date)} / {review?.review_time}
               </p>
-              {/* {review?.review_from === ReviewFrom.bestchange && (
-                <p className="text-mainColor text-[12px] font-light truncate">
-                {t("reviews.from.review")} {t("reviews.from.from")} {t("reviews.from.bestchange")}
-                </p>
-              )} */}
             </div>
           </div>
           <div

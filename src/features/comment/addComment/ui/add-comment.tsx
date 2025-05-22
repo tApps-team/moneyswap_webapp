@@ -40,7 +40,7 @@ export const AddComment:FC<AddCommentProps> = ({
       } else {
         toast({
           title: t("reviews.comment_permission_error"),
-          variant: "default",
+          variant: "destructive",
         });
       }
     }
@@ -68,19 +68,20 @@ export const AddComment:FC<AddCommentProps> = ({
       exchanger_id: exchanger_id,
       exchanger_marker: exchanger_marker,
     }
-    // add_comment request
+    // add_comment request + error 423 or any other error
     console.log(answerReq);
     setIsOpen(false);
+    setAnswer("");
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       {permissionRequestMock.isPermissionLoading || permissionRequestMock.isPermissionFetching ? (
-        <div className="mb-1.5 w-full flex items-center justify-end pr-4 gap-2 text-mainColor font-semibold uppercase text-[10px]">
+        <div className="mb-1 w-full flex items-center justify-end pr-4 gap-2 text-mainColor font-semibold uppercase text-[10px]">
           <Loader className="animate-spin size-4 text-mainColor" />
         </div>
       ) : (
-        <DialogTrigger className={`mb-1.5 w-full flex items-center justify-end pr-4 gap-2 text-mainColor font-semibold uppercase text-[10px] truncate ${permissionRequestMock.isPermissionError ? "opacity-50 cursor-not-allowed" : ""}`} disabled={permissionRequestMock.isPermissionError}>
+        <DialogTrigger className={`mb-1 w-full flex items-center justify-end pr-4 gap-2 text-mainColor font-semibold uppercase text-[10px] truncate ${permissionRequestMock.isPermissionError ? "opacity-50 cursor-not-allowed" : ""}`} disabled={permissionRequestMock.isPermissionError}>
           {t("reviews.answer")}
           <Send className="size-4 stroke-[2px]" />
         </DialogTrigger>
