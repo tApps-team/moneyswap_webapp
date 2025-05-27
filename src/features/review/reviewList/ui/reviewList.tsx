@@ -153,14 +153,23 @@ export const ReviewList = (props: ReviewListProps) => {
           >
             {reviews?.content?.length ? (
               <div className="grid gap-4">
-                {reviews?.content?.map((review, index) => (
+                {oneReview ? (
                   <ReviewCard
-                    ref={reviews?.content?.length - 1 === index ? ref : null}
-                    key={review?.id}
-                    review={review}
+                    ref={ref}
+                    key={reviews?.content[0]?.id}
+                    review={reviews?.content[0]}
                     exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
                   />
-                ))}
+                ) : (
+                  reviews?.content?.map((review, index) => (
+                    <ReviewCard
+                      ref={reviews?.content?.length - 1 === index ? ref : null}
+                      key={review?.id}
+                      review={review}
+                      exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
+                    />
+                  ))
+                )}
               </div>
             ) : (
               <div className="grid justify-items-center gap-6 mt-8">

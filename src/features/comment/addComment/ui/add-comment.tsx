@@ -70,7 +70,9 @@ export const AddComment:FC<AddCommentProps> = ({
     }
     // add_comment request + error 423 or any other error
     console.log(answerReq);
+    // await then
     setIsOpen(false);
+    // нужно ревалидировать отзывы после успешного add_comment запроса
     setAnswer("");
   }
 
