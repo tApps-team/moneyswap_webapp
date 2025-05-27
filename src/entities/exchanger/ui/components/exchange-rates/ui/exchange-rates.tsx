@@ -2,18 +2,13 @@ import { ExchangeRate } from "@/entities/exchanger/model";
 import { RoundValute } from "@/shared/ui/roundValute";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { normalizeRate, smartRound } from "../../../functions";
 
 interface ExchangeRatesProps {
   rates: ExchangeRate[] | null;
   valuteFrom: string;
   valuteTo: string;
 }
-
-const smartRound = (num: number) => {
-  const decimal = num.toString().split('.')[1];
-  if (!decimal || decimal.length <= 3) return num;
-  return Number(num.toFixed(3));
-};
 
 export const ExchangeRates: FC<ExchangeRatesProps> = ({ rates, valuteFrom, valuteTo }) => {
   const { t } = useTranslation();
@@ -30,13 +25,14 @@ export const ExchangeRates: FC<ExchangeRatesProps> = ({ rates, valuteFrom, valut
       {sortedRates.map((rate, index) => {
         const minCount = (!rate.min_count || rate.min_count === 0) ? 1 : rate.min_count;
         const isInCountBigger = rate.in_count > rate.out_count;
+        const { in_count, out_count } = normalizeRate(rate.in_count, rate.out_count);
         
         return (
           <div key={index} className="contents">
             <div className="flex items-end gap-1 min-w-0 leading-none whitespace-nowrap">
               {!isInCountBigger && <span className="flex items-end gap-1 text-[8px]">{t("от")} <span className="text-gray-300 text-[10px] leading-none">{minCount}</span></span>}
               {isInCountBigger && <span className="text-gray-300 leading-none">
-                <RoundValute value={smartRound(rate.in_count)} />
+                <RoundValute value={smartRound(in_count)} />
               </span>}
               <span className="truncate max-w-[18vw] inline-block text-[8px]">{valuteFrom}</span>
             </div>
@@ -44,7 +40,7 @@ export const ExchangeRates: FC<ExchangeRatesProps> = ({ rates, valuteFrom, valut
             <div className="flex items-end gap-1 min-w-0 leading-none whitespace-nowrap">
               {isInCountBigger && <span className="flex items-end gap-1 text-[8px]">{t("от")} <span className="text-gray-300 text-[10px] leading-none">{minCount}</span></span>}
               {!isInCountBigger && <span className="text-gray-300 leading-none">
-                <RoundValute value={smartRound(rate.out_count)} />
+                <RoundValute value={smartRound(out_count)} />
               </span>}
               <span className="truncate max-w-[18vw] inline-block text-[8px]">{valuteTo}</span>
             </div>
