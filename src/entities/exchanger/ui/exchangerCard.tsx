@@ -15,6 +15,7 @@ import { ExchangerMarker } from "@/shared/types";
 import { Exchanger } from "../model";
 import { ExchangeRates, AMLTooltip } from "./components";
 import styles from "./exchangerCard.module.scss";
+import { normalizeRate } from "./functions";
 
 interface ExchangerCardProps {
   card: Exchanger;
@@ -163,32 +164,37 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <hr className={styles.cardSeparator} />
         )}
         <footer className={`${styles.cardFooter} relative`}>
-          <div className={styles.valuteInfo}>
-            <div className={styles.valuteExchange}>
-              <RoundValute value={card?.in_count} />
-              <p className={`${styles.valuteName} truncate max-w-[18vw]`}>
-                {card?.valute_from}
-              </p>
-              <i className={styles.arrowIcon}>
-                <LogoArrow
-                  fill="#f6ff5f"
-                  width={15}
-                  height={15}
-                  className="rotate-180"
-                />
-              </i>
-            </div>
-            <div className={`${styles.valuteExchange} overflow-hidden`}>
-              <RoundValute value={card?.out_count} />
-              <p
-                className={`${styles.valuteName} ${
-                  isBankomats && "truncate max-w-[16vw]"
-                }`}
-              >
-                {card?.valute_to}
-              </p>
-            </div>
-          </div>
+          {(() => {
+            const { in_count, out_count } = normalizeRate(card.in_count, card.out_count);
+            return (
+              <div className={styles.valuteInfo}>
+                <div className={styles.valuteExchange}>
+                  <RoundValute value={in_count} />
+                  <p className={`${styles.valuteName} truncate max-w-[18vw]`}>
+                    {card?.valute_from}
+                  </p>
+                  <i className={styles.arrowIcon}>
+                    <LogoArrow
+                      fill="#f6ff5f"
+                      width={15}
+                      height={15}
+                      className="rotate-180"
+                    />
+                  </i>
+                </div>
+                <div className={`${styles.valuteExchange} overflow-hidden`}>
+                  <RoundValute value={out_count} />
+                  <p
+                    className={`${styles.valuteName} ${
+                      isBankomats && "truncate max-w-[16vw]"
+                    }`}
+                  >
+                    {card?.valute_to}
+                  </p>
+                </div>
+              </div>
+            );
+          })()}
           <span className={styles.valuteRange}>
             {t("от")}{" "}
             <RoundValute value={card?.min_amount ?? 0} />
