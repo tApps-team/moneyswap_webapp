@@ -1,30 +1,38 @@
-import { useLocation } from "react-router-dom";
-import { Loader } from "lucide-react";
 import { Suspense, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import styles from "./mainPage.module.scss";
+import { Loader } from "lucide-react";
 import clsx from "clsx";
 import { Exchangers } from "@/widgets/exchangers";
 import { Location } from "@/widgets/location";
 import { Directions } from "@/widgets/directions";
 import { CurrencyForm } from "@/widgets/currencyForm";
+import { ReviewDrawer } from "@/widgets/reviewDrawer";
 import { LanguageSwitcher } from "@/features/languageSwitch";
-import { directions, setActiveDirection } from "@/entities/direction";
 import { CheckQueries } from "@/features/checkQueries";
+import { directions, setActiveDirection } from "@/entities/direction";
 import { setUser, setUserId } from "@/entities/user";
+import { useGetExchangerDetailQuery } from "@/entities/exchanger";
+import { ExchangerMarker } from "@/shared/types";
 import { useAppDispatch } from "@/shared/hooks";
 import { Lang } from "@/shared/config";
-import { AddReviewFromSite } from "@/features/review";
-import { ExchangerMarker } from "@/shared/types";
+import styles from "./mainPage.module.scss";
 
 export const MainPage = () => {
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const { i18n } = useTranslation();
   const lang = CheckQueries().user_lang;
-  // add_review_from_site_with_tg_web_app_start_param
-  const { tgWebAppStartParam } = CheckQueries();
-  const [exchanger_id, exchanger_marker] = tgWebAppStartParam?.split("__") || [];
+
+  // from_site
+  const { from_site } = CheckQueries();
+  const [exchanger_id, exchanger_marker, review_id] = from_site?.split("__") || [];
+
+  const {data: exchangerDetailData, isSuccess: isExchangerDetailSuccess} = useGetExchangerDetailQuery({exchange_id: +exchanger_id, exchange_marker: exchanger_marker as ExchangerMarker}, {skip: !exchanger_id});
+
+  const exchangerDetail = exchangerDetailData ? {
+    ...exchangerDetailData,
+    exchange_id: +exchanger_id,
+    exchange_marker: exchanger_marker as ExchangerMarker,
+  } : undefined;
 
   useEffect(() => {
     if (lang && (lang === Lang.ru || lang === Lang.en)) {
@@ -57,27 +65,19 @@ export const MainPage = () => {
 
   }, []);
 
-  const shouldShowReviewForm = location.search.includes("tgWebAppStartParam");
-
   return (
     <div data-testid="main-page">
       <Suspense fallback={
         <div className="flex justify-center items-center h-screen"><Loader className="animate-spin size-6 text-mainColor" /></div>
         }>
-        {shouldShowReviewForm ? (
-          <AddReviewFromSite
-            exchange_id={+exchanger_id}
-            exchange_marker={exchanger_marker as ExchangerMarker}
-          />
-        ) : (
           <div className={clsx(styles.content, {})}>
+            {from_site && isExchangerDetailSuccess && <ReviewDrawer exchangerDetail={exchangerDetail} review_id={+review_id} isFromSite={true} />}
             <Directions />
             <Location />
             <CurrencyForm />
             <Exchangers />
             <LanguageSwitcher />
           </div>
-        )}
       </Suspense>
     </div>
   );

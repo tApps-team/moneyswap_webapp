@@ -1,6 +1,5 @@
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerMarker, Grade } from "@/shared/types";
 import {
-  Grade,
   ReviewResponse,
 } from "../model/types/reviewType";
 
@@ -8,6 +7,7 @@ export type ReviewsByExchangeDtoResponse = ReviewResponse;
 export type ReviewsByExchangeDtoRequest = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
+  review_id?: number;
   page: number;
   element_on_page?: number;
   grade_filter?: Grade;

@@ -45,6 +45,26 @@ export interface Exchanger {
   direction_marker: DirectionMarker;
 }
 
+export interface ExchangerDetail {
+  exchange_id: number;
+  exchange_marker: ExchangerMarker;
+  name: string;
+  iconUrl: string;
+  url: string;
+  high_aml: boolean;
+  workStatus: boolean;
+  reviews: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+  country: string;
+  amountReserves: string | null;
+  exchangeRates: number;
+  open: string;
+  openOnMoneySwap: string;
+}
+
 export enum DirectionMarker {
   city = "city",
   country = "country",

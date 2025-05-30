@@ -1,22 +1,26 @@
-import { Loader } from "lucide-react";
 import { forwardRef, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Loader } from "lucide-react";
 import { cx } from "class-variance-authority";
-import { CommentList } from "@/features/comment";
+// refactor
+import { AddComment, CommentList } from "@/features/comment";
 import { Exchanger } from "@/entities/exchanger";
+// refactor
+import { ExchangerMarker, Grade } from "@/shared/types";
 import { Card } from "@/shared/ui";
 import { formatDate } from "@/shared/lib";
 import { CommentIcon } from "@/shared/assets";
-import { useTranslation } from "react-i18next";
-import { Grade, Review, ReviewFrom } from "../model/types/reviewType";
+import { Review } from "../model/types/reviewType";
 
 type ReviewCardProps = {
   review: Review;
-  exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
+  exchangerInfo?: Pick<Exchanger, "exchange_id" | "exchange_marker">;
+  seeAllReviews?: () => void;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review, exchangerInfo } = props;
+    const { review, exchangerInfo, seeAllReviews } = props;
     const { t } = useTranslation();
     const gradeName =
       review?.grade === Grade.positive
@@ -101,17 +105,12 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           </div>
           <div className="p-3 pl-4">
             <p className="text-white uppercase text-[14px] truncate w-[50vw] font-medium">
-              {review?.username}
+              {review?.username || "unknown"}
             </p>
             <div className="grid grid-flow-col gap-2 justify-between items-center justify-items-stretch">
             <p className="text-mainColor font-light text-[12px] uppercase">
               {formatDate(review?.review_date)} / {review?.review_time}
               </p>
-              {/* {review?.review_from === ReviewFrom.bestchange && (
-                <p className="text-mainColor text-[12px] font-light truncate">
-                {t("reviews.from.review")} {t("reviews.from.from")} {t("reviews.from.bestchange")}
-                </p>
-              )} */}
             </div>
           </div>
           <div
@@ -154,29 +153,39 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               </span>
             )}
           </div>
-          <div
-            className={cx(
-              "p-4 rounded-b-[10px] bg-new-dark-grey flex",
-              commentIsLoading && "items-center justify-start",
-              review?.comment_count < 1 ? "pointer-events-none" : "cursor-pointer"
-            )}
-            onClick={() => setIsOpen((prev) => !prev)}
-          >
-            {commentIsLoading ? (
-              <div className="flex justify-start items-center mb-0 ">
-                <Loader color="#F6FF5F" className="animate-spin h-4 w-4" />
-              </div>
-            ) : (
-              <>
-                <CommentIcon
-                  width={"20px"}
-                  fill={review?.comment_count > 0 ? "#F6FF5F" : "#BBB"}
-                />
-                <p className="text-[9px] text-lightGray font-normal uppercase ml-2 mt-[1px]">
-                  {t("reviews.show_comments")} ({review?.comment_count})
-                </p>
-              </>
-            )}
+          <div className="grid grid-flow-col items-center justify-between gap-2 truncate w-full">
+            <div
+              className={cx(
+                "p-4 rounded-b-[10px] bg-new-dark-grey flex",
+                commentIsLoading && "items-center justify-start",
+                review?.comment_count < 1 ? "pointer-events-none" : "cursor-pointer"
+              )}
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
+              {commentIsLoading ? (
+                <div className="flex justify-start items-center">
+                  <Loader color="#F6FF5F" className="animate-spin size-5" />
+                </div>
+              ) : (
+                <>
+                  <div className="size-5">
+                    <CommentIcon
+                      width={"20px"}
+                      fill={review?.comment_count > 0 ? "#F6FF5F" : "#BBB"}
+                    />
+                  </div>
+                  <p className="text-[9px] text-lightGray font-normal uppercase ml-2 mt-[1px]">
+                    {t("reviews.show_comments")} ({review?.comment_count})
+                  </p>
+                </>
+              )}
+            </div>
+            <AddComment 
+              review_id={review?.id} 
+              exchanger_marker={exchangerInfo?.exchange_marker || ExchangerMarker.no_cash}
+              grade={review?.grade}
+              seeAllReviews={seeAllReviews}
+            />
           </div>
         </Card>
         <CommentList

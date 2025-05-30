@@ -1,26 +1,30 @@
-import { Exchanger } from "@/entities/exchanger";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { CircleX, Loader } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import { Exchanger, ExchangerDetail } from "@/entities/exchanger";
 import {
-  Grade,
   ReviewCard,
   useReviewsByExchangeQuery,
+  selectCacheByKey
 } from "@/entities/review";
-import { selectCacheByKey } from "@/entities/review/api/reviewApi";
+import { ExchangerMarker, Grade } from "@/shared/types";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
-import { Loader } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useInView } from "react-intersection-observer";
-import { useSelector } from "react-redux";
+
 type ReviewListProps = {
-  exchanger: Exchanger;
+  exchanger?: Exchanger;
+  exchangerDetail?: ExchangerDetail;
   isOpen?: boolean;
+  review_id?: number;
 };
 export const ReviewList = (props: ReviewListProps) => {
-  const { exchanger, isOpen } = props;
+  const { exchanger, exchangerDetail, isOpen, review_id } = props;
   const { t } = useTranslation();
+  const [oneReview, setOneReview] = useState<boolean>(review_id ? true : false);
   const [grade, setGrade] = useState<Grade>(Grade.all);
   const cachePage = useSelector(
-    selectCacheByKey(exchanger?.exchange_id, grade)
+    selectCacheByKey(exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0, grade)
   );
   const [page, setPage] = useState<number>(cachePage?.page || 1);
 
@@ -31,12 +35,13 @@ export const ReviewList = (props: ReviewListProps) => {
 
   const {
     data: reviews,
-    // isLoading: reviewsIsLoading,
     isFetching,
+    refetch
   } = useReviewsByExchangeQuery(
     {
-      exchange_id: exchanger.exchange_id,
-      exchange_marker: exchanger.exchange_marker,
+      exchange_id: exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0,
+      exchange_marker: exchangerDetail ? exchangerDetail?.exchange_marker : exchanger?.exchange_marker || ExchangerMarker.no_cash,
+      review_id: oneReview ? review_id : undefined,
       page: page,
       element_on_page: 4,
       grade_filter: grade === Grade.all ? undefined : grade,
@@ -45,6 +50,22 @@ export const ReviewList = (props: ReviewListProps) => {
       skip: !isOpen,
     }
   );
+
+
+  // асинхронная функция для смены режима просмотра отзывов
+  const seeAllReviews = async () => {
+    await Promise.all([
+      new Promise<void>(resolve => {
+        setOneReview(false);
+        resolve();
+      }),
+      new Promise<void>(resolve => {
+        setPage(1);
+        resolve();
+      })
+    ]);
+    await refetch();
+  }
 
   useEffect(() => {
     if (reviews?.pages && inView && cachePage?.page < reviews?.pages) {
@@ -60,25 +81,30 @@ export const ReviewList = (props: ReviewListProps) => {
     {
       tabValue: Grade.all,
       tabName: t("reviews.grade.all"),
-      tabReviewValue:
-        exchanger?.review_count.negative +
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.negative +
+        exchangerDetail?.reviews.neutral +
+        exchangerDetail?.reviews.positive : exchanger ? exchanger?.review_count.negative +
         exchanger?.review_count.neutral +
-        exchanger?.review_count.positive,
+        exchanger?.review_count.positive : 0,
     },
     {
       tabValue: Grade.positive,
       tabName: t("reviews.grade.positive"),
-      tabReviewValue: exchanger?.review_count.positive,
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.positive : exchanger?.review_count.positive || 0,
     },
     {
       tabValue: Grade.neutral,
       tabName: t("reviews.grade.neutral"),
-      tabReviewValue: exchanger?.review_count.neutral,
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.neutral : exchanger?.review_count.neutral || 0,
     },
     {
       tabValue: Grade.negative,
       tabName: t("reviews.grade.negative"),
-      tabReviewValue: exchanger?.review_count.negative,
+      tabReviewValue: exchangerDetail ? 
+        exchangerDetail?.reviews.negative : exchanger?.review_count.negative || 0,
     },
   ];
 
@@ -93,18 +119,30 @@ export const ReviewList = (props: ReviewListProps) => {
         className="grid gap-4"
       >
         <TabsList className="bg-transparent h-auto flex flex-wrap gap-2 w-[90%] mx-auto px-0 py-0">
-          {tabItems.map((tab) => (
-            <TabsTrigger
-              key={tab?.tabValue}
-              className="rounded-[7px] font-medium bg-new-medium-grey text-white data-[state=active]:text-black leading-none data-[state=active]:bg-mainColor"
-              value={String(tab?.tabValue)}
+          {oneReview ? (
+            <div 
+              className="bg-new-light-grey rounded-[10px] py-2 px-3 flex items-center gap-2 text-mainColor text-xs font-semibold cursor-pointer" 
+              onClick={seeAllReviews}
             >
-              <div className="flex truncate items-center gap-1 text-[12px]">
-                <p className="truncate">{tab?.tabName}</p>
-                <p className="">({tab?.tabReviewValue})</p>
-              </div>
-            </TabsTrigger>
-          ))}
+              {t("reviews.all_reviews")}
+              <CircleX className="size-4" />
+            </div>
+          ) : (
+            <>
+              {tabItems.map((tab) => (
+                <TabsTrigger
+                  key={tab?.tabValue}
+                  className="rounded-[7px] font-medium bg-new-medium-grey text-white data-[state=active]:text-black leading-none data-[state=active]:bg-mainColor"
+                  value={String(tab?.tabValue)}
+                >
+                  <div className="flex truncate items-center gap-1 text-[12px]">
+                    <p className="truncate">{tab?.tabName}</p>
+                    <p className="">({tab?.tabReviewValue})</p>
+                  </div>
+                </TabsTrigger>
+              ))}
+            </>
+          )}
         </TabsList>
         {tabItems?.map((tab) => (
           <TabsContent
@@ -114,14 +152,25 @@ export const ReviewList = (props: ReviewListProps) => {
           >
             {reviews?.content?.length ? (
               <div className="grid gap-4">
-                {reviews?.content?.map((review, index) => (
+                {oneReview ? (
                   <ReviewCard
-                    ref={reviews?.content?.length - 1 === index ? ref : null}
-                    key={review?.id}
-                    review={review}
-                    exchangerInfo={exchanger}
+                    ref={ref}
+                    key={reviews?.content[0]?.id}
+                    review={reviews?.content[0]}
+                    exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
+                    seeAllReviews={seeAllReviews}
                   />
-                ))}
+                ) : (
+                  reviews?.content?.map((review, index) => (
+                    <ReviewCard
+                      ref={reviews?.content?.length - 1 === index ? ref : null}
+                      key={review?.id}
+                      review={review}
+                      exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
+                      seeAllReviews={seeAllReviews}
+                    />
+                  ))
+                )}
               </div>
             ) : (
               <div className="grid justify-items-center gap-6 mt-8">

@@ -1,16 +1,17 @@
+import { useEffect, useRef, useState } from "react";
+import { cx } from "class-variance-authority";
 import {
   CommentCard,
   useCommentsByReviewQuery,
 } from "@/entities/comment";
 import { Exchanger } from "@/entities/exchanger";
-import { cx } from "class-variance-authority";
-import { useEffect, useRef, useState } from "react";
+import { ExchangerMarker } from "@/shared/types";
 
 type CommentListProps = {
   isOpen: boolean;
   reviewId: number;
   onLoadingChange: (isLoading: boolean) => void;
-  exchangerInfo: Pick<Exchanger, "exchange_id" | "exchange_marker">;
+  exchangerInfo?: Pick<Exchanger, "exchange_id" | "exchange_marker">;
 };
 
 export const CommentList = (props: CommentListProps) => {
@@ -22,8 +23,8 @@ export const CommentList = (props: CommentListProps) => {
   const { data: comments, isLoading } = useCommentsByReviewQuery(
     {
       review_id: reviewId,
-      exchange_id: exchangerInfo?.exchange_id,
-      exchange_marker: exchangerInfo?.exchange_marker,
+      exchange_id: exchangerInfo?.exchange_id || 0,
+      exchange_marker: exchangerInfo?.exchange_marker || ExchangerMarker.no_cash,
     },
     { skip: !isOpen || reviewId < 1 }
   );

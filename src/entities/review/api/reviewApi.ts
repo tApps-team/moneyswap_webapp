@@ -29,8 +29,11 @@ export const reviewApi = baseApi.injectEndpoints({
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems) => {
-        currentCache.content.push(...newItems.content);
-
+        if (newItems.page === 1) {
+          currentCache.content = newItems.content;
+        } else {
+          currentCache.content.push(...newItems.content);
+        }
         currentCache.page = newItems.page;
       },
       // Refetch when the page arg changes

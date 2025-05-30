@@ -1,3 +1,5 @@
+import { Grade } from "@/shared/types";
+
 export type Review = {
   id: number;
   username: string;
@@ -14,12 +16,6 @@ export type ReviewResponse = {
   content: Review[];
   pages: number;
 };
-export enum Grade {
-  positive = 1,
-  neutral = 0,
-  negative = -1,
-  all = "all",
-}
 export enum ReviewFrom {
   moneyswap = "moneyswap",
   bestchange = "bestchange",

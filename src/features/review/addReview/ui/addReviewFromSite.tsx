@@ -7,12 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { cx } from "class-variance-authority";
 import { Loader } from "lucide-react";
 import {
-  Grade,
   useAddReviewByExchangeMutation,
   useCheckUserReviewPermissionQuery,
 } from "@/entities/review";
 import { useAppSelector } from "@/shared/hooks";
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerMarker, Grade } from "@/shared/types";
 import { paths } from "@/shared/routing";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import {

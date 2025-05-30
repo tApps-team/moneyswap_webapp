@@ -1,5 +1,7 @@
-import { Exchanger } from "@/entities/exchanger";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { AddReview, ReviewList } from "@/features/review";
+import { Exchanger, ExchangerDetail } from "@/entities/exchanger";
 import {
   Drawer,
   DrawerClose,
@@ -8,21 +10,23 @@ import {
   DrawerTrigger,
   ScrollArea,
 } from "@/shared/ui";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import styles from "./reviewDrawer.module.scss";
 import { Lang } from "@/shared/config";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import { useAppSelector } from "@/shared/hooks";
+import styles from "./reviewDrawer.module.scss";
+import { ExchangerMarker } from "@/shared/types";
+
 type ReviewDrawerProps = {
-  exchanger: Exchanger;
+  exchanger?: Exchanger;
+  review_id?: number;
+  isFromSite?: boolean;
+  exchangerDetail?: ExchangerDetail;
 };
 export const ReviewDrawer = (props: ReviewDrawerProps) => {
-  const { exchanger } = props;
+  const { exchanger, exchangerDetail, review_id, isFromSite } = props;
   const { t, i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
-  const exchangerName =
-    i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
+  const [isOpen, setIsOpen] = useState(isFromSite);
+  const exchangerName = exchangerDetail ? exchangerDetail.name : i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
 
   // telegram open link method
   const tg = window?.Telegram?.WebApp;
@@ -44,30 +48,32 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
-      <DrawerTrigger asChild>
-        <div
-          className={styles.reviewCountWrapper}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsOpen((prev) => !prev);
-          }}
-        >
-          <p className={styles.reviewTitle}>{t("Отзывы")}</p>
-          <div className={styles.reviews}>
-            <h3 className={styles.reviewCountPositive}>
-              {exchanger?.review_count?.positive}
-            </h3>
-            <span className={styles.separator}></span>
-            <h3 className={styles.reviewCountNeutral}>
-              {exchanger?.review_count?.neutral}
-            </h3>
-            <span className={styles.separator}></span>
-            <h3 className={styles.reviewCountNegative}>
-              {exchanger?.review_count?.negative}
-            </h3>
+      {!isFromSite && (
+        <DrawerTrigger asChild>
+          <div
+            className={styles.reviewCountWrapper}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen((prev) => !prev);
+            }}
+          >
+            <p className={styles.reviewTitle}>{t("Отзывы")}</p>
+            <div className={styles.reviews}>
+              <h3 className={styles.reviewCountPositive}>
+                {exchanger?.review_count?.positive}
+              </h3>
+              <span className={styles.separator}></span>
+              <h3 className={styles.reviewCountNeutral}>
+                {exchanger?.review_count?.neutral}
+              </h3>
+              <span className={styles.separator}></span>
+              <h3 className={styles.reviewCountNegative}>
+                {exchanger?.review_count?.negative}
+              </h3>
+            </div>
           </div>
-        </div>
-      </DrawerTrigger>
+        </DrawerTrigger>
+      )}
       <DrawerContent
         onClick={(e) => e.stopPropagation()}
         className="p-0 w-full grid gap-4 bg-[#191C25] border-none"
@@ -90,7 +96,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             {exchangerName}
           </p>
           <a
-            onClick={() => openLink(exchanger?.partner_link)}
+            onClick={() => openLink(exchangerDetail ? exchangerDetail?.url : exchanger?.partner_link || "")}
             target="_blank"
             className="text-[12px] text-mainColor underline"
           >
@@ -103,12 +109,13 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
         >
           <div className="pb-4">
             <AddReview
-              exchange_id={exchanger?.exchange_id}
-              exchange_marker={exchanger?.exchange_marker}
+              exchange_id={exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0}
+              exchange_marker={exchangerDetail ? exchangerDetail?.exchange_marker : exchanger?.exchange_marker || ExchangerMarker.no_cash}
               tg_id={user ? user?.id : user_id}
+              isFromSite={isFromSite ? review_id ? false : true : false}
             />
           </div>
-          <ReviewList exchanger={exchanger} isOpen={isOpen} />
+          <ReviewList exchanger={exchanger} exchangerDetail={exchangerDetail} isOpen={isOpen} review_id={review_id} />
         </ScrollArea>
       </DrawerContent>
     </Drawer>
