@@ -5,12 +5,11 @@ import { CircleX, Loader } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { Exchanger, ExchangerDetail } from "@/entities/exchanger";
 import {
-  Grade,
   ReviewCard,
   useReviewsByExchangeQuery,
   selectCacheByKey
 } from "@/entities/review";
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerMarker, Grade } from "@/shared/types";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 
 type ReviewListProps = {
@@ -159,6 +158,7 @@ export const ReviewList = (props: ReviewListProps) => {
                     key={reviews?.content[0]?.id}
                     review={reviews?.content[0]}
                     exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
+                    seeAllReviews={seeAllReviews}
                   />
                 ) : (
                   reviews?.content?.map((review, index) => (
@@ -167,6 +167,7 @@ export const ReviewList = (props: ReviewListProps) => {
                       key={review?.id}
                       review={review}
                       exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
+                      seeAllReviews={seeAllReviews}
                     />
                   ))
                 )}

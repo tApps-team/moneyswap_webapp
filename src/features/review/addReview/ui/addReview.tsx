@@ -6,13 +6,12 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cx } from "class-variance-authority";
 import {
-  Grade,
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
 } from "@/entities/review";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import { Button, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerMarker, Grade } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 import { UserNotFound } from "./userNotFound";
 
@@ -52,16 +51,19 @@ export const AddReview = (props: AddReviewProps) => {
           if (error?.status === 423) {
             toast({
               title: t("reviews.permission_error"),
+              variant: "destructive",
             });
           } else if (error?.status !== 404) {
             toast({
               title: t("reviews.error"),
+              variant: "destructive",
             });
           }
         });
     } else {
       toast({
         title: t("reviews.permission_error"),
+        variant: "destructive",
       });
     }
   };
@@ -92,6 +94,7 @@ export const AddReview = (props: AddReviewProps) => {
     if (checkUserReviewPermissionIsError) {
       toast({
         title: t("reviews.permission_error"),
+        variant: "destructive",
       });
     }
   }, [checkUserReviewPermissionIsError, toast]);

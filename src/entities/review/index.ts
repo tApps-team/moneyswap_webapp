@@ -11,7 +11,6 @@ export {
 
 export { ReviewCard } from "./ui/reviewCard";
 export {
-  Grade,
   ReviewFrom,
   type Review,
   type ReviewResponse,

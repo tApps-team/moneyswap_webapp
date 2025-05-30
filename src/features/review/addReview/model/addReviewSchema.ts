@@ -1,4 +1,3 @@
-import { Grade } from "@/entities/review";
 import { z } from "zod";
 export const addReviewSchema = z
   .object({

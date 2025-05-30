@@ -6,20 +6,21 @@ import { cx } from "class-variance-authority";
 import { AddComment, CommentList } from "@/features/comment";
 import { Exchanger } from "@/entities/exchanger";
 // refactor
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerMarker, Grade } from "@/shared/types";
 import { Card } from "@/shared/ui";
 import { formatDate } from "@/shared/lib";
 import { CommentIcon } from "@/shared/assets";
-import { Grade, Review } from "../model/types/reviewType";
+import { Review } from "../model/types/reviewType";
 
 type ReviewCardProps = {
   review: Review;
   exchangerInfo?: Pick<Exchanger, "exchange_id" | "exchange_marker">;
+  seeAllReviews?: () => void;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review, exchangerInfo } = props;
+    const { review, exchangerInfo, seeAllReviews } = props;
     const { t } = useTranslation();
     const gradeName =
       review?.grade === Grade.positive
@@ -104,7 +105,7 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           </div>
           <div className="p-3 pl-4">
             <p className="text-white uppercase text-[14px] truncate w-[50vw] font-medium">
-              {review?.username}
+              {review?.username || "unknown"}
             </p>
             <div className="grid grid-flow-col gap-2 justify-between items-center justify-items-stretch">
             <p className="text-mainColor font-light text-[12px] uppercase">
@@ -181,8 +182,9 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </div>
             <AddComment 
               review_id={review?.id} 
-              exchanger_id={exchangerInfo?.exchange_id || 0} 
               exchanger_marker={exchangerInfo?.exchange_marker || ExchangerMarker.no_cash}
+              grade={review?.grade}
+              seeAllReviews={seeAllReviews}
             />
           </div>
         </Card>
