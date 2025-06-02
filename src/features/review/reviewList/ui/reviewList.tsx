@@ -43,7 +43,7 @@ export const ReviewList = (props: ReviewListProps) => {
       exchange_marker: exchangerDetail ? exchangerDetail?.exchange_marker : exchanger?.exchange_marker || ExchangerMarker.no_cash,
       review_id: oneReview ? review_id : undefined,
       page: page,
-      element_on_page: 4,
+      element_on_page: 10,
       grade_filter: grade === Grade.all ? undefined : grade,
     },
     {
@@ -68,7 +68,7 @@ export const ReviewList = (props: ReviewListProps) => {
   }
 
   useEffect(() => {
-    if (reviews?.pages && inView && cachePage?.page < reviews?.pages) {
+    if (reviews?.pages && inView) {
       setPage((prev) => (cachePage?.page ? cachePage?.page + 1 : prev + 1));
     }
   }, [inView]);
@@ -164,7 +164,7 @@ export const ReviewList = (props: ReviewListProps) => {
                   reviews?.content?.map((review, index) => (
                     <ReviewCard
                       ref={reviews?.content?.length - 1 === index ? ref : null}
-                      key={review?.id}
+                      key={`${review?.id}-${index}`}
                       review={review}
                       exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
                       seeAllReviews={seeAllReviews}
