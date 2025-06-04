@@ -1,12 +1,11 @@
-import { ExchangerMarker, Grade } from "@/shared/types";
+import { Grade } from "@/shared/types";
 import {
   ReviewResponse,
 } from "../model/types/reviewType";
 
 export type ReviewsByExchangeDtoResponse = ReviewResponse;
 export type ReviewsByExchangeDtoRequest = {
-  exchange_id: number;
-  exchange_marker: ExchangerMarker;
+  exchange_name: string;
   review_id?: number;
   page: number;
   element_on_page?: number;
@@ -15,8 +14,7 @@ export type ReviewsByExchangeDtoRequest = {
 
 export type AddReviewByExchangeDtoResponse = string;
 export type AddReviewByExchangeDtoRequset = {
-  exchange_id: number;
-  exchange_marker: ExchangerMarker;
+  exchange_name: string;
   tg_id: number;
   text: string;
   grade: Grade;
@@ -27,7 +25,6 @@ export type CheckUserReviewPermissionDtoResponse = {
   status: "success";
 };
 export type CheckUserReviewPermissionDtoRequest = {
-  exchange_id: number;
-  exchange_marker: ExchangerMarker;
+  exchange_name: string;
   tg_id: number;
 };

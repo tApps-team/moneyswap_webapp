@@ -4,9 +4,8 @@ import { Loader } from "lucide-react";
 import { cx } from "class-variance-authority";
 // refactor
 import { AddComment, CommentList } from "@/features/comment";
-import { Exchanger } from "@/entities/exchanger";
 // refactor
-import { ExchangerMarker, Grade } from "@/shared/types";
+import { Grade } from "@/shared/types";
 import { Card } from "@/shared/ui";
 import { formatDate } from "@/shared/lib";
 import { CommentIcon } from "@/shared/assets";
@@ -14,13 +13,12 @@ import { Review } from "../model/types/reviewType";
 
 type ReviewCardProps = {
   review: Review;
-  exchangerInfo?: Pick<Exchanger, "exchange_id" | "exchange_marker">;
   seeAllReviews?: () => void;
 };
 
 export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   (props, ref) => {
-    const { review, exchangerInfo, seeAllReviews } = props;
+    const { review, seeAllReviews } = props;
     const { t } = useTranslation();
     const gradeName =
       review?.grade === Grade.positive
@@ -182,7 +180,6 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             </div>
             <AddComment 
               review_id={review?.id} 
-              exchanger_marker={exchangerInfo?.exchange_marker || ExchangerMarker.no_cash}
               grade={review?.grade}
               seeAllReviews={seeAllReviews}
             />
@@ -190,7 +187,6 @@ export const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         </Card>
         <CommentList
           onLoadingChange={setCommentIsLoading}
-          exchangerInfo={exchangerInfo}
           reviewId={review?.id}
           isOpen={isOpen}
         />

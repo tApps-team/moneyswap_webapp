@@ -11,18 +11,17 @@ import {
 } from "@/entities/review";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import { Button, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
-import { ExchangerMarker, Grade } from "@/shared/types";
+import { Grade } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 import { UserNotFound } from "./userNotFound";
 
 type AddReviewProps = {
-  exchange_id: number;
-  exchange_marker: ExchangerMarker;
+  exchange_name: string;
   tg_id: number | null;
   isFromSite?: boolean;
 };
 export const AddReview = (props: AddReviewProps) => {
-  const { exchange_id, exchange_marker, tg_id, isFromSite } = props;
+  const { exchange_name, tg_id, isFromSite } = props;
   const { t } = useTranslation();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
@@ -39,8 +38,7 @@ export const AddReview = (props: AddReviewProps) => {
   const onSubmit = (review: AddReviewSchemaType) => {
     if (tg_id) {
       addReview({
-        exchange_id: exchange_id,
-        exchange_marker: exchange_marker,
+        exchange_name: exchange_name,
         grade: (review?.grade as Grade) || 1,
         text: review?.review,
         tg_id: tg_id,
@@ -80,8 +78,7 @@ export const AddReview = (props: AddReviewProps) => {
   const handleClick = () => {
     if (tg_id) {
       checkUserReviewPermission({
-        exchange_id,
-        exchange_marker,
+        exchange_name,
         tg_id: tg_id,
       });
       setIsOpen(true);
@@ -102,8 +99,7 @@ export const AddReview = (props: AddReviewProps) => {
   useEffect(() => {
     if (isFromSite && tg_id) {
       checkUserReviewPermission({
-        exchange_id,
-        exchange_marker,
+        exchange_name,
         tg_id: tg_id,
       });
       setIsOpen(true);
@@ -150,7 +146,7 @@ export const AddReview = (props: AddReviewProps) => {
       {checkUserPermissionIsSuccess && (
         <DrawerContent className="border-none gap-10 grid-rows grid-cols-1 p-2 backdrop-blur-xl bg-black/50">
           {addReviewIsError && 'status' in (AddReviewError as FetchBaseQueryError) && (AddReviewError as FetchBaseQueryError).status === 404 ? (
-            <UserNotFound exchanger_marker={exchange_marker} exchanger_id={exchange_id} />
+            <UserNotFound exchanger_name={exchange_name} />
           ) : (
             <>
               <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
