@@ -15,21 +15,21 @@ export const commentApi = baseApi.injectEndpoints({
       CommentsByReviewRequest
     >({
       query: (params) => ({
-        url: `api/reviews/get_comments_by_review`,
+        url: `api/test/get_comments_by_review`,
         params,
         method: "GET",
       }),
     }),
     addComment: build.mutation<AddCommentResponse, AddCommentRequest>({
       query: (body) => ({
-        url: `api/reviews/add_comment_by_review`,
+        url: `api/test/add_comment_by_review`,
         body,
         method: "POST",
       }),
     }),
     checkUserCommentPermission: build.mutation<CheckUserCommentPermissionResponse, CheckUserCommentPermissionRequest>({
       query: (params) => ({
-        url: `api/reviews/check_user_comment_permission`,
+        url: `api/test/check_user_comment_permission`,
         params,
         method: "GET",
       }),

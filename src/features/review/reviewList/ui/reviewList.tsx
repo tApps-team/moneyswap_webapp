@@ -9,7 +9,7 @@ import {
   useReviewsByExchangeQuery,
   selectCacheByKey
 } from "@/entities/review";
-import { ExchangerMarker, Grade } from "@/shared/types";
+import { Grade } from "@/shared/types";
 import { Empty, Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 
 type ReviewListProps = {
@@ -24,7 +24,7 @@ export const ReviewList = (props: ReviewListProps) => {
   const [oneReview, setOneReview] = useState<boolean>(review_id ? true : false);
   const [grade, setGrade] = useState<Grade>(Grade.all);
   const cachePage = useSelector(
-    selectCacheByKey(exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0, grade)
+    selectCacheByKey(exchangerDetail ? exchangerDetail?.name : exchanger?.name.ru || "", grade)
   );
   const [page, setPage] = useState<number>(cachePage?.page || 1);
 
@@ -39,8 +39,7 @@ export const ReviewList = (props: ReviewListProps) => {
     refetch
   } = useReviewsByExchangeQuery(
     {
-      exchange_id: exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0,
-      exchange_marker: exchangerDetail ? exchangerDetail?.exchange_marker : exchanger?.exchange_marker || ExchangerMarker.no_cash,
+      exchange_name: exchangerDetail ? exchangerDetail?.name : exchanger?.name.ru || "",
       review_id: oneReview ? review_id : undefined,
       page: page,
       element_on_page: 10,
@@ -157,7 +156,6 @@ export const ReviewList = (props: ReviewListProps) => {
                     ref={ref}
                     key={reviews?.content[0]?.id}
                     review={reviews?.content[0]}
-                    exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
                     seeAllReviews={seeAllReviews}
                   />
                 ) : (
@@ -166,7 +164,6 @@ export const ReviewList = (props: ReviewListProps) => {
                       ref={reviews?.content?.length - 1 === index ? ref : null}
                       key={`${review?.id}-${index}`}
                       review={review}
-                      exchangerInfo={exchangerDetail ? exchangerDetail : exchanger}
                       seeAllReviews={seeAllReviews}
                     />
                   ))

@@ -14,7 +14,6 @@ import { Lang } from "@/shared/config";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import { useAppSelector } from "@/shared/hooks";
 import styles from "./reviewDrawer.module.scss";
-import { ExchangerMarker } from "@/shared/types";
 
 type ReviewDrawerProps = {
   exchanger?: Exchanger;
@@ -109,8 +108,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
         >
           <div className="pb-4">
             <AddReview
-              exchange_id={exchangerDetail ? exchangerDetail?.exchange_id : exchanger?.exchange_id || 0}
-              exchange_marker={exchangerDetail ? exchangerDetail?.exchange_marker : exchanger?.exchange_marker || ExchangerMarker.no_cash}
+              exchange_name={exchangerDetail ? exchangerDetail?.name : exchanger?.name.ru || ""}
               tg_id={user ? user?.id : user_id}
               isFromSite={isFromSite ? review_id ? false : true : false}
             />

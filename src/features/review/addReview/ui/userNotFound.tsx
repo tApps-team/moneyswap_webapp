@@ -1,21 +1,19 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { LogoBig } from "@/shared/assets";
-import { ExchangerMarker } from "@/shared/types";
 import { ScrollArea } from "@/shared/ui";
 import { Frown } from "lucide-react";
 
 interface UserNotFoundProps {
-  exchanger_marker: ExchangerMarker;
-  exchanger_id: number;
+  exchanger_name: string;
 }
 
-export const UserNotFound: FC<UserNotFoundProps> = ({ exchanger_marker, exchanger_id }) => {
+export const UserNotFound: FC<UserNotFoundProps> = ({ exchanger_name }) => {
   const { t } = useTranslation();
   const tg = window?.Telegram?.WebApp;
   
   const goToBot = () => {
-    const botUrl = `${import.meta.env.VITE_TG_BOT_URL}?start=review__${exchanger_marker}__${exchanger_id}`;
+    const botUrl = `${import.meta.env.VITE_TG_BOT_URL}?start=review__${exchanger_name}`;
     tg?.close()
     // Для мобильных платформ используем openTelegramLink
     if (tg?.platform === 'ios' || tg?.platform === 'android') {

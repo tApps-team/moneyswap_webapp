@@ -4,18 +4,15 @@ import {
   CommentCard,
   useCommentsByReviewQuery,
 } from "@/entities/comment";
-import { Exchanger } from "@/entities/exchanger";
-import { ExchangerMarker } from "@/shared/types";
 
 type CommentListProps = {
   isOpen: boolean;
   reviewId: number;
   onLoadingChange: (isLoading: boolean) => void;
-  exchangerInfo?: Pick<Exchanger, "exchange_id" | "exchange_marker">;
 };
 
 export const CommentList = (props: CommentListProps) => {
-  const { reviewId, isOpen, exchangerInfo, onLoadingChange } =
+  const { reviewId, isOpen, onLoadingChange } =
     props;
   const [height, setHeight] = useState<undefined | number | string>(
     isOpen ? "auto" : 0
@@ -23,8 +20,6 @@ export const CommentList = (props: CommentListProps) => {
   const { data: comments, isLoading } = useCommentsByReviewQuery(
     {
       review_id: reviewId,
-      exchange_id: exchangerInfo?.exchange_id || 0,
-      exchange_marker: exchangerInfo?.exchange_marker || ExchangerMarker.no_cash,
     },
     { skip: !isOpen || reviewId < 1 }
   );

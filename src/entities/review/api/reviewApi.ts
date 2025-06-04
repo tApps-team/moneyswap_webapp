@@ -16,15 +16,15 @@ export const reviewApi = baseApi.injectEndpoints({
       ReviewsByExchangeDtoRequest
     >({
       query: (data) => ({
-        url: `api/reviews/reviews_by_exchange`,
+        url: `api/test/reviews_by_exchange`,
         params: data,
         method: "GET",
       }),
 
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        const { exchange_id, grade_filter } = queryArgs;
+        const { exchange_name, grade_filter } = queryArgs;
         return (
-          endpointName + exchange_id + (grade_filter ? grade_filter : "all")
+          endpointName + exchange_name + (grade_filter ? grade_filter : "all")
         );
       },
       // Always merge incoming data to the cache entry
@@ -50,18 +50,17 @@ export const reviewApi = baseApi.injectEndpoints({
       AddReviewByExchangeDtoRequset
     >({
       query: (data) => ({
-        url: `/api/reviews/add_review_by_exchange`,
+        url: `/api/test/add_review_by_exchange`,
         body: data,
         method: "POST",
       }),
-      // invalidatesTags: ["REVIEW"],
     }),
     checkUserReviewPermission: build.query<
       CheckUserReviewPermissionDtoResponse,
       CheckUserReviewPermissionDtoRequest
     >({
       query: (params) => ({
-        url: `/api/reviews/check_user_review_permission`,
+        url: `/api/test/check_user_review_permission`,
         params: params,
         method: "GET",
       }),
@@ -70,10 +69,10 @@ export const reviewApi = baseApi.injectEndpoints({
 });
 
 export const selectCacheByKey =
-  (exchange_id: number, grade_filter?: number | "all") =>
+  (exchange_name: string, grade_filter?: number | "all") =>
   (state: RootState) => {
     return state.api.queries[
-      "reviewsByExchange" + exchange_id + (grade_filter ? grade_filter : "all")
+      "reviewsByExchange" + exchange_name + (grade_filter ? grade_filter : "all")
     ]?.data as ReviewsByExchangeDtoResponse;
   };
 

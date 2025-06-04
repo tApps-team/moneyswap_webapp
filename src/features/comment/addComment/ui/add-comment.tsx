@@ -2,19 +2,17 @@ import { FC, useState } from "react";
 import { Loader, MessageCircleCode, Send } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAddCommentMutation, useCheckUserCommentPermissionMutation } from "@/entities/comment";
-import { ExchangerMarker, Grade } from "@/shared/types";
+import { Grade } from "@/shared/types";
 import { Dialog, DialogContent, DialogTitle, Textarea, useToast } from "@/shared/ui";
 import { useAppSelector } from "@/shared/hooks";
 
 type AddCommentProps = {
-  exchanger_marker: ExchangerMarker;
   review_id: number;
   grade: Grade;
   seeAllReviews?: () => void;
 }
 
 export const AddComment:FC<AddCommentProps> = ({
-  exchanger_marker,
   review_id,
   grade,
   seeAllReviews,
@@ -28,7 +26,6 @@ export const AddComment:FC<AddCommentProps> = ({
 
   const checkUserCommentPermissionHandler = () => {
     checkUserCommentPermission({
-      exchange_marker: exchanger_marker,
       review_id: review_id,
       tg_id: user ? user?.id : user_id || 0,
     }).unwrap().then(() => {
@@ -61,7 +58,6 @@ export const AddComment:FC<AddCommentProps> = ({
       return;
     }
     const answerReq = {
-      exchange_marker: exchanger_marker,
       review_id: review_id,
       tg_id: user ? user?.id : user_id || 0,
       text: answer,
