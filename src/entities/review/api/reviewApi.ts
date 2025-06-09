@@ -16,7 +16,7 @@ export const reviewApi = baseApi.injectEndpoints({
       ReviewsByExchangeDtoRequest
     >({
       query: (data) => ({
-        url: `api/test/reviews_by_exchange`,
+        url: `api/reviews/reviews_by_exchange`,
         params: data,
         method: "GET",
       }),
@@ -50,7 +50,7 @@ export const reviewApi = baseApi.injectEndpoints({
       AddReviewByExchangeDtoRequset
     >({
       query: (data) => ({
-        url: `/api/test/add_review_by_exchange`,
+        url: `/api/reviews/add_review_by_exchange`,
         body: data,
         method: "POST",
       }),
@@ -60,7 +60,7 @@ export const reviewApi = baseApi.injectEndpoints({
       CheckUserReviewPermissionDtoRequest
     >({
       query: (params) => ({
-        url: `/api/test/check_user_review_permission`,
+        url: `/api/reviews/check_user_review_permission`,
         params: params,
         method: "GET",
       }),
