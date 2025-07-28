@@ -30,14 +30,12 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
   // telegram open link method
   const tg = window?.Telegram?.WebApp;
   const options = [{ try_instant_view: true }];
-  const isTelegramLink = (url: string): boolean => {
-    const telegramLinkPattern = /(?:t\.me|telegram\.me)\/[^/\s]+\/?$/;
-    return telegramLinkPattern.test(url);
-  };
   const openLink = (url: string) => {
-    if (isTelegramLink(url)) {
+    try {
+      // Сначала пробуем как Telegram ссылку
       tg.openTelegramLink(url);
-    } else {
+    } catch (error) {
+      // Если не получилось, открываем как обычную ссылку
       tg.openLink(url, options);
     }
   };
