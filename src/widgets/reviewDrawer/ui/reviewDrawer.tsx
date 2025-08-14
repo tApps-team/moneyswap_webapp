@@ -14,6 +14,7 @@ import { Lang } from "@/shared/config";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import { useAppSelector } from "@/shared/hooks";
 import styles from "./reviewDrawer.module.scss";
+import { reachGoal, YandexGoals } from "@/shared/lib";
 
 type ReviewDrawerProps = {
   exchanger?: Exchanger;
@@ -52,6 +53,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             onClick={(e) => {
               e.stopPropagation();
               setIsOpen((prev) => !prev);
+              reachGoal(YandexGoals.REVIEWS_OPEN);
             }}
           >
             <p className={styles.reviewTitle}>{t("Отзывы")}</p>

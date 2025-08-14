@@ -16,6 +16,7 @@ import { ExchangerMarker } from "@/shared/types";
 import { useAppDispatch } from "@/shared/hooks";
 import { Lang } from "@/shared/config";
 import styles from "./mainPage.module.scss";
+import { reachGoal, YandexGoals } from "@/shared/lib";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
@@ -57,6 +58,11 @@ export const MainPage = () => {
     const activeDirection = CheckQueries().direction || directions.noncash;
     const user_id = Number(CheckQueries().user_id);
     dispatch(setActiveDirection(activeDirection as directions));
+    if (activeDirection === directions.cash) {
+      reachGoal(YandexGoals.SELECT_TYPE_CASH);
+    } else {
+      reachGoal(YandexGoals.SELECT_TYPE_CASHLESS);
+    }
     if (user_id) {
       dispatch(setUserId(user_id || null));
     } else if (tg) {

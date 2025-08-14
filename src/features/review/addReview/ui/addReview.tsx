@@ -14,6 +14,7 @@ import { Button, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger
 import { Grade } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 import { UserNotFound } from "./userNotFound";
+import { reachGoal, YandexGoals } from "@/shared/lib";
 
 type AddReviewProps = {
   exchange_name: string;
@@ -85,6 +86,7 @@ export const AddReview = (props: AddReviewProps) => {
     } else {
       alert("tg_id is null...");
     }
+    reachGoal(YandexGoals.REVIEW_ADD);
   };
 
   useEffect(() => {

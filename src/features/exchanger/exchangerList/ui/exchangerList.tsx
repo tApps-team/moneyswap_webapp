@@ -6,6 +6,7 @@ import { City } from "@/entities/location";
 import { Lang } from "@/shared/config";
 import { ReviewDrawer } from "@/widgets/reviewDrawer";
 import { Currency } from "@/entities/currency";
+import { reachGoal, YandexGoals } from "@/shared/lib";
 
 interface ExchangersListProps {
   exchangers: Exchanger[];
@@ -28,6 +29,7 @@ export const ExchangerList: FC<ExchangersListProps> = memo(
         // Если не получилось, открываем как обычную ссылку
         tg.openLink(url, options);
       }
+      reachGoal(YandexGoals.EXCHANGE_REDIRECT);
     };
     const giveCurrencyName =
       i18n.language === Lang.ru
