@@ -7,6 +7,7 @@ import { setCity, setCountry } from "@/entities/location";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import styles from "./directions.module.scss";
 import { FC } from "react";
+import { reachGoal, YandexGoals } from "@/shared/lib";
 
 export const Directions: FC = () => {
   const { activeDirection } = useAppSelector((state) => state.direction);
@@ -16,6 +17,11 @@ export const Directions: FC = () => {
     setCity(null);
     setCountry(null);
     dispatch(setActiveDirection(direction));
+    if (direction === directions.cash) {
+      reachGoal(YandexGoals.SELECT_TYPE_CASH);
+    } else {
+      reachGoal(YandexGoals.SELECT_TYPE_CASHLESS);
+    }
   };
 
   return (

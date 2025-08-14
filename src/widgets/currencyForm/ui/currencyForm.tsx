@@ -16,6 +16,7 @@ import { cx } from "class-variance-authority";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
+import { reachGoal, YandexGoals } from "@/shared/lib";
 
 export const CurrencyForm = () => {
   const { t } = useTranslation();
@@ -117,6 +118,11 @@ export const CurrencyForm = () => {
           ? currencyActions.setGiveCurrency(currency)
           : currencyActions.setGiveCashCurrency(currency)
       );
+      if (direction === directions.noncash) {
+        reachGoal(YandexGoals.CASHLESS_GIVE);
+      } else {
+        reachGoal(YandexGoals.CASH_GIVE);
+      }
     },
     [direction, dispatch]
   );
@@ -127,6 +133,11 @@ export const CurrencyForm = () => {
           ? currencyActions.setGetCurrency(currency)
           : currencyActions.setGetCashCurrency(currency)
       );
+      if (direction === directions.noncash) {
+        reachGoal(YandexGoals.CASHLESS_RECEIVE);
+      } else {
+        reachGoal(YandexGoals.CASH_RECEIVE);
+      }
     },
     [direction, dispatch]
   );
