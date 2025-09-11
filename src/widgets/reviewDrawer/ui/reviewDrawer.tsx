@@ -26,7 +26,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
   const { exchanger, exchangerDetail, review_id, isFromSite } = props;
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(isFromSite);
-  const exchangerName = exchangerDetail ? exchangerDetail.name : i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
+  const exchangerName = exchangerDetail ? exchangerDetail?.exchangerName?.ru : i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
 
   // telegram open link method
   const tg = window?.Telegram?.WebApp;
@@ -43,6 +43,8 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
 
   //user info
   const { user, user_id } = useAppSelector((state) => state.user);
+
+  console.log("exchangerName", exchangerName)
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
@@ -108,7 +110,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
         >
           <div className="pb-4">
             <AddReview
-              exchange_name={exchangerDetail ? exchangerDetail?.name : exchanger?.name.ru || ""}
+              exchange_name={exchangerDetail ? exchangerDetail?.exchangerName?.ru : exchanger?.name.ru || ""}
               tg_id={user ? user?.id : user_id}
               isFromSite={isFromSite ? review_id ? false : true : false}
             />
