@@ -48,7 +48,7 @@ export interface Exchanger {
 export interface ExchangerDetail {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
-  name: string;
+  exchangerName: Name;
   iconUrl: string;
   url: string;
   high_aml: boolean;
