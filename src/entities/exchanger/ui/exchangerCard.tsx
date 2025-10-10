@@ -9,9 +9,7 @@ import { Ban, CalendarDays, Check, Clock, Minus } from "lucide-react";
 import { useAppSelector } from "@/shared/hooks";
 import {
   useIncreaseLinkCountMutation,
-  useIncreaseLinkCountPartnersMutation,
 } from "@/entities/user";
-import { ExchangerMarker } from "@/shared/types";
 import { Exchanger } from "../model";
 import { ExchangeRates, AMLTooltip } from "./components";
 import styles from "./exchangerCard.module.scss";
@@ -43,7 +41,6 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
   //user info
   const { user_id } = useAppSelector((state) => state.user);
   const [increaseLinkCount] = useIncreaseLinkCountMutation();
-  const [increaseLinkCountPartners] = useIncreaseLinkCountPartnersMutation();
 
   const handleClick = (exchanger: Exchanger) => {
     openLink(exchanger?.partner_link);
@@ -52,16 +49,9 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
         user_id,
         exchange_id: exchanger?.exchange_id,
         exchange_direction_id: exchanger?.exchange_direction_id,
+        direction_marker: exchanger?.direction_marker,
       };
-      exchanger?.direction_marker
-        ? increaseLinkCountPartners({
-            ...increaseincreaseLinkCountReq,
-            direction_marker: exchanger?.direction_marker,
-          })
-        : increaseLinkCount({
-            ...increaseincreaseLinkCountReq,
-            exchange_marker: exchanger?.exchange_marker,
-          });
+      increaseLinkCount(increaseincreaseLinkCountReq);
     }
   };
 
@@ -112,8 +102,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             <div className={styles.reviewSlot}>{ReviewSlot}</div>
           </div>
         </header>
-        {(card.exchange_marker === ExchangerMarker.partner || card.exchange_marker === ExchangerMarker.both) && 
-          (card?.info?.office || card?.info?.delivery || card?.info?.weekdays || card?.info?.weekends || card?.info?.working_days) ? (
+          {(card?.info?.office || card?.info?.delivery || card?.info?.weekdays || card?.info?.weekends || card?.info?.working_days) ? (
             <div className={styles.info}>
               {(card?.info?.weekdays || card?.info?.weekends) && (
                 <div className={styles.info__block}>
@@ -206,12 +195,12 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
           <span className={styles.valuteRange}>
             {t("от")}{" "}
             <RoundValute value={card?.min_amount ?? 0} />
-            {card?.exchange_marker === ExchangerMarker.partner && "$"}{" "}
+            {/* {card?.exchange_marker === ExchangerMarker.partner && "$"}{" "} */}
             {t("до")}{" "}
             {card?.max_amount ? (
               <>
                 <RoundValute value={card?.max_amount} />
-                {card?.exchange_marker === ExchangerMarker.partner && "$"}
+                {/* {card?.exchange_marker === ExchangerMarker.partner && "$"} */}
               </>
             ) : (
               t("Amount_null")

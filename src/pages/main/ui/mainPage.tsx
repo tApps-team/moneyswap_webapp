@@ -12,7 +12,7 @@ import { CheckQueries } from "@/features/checkQueries";
 import { directions, setActiveDirection } from "@/entities/direction";
 import { setUser, setUserId } from "@/entities/user";
 import { ExchangerDetail, useGetExchangerDetailQuery } from "@/entities/exchanger";
-import { ExchangerMarker } from "@/shared/types";
+// import { ExchangerMarker } from "@/shared/types";
 import { useAppDispatch } from "@/shared/hooks";
 import { Lang } from "@/shared/config";
 import styles from "./mainPage.module.scss";
@@ -25,14 +25,13 @@ export const MainPage = () => {
 
   // from_site
   const { from_site } = CheckQueries();
-  const [exchanger_id, exchanger_marker, review_id] = from_site?.split("__") || [];
+  const [exchanger_id, review_id] = from_site?.split("__") || [];
 
-  const {data: exchangerDetailData, isSuccess: isExchangerDetailSuccess, isLoading: isExchangerDetailLoading} = useGetExchangerDetailQuery({exchange_id: +exchanger_id, exchange_marker: exchanger_marker as ExchangerMarker}, {skip: !exchanger_id});
+  const {data: exchangerDetailData, isSuccess: isExchangerDetailSuccess, isLoading: isExchangerDetailLoading} = useGetExchangerDetailQuery({exchange_id: +exchanger_id}, {skip: !exchanger_id});
     
   const exchangerDetail: ExchangerDetail | undefined = exchangerDetailData ? {
     ...exchangerDetailData,
-    exchange_id: +exchanger_id,
-    exchange_marker: exchanger_marker as ExchangerMarker,
+    id: +exchanger_id,
   } : undefined;
 
   useEffect(() => {

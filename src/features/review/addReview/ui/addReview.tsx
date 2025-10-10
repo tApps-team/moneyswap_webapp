@@ -17,12 +17,12 @@ import { UserNotFound } from "./userNotFound";
 import { reachGoal, YandexGoals } from "@/shared/lib";
 
 type AddReviewProps = {
-  exchange_name: string;
+  exchange_id: number;
   tg_id: number | null;
   isFromSite?: boolean;
 };
 export const AddReview = (props: AddReviewProps) => {
-  const { exchange_name, tg_id, isFromSite } = props;
+  const { exchange_id, tg_id, isFromSite } = props;
   const { t } = useTranslation();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +39,7 @@ export const AddReview = (props: AddReviewProps) => {
   const onSubmit = (review: AddReviewSchemaType) => {
     if (tg_id) {
       addReview({
-        exchange_name: exchange_name,
+        exchange_id: exchange_id,
         grade: (review?.grade as Grade) || 1,
         text: review?.review,
         tg_id: tg_id,
@@ -79,7 +79,7 @@ export const AddReview = (props: AddReviewProps) => {
   const handleClick = () => {
     if (tg_id) {
       checkUserReviewPermission({
-        exchange_name,
+        exchange_id,
         tg_id: tg_id,
       });
       setIsOpen(true);
@@ -101,7 +101,7 @@ export const AddReview = (props: AddReviewProps) => {
   useEffect(() => {
     if (isFromSite && tg_id) {
       checkUserReviewPermission({
-        exchange_name,
+        exchange_id,
         tg_id: tg_id,
       });
       setIsOpen(true);
@@ -148,7 +148,7 @@ export const AddReview = (props: AddReviewProps) => {
       {checkUserPermissionIsSuccess && (
         <DrawerContent className="border-none gap-10 grid-rows grid-cols-1 p-2 backdrop-blur-xl bg-black/50">
           {addReviewIsError && 'status' in (AddReviewError as FetchBaseQueryError) && (AddReviewError as FetchBaseQueryError).status === 404 ? (
-            <UserNotFound exchanger_name={exchange_name} />
+            <UserNotFound exchanger_id={exchange_id} />
           ) : (
             <>
               <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">

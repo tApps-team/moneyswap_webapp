@@ -82,10 +82,7 @@ export const CurrencyForm = () => {
     isFetching: isGetCurrencyFetching,
   } = useAvailableValutesQuery(
     {
-      base:
-        direction === directions.cash
-          ? giveCashCurrencyValue?.code_name
-          : giveCurrencyValue?.code_name,
+      base: currentGiveCurrency?.code_name,
       city: direction === directions.cash ? code_name : undefined,
     },
     {

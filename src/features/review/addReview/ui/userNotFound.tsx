@@ -5,15 +5,15 @@ import { ScrollArea } from "@/shared/ui";
 import { Frown } from "lucide-react";
 
 interface UserNotFoundProps {
-  exchanger_name: string;
+  exchanger_id: number;
 }
 
-export const UserNotFound: FC<UserNotFoundProps> = ({ exchanger_name }) => {
+export const UserNotFound: FC<UserNotFoundProps> = ({ exchanger_id }) => {
   const { t } = useTranslation();
   const tg = window?.Telegram?.WebApp;
   
   const goToBot = () => {
-    const botUrl = `${import.meta.env.VITE_TG_BOT_URL}?start=review__${exchanger_name}`;
+    const botUrl = `${import.meta.env.VITE_TG_BOT_URL}?start=review__${exchanger_id}`;
     tg?.close()
     // Для мобильных платформ используем openTelegramLink
     if (tg?.platform === 'ios' || tg?.platform === 'android') {

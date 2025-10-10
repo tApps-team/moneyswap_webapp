@@ -5,7 +5,7 @@ export const locationApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getCountries: build.query<Country[], string>({
       query: () => ({
-        url: "/api/cash/countries2",
+        url: "/api/v2/cash/countries",
         method: "GET",
       }),
     }),

@@ -24,7 +24,7 @@ export const ReviewList = (props: ReviewListProps) => {
   const [oneReview, setOneReview] = useState<boolean>(review_id ? true : false);
   const [grade, setGrade] = useState<Grade>(Grade.all);
   const cachePage = useSelector(
-    selectCacheByKey(exchangerDetail ? exchangerDetail?.exchangerName?.ru : exchanger?.name?.ru || "", grade)
+    selectCacheByKey(exchangerDetail ? exchangerDetail?.id : exchanger?.exchange_id || 0, grade)
   );
   const [page, setPage] = useState<number>(cachePage?.page || 1);
 
@@ -39,7 +39,7 @@ export const ReviewList = (props: ReviewListProps) => {
     refetch
   } = useReviewsByExchangeQuery(
     {
-      exchange_name: exchangerDetail ? exchangerDetail?.exchangerName?.ru : exchanger?.name?.ru || "",
+      exchange_id: exchangerDetail ? exchangerDetail?.id : exchanger?.exchange_id || 0,
       review_id: oneReview ? review_id : undefined,
       page: page,
       element_on_page: 10,

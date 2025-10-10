@@ -1,6 +1,5 @@
 import { Loader, SquareChevronRight } from "lucide-react";
 import { directions } from "@/entities/direction";
-import { useGetCountriesQuery } from "@/entities/location/api/locationApi";
 import { LocationList, LocationSearch } from "@/features/location";
 import { useAppSelector } from "@/shared/hooks";
 import { useMemo, useState } from "react";
@@ -8,7 +7,7 @@ import styles from "./locations.module.scss";
 import { useTranslation } from "react-i18next";
 import { CloseDrawerIcon, LocationArrow } from "@/shared/assets";
 import clsx from "clsx";
-import { Country } from "@/entities/location";
+import { Country, useGetCountriesQuery } from "@/entities/location";
 import { Lang } from "@/shared/config";
 import {
   Drawer,
@@ -32,7 +31,7 @@ export const Location = () => {
     i18n.language === Lang.ru ? city?.name?.ru : city?.name?.en;
 
   // query rtk
-  const { data: countries, isLoading } = useGetCountriesQuery("", {
+  const { data: countries, isLoading } = useGetCountriesQuery(null as unknown as string, {
     skip: activeDirection !== directions.cash,
   });
 

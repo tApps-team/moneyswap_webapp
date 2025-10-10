@@ -5,7 +5,7 @@ import {
 
 export type ReviewsByExchangeDtoResponse = ReviewResponse;
 export type ReviewsByExchangeDtoRequest = {
-  exchange_name: string;
+  exchange_id: number;
   review_id?: number;
   page: number;
   element_on_page?: number;
@@ -14,7 +14,7 @@ export type ReviewsByExchangeDtoRequest = {
 
 export type AddReviewByExchangeDtoResponse = string;
 export type AddReviewByExchangeDtoRequset = {
-  exchange_name: string;
+  exchange_id: number;
   tg_id: number;
   text: string;
   grade: Grade;
@@ -25,6 +25,6 @@ export type CheckUserReviewPermissionDtoResponse = {
   status: "success";
 };
 export type CheckUserReviewPermissionDtoRequest = {
-  exchange_name: string;
+  exchange_id: number;
   tg_id: number;
 };

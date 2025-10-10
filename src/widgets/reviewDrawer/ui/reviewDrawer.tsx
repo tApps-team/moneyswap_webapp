@@ -110,7 +110,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
         >
           <div className="pb-4">
             <AddReview
-              exchange_name={exchangerDetail ? exchangerDetail?.exchangerName?.ru : exchanger?.name.ru || ""}
+              exchange_id={exchangerDetail ? exchangerDetail?.id : exchanger?.exchange_id || 0}
               tg_id={user ? user?.id : user_id}
               isFromSite={isFromSite ? review_id ? false : true : false}
             />
