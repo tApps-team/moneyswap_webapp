@@ -17,6 +17,7 @@ import { useAppDispatch } from "@/shared/hooks";
 import { Lang } from "@/shared/config";
 import styles from "./mainPage.module.scss";
 import { reachGoal, YandexGoals } from "@/shared/lib";
+import { isTelegramMobile } from "@/shared/lib";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
@@ -52,6 +53,12 @@ export const MainPage = () => {
       tg.enableClosingConfirmation();
       tg.ready();
       tg?.initDataUnsafe && dispatch(setUser(tg?.initDataUnsafe?.user));
+
+      const isMobilePlatform = isTelegramMobile();
+      
+      if (tg?.requestFullscreen && isMobilePlatform) {
+        tg.requestFullscreen();
+      }
     }
 
     const activeDirection = CheckQueries().direction || directions.noncash;

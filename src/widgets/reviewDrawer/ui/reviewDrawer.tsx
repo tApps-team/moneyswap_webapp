@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 import { AddReview, ReviewList } from "@/features/review";
 import { Exchanger, ExchangerDetail } from "@/entities/exchanger";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTrigger,
@@ -12,9 +12,9 @@ import {
 } from "@/shared/ui";
 import { Lang } from "@/shared/config";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
-import { useAppSelector } from "@/shared/hooks";
+import { useAppSelector, useDrawerBackButton } from "@/shared/hooks";
+import { handleVibration, isTelegramMobile, reachGoal, YandexGoals } from "@/shared/lib";
 import styles from "./reviewDrawer.module.scss";
-import { reachGoal, YandexGoals } from "@/shared/lib";
 
 type ReviewDrawerProps = {
   exchanger?: Exchanger;
@@ -25,7 +25,7 @@ type ReviewDrawerProps = {
 export const ReviewDrawer = (props: ReviewDrawerProps) => {
   const { exchanger, exchangerDetail, review_id, isFromSite } = props;
   const { t, i18n } = useTranslation();
-  const [isOpen, setIsOpen] = useState(isFromSite);
+  const [isOpen, setIsOpen] = useState(isFromSite || false);
   const exchangerName = exchangerDetail ? exchangerDetail?.exchangerName?.ru : i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
 
   // telegram open link method
@@ -44,7 +44,13 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
   //user info
   const { user, user_id } = useAppSelector((state) => state.user);
 
-  console.log("exchangerName", exchangerName)
+  const isMobilePlatform = isTelegramMobile();
+
+  // Используем хук для управления кнопкой назад Telegram
+  useDrawerBackButton({
+    isOpen,
+    onClose: () => setIsOpen(false)
+  });
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
@@ -54,7 +60,8 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             className={styles.reviewCountWrapper}
             onClick={(e) => {
               e.stopPropagation();
-              setIsOpen((prev) => !prev);
+              handleVibration();
+              setIsOpen(true);
               reachGoal(YandexGoals.REVIEWS_OPEN);
             }}
           >
@@ -77,22 +84,24 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
       )}
       <DrawerContent
         onClick={(e) => e.stopPropagation()}
-        className="p-0 w-full grid gap-4 bg-[#191C25] border-none"
+        className={clsx("p-0 w-full grid gap-4 bg-[#191C25] border-none", {
+          "pt-[90px]": isMobilePlatform
+        })}
       >
-        <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
-          <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
+        {/* <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
+          <div className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
             <div className="rotate-90">
               <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
             </div>
             <p className="text-[14px] uppercase text-white font-semibold">
               {t("reviews.title")}
             </p>
-          </DrawerClose>
+          </div>
           <div className="absolute right-2 top-4">
             <LogoBig width={130} />
           </div>
-        </DrawerHeader>
-        <div className="grid grid-flow-col justify-between items-center gap-3 mx-4 pt-4 border-t-2 border-mainColor">
+        </DrawerHeader> */}
+        <div className="grid grid-flow-col justify-between items-center gap-3 mx-4 pt-4">
           <p className="text-[16px] truncate text-white font-semibold">
             {exchangerName}
           </p>

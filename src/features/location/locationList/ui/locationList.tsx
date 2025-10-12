@@ -17,7 +17,7 @@ import {
 import { useAppDispatch } from "@/shared/hooks";
 import { currencyActions } from "@/entities/currency";
 import { useTranslation } from "react-i18next";
-import { reachGoal, YandexGoals } from "@/shared/lib";
+import { handleVibration, reachGoal, YandexGoals } from "@/shared/lib";
 
 interface LocationListProps {
   countries: Country[];
@@ -39,6 +39,7 @@ export const LocationList: FC<LocationListProps> = ({
     dispatch(currencyActions.setGetCashCurrency(null));
     dispatch(currencyActions.setGiveCashCurrency(null));
     reachGoal(YandexGoals.CASH_COUNTRY_SELECT);
+    handleVibration();
   };
 
   const filteredCountries = countries?.map((country) => `item-${country?.id}`);

@@ -10,11 +10,13 @@ import {
   useLazyCheckUserReviewPermissionQuery,
 } from "@/entities/review";
 import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
-import { Button, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
+import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
 import { Grade } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 import { UserNotFound } from "./userNotFound";
-import { reachGoal, YandexGoals } from "@/shared/lib";
+import { handleVibration, isTelegramMobile, reachGoal, YandexGoals } from "@/shared/lib";
+import { cn } from "@/shared/lib";
+import { useDrawerBackButton } from "@/shared/hooks";
 
 type AddReviewProps = {
   exchange_id: number;
@@ -77,6 +79,7 @@ export const AddReview = (props: AddReviewProps) => {
   ] = useLazyCheckUserReviewPermissionQuery();
 
   const handleClick = () => {
+    handleVibration();
     if (tg_id) {
       checkUserReviewPermission({
         exchange_id,
@@ -126,6 +129,17 @@ export const AddReview = (props: AddReviewProps) => {
     },
   ];
 
+  const isMobilePlatform = isTelegramMobile();
+
+  // Используем хук для управления кнопкой назад Telegram
+  useDrawerBackButton({
+    isOpen,
+    onClose: () => {
+      setIsOpen(false);
+      reviewForm.reset();
+    }
+  });
+
   return (
     <Drawer direction="right" open={isOpen} onOpenChange={(open) => {
       setIsOpen(open);
@@ -146,21 +160,23 @@ export const AddReview = (props: AddReviewProps) => {
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="border-none gap-10 grid-rows grid-cols-1 p-2 backdrop-blur-xl bg-black/50">
+        <DrawerContent className={cn("border-none gap-10 grid-rows grid-cols-1 p-2 backdrop-blur-xl bg-black/50", {
+          "pt-[90px]": isMobilePlatform
+        })}>
           {addReviewIsError && 'status' in (AddReviewError as FetchBaseQueryError) && (AddReviewError as FetchBaseQueryError).status === 404 ? (
             <UserNotFound exchanger_id={exchange_id} />
           ) : (
             <>
-              <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
-                <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
+              {/* <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
+                <div className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
                   <div className="rotate-90">
                     <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
                   </div>
                   <p className="text-[14px] uppercase text-white font-semibold">
                     {t("reviews.exit_add_review")}
                   </p>
-                </DrawerClose>
-              </DrawerHeader>
+                </div>
+              </DrawerHeader> */}
               <ScrollArea className="h-[calc(100svh_-_60px)] pt-6">
                 <div className="flex justify-center items-center pb-8">
                   <LogoBig width={200} />
