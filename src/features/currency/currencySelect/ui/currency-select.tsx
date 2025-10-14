@@ -1,5 +1,5 @@
 import { Currency, CurrencyCard, CurrencyValutes } from "@/entities/currency";
-import { CloseDrawerIcon, SearchIcon } from "@/shared/assets";
+import { SearchIcon } from "@/shared/assets";
 import {
   Button,
   Drawer,
@@ -38,7 +38,6 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const activeDirection = useAppSelector(
     (state) => state.direction.activeDirection
   );
-  const tgPlatform = window.Telegram.WebApp.platform;
 
   const { i18n, t } = useTranslation();
   const allKey = t("Все");
@@ -49,24 +48,6 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const searchDeferredValue = useDeferredValue(searchValue);
-
-  // const tabList: CurrencyValutes[] = useMemo(
-  //   () => [
-  //     {
-  //       name: { en: "All", ru: "Все" },
-  //       currencies: Array.isArray(currencies)
-  //         ? currencies
-  //             .map((category) => category?.currencies)
-  //             .flat()
-  //             .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0))
-  //         : [],
-  //       id: 0,
-  //     },
-
-  //     ...(Array.isArray(currencies) ? currencies : []),
-  //   ],
-  //   [currencies]
-  // );
 
   const tabList: CurrencyValutes[] = useMemo(
     () => [
@@ -127,7 +108,9 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   });
 
   return (
-    <Drawer direction={tgPlatform === "web" ? "right" : "right"} open={isOpen} onOpenChange={setIsOpen}>
+    <Drawer direction={"right"} 
+    dismissible={false} 
+    open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
         <Button
           onClick={() => handleVibration()}
@@ -176,7 +159,6 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               {label}
             </h2>
             <div className="">
-              {/* <CloseDrawerIcon width={22} height={22} fill={"#f6ff5f"} /> */}
             </div>
           </div>
           <div className="relative flex items-center">
@@ -206,7 +188,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               />
               <ScrollArea
                 style={{
-                  height: `calc(100dvh - ${tabHeight}px - 156px)`,
+                  height: `calc(100dvh - ${tabHeight}px - ${isMobilePlatform ? 240 : 156}px)`,
                 }}
                 className=""
               >

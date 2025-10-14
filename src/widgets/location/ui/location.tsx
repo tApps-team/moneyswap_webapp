@@ -5,7 +5,7 @@ import { useAppSelector } from "@/shared/hooks";
 import { useMemo, useState } from "react";
 import styles from "./locations.module.scss";
 import { useTranslation } from "react-i18next";
-import { CloseDrawerIcon, LocationArrow } from "@/shared/assets";
+import { LocationArrow } from "@/shared/assets";
 import clsx from "clsx";
 import { Country, useGetCountriesQuery } from "@/entities/location";
 import { Lang } from "@/shared/config";
@@ -23,7 +23,6 @@ import { useDrawerBackButton } from "@/shared/hooks";
 
 export const Location = () => {
   const { t, i18n } = useTranslation();
-  const tgPlatform = window.Telegram.WebApp.platform;
   const [searchValue, setSearchValue] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { activeDirection } = useAppSelector((state) => state.direction);
@@ -91,7 +90,7 @@ export const Location = () => {
         [styles.location__active]: activeDirection === directions.cash,
       })}
     >
-      <Drawer direction={tgPlatform === "web" ? "right" : "right"} open={isOpen} onOpenChange={setIsOpen}>
+      <Drawer direction={"right"} open={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger asChild onClick={() => handleVibration()}>
           <header
             className={`${styles.header} ${
@@ -140,7 +139,6 @@ export const Location = () => {
                 {t("Выбор страны и города")}
               </h2>
               <div className="absolute right-0 top-0">
-                {/* <CloseDrawerIcon width={22} height={22} fill={"#f6ff5f"} /> */}
               </div>
             </div>
             <LocationSearch
@@ -150,7 +148,9 @@ export const Location = () => {
           </DrawerHeader>
           <ScrollArea
             data-vaul-no-drag
-            className="px-0 pt-0 h-[calc(100svh_-_133px)]"
+            className={clsx("px-0 pt-0 h-[calc(100svh_-_133px)]", {
+              "h-[calc(100svh_-_220px)]": isMobilePlatform
+            })}
           >
             {filteredCountries?.length ? (
               <LocationList

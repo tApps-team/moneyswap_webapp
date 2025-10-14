@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { AddReview, ReviewList } from "@/features/review";
@@ -6,12 +6,10 @@ import { Exchanger, ExchangerDetail } from "@/entities/exchanger";
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
   DrawerTrigger,
   ScrollArea,
 } from "@/shared/ui";
 import { Lang } from "@/shared/config";
-import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
 import { useAppSelector, useDrawerBackButton } from "@/shared/hooks";
 import { handleVibration, isTelegramMobile, reachGoal, YandexGoals } from "@/shared/lib";
 import styles from "./reviewDrawer.module.scss";
@@ -49,7 +47,8 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
   // Используем хук для управления кнопкой назад Telegram
   useDrawerBackButton({
     isOpen,
-    onClose: () => setIsOpen(false)
+    onClose: () => setIsOpen(false),
+    priority: 1 // Низкий приоритет для родительского drawer
   });
 
   return (
@@ -88,19 +87,6 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
           "pt-[90px]": isMobilePlatform
         })}
       >
-        {/* <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
-          <div className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
-            <div className="rotate-90">
-              <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
-            </div>
-            <p className="text-[14px] uppercase text-white font-semibold">
-              {t("reviews.title")}
-            </p>
-          </div>
-          <div className="absolute right-2 top-4">
-            <LogoBig width={130} />
-          </div>
-        </DrawerHeader> */}
         <div className="grid grid-flow-col justify-between items-center gap-3 mx-4 pt-4">
           <p className="text-[16px] truncate text-white font-semibold">
             {exchangerName}
@@ -115,7 +101,9 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
         </div>
         <ScrollArea
           data-vaul-no-drag
-          className="h-[calc(100svh_-_138px)] w-full px-4 pb-2 pt-0"
+          className={clsx("w-full px-4 pb-2 pt-0 h-[calc(100svh_-_60px)]", {
+            "h-[calc(100svh_-_160px)]": isMobilePlatform
+          })}
         >
           <div className="pb-4">
             <AddReview

@@ -9,8 +9,8 @@ import {
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
 } from "@/entities/review";
-import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
-import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
+import { LogoBig } from "@/shared/assets";
+import { Button, Drawer, DrawerContent, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
 import { Grade } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 import { UserNotFound } from "./userNotFound";
@@ -137,7 +137,8 @@ export const AddReview = (props: AddReviewProps) => {
     onClose: () => {
       setIsOpen(false);
       reviewForm.reset();
-    }
+    },
+    priority: 2 // Высокий приоритет для вложенного drawer
   });
 
   return (
@@ -167,16 +168,6 @@ export const AddReview = (props: AddReviewProps) => {
             <UserNotFound exchanger_id={exchange_id} />
           ) : (
             <>
-              {/* <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
-                <div className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
-                  <div className="rotate-90">
-                    <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
-                  </div>
-                  <p className="text-[14px] uppercase text-white font-semibold">
-                    {t("reviews.exit_add_review")}
-                  </p>
-                </div>
-              </DrawerHeader> */}
               <ScrollArea className="h-[calc(100svh_-_60px)] pt-6">
                 <div className="flex justify-center items-center pb-8">
                   <LogoBig width={200} />

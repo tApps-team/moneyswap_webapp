@@ -77,12 +77,16 @@ export const MainPage = () => {
 
   }, []);
 
+  const isMobilePlatform = isTelegramMobile();
+
   return (
     <div data-testid="main-page">
       <Suspense fallback={
         <div className="flex justify-center items-center h-screen"><Loader className="animate-spin size-6 text-mainColor" /></div>
         }>
-          <div className={clsx(styles.content, {})}>
+          <div className={clsx(styles.content, {
+            [styles.content_mobile]: isMobilePlatform
+          })}>
             {from_site && !isExchangerDetailLoading && isExchangerDetailSuccess && <ReviewDrawer exchangerDetail={exchangerDetail} review_id={+review_id} isFromSite={true} />}
             <Directions />
             <Location />
