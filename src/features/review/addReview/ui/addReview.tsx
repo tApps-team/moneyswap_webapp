@@ -9,20 +9,22 @@ import {
   useAddReviewByExchangeMutation,
   useLazyCheckUserReviewPermissionQuery,
 } from "@/entities/review";
-import { CloseDrawerIcon, LogoBig } from "@/shared/assets";
-import { Button, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
+import { LogoBig } from "@/shared/assets";
+import { Button, Drawer, DrawerContent, DrawerTrigger, Form, FormControl, FormField, FormItem, FormLabel, Input, ScrollArea, Tabs, TabsList, TabsTrigger, Textarea, useToast, } from "@/shared/ui";
 import { Grade } from "@/shared/types";
 import { AddReviewSchemaType, addReviewSchema } from "../model/addReviewSchema";
 import { UserNotFound } from "./userNotFound";
-import { reachGoal, YandexGoals } from "@/shared/lib";
+import { handleVibration, isTelegramMobile, reachGoal, YandexGoals } from "@/shared/lib";
+import { cn } from "@/shared/lib";
+import { useDrawerBackButton } from "@/shared/hooks";
 
 type AddReviewProps = {
-  exchange_name: string;
+  exchange_id: number;
   tg_id: number | null;
   isFromSite?: boolean;
 };
 export const AddReview = (props: AddReviewProps) => {
-  const { exchange_name, tg_id, isFromSite } = props;
+  const { exchange_id, tg_id, isFromSite } = props;
   const { t } = useTranslation();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +41,7 @@ export const AddReview = (props: AddReviewProps) => {
   const onSubmit = (review: AddReviewSchemaType) => {
     if (tg_id) {
       addReview({
-        exchange_name: exchange_name,
+        exchange_id: exchange_id,
         grade: (review?.grade as Grade) || 1,
         text: review?.review,
         tg_id: tg_id,
@@ -77,9 +79,10 @@ export const AddReview = (props: AddReviewProps) => {
   ] = useLazyCheckUserReviewPermissionQuery();
 
   const handleClick = () => {
+    handleVibration();
     if (tg_id) {
       checkUserReviewPermission({
-        exchange_name,
+        exchange_id,
         tg_id: tg_id,
       });
       setIsOpen(true);
@@ -101,7 +104,7 @@ export const AddReview = (props: AddReviewProps) => {
   useEffect(() => {
     if (isFromSite && tg_id) {
       checkUserReviewPermission({
-        exchange_name,
+        exchange_id,
         tg_id: tg_id,
       });
       setIsOpen(true);
@@ -126,6 +129,18 @@ export const AddReview = (props: AddReviewProps) => {
     },
   ];
 
+  const isMobilePlatform = isTelegramMobile();
+
+  // Используем хук для управления кнопкой назад Telegram
+  useDrawerBackButton({
+    isOpen,
+    onClose: () => {
+      setIsOpen(false);
+      reviewForm.reset();
+    },
+    priority: 2 // Высокий приоритет для вложенного drawer
+  });
+
   return (
     <Drawer direction="right" open={isOpen} onOpenChange={(open) => {
       setIsOpen(open);
@@ -146,21 +161,13 @@ export const AddReview = (props: AddReviewProps) => {
         </Button>
       </DrawerTrigger>
       {checkUserPermissionIsSuccess && (
-        <DrawerContent className="border-none gap-10 grid-rows grid-cols-1 p-2 backdrop-blur-xl bg-black/50">
+        <DrawerContent className={cn("border-none gap-10 grid-rows grid-cols-1 p-2 backdrop-blur-xl bg-black/50", {
+          "pt-[90px]": isMobilePlatform
+        })}>
           {addReviewIsError && 'status' in (AddReviewError as FetchBaseQueryError) && (AddReviewError as FetchBaseQueryError).status === 404 ? (
-            <UserNotFound exchanger_name={exchange_name} />
+            <UserNotFound exchanger_id={exchange_id} />
           ) : (
             <>
-              <DrawerHeader className="relative grid grid-flow-col justify-between items-center gap-3 h-11">
-                <DrawerClose className="absolute left-2 top-5 grid gap-2 grid-flow-col items-center">
-                  <div className="rotate-90">
-                    <CloseDrawerIcon width={22} height={22} fill={"#fff"} />
-                  </div>
-                  <p className="text-[14px] uppercase text-white font-semibold">
-                    {t("reviews.exit_add_review")}
-                  </p>
-                </DrawerClose>
-              </DrawerHeader>
               <ScrollArea className="h-[calc(100svh_-_60px)] pt-6">
                 <div className="flex justify-center items-center pb-8">
                   <LogoBig width={200} />

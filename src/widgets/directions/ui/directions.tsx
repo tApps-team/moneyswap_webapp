@@ -7,13 +7,14 @@ import { setCity, setCountry } from "@/entities/location";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import styles from "./directions.module.scss";
 import { FC } from "react";
-import { reachGoal, YandexGoals } from "@/shared/lib";
+import { reachGoal, YandexGoals, handleVibration } from "@/shared/lib";
 
 export const Directions: FC = () => {
   const { activeDirection } = useAppSelector((state) => state.direction);
   const dispatch = useAppDispatch();
 
   const handleDirection = (direction: directions) => {
+    handleVibration();
     setCity(null);
     setCountry(null);
     dispatch(setActiveDirection(direction));

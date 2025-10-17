@@ -4,6 +4,10 @@
   min-height: 95svh;
   opacity: 1;
   // height: auto;
+
+  &.content_mobile {
+    min-height: 85svh;
+}
 }
 
 .active_content {

@@ -1,9 +1,8 @@
 import { Currency, CurrencyCard, CurrencyValutes } from "@/entities/currency";
-import { CloseDrawerIcon, SearchIcon } from "@/shared/assets";
+import { SearchIcon } from "@/shared/assets";
 import {
   Button,
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTrigger,
@@ -16,13 +15,14 @@ import {
 import { cx } from "class-variance-authority";
 
 import { Lang } from "@/shared/config";
-import { useAppSelector } from "@/shared/hooks";
+import { useAppSelector, useDrawerBackButton } from "@/shared/hooks";
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { filterTabList } from "../lib/filter-currency";
 import { CurrencyTabsList } from "./currency-tabs-list";
-
+import { handleVibration, isTelegramMobile } from "@/shared/lib";
 import { cn } from "@/shared/lib/utils";
+
 type CurrecnySelectProps = {
   label: string;
   currencyInfo: Currency | null;
@@ -38,7 +38,6 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const activeDirection = useAppSelector(
     (state) => state.direction.activeDirection
   );
-  const tgPlatform = window.Telegram.WebApp.platform;
 
   const { i18n, t } = useTranslation();
   const allKey = t("Все");
@@ -47,25 +46,8 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const [activeTab, setActiveTab] = useState<string>(allKey);
 
   const [searchValue, setSearchValue] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const searchDeferredValue = useDeferredValue(searchValue);
-
-  // const tabList: CurrencyValutes[] = useMemo(
-  //   () => [
-  //     {
-  //       name: { en: "All", ru: "Все" },
-  //       currencies: Array.isArray(currencies)
-  //         ? currencies
-  //             .map((category) => category?.currencies)
-  //             .flat()
-  //             .sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0))
-  //         : [],
-  //       id: 0,
-  //     },
-
-  //     ...(Array.isArray(currencies) ? currencies : []),
-  //   ],
-  //   [currencies]
-  // );
 
   const tabList: CurrencyValutes[] = useMemo(
     () => [
@@ -117,10 +99,21 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
   const currencyName =
     i18n.language === Lang.ru ? currencyInfo?.name.ru : currencyInfo?.name.en;
 
+  const isMobilePlatform = isTelegramMobile();
+
+  // Используем хук для управления кнопкой назад Telegram
+  useDrawerBackButton({
+    isOpen,
+    onClose: () => setIsOpen(false)
+  });
+
   return (
-    <Drawer direction={tgPlatform === "web" ? "top" : "bottom"}>
+    <Drawer direction={"right"} 
+    dismissible={false} 
+    open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
         <Button
+          onClick={() => handleVibration()}
           className={cx(
             "w-full h-[54px] transition-none bg-new-light-grey disabled:bg-opacity-70 flex items-center justify-start gap-3 rounded-[10px] p-[10px]",
             currencyInfo && "bg-mainColor"
@@ -156,16 +149,17 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
         </Button>
       </DrawerTrigger>
       <DrawerContent
-        className={cn("p-0 flex gap-6 flex-col bg-new-dark-grey border-none")}
+        className={cn("p-0 flex gap-6 flex-col bg-new-dark-grey border-none", {
+          "pt-[90px]": isMobilePlatform
+        })}
       >
         <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-6 px-5 pt-6">
           <div className="flex justify-between items-center">
             <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
               {label}
             </h2>
-            <DrawerClose className="">
-              <CloseDrawerIcon width={22} height={22} fill={"#f6ff5f"} />
-            </DrawerClose>
+            <div className="">
+            </div>
           </div>
           <div className="relative flex items-center">
             <SearchIcon className="absolute left-2 size-6" />
@@ -182,7 +176,10 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <Tabs
               value={activeTab}
               defaultValue={allKey}
-              onValueChange={setActiveTab}
+              onValueChange={(tab) => {
+                setActiveTab(tab);
+                handleVibration();
+              }}
               className="flex flex-col gap-5 p-0"
             >
               <CurrencyTabsList
@@ -191,7 +188,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
               />
               <ScrollArea
                 style={{
-                  height: `calc(100dvh - ${tabHeight}px - 156px)`,
+                  height: `calc(100dvh - ${tabHeight}px - ${isMobilePlatform ? 240 : 156}px)`,
                 }}
                 className=""
               >
@@ -203,14 +200,18 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                   >
                     <div className="flex gap-4 mt-4 flex-col pb-4">
                       {tab?.currencies?.map((currency) => (
-                        <DrawerClose key={currency?.id}>
+                        <div key={currency?.id} onClick={() => {
+                          onClick(currency);
+                          setIsOpen(false);
+                          handleVibration();
+                        }}>
                           <CurrencyCard
                             active={currency.id === currencyInfo?.id}
-                            onClick={() => onClick(currency)}
+                            onClick={() => {}}
                             key={currency?.id}
                             currency={currency}
                           />
-                        </DrawerClose>
+                        </div>
                       ))}
                     </div>
                   </TabsContent>

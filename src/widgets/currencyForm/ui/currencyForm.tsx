@@ -16,7 +16,7 @@ import { cx } from "class-variance-authority";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CollapsedForm } from "./collapsedForm";
-import { reachGoal, YandexGoals } from "@/shared/lib";
+import { handleVibration, reachGoal, YandexGoals } from "@/shared/lib";
 
 export const CurrencyForm = () => {
   const { t } = useTranslation();
@@ -82,10 +82,7 @@ export const CurrencyForm = () => {
     isFetching: isGetCurrencyFetching,
   } = useAvailableValutesQuery(
     {
-      base:
-        direction === directions.cash
-          ? giveCashCurrencyValue?.code_name
-          : giveCurrencyValue?.code_name,
+      base: currentGiveCurrency?.code_name,
       city: direction === directions.cash ? code_name : undefined,
     },
     {
@@ -193,7 +190,7 @@ export const CurrencyForm = () => {
       )}
       <CollapseButton
         isCollapse={isCollapse}
-        onClick={() => setIsCollapse((prev) => !prev)}
+        onClick={() => {setIsCollapse((prev) => !prev); handleVibration()}}
         currenctExchangersIsSuccessState={currenctExchangersIsSuccessState}
         currentGiveCurrency={!!currentGiveCurrency}
         currentGetCurrencies={!!currentGetCurrency}

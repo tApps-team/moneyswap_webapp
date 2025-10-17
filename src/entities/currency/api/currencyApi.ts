@@ -11,7 +11,7 @@ export const currencyApi = baseApi.injectEndpoints({
       GetAvailableValutesDtoRequest
     >({
       query: ({ base, city }) => ({
-        url: `/api/available_valutes_2`,
+        url: `/api/v2/available_valutes`,
         method: "GET",
         params: {
           city,

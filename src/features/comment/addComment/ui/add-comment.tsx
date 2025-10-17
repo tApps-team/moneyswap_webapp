@@ -5,6 +5,7 @@ import { useAddCommentMutation, useCheckUserCommentPermissionMutation } from "@/
 import { Grade } from "@/shared/types";
 import { Dialog, DialogContent, DialogTitle, Textarea, useToast } from "@/shared/ui";
 import { useAppSelector } from "@/shared/hooks";
+import { handleVibration } from "@/shared/lib";
 
 type AddCommentProps = {
   review_id: number;
@@ -25,6 +26,7 @@ export const AddComment:FC<AddCommentProps> = ({
   const [checkUserCommentPermission, { isLoading: isPermissionLoading, isError: isPermissionError }] = useCheckUserCommentPermissionMutation();
 
   const checkUserCommentPermissionHandler = () => {
+    handleVibration();
     checkUserCommentPermission({
       review_id: review_id,
       tg_id: user ? user?.id : user_id || 0,

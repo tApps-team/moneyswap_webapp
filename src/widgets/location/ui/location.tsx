@@ -1,29 +1,30 @@
 import { Loader, SquareChevronRight } from "lucide-react";
 import { directions } from "@/entities/direction";
-import { useGetCountriesQuery } from "@/entities/location/api/locationApi";
 import { LocationList, LocationSearch } from "@/features/location";
 import { useAppSelector } from "@/shared/hooks";
 import { useMemo, useState } from "react";
 import styles from "./locations.module.scss";
 import { useTranslation } from "react-i18next";
-import { CloseDrawerIcon, LocationArrow } from "@/shared/assets";
+import { LocationArrow } from "@/shared/assets";
 import clsx from "clsx";
-import { Country } from "@/entities/location";
+import { Country, useGetCountriesQuery } from "@/entities/location";
 import { Lang } from "@/shared/config";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTrigger,
   Empty,
   ScrollArea,
 } from "@/shared/ui";
+import { handleVibration, isTelegramMobile } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
+import { useDrawerBackButton } from "@/shared/hooks";
 
 export const Location = () => {
   const { t, i18n } = useTranslation();
-  const tgPlatform = window.Telegram.WebApp.platform;
   const [searchValue, setSearchValue] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { activeDirection } = useAppSelector((state) => state.direction);
   const { city, country } = useAppSelector((state) => state.location);
   const currentCountryName =
@@ -32,7 +33,7 @@ export const Location = () => {
     i18n.language === Lang.ru ? city?.name?.ru : city?.name?.en;
 
   // query rtk
-  const { data: countries, isLoading } = useGetCountriesQuery("", {
+  const { data: countries, isLoading } = useGetCountriesQuery(null as unknown as string, {
     skip: activeDirection !== directions.cash,
   });
 
@@ -75,19 +76,27 @@ export const Location = () => {
     [countries, searchValue]
   );
 
+  const isMobilePlatform = isTelegramMobile();
+
+  // Используем хук для управления кнопкой назад Telegram
+  useDrawerBackButton({
+    isOpen,
+    onClose: () => setIsOpen(false)
+  });
+
   return (
     <section
       className={clsx(styles.location, {
         [styles.location__active]: activeDirection === directions.cash,
       })}
     >
-      <Drawer direction={tgPlatform === "web" ? "top" : "bottom"}>
-        <DrawerTrigger asChild>
+      <Drawer direction={"right"} open={isOpen} onOpenChange={setIsOpen}>
+        <DrawerTrigger asChild onClick={() => handleVibration()}>
           <header
             className={`${styles.header} ${
               country
                 ? "bg-none mx-4 justify-between gap-2"
-                : "flex-col bg-[#43464E] justify-center gap-1"
+                : "flex-row bg-[#43464E] justify-center gap-1"
             }`}
           >
             {country && (
@@ -115,19 +124,22 @@ export const Location = () => {
             {country ? (
               <SquareChevronRight className="flex-shrink-0 w-6 h-6 stroke-white stroke-[1.5px]" />
             ) : (
-              <LocationArrow className="flex-shrink-0 w-4 stroke-white" />
+              <div className="py-2.5">
+                <LocationArrow className="flex-shrink-0 w-4 stroke-white -rotate-90" />
+              </div>
             )}
           </header>
         </DrawerTrigger>
-        <DrawerContent className="min-h-svh border-none rounded-none bg-new-dark-grey">
+        <DrawerContent className={cn("min-h-svh border-none rounded-none bg-new-dark-grey", {
+          "pt-[90px]": isMobilePlatform
+        })}>
           <DrawerHeader className="gap-5 pt-6 pb-5 px-5">
             <div className="relative">
               <h2 className="text-left text-base uppercase text-[#f6ff5f] font-semibold">
                 {t("Выбор страны и города")}
               </h2>
-              <DrawerClose className="absolute right-0 top-0">
-                <CloseDrawerIcon width={22} height={22} fill={"#f6ff5f"} />
-              </DrawerClose>
+              <div className="absolute right-0 top-0">
+              </div>
             </div>
             <LocationSearch
               onChange={setSearchValue}
@@ -136,7 +148,9 @@ export const Location = () => {
           </DrawerHeader>
           <ScrollArea
             data-vaul-no-drag
-            className="px-0 pt-0 h-[calc(100svh_-_133px)]"
+            className={clsx("px-0 pt-0 h-[calc(100svh_-_133px)]", {
+              "h-[calc(100svh_-_220px)]": isMobilePlatform
+            })}
           >
             {filteredCountries?.length ? (
               <LocationList

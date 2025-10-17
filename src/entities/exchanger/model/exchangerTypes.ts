@@ -1,13 +1,17 @@
 import { Name } from "@/shared/config";
-import { ExchangerMarker } from "@/shared/types";
+import { DirectionMarker, ExchangerStatus, SegmentMarker } from "@/shared/types";
 
 export interface Exchanger {
   id: number;
   name: Name;
   exchange_id: number;
-  exchange_marker: ExchangerMarker;
-  is_vip: boolean;
   partner_link: string;
+  is_vip: boolean;
+  review_count: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
   valute_from: string;
   icon_valute_from: string;
   valute_to: string;
@@ -16,11 +20,6 @@ export interface Exchanger {
   out_count: number;
   min_amount: string | null;
   max_amount: string | null;
-  review_count: {
-    positive: number;
-    neutral: number;
-    negative: number;
-  };
   info: {
     bankomats: Bankomat[] | null;
     delivery: boolean;
@@ -38,37 +37,43 @@ export interface Exchanger {
     weekends: { time_from: string; time_to: string };
     high_aml?: boolean;
   };
+  exchange_direction_id: number;
+  direction_marker: DirectionMarker;
   params?: string;
   fromfee?: number | null;
   exchange_rates: ExchangeRate[] | null;
-  exchange_direction_id: number;
-  direction_marker: DirectionMarker;
+  location_info?: LocationInfo;
 }
 
+export type LocationInfo = {
+  id: number;
+  name: Name;
+  code_name: string;
+  country: {
+    name: Name;
+    icon_url: string;
+  };
+};
+
 export interface ExchangerDetail {
-  exchange_id: number;
-  exchange_marker: ExchangerMarker;
+  id: number;
   exchangerName: Name;
   iconUrl: string;
   url: string;
   high_aml: boolean;
-  workStatus: boolean;
+  workStatus: ExchangerStatus;
   reviews: {
     positive: number;
     neutral: number;
     negative: number;
   };
   country: string;
+  segment_marker: SegmentMarker;
   amountReserves: string | null;
   exchangeRates: number;
   open: string;
   openOnMoneySwap: string;
-}
-
-export enum DirectionMarker {
-  city = "city",
-  country = "country",
-  no_cash = "no_cash",
+  fromfee?: string | null;
 }
 
 export interface Bankomat {

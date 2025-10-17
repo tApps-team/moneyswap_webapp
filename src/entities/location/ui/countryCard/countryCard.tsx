@@ -12,7 +12,6 @@ interface CountryCardProps {
 
 export const CountryCard: FC<CountryCardProps> = ({ country, active }) => {
   const { i18n } = useTranslation();
-  console.log(active);
   return (
     <header
       className={clsx(styles.item, {

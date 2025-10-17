@@ -2,13 +2,16 @@ import { currencyActions } from "@/entities/currency";
 import { directions } from "@/entities/direction";
 import { RefreshIcon } from "@/shared/assets";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
+import { handleVibration } from "@/shared/lib";
 import { Button } from "@/shared/ui";
 import { cx } from "class-variance-authority";
+
 type CurrencySwitcherProps = {
   getError?: boolean;
   isGetCurrencyFetching?: boolean;
   hide?: boolean;
 };
+
 export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   const { hide } = props;
 
@@ -36,6 +39,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
       dispatch(currencyActions.setGiveCurrency(getCurrency));
       dispatch(currencyActions.setGetCurrency(giveCurrency));
     }
+    handleVibration();
   };
   const isDisabled = !giveCurrency || !getCurrency;
   return (
