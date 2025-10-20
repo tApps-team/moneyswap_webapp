@@ -196,6 +196,7 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
             {t("от")}{" "}
             <RoundValute value={card?.min_amount ?? 0} />
             {/* {card?.exchange_marker === ExchangerMarker.partner && "$"}{" "} */}
+            {" "}
             {t("до")}{" "}
             {card?.max_amount ? (
               <>
