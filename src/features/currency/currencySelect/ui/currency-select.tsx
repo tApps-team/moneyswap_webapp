@@ -16,7 +16,7 @@ import { cx } from "class-variance-authority";
 
 import { Lang } from "@/shared/config";
 import { useAppSelector, useDrawerBackButton } from "@/shared/hooks";
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState, useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { filterTabList } from "../lib/filter-currency";
 import { CurrencyTabsList } from "./currency-tabs-list";
@@ -32,7 +32,7 @@ type CurrecnySelectProps = {
   onClick: (currency: Currency) => void;
 };
 
-export const CurrencySelect = (props: CurrecnySelectProps) => {
+export const CurrencySelect = memo((props: CurrecnySelectProps) => {
   const { currencies, disabled, emptyLabel, onClick, currencyInfo, label } =
     props;
   const activeDirection = useAppSelector(
@@ -92,20 +92,39 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
     setActiveTab(allKey);
   }, [allKey, i18n.language, activeDirection]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     if (activeTab != allKey) setActiveTab(allKey);
-  };
+  }, [activeTab, allKey]);
   const currencyName =
     i18n.language === Lang.ru ? currencyInfo?.name.ru : currencyInfo?.name.en;
 
   const isMobilePlatform = isTelegramMobile();
 
+  // Мемоизируем функцию закрытия для стабильности
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  // Мемоизируем обработчик выбора валюты
+  const handleCurrencyClick = useCallback((currency: Currency) => {
+    onClick(currency);
+    setIsOpen(false);
+    handleVibration();
+  }, [onClick]);
+
+  // Мемоизируем обработчик изменения таба
+  const handleTabChange = useCallback((tab: string) => {
+    setActiveTab(tab);
+    handleVibration();
+  }, []);
+
   // Используем хук для управления кнопкой назад Telegram
   useDrawerBackButton({
     isOpen,
-    onClose: () => setIsOpen(false)
+    onClose: handleClose
   });
+
 
   return (
     <Drawer direction={"right"} 
@@ -176,10 +195,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
             <Tabs
               value={activeTab}
               defaultValue={allKey}
-              onValueChange={(tab) => {
-                setActiveTab(tab);
-                handleVibration();
-              }}
+              onValueChange={handleTabChange}
               className="flex flex-col gap-5 p-0"
             >
               <CurrencyTabsList
@@ -200,11 +216,7 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
                   >
                     <div className="flex gap-4 mt-4 flex-col pb-4">
                       {tab?.currencies?.map((currency) => (
-                        <div key={currency?.id} onClick={() => {
-                          onClick(currency);
-                          setIsOpen(false);
-                          handleVibration();
-                        }}>
+                        <div key={currency?.id} onClick={() => handleCurrencyClick(currency)}>
                           <CurrencyCard
                             active={currency.id === currencyInfo?.id}
                             onClick={() => {}}
@@ -228,4 +240,4 @@ export const CurrencySelect = (props: CurrecnySelectProps) => {
       </DrawerContent>
     </Drawer>
   );
-};
+});

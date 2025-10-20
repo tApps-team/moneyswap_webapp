@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useMemo } from "react";
 import {
 	hideBackButton,
 	isBackButtonAvailable,
@@ -40,10 +40,14 @@ export const useDrawerBackButton = (options: IUseDrawerBackButtonOptions) => {
 	const { isOpen, onClose, priority = 0 } = options;
 	const isActiveRef = useRef(false);
 
+	// Мемоизируем обработчик для предотвращения лишних перерисовок
 	const handleBack = useCallback(() => {
 		onClose();
 		handleVibration();
 	}, [onClose]);
+
+	// Мемоизируем стабильную ссылку на обработчик
+	const stableHandler = useMemo(() => handleBack, [handleBack]);
 
 	useEffect(() => {
 		if (!isBackButtonAvailable()) {
@@ -59,7 +63,7 @@ export const useDrawerBackButton = (options: IUseDrawerBackButtonOptions) => {
 			
 			// Добавляем обработчик в очередь
 			const handlerItem = {
-				handler: handleBack,
+				handler: stableHandler,
 				priority,
 				ref: isActiveRef
 			};
@@ -96,7 +100,7 @@ export const useDrawerBackButton = (options: IUseDrawerBackButtonOptions) => {
 				}
 			}
 		};
-	}, [isOpen, handleBack, priority]);
+	}, [isOpen, stableHandler, priority]);
 
 	return {
 		isAvailable: isBackButtonAvailable()
