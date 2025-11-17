@@ -1,5 +1,5 @@
 import { currencyActions } from "@/entities/currency";
-import { directions } from "@/entities/direction";
+import { directions, useIncreaseDirectionCountMutation } from "@/entities/direction";
 import { RefreshIcon } from "@/shared/assets";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks";
 import { handleVibration } from "@/shared/lib";
@@ -17,6 +17,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
 
   const dispatch = useAppDispatch();
   const direction = useAppSelector((state) => state.direction.activeDirection);
+  const city = useAppSelector((state) => state.location.city);
   const giveCurrency = useAppSelector((state) =>
     direction === directions.cash
       ? state.currency.giveCashCurrency
@@ -30,6 +31,9 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
 
   const canSwitch = giveCurrency && getCurrency;
 
+  // increase direction count
+  const [increaseDirectionCount] = useIncreaseDirectionCountMutation();
+
   const handleSwitchCurrency = () => {
     if (direction === directions.cash && canSwitch) {
       dispatch(currencyActions.setGiveCashCurrency(getCurrency));
@@ -38,6 +42,13 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
     if (direction === directions.noncash && canSwitch) {
       dispatch(currencyActions.setGiveCurrency(getCurrency));
       dispatch(currencyActions.setGetCurrency(giveCurrency));
+    }
+    if (giveCurrency && getCurrency) {
+      increaseDirectionCount({
+        valute_from: getCurrency?.code_name,
+        valute_to: giveCurrency?.code_name,
+        city_code_name: direction === directions.cash ? city?.code_name ?? null : null,
+      });
     }
     handleVibration();
   };

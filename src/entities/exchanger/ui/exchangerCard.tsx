@@ -45,13 +45,14 @@ export const ExchangerCard: FC<ExchangerCardProps> = ({
   const handleClick = (exchanger: Exchanger) => {
     openLink(exchanger?.partner_link);
     if (user_id) {
-      const increaseincreaseLinkCountReq = {
-        user_id,
+      const increaseLinkCountReq = {
+        user_id: user_id,
         exchange_id: exchanger?.exchange_id,
-        exchange_direction_id: exchanger?.exchange_direction_id,
-        direction_marker: exchanger?.direction_marker,
+        valute_from: exchanger?.valute_from,
+        valute_to: exchanger?.valute_to,
+        city_id: exchanger?.city_id ?? null,
       };
-      increaseLinkCount(increaseincreaseLinkCountReq);
+      increaseLinkCount(increaseLinkCountReq);
     }
   };
 

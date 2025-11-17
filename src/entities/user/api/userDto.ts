@@ -1,16 +1,7 @@
-import { DirectionMarker } from "@/shared/types";
-// import { ExchangerMarker } from "@/shared/types";
-
 export type IncreaseLinkCountReq = {
   user_id: number;
   exchange_id: number;
-  direction_marker: DirectionMarker;
-  exchange_direction_id: number;
-};
-
-// export type IncreaseLinkCountPartnersReq = {
-//   user_id: number;
-//   exchange_id: number;
-//   // direction_marker: DirectionMarker;
-//   exchange_direction_id: number;
-// };
+  valute_from: string;
+  valute_to: string;
+  city_id: number | null;
+}

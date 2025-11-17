@@ -43,6 +43,7 @@ export interface Exchanger {
   fromfee?: number | null;
   exchange_rates: ExchangeRate[] | null;
   location_info?: LocationInfo;
+  city_id?: number;
 }
 
 export type LocationInfo = {
