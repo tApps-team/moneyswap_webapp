@@ -3,7 +3,7 @@ import {
   currencyActions,
   useAvailableValutesQuery,
 } from "@/entities/currency";
-import { directions } from "@/entities/direction";
+import { directions, useIncreaseDirectionCountMutation } from "@/entities/direction";
 import {
   CollapseButton,
   CurrencySelect,
@@ -89,6 +89,9 @@ export const CurrencyForm = () => {
       skip: !currentGiveCurrency,
     }
   );
+  // increase direction count
+  const [increaseDirectionCount] = useIncreaseDirectionCountMutation();
+
   useEffect(() => {
     if (getCurrencyError) {
       toast({
@@ -120,9 +123,17 @@ export const CurrencyForm = () => {
       } else {
         reachGoal(YandexGoals.CASH_GIVE);
       }
+      if (currentGetCurrency && currency) {
+        increaseDirectionCount({
+          valute_from: currency.code_name,
+          valute_to: currentGetCurrency?.code_name,
+          city_code_name: direction === directions.cash ? code_name ?? null : null,
+        });
+      }
     },
-    [direction, dispatch]
+    [direction, dispatch, currentGiveCurrency, currentGetCurrency, code_name]
   );
+
   const onClickGetCurrency = useCallback(
     (currency: Currency) => {
       dispatch(
@@ -135,8 +146,15 @@ export const CurrencyForm = () => {
       } else {
         reachGoal(YandexGoals.CASH_RECEIVE);
       }
+      if (currentGiveCurrency && currency) {
+        increaseDirectionCount({
+          valute_from: currentGiveCurrency?.code_name,
+          valute_to: currency.code_name,
+          city_code_name: direction === directions.cash ? code_name ?? null : null,
+        });
+      }
     },
-    [direction, dispatch]
+    [direction, dispatch, currentGiveCurrency, currentGetCurrency, code_name]
   );
 
   return (
