@@ -92,9 +92,25 @@
 html {
   scroll-behavior: smooth;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 body {
   background: #191C25;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  position: relative;
 }
