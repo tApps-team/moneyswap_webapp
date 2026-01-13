@@ -42,4 +42,29 @@ Sentry.init({
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+// Сбрасываем стили после монтирования React, чтобы убрать артефакты от DDoS-Guard
+function resetStylesAfterMount() {
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    rootElement.style.height = "100%";
+    rootElement.style.width = "100%";
+    rootElement.style.overflow = "auto";
+    rootElement.style.position = "relative";
+  }
+  
+  document.documentElement.style.height = "100%";
+  document.documentElement.style.width = "100%";
+  document.body.style.height = "100%";
+  document.body.style.width = "100%";
+  document.body.style.position = "fixed";
+  document.body.style.top = "0";
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.bottom = "0";
+}
+
 root.render(<App />);
+
+// Сбрасываем стили после первого рендера
+setTimeout(resetStylesAfterMount, 0);
