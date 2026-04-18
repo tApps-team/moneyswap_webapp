@@ -43,66 +43,40 @@
     <div><img src="https://mc.yandex.ru/watch/103663306" style="position:absolute; left:-9999px;" alt="" /></div>
   </noscript>
   <!-- /Yandex.Metrika counter -->
+  <script>
+    (function () {
+      // DDoS-Guard после своего challenge делает location.reload(), а браузер
+      // восстанавливает scrollY из history. Это ломает vaul (body.top = -scrollY).
+      // Плюс иногда DDoS-Guard оставляет inline-стили на <html>/<body>.
+      // Сбрасываем всё до того как vaul/React смонтируется.
+      try { window.scrollTo(0, 0); } catch (e) {}
+
+      // Чистим возможные inline-style артефакты от DDoS-Guard
+      document.documentElement.removeAttribute('style');
+      if (document.body) document.body.removeAttribute('style');
+
+      // Детектируем факт прохождения challenge по куке и форсим relayout
+      // уже после монтирования приложения.
+      var hadDDoSGuard = /(^|;\s*)__ddg\d*_?=/.test(document.cookie || '');
+      if (hadDDoSGuard) {
+        window.__hadDDoSGuard = true;
+        var fixLayout = function () {
+          try { window.scrollTo(0, 0); } catch (e) {}
+          window.dispatchEvent(new Event('resize'));
+          if (window.visualViewport) {
+            window.visualViewport.dispatchEvent(new Event('resize'));
+          }
+        };
+        window.addEventListener('load', function () {
+          fixLayout();
+          requestAnimationFrame(fixLayout);
+          setTimeout(fixLayout, 300);
+        });
+      }
+    })();
+  </script>
   <script type="module" src="/src/main.tsx"></script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>
-    function resetStylesAfterDDoSGuard() {
-      // Сбрасываем стили, которые могли остаться от DDoS-Guard
-      document.documentElement.style.height = '100%';
-      document.documentElement.style.width = '100%';
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.height = '100%';
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = '0';
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.bottom = '0';
-
-      const root = document.getElementById('root');
-      if (root) {
-        root.style.height = '100%';
-        root.style.width = '100%';
-        root.style.overflow = 'auto';
-        root.style.position = 'relative';
-      }
-    }
-
-    function ensureDocumentIsScrollable() {
-      const isScrollable =
-        document.documentElement.scrollHeight > window.innerHeight;
-      if (!isScrollable) {
-        document.documentElement.style.setProperty(
-          "height",
-          "calc(100vh + 1000px)",
-          "important"
-        );
-      }
-    }
-
-    function preventCollapse() {
-      if (window.scrollY === 0) {
-        window.scrollTo(0, 1);
-      }
-    }
-
-    // Сбрасываем стили сразу и после загрузки
-    resetStylesAfterDDoSGuard();
-
-    const scrollableElement = document.querySelector(".scrollable-element");
-    if (scrollableElement) {
-      scrollableElement.addEventListener("touchstart", preventCollapse);
-    }
-
-    window.addEventListener("load", () => {
-      resetStylesAfterDDoSGuard();
-      ensureDocumentIsScrollable();
-    });
-
-    // Также сбрасываем после DOMContentLoaded на случай, если DDoS-Guard загружается позже
-    document.addEventListener("DOMContentLoaded", resetStylesAfterDDoSGuard);
-  </script>
 </body>
 
 </html>
