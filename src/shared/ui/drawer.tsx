@@ -5,10 +5,16 @@ import { cn } from "../lib/utils";
 
 const Drawer = ({
   shouldScaleBackground = true,
+  noBodyStyles = true,
+  disablePreventScroll = true,
+  preventScrollRestoration = false,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
   <DrawerPrimitive.Root
     shouldScaleBackground={shouldScaleBackground}
+    noBodyStyles={noBodyStyles}
+    disablePreventScroll={disablePreventScroll}
+    preventScrollRestoration={preventScrollRestoration}
     {...props}
   />
 );
