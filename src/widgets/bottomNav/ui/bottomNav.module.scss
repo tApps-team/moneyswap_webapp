@@ -10,7 +10,8 @@
   z-index: 40;
   background: #191c25;
   border-top: 1px solid var(--new-medium-grey);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  // +10px, чтобы панель не липла к нижнему краю и не попадала под системный UI телефона
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
 }
 
 .inner {

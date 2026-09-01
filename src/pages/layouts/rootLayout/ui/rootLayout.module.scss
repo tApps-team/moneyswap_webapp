@@ -4,13 +4,13 @@
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
-    // высота панели навигации + safe-area, чтобы контент не уезжал под неё
-    padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px) + 12px);
+    // высота панели навигации + её нижний отступ + safe-area, чтобы контент не уезжал под неё
+    padding-bottom: calc(62px + 10px + env(safe-area-inset-bottom, 0px) + 12px);
     overflow: auto !important;
 
     @media (max-width: 380px) {
         padding: 15px;
-        padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px) + 12px);
+        padding-bottom: calc(62px + 10px + env(safe-area-inset-bottom, 0px) + 12px);
     }
 
     &.root__container_mobile {
