@@ -1,0 +1,10 @@
+.content {
+  position: relative;
+  // 95svh было рассчитано на экран без нижнего меню — теперь панель занимает свои 62px
+  min-height: calc(95svh - 62px);
+  opacity: 1;
+
+  &.content_mobile {
+    min-height: calc(85svh - 62px);
+  }
+}

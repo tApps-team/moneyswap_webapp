@@ -1,3 +1,9 @@
 export const EXCHANGER_CASH = "EXCHANGER_CASH";
 export const EXCHANGER_NONCASH = "EXCHANGER_NONCASH";
 export const REVIEW = "REVIEW";
+export const BLACKLIST = "BLACKLIST";
+
+// strapi
+export const RATING_SECTION = "RATING_SECTION";
+export const STRAPI_SECTION_PAGE = "STRAPI_SECTION_PAGE";
+export const STRAPI_FAQ = "STRAPI_FAQ";

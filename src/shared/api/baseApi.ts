@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { EXCHANGER_CASH, EXCHANGER_NONCASH, REVIEW } from "./tags";
+import { BLACKLIST, EXCHANGER_CASH, EXCHANGER_NONCASH, REVIEW } from "./tags";
 
 export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -10,5 +10,5 @@ export const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: [EXCHANGER_CASH, EXCHANGER_NONCASH, REVIEW],
+  tagTypes: [EXCHANGER_CASH, EXCHANGER_NONCASH, REVIEW, BLACKLIST],
 });

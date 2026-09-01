@@ -114,3 +114,128 @@ body {
   overflow: auto;
   position: relative;
 }
+
+// Горизонтальные ряды (чипы сортировки) скроллятся без видимой полосы
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Заголовки разделов рейтингов — как на сайте
+.unbounded_font {
+  --font-family-regular: "Unbounded";
+}
+
+/**
+ * Оформление HTML-контента из Strapi (поля `about`, `header_content`).
+ * Урезанный порт `.strapi_styles` из moneyswap_next: только теги, которые реально
+ * встречаются в контенте рейтингов, и без uppercase — на узком экране он нечитаем.
+ */
+.strapi_content {
+  line-height: 1.6;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--light-grey);
+
+  > * + * {
+    margin-top: 12px;
+  }
+
+  p + p {
+    margin-top: 12px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: var(--main-color);
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  b,
+  strong {
+    font-weight: 600;
+    color: var(--white-color);
+  }
+
+  ul,
+  ol {
+    list-style: initial;
+    padding-left: 20px;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  blockquote {
+    background: var(--new-medium-grey);
+    padding: 12px 16px 12px 24px;
+    border-radius: 12px;
+    color: var(--white-color);
+    font-style: italic;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      height: 80%;
+      width: 2px;
+      background: #575a62;
+    }
+  }
+
+  h2,
+  h3 {
+    color: var(--main-color);
+    font-weight: 500;
+    line-height: 1.35;
+    margin-top: 14px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  h3 {
+    font-size: 15px;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white-color);
+    margin-top: 12px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  hr {
+    visibility: hidden;
+    padding: 2px;
+    border: none;
+  }
+}

@@ -95,5 +95,191 @@
   },
   "Popular": "Popular",
   "AML_high": "This exchanger has high AML-risk indicators. We recommend exercising caution when exchanging",
-  "AML_low": "This exchanger has low AML-risk indicators"
+  "AML_low": "This exchanger has low AML-risk indicators",
+  "nav": {
+    "exchange": "Exchange",
+    "ratings": "Ratings",
+    "blacklist": "Blacklist",
+    "more": "More"
+  },
+  "ratings": {
+    "hub_title": "Service ratings",
+    "hub_subtitle": "Independent MoneySwap selections: international payments, cards for spending abroad, eSIM, banking products and microloans.",
+    "back_to_hub": "Back to ratings",
+    "about_section": "About the section",
+    "filters": "Filters",
+    "reset": "Reset",
+    "done": "Done",
+    "search": "Search",
+    "search_by_name": "Search by name",
+    "search_country": "Search country",
+    "search_currency": "Search currency",
+    "not_found": "Nothing found",
+    "empty": "No offers in this section yet",
+    "empty_filtered": "Nothing matches the selected filters",
+    "load_error": "Failed to load data. Please try again later",
+    "details": "Details",
+    "go": "Open",
+    "go_to_site": "Go to website",
+    "contact": "Contact",
+    "issue": "Get card",
+    "apply": "Apply",
+    "receive": "Get money",
+    "promocodes": "Promo codes",
+    "best_offer": "Best offer",
+    "rating": "Rating",
+    "country": "Country",
+    "countries": "Countries",
+    "currencies": "Currencies",
+    "from": "From",
+    "to": "To",
+    "market": {
+      "international": "International",
+      "russian": "Russian"
+    },
+    "sections": {
+      "ved": {
+        "title": "Foreign trade",
+        "description": "Verified services handling international payments"
+      },
+      "virtual-cards": {
+        "title": "Virtual cards",
+        "description": "International and Russian cards for spending abroad"
+      },
+      "esim": {
+        "title": "eSIM",
+        "description": "International and Russian virtual SIM cards"
+      },
+      "payment-services": {
+        "title": "Paying for services",
+        "description": "Services for paying foreign subscriptions, games and purchases"
+      },
+      "debit-cards": {
+        "title": "Debit cards",
+        "description": "Cards with cashback, interest on balance and free maintenance"
+      },
+      "credit-cards": {
+        "title": "Credit cards",
+        "description": "Cards with a grace period and transparent terms"
+      },
+      "credits": {
+        "title": "Loans",
+        "description": "Consumer loan offers from Russian banks"
+      },
+      "microloans": {
+        "title": "Microloans",
+        "description": "Reliable microfinance companies with fast approval and clear terms"
+      }
+    },
+    "ved": {
+      "labels": "Labels",
+      "payment_currency": "Payment currency",
+      "amount_placeholder": "Transfer amount, USD",
+      "from_commission": "From {{value}}%",
+      "sort_commission": "Commission",
+      "sort_limit": "Transfer limit"
+    },
+    "vc": {
+      "issuance": "Card issuance",
+      "topup": "Top-up fee",
+      "maintenance": "Maintenance",
+      "platforms": "Services"
+    },
+    "esim": {
+      "price": "Price per GB",
+      "volume": "Volume",
+      "period": "Validity",
+      "sharing": "Internet sharing",
+      "calls": "Calls",
+      "top_up": "Top-up",
+      "min_volume_placeholder": "Min. data volume, GB"
+    },
+    "ps": {
+      "commission": "Commission",
+      "platforms": "Services and games",
+      "services": "Services",
+      "games": "Games",
+      "payment_method": "Payment method",
+      "payment_methods": "Payment methods",
+      "search_service": "Search service",
+      "search_game": "Search game",
+      "detail_title": "{{name}} payment service"
+    },
+    "cards": {
+      "bank": "Bank",
+      "search_bank": "Search bank",
+      "search_placeholder": "Search by name or bank",
+      "features": "Features",
+      "bonuses": "Bonuses",
+      "payment_system": "Payment system",
+      "category": "Category",
+      "cashback": "Cashback",
+      "percent": "Interest on balance",
+      "service": "Maintenance",
+      "transfer_limit": "Transfer limit",
+      "grace_period": "Grace period",
+      "credit_limit": "Credit limit",
+      "rate": "Rate"
+    },
+    "credits": {
+      "rate": "Rate",
+      "amount": "Amount",
+      "term": "Loan term",
+      "psk": "Total cost",
+      "amount_placeholder": "Required amount, ₽"
+    },
+    "mfo": {
+      "rate": "Daily rate",
+      "limit": "Limit",
+      "term": "Loan term",
+      "psk": "Total cost",
+      "approval": "Approval rate",
+      "amount": "Loan amount",
+      "first_loan": "First loan",
+      "channels": "Payout method",
+      "limit_type": "Limit type",
+      "duration_type": "Term type",
+      "verification": "Terms verification",
+      "search_placeholder": "Search by company name"
+    }
+  },
+  "blacklist": {
+    "title": "Exchanger blacklist",
+    "subtitle": "Exchangers, websites, exchanges, Telegram channels and accounts suspected of fraud, deceiving users or other illegal activity.",
+    "exchanger": "Exchange office",
+    "in_blacklist": "{{name}} is blacklisted",
+    "warning": "Users report that after transferring funds the exchange is not completed, and support either ignores requests or disappears entirely.",
+    "links": "Related addresses",
+    "tips": {
+      "scam": {
+        "title": "What is a scam exchanger?",
+        "text": "A scam exchanger is a website or service that pretends to be a legitimate crypto exchange but is actually built to steal funds. Such platforms may use fake rates, fake reviews or copy the design of well-known services.\n\nThey can disappear right after receiving your money or stall until it is too late to get it back. Remember: a good-looking website is no guarantee of honesty."
+      },
+      "detect": {
+        "title": "How to spot a scammer?",
+        "text": "1. Check the domain and website address — scammers often use lookalike names.\n2. Read reviews on independent platforms, not only on the exchanger's own website.\n3. Look at the service's history — a brand new site with no reputation is a risk.\n\nOur goal is to help you recognise and avoid dishonest exchangers."
+      },
+      "avoid": {
+        "title": "How to avoid getting scammed?",
+        "text": "1. Never transfer money directly to strangers' personal cards.\n2. Use only verified services from trusted listings.\n3. Compare the exchanger's data with information on well-known monitorings.\n\nWe collect and update this data so you can exchange crypto safely."
+      },
+      "victim": {
+        "title": "What to do if you became a victim?",
+        "text": "If you suspect you have been scammed:\n\n1. Collect all the evidence right away (screenshots, chat logs, receipts).\n2. Contact your bank's support and try to reverse the transfer.\n3. File a complaint with the cyber police and warn other users through MoneySwap support.\n\nWe do everything we can to make such cases rarer and keep users protected."
+      }
+    }
+  },
+  "more": {
+    "title": "More",
+    "telegram_bot": "MoneySwap Telegram bot",
+    "telegram_channel": "MoneySwap Telegram channel",
+    "faq": "FAQ",
+    "faq_groups": {
+      "basic": "General",
+      "noncash": "Cashless exchange",
+      "cash": "Cash exchange",
+      "from_users": "User questions",
+      "for_partners": "For partners"
+    }
+  }
 }
