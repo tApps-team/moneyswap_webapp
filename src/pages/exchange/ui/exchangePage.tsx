@@ -97,7 +97,9 @@ export const ExchangePage = () => {
           <div className={clsx(styles.content, {
             [styles.content_mobile]: isMobilePlatform
           })}>
-            {exchanger_id && !isExchangerDetailLoading && isExchangerDetailSuccess && <ReviewDrawer exchangerDetail={exchangerDetail} review_id={review_id ? +review_id : undefined} isFromSite={true} />}
+            {/* autoOpenAddReview только для from_site: с сайта человека ведут оставить отзыв,
+                а ?exchanger= — почитать чужие, там форма поверх списка мешает. */}
+            {exchanger_id && !isExchangerDetailLoading && isExchangerDetailSuccess && <ReviewDrawer exchangerDetail={exchangerDetail} review_id={review_id ? +review_id : undefined} isFromSite={true} autoOpenAddReview={Boolean(from_site)} />}
             <Directions />
             <Location />
             <CurrencyForm />

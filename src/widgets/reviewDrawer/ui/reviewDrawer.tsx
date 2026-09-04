@@ -18,11 +18,18 @@ import styles from "./reviewDrawer.module.scss";
 type ReviewDrawerProps = {
   exchanger?: Exchanger;
   review_id?: number;
+  /** Drawer открыт сразу, без карточки-триггера: пришли по ссылке на обменник. */
   isFromSite?: boolean;
+  /**
+   * Сразу раскрыть форму «Добавить отзыв».
+   * Отдельно от isFromSite: ссылка с сайта ведёт человека оставлять отзыв, а deep-link
+   * на обменник — читать чужие, и форма поверх списка там только мешает.
+   */
+  autoOpenAddReview?: boolean;
   exchangerDetail?: ExchangerDetail;
 };
 export const ReviewDrawer = (props: ReviewDrawerProps) => {
-  const { exchanger, exchangerDetail, review_id, isFromSite } = props;
+  const { exchanger, exchangerDetail, review_id, isFromSite, autoOpenAddReview } = props;
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(isFromSite || false);
   const exchangerName = exchangerDetail ? exchangerDetail?.exchangerName?.ru : i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
@@ -119,7 +126,7 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
             <AddReview
               exchange_id={exchangerDetail ? exchangerDetail?.id : exchanger?.exchange_id || 0}
               tg_id={user ? user?.id : user_id}
-              isFromSite={isFromSite ? review_id ? false : true : false}
+              isFromSite={Boolean(autoOpenAddReview) && !review_id}
             />
           </div>
           <ReviewList exchanger={exchanger} exchangerDetail={exchangerDetail} isOpen={isOpen} review_id={review_id} />
