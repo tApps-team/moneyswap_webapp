@@ -3,6 +3,10 @@ type QueryParams = {
   user_id?: string | null;
   user_lang?: string | null;
   from_site?: string | null;
+  /** Пара обмена и город из ссылки — их применяет useDeepLinkPair. */
+  city?: string | null;
+  give?: string | null;
+  get?: string | null;
 };
 
 /**
@@ -27,6 +31,15 @@ export const CheckQueries = () => {
   }
   if (urlParams.has("from_site")) {
     queryParams.from_site = urlParams.get("from_site");
+  }
+  if (urlParams.has("city")) {
+    queryParams.city = urlParams.get("city");
+  }
+  if (urlParams.has("give")) {
+    queryParams.give = urlParams.get("give");
+  }
+  if (urlParams.has("get")) {
+    queryParams.get = urlParams.get("get");
   }
 
   return queryParams;

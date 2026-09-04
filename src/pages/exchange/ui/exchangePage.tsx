@@ -8,6 +8,7 @@ import { Directions } from "@/widgets/directions";
 import { CurrencyForm } from "@/widgets/currencyForm";
 import { ReviewDrawer } from "@/widgets/reviewDrawer";
 import { CheckQueries } from "@/features/checkQueries";
+import { useDeepLinkPair } from "@/features/deepLinkPair";
 import { directions, setActiveDirection } from "@/entities/direction";
 import { setUser, setUserId } from "@/entities/user";
 import { ExchangerDetail, useGetExchangerDetailQuery } from "@/entities/exchanger";
@@ -26,6 +27,9 @@ export const ExchangePage = () => {
   const dispatch = useAppDispatch();
   const { i18n } = useTranslation();
   const lang = CheckQueries().user_lang;
+
+  // Пара обмена и город из ссылки (?give=…&get=…&city=…), в том числе пришедшие через startapp.
+  useDeepLinkPair();
 
   // from_site
   const { from_site } = CheckQueries();

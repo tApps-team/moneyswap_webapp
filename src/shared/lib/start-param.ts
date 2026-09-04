@@ -11,6 +11,8 @@
  * Формат: пары разделены `__`, ключ отделён от значения ПЕРВЫМ дефисом.
  *   tab-ratings__section-payment-services__item-yoomarket
  *     -> ?tab=ratings&section=payment-services&item=yoomarket
+ *   direction-noncash__give-USDTTRC20__get-SBERRUB
+ *     -> ?direction=noncash&give=USDTTRC20&get=SBERRUB   (пару подставляет useDeepLinkPair)
  *
  * Плюс два сокращения для ссылок, которые собирают руками:
  *   ratings | blacklist | more   -> ?tab=<значение>
@@ -32,6 +34,9 @@ export const START_PARAM_KEYS = [
   "section",
   "item",
   "direction",
+  "city",
+  "give",
+  "get",
   "user_lang",
   "user_id",
   "from_site",
