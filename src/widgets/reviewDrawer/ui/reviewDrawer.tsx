@@ -8,6 +8,7 @@ import {
   DrawerContent,
   DrawerTrigger,
   ScrollArea,
+  ShareButton,
 } from "@/shared/ui";
 import { Lang } from "@/shared/config";
 import { useAppSelector, useDrawerBackButton } from "@/shared/hooks";
@@ -25,6 +26,8 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(isFromSite || false);
   const exchangerName = exchangerDetail ? exchangerDetail?.exchangerName?.ru : i18n.language === Lang.ru ? exchanger?.name?.ru : exchanger?.name?.en;
+  // Тот же id, что уходит в AddReview: в списке он лежит в exchange_id, в deep-link — в detail.id.
+  const exchangeId = exchangerDetail ? exchangerDetail?.id : exchanger?.exchange_id;
 
   // telegram open link method
   const tg = window?.Telegram?.WebApp;
@@ -87,17 +90,24 @@ export const ReviewDrawer = (props: ReviewDrawerProps) => {
           "pt-[90px]": isMobilePlatform
         })}
       >
-        <div className="grid grid-flow-col justify-between items-center gap-3 mx-4 pt-4">
-          <p className="text-[16px] truncate text-white font-semibold">
+        <div className="flex justify-between items-center gap-3 mx-4 pt-4">
+          <p className="text-[16px] truncate text-white font-semibold min-w-0">
             {exchangerName}
           </p>
-          <a
-            onClick={() => openLink(exchangerDetail ? exchangerDetail?.url : exchanger?.partner_link || "")}
-            target="_blank"
-            className="text-[12px] text-mainColor underline"
-          >
-            {t("reviews.exchanger_link")}
-          </a>
+          <div className="flex items-center gap-3 shrink-0">
+            <a
+              onClick={() => openLink(exchangerDetail ? exchangerDetail?.url : exchanger?.partner_link || "")}
+              target="_blank"
+              className="text-[12px] text-mainColor underline"
+            >
+              {t("reviews.exchanger_link")}
+            </a>
+            <ShareButton
+              params={{ exchanger: String(exchangeId) }}
+              label={exchangerName}
+              className="size-8"
+            />
+          </div>
         </div>
         <ScrollArea
           data-vaul-no-drag

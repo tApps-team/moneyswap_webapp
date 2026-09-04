@@ -21,5 +21,6 @@ export * from "./radio-group";
 export * from "./textarea";
 export * from "./carousel";
 export * from "./tooltip";
+export * from "./share-button";
 // ratings-примитивы намеренно НЕ реэкспортируются здесь:
 // иначе они попадут в стартовый чанк экрана обмена. Импорт — из "@/shared/ui/ratings".

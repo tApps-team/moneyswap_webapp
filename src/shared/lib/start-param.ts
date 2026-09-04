@@ -13,6 +13,8 @@
  *     -> ?tab=ratings&section=payment-services&item=yoomarket
  *   direction-noncash__give-USDTTRC20__get-SBERRUB
  *     -> ?direction=noncash&give=USDTTRC20&get=SBERRUB   (пару подставляет useDeepLinkPair)
+ *   exchanger-1490
+ *     -> ?exchanger=1490   (открывает drawer обменника с отзывами)
  *
  * Плюс два сокращения для ссылок, которые собирают руками:
  *   ratings | blacklist | more   -> ?tab=<значение>
@@ -37,6 +39,8 @@ export const START_PARAM_KEYS = [
   "city",
   "give",
   "get",
+  "exchanger",
+  "review",
   "user_lang",
   "user_id",
   "from_site",

@@ -7,6 +7,9 @@ type QueryParams = {
   city?: string | null;
   give?: string | null;
   get?: string | null;
+  /** Обменник и отзыв — открывают drawer с отзывами. Современный аналог from_site. */
+  exchanger?: string | null;
+  review?: string | null;
 };
 
 /**
@@ -40,6 +43,12 @@ export const CheckQueries = () => {
   }
   if (urlParams.has("get")) {
     queryParams.get = urlParams.get("get");
+  }
+  if (urlParams.has("exchanger")) {
+    queryParams.exchanger = urlParams.get("exchanger");
+  }
+  if (urlParams.has("review")) {
+    queryParams.review = urlParams.get("review");
   }
 
   return queryParams;

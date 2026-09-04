@@ -31,9 +31,12 @@ export const ExchangePage = () => {
   // Пара обмена и город из ссылки (?give=…&get=…&city=…), в том числе пришедшие через startapp.
   useDeepLinkPair();
 
-  // from_site
-  const { from_site } = CheckQueries();
-  const [exchanger_id, review_id] = from_site?.split("__") || [];
+  // Drawer обменника: `?exchanger=<id>&review=<id>` — наш deep-link, `?from_site=<id>__<id>` —
+  // исторический формат бота и сайта. Оба ведут в один и тот же ReviewDrawer.
+  const { from_site, exchanger, review } = CheckQueries();
+  const [fromSiteExchangerId, fromSiteReviewId] = from_site?.split("__") || [];
+  const exchanger_id = exchanger || fromSiteExchangerId;
+  const review_id = review || fromSiteReviewId;
 
   const {data: exchangerDetailData, isSuccess: isExchangerDetailSuccess, isLoading: isExchangerDetailLoading} = useGetExchangerDetailQuery({exchange_id: +exchanger_id}, {skip: !exchanger_id});
 
@@ -94,7 +97,7 @@ export const ExchangePage = () => {
           <div className={clsx(styles.content, {
             [styles.content_mobile]: isMobilePlatform
           })}>
-            {from_site && !isExchangerDetailLoading && isExchangerDetailSuccess && <ReviewDrawer exchangerDetail={exchangerDetail} review_id={+review_id} isFromSite={true} />}
+            {exchanger_id && !isExchangerDetailLoading && isExchangerDetailSuccess && <ReviewDrawer exchangerDetail={exchangerDetail} review_id={review_id ? +review_id : undefined} isFromSite={true} />}
             <Directions />
             <Location />
             <CurrencyForm />

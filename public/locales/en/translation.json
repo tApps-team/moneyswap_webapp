@@ -96,6 +96,8 @@
   "Popular": "Popular",
   "AML_high": "This exchanger has high AML-risk indicators. We recommend exercising caution when exchanging",
   "AML_low": "This exchanger has low AML-risk indicators",
+  "share": "Share",
+  "share_text": "{{name}} — in the MoneySwap mini app",
   "nav": {
     "exchange": "Exchange",
     "ratings": "Ratings",
@@ -119,8 +121,6 @@
     "empty_filtered": "Nothing matches the selected filters",
     "load_error": "Failed to load data. Please try again later",
     "details": "Details",
-    "share": "Share",
-    "share_text": "{{name}} — in the MoneySwap mini app",
     "go": "Open",
     "go_to_site": "Go to website",
     "contact": "Contact",
