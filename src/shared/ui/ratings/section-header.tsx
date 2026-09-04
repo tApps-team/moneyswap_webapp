@@ -7,15 +7,20 @@ import { handleVibration } from "@/shared/lib";
 interface SectionHeaderProps {
   title: string;
   subtitle?: string | null;
+  /** Кнопка справа от заголовка — например «Поделиться». */
+  action?: ReactNode;
   className?: string;
 }
 
 /** Заголовок экрана рейтингов — тем же шрифтом Unbounded, что и на сайте. */
-export const SectionHeader: FC<SectionHeaderProps> = ({ title, subtitle, className }) => (
+export const SectionHeader: FC<SectionHeaderProps> = ({ title, subtitle, action, className }) => (
   <div className={cn("grid gap-2 min-w-0", className)}>
-    <h1 className="unbounded_font text-mainColor uppercase text-base font-semibold leading-tight break-words">
-      {title}
-    </h1>
+    <div className="flex items-start justify-between gap-3 min-w-0">
+      <h1 className="unbounded_font text-mainColor uppercase text-base font-semibold leading-tight break-words min-w-0">
+        {title}
+      </h1>
+      {action}
+    </div>
     {subtitle ? <p className="text-lightGray text-xs leading-snug">{subtitle}</p> : null}
   </div>
 );

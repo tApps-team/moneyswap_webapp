@@ -4,6 +4,7 @@ import { Gift } from "lucide-react";
 import clsx from "clsx";
 import { DynamicContentItem, StrapiContent, StrapiPromocode } from "@/entities/strapi";
 import { Drawer, DrawerContent, DrawerTitle, ScrollArea } from "@/shared/ui";
+import { ShareCurrentButton } from "@/shared/ui/ratings";
 import { useDrawerBackButton } from "@/shared/hooks";
 import { handleVibration, isTelegramMobile, openExternalLink } from "@/shared/lib";
 
@@ -94,7 +95,7 @@ export const AgentDrawer: FC<AgentDrawerProps> = ({
                     {name.charAt(0)}
                   </div>
                 )}
-                <div className="grid gap-1.5 min-w-0">
+                <div className="grid gap-1.5 min-w-0 flex-1">
                   <h2 className="unbounded_font text-mainColor uppercase text-sm font-semibold leading-tight break-words">
                     {title}
                   </h2>
@@ -104,6 +105,8 @@ export const AgentDrawer: FC<AgentDrawerProps> = ({
                     </div>
                   ) : null}
                 </div>
+
+                <ShareCurrentButton label={name} />
               </div>
 
               {description ? (

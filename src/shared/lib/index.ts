@@ -5,3 +5,5 @@ export * from "./utils";
 export * from "./telegram-back-button.functions";
 export * from "./telegram-vibration.function";
 export { openExternalLink } from "./open-link";
+export * from "./start-param";
+export * from "./share";

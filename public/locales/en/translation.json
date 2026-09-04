@@ -119,6 +119,8 @@
     "empty_filtered": "Nothing matches the selected filters",
     "load_error": "Failed to load data. Please try again later",
     "details": "Details",
+    "share": "Share",
+    "share_text": "{{name}} — in the MoneySwap mini app",
     "go": "Open",
     "go_to_site": "Go to website",
     "contact": "Contact",

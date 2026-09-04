@@ -14,6 +14,8 @@ declare global {
 				platform: string;
 				initData: string;
 				initDataUnsafe: {
+					/** Значение `startapp` из внешней ссылки; дублируется в GET-параметре tgWebAppStartParam. */
+					start_param?: string;
 					user: {
 						id: number;
 						is_bot: boolean;

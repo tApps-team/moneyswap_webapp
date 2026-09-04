@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ChevronLeft } from "lucide-react";
 import { StrapiContent, useGetSectionPageQuery } from "@/entities/strapi";
 import { RATING_SECTIONS, RatingSectionKey } from "@/shared/config";
-import { CollapsibleBlock, SectionHeader } from "@/shared/ui/ratings";
+import { CollapsibleBlock, SectionHeader, ShareCurrentButton } from "@/shared/ui/ratings";
 import { handleVibration } from "@/shared/lib";
 import { VedExplorer } from "../../sections/ved";
 import { VcExplorer } from "../../sections/virtual-cards";
@@ -51,7 +51,7 @@ export const SectionScreen: FC<SectionScreenProps> = ({
         {t("ratings.back_to_hub")}
       </button>
 
-      <SectionHeader title={title} />
+      <SectionHeader title={title} action={<ShareCurrentButton label={title} />} />
 
       {page?.header_content?.length ? (
         <CollapsibleBlock title={t("ratings.about_section")}>
