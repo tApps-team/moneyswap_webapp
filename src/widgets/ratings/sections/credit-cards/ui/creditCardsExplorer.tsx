@@ -17,8 +17,10 @@ import {
   MultiSelectFilter,
   RatingValue,
   SortChips,
+  TagCell,
   VipBadge,
 } from "@/shared/ui/ratings";
+import { AgentDrawer, AgentSpecRow } from "@/widgets/ratings/agent-drawer";
 import { ExplorerLayout } from "@/widgets/ratings/lib/explorerLayout";
 import { useExplorer } from "@/widgets/ratings/lib/useExplorer";
 import { CardCategoryRow, CardFilters } from "../../cards/ui/cardFilters";
@@ -32,8 +34,18 @@ import {
   sortCreditCards,
 } from "../lib/filter";
 
-/** Кредитные карты. Детальной страницы у раздела нет и на сайте — только оформление. */
-export const CreditCardsExplorer: FC = () => {
+interface CreditCardsExplorerProps {
+  openedSlug: string | null;
+  onOpenItem: (slug: string) => void;
+  onCloseItem: () => void;
+}
+
+/** Кредитные карты: список с фильтрами и карточка предложения в drawer. */
+export const CreditCardsExplorer: FC<CreditCardsExplorerProps> = ({
+  openedSlug,
+  onOpenItem,
+  onCloseItem,
+}) => {
   const { t } = useTranslation();
   const { data: cards = [], isLoading, isError } = useGetCreditCardsQuery();
 
@@ -46,58 +58,102 @@ export const CreditCardsExplorer: FC = () => {
     countFn: countCreditCardFilters,
   });
 
+  const opened = openedSlug ? cards.find((card) => card.slug === openedSlug) : undefined;
+
   return (
-    <ExplorerLayout
-      isLoading={isLoading}
-      isError={isError}
-      total={explorer.total}
-      active={explorer.active}
-      onReset={explorer.reset}
-      page={explorer.page}
-      totalPages={explorer.totalPages}
-      onPageChange={explorer.setPage}
-      controls={
-        <>
-          <CardFilters
-            cards={cards}
-            filter={explorer.filter}
-            setFilter={explorer.setFilter}
-            activeCount={explorer.activeCount}
-            active={explorer.active}
-            onReset={explorer.reset}
-            extra={
-              <MultiSelectFilter<GracePeriodBucket>
-                label={t("ratings.cards.grace_period")}
-                options={GRACE_PERIOD_OPTIONS}
-                selected={explorer.filter.gracePeriods}
-                onChange={(gracePeriods) => explorer.setFilter((f) => ({ ...f, gracePeriods }))}
-                variant="icon"
-                searchable={false}
-              />
-            }
-          />
-          <SortChips
-            options={[
-              { key: "grace", label: t("ratings.cards.grace_period") },
-              { key: "limit", label: t("ratings.cards.credit_limit") },
-              { key: "rate", label: t("ratings.cards.rate") },
-              { key: "service", label: t("ratings.cards.service") },
-              { key: "rating", label: t("ratings.rating") },
-            ]}
-            sort={explorer.sort}
-            onSort={explorer.handleSort}
-          />
-        </>
-      }
-    >
-      {explorer.visible.map((card) => (
-        <CreditCardItem key={card.id} card={card} />
-      ))}
-    </ExplorerLayout>
+    <>
+      <ExplorerLayout
+        isLoading={isLoading}
+        isError={isError}
+        total={explorer.total}
+        active={explorer.active}
+        onReset={explorer.reset}
+        page={explorer.page}
+        totalPages={explorer.totalPages}
+        onPageChange={explorer.setPage}
+        controls={
+          <>
+            <CardFilters
+              cards={cards}
+              filter={explorer.filter}
+              setFilter={explorer.setFilter}
+              activeCount={explorer.activeCount}
+              active={explorer.active}
+              onReset={explorer.reset}
+              extra={
+                <MultiSelectFilter<GracePeriodBucket>
+                  label={t("ratings.cards.grace_period")}
+                  options={GRACE_PERIOD_OPTIONS}
+                  selected={explorer.filter.gracePeriods}
+                  onChange={(gracePeriods) => explorer.setFilter((f) => ({ ...f, gracePeriods }))}
+                  variant="icon"
+                  searchable={false}
+                />
+              }
+            />
+            <SortChips
+              options={[
+                { key: "grace", label: t("ratings.cards.grace_period") },
+                { key: "limit", label: t("ratings.cards.credit_limit") },
+                { key: "rate", label: t("ratings.cards.rate") },
+                { key: "service", label: t("ratings.cards.service") },
+                { key: "rating", label: t("ratings.rating") },
+              ]}
+              sort={explorer.sort}
+              onSort={explorer.handleSort}
+            />
+          </>
+        }
+      >
+        {explorer.visible.map((card) => (
+          <CreditCardItem key={card.id} card={card} onOpen={onOpenItem} />
+        ))}
+      </ExplorerLayout>
+
+      {opened && (
+        <AgentDrawer
+          isOpen
+          onClose={onCloseItem}
+          title={buildCardTitle(opened)}
+          name={opened.name}
+          logo={opened.logo ?? opened.bank?.logo ?? null}
+          headline={
+            <>
+              <span className="text-lightGray">
+                {t("ratings.cards.service")}:{" "}
+                <span className="text-white">{orDash(opened.service_cost)}</span>
+              </span>
+              <span className="text-lightGray">
+                {t("ratings.cards.grace_period")}:{" "}
+                <span className="text-white">{orDash(opened.grace_period)}</span>
+              </span>
+              <span className="text-lightGray">
+                {t("ratings.cards.rate")}:{" "}
+                <span className="text-white">{orDash(opened.rate)}</span>
+              </span>
+            </>
+          }
+          description={opened.cashback_description}
+          actionLabel={t("ratings.apply")}
+          url={opened.url}
+          specs={buildCreditCardSpecs(opened, t)}
+          about={opened.about}
+        />
+      )}
+    </>
   );
 };
 
-const CreditCardItem: FC<{ card: CreditCard }> = ({ card }) => {
+/** У части кредиток название совпадает с банком — второй раз его не повторяем. */
+function buildCardTitle(card: CreditCard): string {
+  const bank = card.bank?.title;
+  return bank && bank !== card.name ? `${card.name} — ${bank}` : card.name;
+}
+
+const CreditCardItem: FC<{ card: CreditCard; onOpen: (slug: string) => void }> = ({
+  card,
+  onOpen,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -114,6 +170,7 @@ const CreditCardItem: FC<{ card: CreditCard }> = ({ card }) => {
           name={card.name}
           logo={card.logo ?? card.bank?.logo ?? null}
           subtitle={card.bank?.title}
+          onOpen={() => onOpen(card.slug)}
           className="flex-1"
         />
         <RatingValue rating={card.rating} reviewsCount={card.reviews_count} compact />
@@ -141,7 +198,57 @@ const CreditCardItem: FC<{ card: CreditCard }> = ({ card }) => {
         value={formatCardCategory(card.card_category)}
       />
 
-      <ActionButtons actionLabel={t("ratings.apply")} url={card.url} />
+      <ActionButtons
+        onDetails={() => onOpen(card.slug)}
+        detailLabel={t("ratings.details")}
+        actionLabel={t("ratings.apply")}
+        url={card.url}
+      />
     </article>
   );
 };
+
+function buildCreditCardSpecs(card: CreditCard, t: (key: string) => string): AgentSpecRow[] {
+  return [
+    { label: t("ratings.cards.bank"), value: orDash(card.bank?.title) },
+    { label: t("ratings.cards.service"), value: orDash(card.service_cost) },
+    { label: t("ratings.cards.grace_period"), value: orDash(card.grace_period) },
+    { label: t("ratings.cards.credit_limit"), value: orDash(card.credit_limit) },
+    { label: t("ratings.cards.rate"), value: orDash(card.rate) },
+    { label: t("ratings.cards.cashback"), value: orDash(card.cashback) },
+    { label: t("ratings.cards.category"), value: formatCardCategory(card.card_category) },
+    {
+      label: t("ratings.cards.payment_system"),
+      value: (
+        <TagCell
+          items={card.payment_systems}
+          modalTitle={t("ratings.cards.payment_system")}
+          chip="icon"
+          className="justify-end"
+        />
+      ),
+    },
+    {
+      label: t("ratings.cards.features"),
+      value: (
+        <TagCell
+          items={card.features}
+          modalTitle={t("ratings.cards.features")}
+          chip="circle"
+          className="justify-end"
+        />
+      ),
+    },
+    {
+      label: t("ratings.cards.bonuses"),
+      value: (
+        <TagCell
+          items={card.bonuses}
+          modalTitle={t("ratings.cards.bonuses")}
+          chip="circle"
+          className="justify-end"
+        />
+      ),
+    },
+  ];
+}

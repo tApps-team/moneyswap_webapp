@@ -63,8 +63,8 @@ export const SectionScreen: FC<SectionScreenProps> = ({
       {section === "virtual-cards" && <VcExplorer {...itemProps} />}
       {section === "esim" && <EsimExplorer {...itemProps} />}
       {section === "payment-services" && <PsExplorer {...itemProps} />}
-      {section === "debit-cards" && <DebitCardsExplorer />}
-      {section === "credit-cards" && <CreditCardsExplorer />}
+      {section === "debit-cards" && <DebitCardsExplorer {...itemProps} />}
+      {section === "credit-cards" && <CreditCardsExplorer {...itemProps} />}
       {section === "credits" && <CreditsExplorer {...itemProps} />}
       {section === "microloans" && <MfoExplorer {...itemProps} />}
     </section>
