@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronDown, Loader, Send } from "lucide-react";
-import { FaqItem, useGetFaqQuery } from "@/entities/strapi";
+import { FaqItem, StrapiHtml, useGetFaqQuery } from "@/entities/strapi";
 import { LanguageSwitcher } from "@/features/languageSwitch";
 import {
   Accordion,
@@ -85,9 +85,9 @@ export const MoreScreen = () => {
 
             return (
               <div key={group} className="grid gap-2 min-w-0">
-                <span className="text-lightGray text-[11px] uppercase tracking-wide font-medium">
+                <h3 className="unbounded_font text-mainColor uppercase text-sm font-semibold leading-snug">
                   {t(`more.faq_groups.${group}`)}
-                </span>
+                </h3>
 
                 <Accordion type="single" collapsible className="grid gap-2">
                   {items.map((item) => (
@@ -103,8 +103,8 @@ export const MoreScreen = () => {
                         <span className="min-w-0">{item.question}</span>
                         <ChevronDown className="w-4 h-4 shrink-0 text-mainColor transition-transform" />
                       </AccordionTrigger>
-                      <AccordionContent className="pb-4 text-xs text-lightGray leading-relaxed">
-                        {item.answer}
+                      <AccordionContent className="pb-4">
+                        <StrapiHtml html={item.answer} />
                       </AccordionContent>
                     </AccordionItem>
                   ))}
