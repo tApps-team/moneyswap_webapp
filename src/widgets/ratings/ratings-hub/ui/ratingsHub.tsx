@@ -50,7 +50,7 @@ const RatingSectionCard: FC<{
         <span className="unbounded_font uppercase leading-tight text-xs font-normal text-white break-words">
           {t(section.titleKey)}
         </span>
-        <span className="text-lightGray text-xs leading-snug line-clamp-2">
+        <span className="text-lightGray text-xs leading-snug line-clamp-3">
           {t(section.descriptionKey)}
         </span>
       </span>

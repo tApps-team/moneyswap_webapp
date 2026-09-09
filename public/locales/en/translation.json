@@ -142,31 +142,31 @@
     "sections": {
       "ved": {
         "title": "Foreign trade",
-        "description": "Verified services handling international payments"
+        "description": "Payment agents for invoice payments and transfers abroad"
       },
       "virtual-cards": {
         "title": "Virtual cards",
-        "description": "International and Russian cards for spending abroad"
+        "description": "Cards from foreign banks for paying for services and purchases abroad"
       },
       "esim": {
         "title": "eSIM",
-        "description": "International and Russian virtual SIM cards"
+        "description": "International mobile internet providers for trips abroad"
       },
       "payment-services": {
         "title": "Paying for services",
-        "description": "Services for paying foreign subscriptions, games and purchases"
+        "description": "Services that help pay for foreign subscriptions and games."
       },
       "debit-cards": {
         "title": "Debit cards",
-        "description": "Cards with cashback, interest on balance and free maintenance"
+        "description": "A rating of cards with cashback, interest on balance and servicing terms."
       },
       "credit-cards": {
         "title": "Credit cards",
-        "description": "Cards with a grace period and transparent terms"
+        "description": "Bank offers on credit cards with a grace period."
       },
       "credits": {
         "title": "Loans",
-        "description": "Consumer loan offers from Russian banks"
+        "description": "A rating of consumer loans from banks with the real APR and early repayment terms."
       },
       "microloans": {
         "title": "Microloans",

@@ -7,14 +7,14 @@ import {
   MICROLOAN_FIRST_LOAN_OPTIONS,
   MICROLOAN_LIMIT_OPTIONS,
   MICROLOAN_TERM_OPTIONS,
-  MICROLOAN_VERIFICATION_OPTIONS,
+  // MICROLOAN_VERIFICATION_OPTIONS, // фильтр «Проверка условий» скрыт
   Microloan,
   MicroloanAmountType,
   MicroloanDurationType,
   MicroloanFirstLoanType,
   MicroloanLimitType,
   MicroloanTermType,
-  MicroloanVerificationStatus,
+  // MicroloanVerificationStatus, // фильтр «Проверка условий» скрыт
   formatApproval,
   formatFirstLoanType,
   formatMicroloanLimit,
@@ -81,10 +81,12 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ openedSlug, onOpenItem, onCl
     () => keepPresent(MICROLOAN_FIRST_LOAN_OPTIONS, loans.map((loan) => loan.first_loan_type)),
     [loans],
   );
-  const verificationOptions = useMemo(
-    () => keepPresent(MICROLOAN_VERIFICATION_OPTIONS, loans.map((loan) => loan.verification_status)),
-    [loans],
-  );
+  // Фильтр «Проверка условий» скрыт по просьбе заказчика. Логика фильтрации в lib/filter.ts
+  // оставлена нетронутой, поэтому вернуть его — раскомментировать этот блок и разметку ниже.
+  // const verificationOptions = useMemo(
+  //   () => keepPresent(MICROLOAN_VERIFICATION_OPTIONS, loans.map((loan) => loan.verification_status)),
+  //   [loans],
+  // );
   const limitTypeOptions = useMemo(
     () => keepPresent(MICROLOAN_LIMIT_OPTIONS, loans.map((loan) => loan.loan_limit_type)),
     [loans],
@@ -169,6 +171,7 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ openedSlug, onOpenItem, onCl
                 variant="icon"
                 searchable={false}
               />
+              {/* Фильтр «Проверка условий» скрыт — см. комментарий у verificationOptions выше.
               <MultiSelectFilter<MicroloanVerificationStatus>
                 label={t("ratings.mfo.verification")}
                 options={verificationOptions}
@@ -176,7 +179,7 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ openedSlug, onOpenItem, onCl
                 onChange={(verification) => explorer.setFilter((f) => ({ ...f, verification }))}
                 variant="icon"
                 searchable={false}
-              />
+              /> */}
             </FiltersBar>
 
             <SortChips
