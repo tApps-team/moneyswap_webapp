@@ -17,8 +17,14 @@ module.exports = {
       },
     },
     extend: {
+      fontSize: {
+        "2xs": "10px",
+        "3xs": "8px",
+      },
       screens: {
+        "mobile-xs": "375px",
         mobile: "401px",
+        "mobile-xl": "576px",
       },
       colors: {
         // new colors
@@ -27,6 +33,12 @@ module.exports = {
         "new-light-grey": "#393C44",
         "new-tabs-grey": "#2F323A",
         "new-secondary-text": "#6F6F6F",
+        // алиасы под именование moneyswap_next — чтобы код рейтингов переносился без правок классов
+        "yellow-main": "#F6FF5F",
+        "new-grey": "#2F323A",
+        "new-bg": "#191C25",
+        "light-gray": "#BBBBBB",
+        "font-light-grey": "#B9B9B9",
         // new colors
         mainColor: "#F6FF5F",
         whiteColor: "#FFF",

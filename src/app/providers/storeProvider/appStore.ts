@@ -1,7 +1,7 @@
 import { directionSlice } from "@/entities/direction";
 import { locationSlice } from "@/entities/location";
 import { currencySlice } from "@/entities/currency";
-import { baseApi } from "@/shared/api";
+import { baseApi, strapiApi } from "@/shared/api";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import {
@@ -29,6 +29,7 @@ const rootReducer = combineReducers({
   [locationSlice.name]: locationSlice.reducer,
   [directionSlice.name]: directionSlice.reducer,
   [baseApi.reducerPath]: baseApi.reducer,
+  [strapiApi.reducerPath]: strapiApi.reducer,
   [currencyFormSlice.name]: currencyFormSlice.reducer,
   [currencySlice.name]: currencySlice.reducer,
   [exchangerSlice.name]: exchangerSlice.reducer,
@@ -47,7 +48,7 @@ export const setupStore = () => {
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(baseApi.middleware),
+      }).concat(baseApi.middleware, strapiApi.middleware),
   });
   setupListeners(store.dispatch);
   return store;

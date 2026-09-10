@@ -61,6 +61,32 @@ const DrawerContent = React.forwardRef<
 ));
 DrawerContent.displayName = "DrawerContent";
 
+/**
+ * Нижний лист — для мультиселектов фильтров в рейтингах.
+ * Отдельный компонент, потому что DrawerContent выше жёстко полноэкранный
+ * и на нём завязаны экраны локации, валют и отзывов.
+ */
+const DrawerSheetContent = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <DrawerPortal>
+    <DrawerOverlay className="bg-black/60" />
+    <DrawerPrimitive.Content
+      ref={ref}
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[85svh] w-full max-w-[500px] flex-col rounded-t-[20px] border-t border-new-grey/60 bg-new-dark-grey focus-visible:outline-none",
+        className
+      )}
+      {...props}
+    >
+      <div className="mx-auto mt-3 h-1.5 w-12 shrink-0 rounded-full bg-new-light-grey" />
+      {children}
+    </DrawerPrimitive.Content>
+  </DrawerPortal>
+));
+DrawerSheetContent.displayName = "DrawerSheetContent";
+
 const DrawerHeader = ({
   className,
   ...props
@@ -117,6 +143,7 @@ export {
   DrawerTrigger,
   DrawerClose,
   DrawerContent,
+  DrawerSheetContent,
   DrawerHeader,
   DrawerFooter,
   DrawerTitle,
