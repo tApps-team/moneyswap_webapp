@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Gift } from "lucide-react";
 import clsx from "clsx";
@@ -6,7 +6,13 @@ import { DynamicContentItem, StrapiContent, StrapiPromocode } from "@/entities/s
 import { Drawer, DrawerContent, DrawerTitle, ScrollArea } from "@/shared/ui";
 import { ShareCurrentButton } from "@/shared/ui/ratings";
 import { useDrawerBackButton } from "@/shared/hooks";
-import { handleVibration, isTelegramMobile, openExternalLink } from "@/shared/lib";
+import { useAppNavigation } from "@/shared/routing";
+import {
+  handleVibration,
+  isTelegramMobile,
+  openExternalLink,
+  reachRatingAgentGoal,
+} from "@/shared/lib";
 
 export interface AgentSpecRow {
   label: string;
@@ -53,6 +59,24 @@ export const AgentDrawer: FC<AgentDrawerProps> = ({
   const { t } = useTranslation();
   const isMobilePlatform = isTelegramMobile();
   const hasPromocodes = Boolean(promocodes?.length);
+
+  /*
+   * Раздел и слаг берём из адреса: карточка открывается через ?section=&item=,
+   * так что список-раскладку каждого раздела трогать не нужно.
+   */
+  const { section, item } = useAppNavigation();
+
+  useEffect(() => {
+    if (!isOpen || !section || !item) return;
+    reachRatingAgentGoal(section, "agent_page", item);
+  }, [isOpen, section, item]);
+
+  /** Уход на сайт агента — и по главной кнопке, и по промокоду. */
+  const goToAgentSite = (targetUrl: string) => {
+    handleVibration();
+    if (section && item) reachRatingAgentGoal(section, "agent_site", item);
+    openExternalLink(targetUrl);
+  };
 
   useDrawerBackButton({ isOpen, onClose, priority: 1 });
 
@@ -115,10 +139,7 @@ export const AgentDrawer: FC<AgentDrawerProps> = ({
 
               <button
                 type="button"
-                onClick={() => {
-                  handleVibration();
-                  openExternalLink(url);
-                }}
+                onClick={() => goToAgentSite(url)}
                 className="w-full rounded-[10px] bg-mainColor px-5 py-3 text-[13px] font-semibold uppercase text-black active:opacity-80"
               >
                 {actionLabel}
@@ -155,10 +176,7 @@ export const AgentDrawer: FC<AgentDrawerProps> = ({
                   <button
                     key={`${promo.title}-${index}`}
                     type="button"
-                    onClick={() => {
-                      handleVibration();
-                      openExternalLink(promo.url || url);
-                    }}
+                    onClick={() => goToAgentSite(promo.url || url)}
                     className="flex items-start gap-3 bg-new-dark-grey border border-[#575A62]/50 rounded-[12px] p-4 text-left active:opacity-80 min-w-0"
                   >
                     <span className="flex items-center justify-center w-9 h-9 shrink-0 rounded-lg bg-mainColor/15 text-mainColor">
