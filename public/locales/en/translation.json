@@ -135,10 +135,6 @@
     "currencies": "Currencies",
     "from": "From",
     "to": "To",
-    "market": {
-      "international": "International",
-      "russian": "Russian"
-    },
     "sections": {
       "ved": {
         "title": "Foreign trade",
@@ -198,13 +194,10 @@
     },
     "ps": {
       "commission": "Commission",
-      "platforms": "Services and games",
-      "services": "Services",
-      "games": "Games",
+      "platforms": "Platforms",
       "payment_method": "Payment method",
       "payment_methods": "Payment methods",
-      "search_service": "Search service",
-      "search_game": "Search game",
+      "search_platform": "Search platform",
       "detail_title": "{{name}} payment service"
     },
     "cards": {
@@ -275,6 +268,9 @@
     "title": "More",
     "telegram_bot": "MoneySwap Telegram bot",
     "telegram_channel": "MoneySwap Telegram channel",
+    "contacts": "Contacts",
+    "support": "MoneySwap support",
+    "admin": "MoneySwap admin",
     "faq": "FAQ",
     "faq_groups": {
       "basic": "General",

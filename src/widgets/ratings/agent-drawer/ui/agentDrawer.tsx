@@ -17,6 +17,8 @@ import {
 export interface AgentSpecRow {
   label: string;
   value: ReactNode;
+  /** Пояснение к параметру — выводится серой строкой под значением. */
+  hint?: string;
 }
 
 interface AgentDrawerProps {
@@ -153,14 +155,19 @@ export const AgentDrawer: FC<AgentDrawerProps> = ({
                   <div
                     key={row.label}
                     className={clsx(
-                      "flex items-start justify-between gap-4 px-4 py-3 min-w-0",
+                      "px-4 py-3 min-w-0",
                       index < specs.length - 1 && "border-b border-[#575A62]/40",
                     )}
                   >
-                    <span className="text-xs text-lightGray shrink-0 pt-0.5">{row.label}</span>
-                    <div className="text-xs text-white text-right min-w-0 flex justify-end">
-                      {row.value}
+                    <div className="flex items-start justify-between gap-4 min-w-0">
+                      <span className="text-xs text-lightGray shrink-0 pt-0.5">{row.label}</span>
+                      <div className="text-xs text-white text-right min-w-0 flex justify-end">
+                        {row.value}
+                      </div>
                     </div>
+                    {row.hint && (
+                      <p className="mt-1.5 text-2xs leading-snug text-lightGray">{row.hint}</p>
+                    )}
                   </div>
                 ))}
               </div>

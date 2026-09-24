@@ -6,5 +6,4 @@ export * from "./sort-chips";
 export * from "./filters-bar";
 export * from "./local-pagination";
 export * from "./section-header";
-export * from "./market-tabs";
 export * from "./share-button";

@@ -1,8 +1,7 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Esim,
-  MarketType,
   formatEsimCalls,
   formatEsimInternetSharing,
   formatEsimPrice,
@@ -14,7 +13,6 @@ import {
 import { Switch } from "@/shared/ui";
 import {
   FiltersBar,
-  MarketTabs,
   MultiSelectFilter,
   SearchInput,
   SortChips,
@@ -46,8 +44,7 @@ type BoolKey = "sharing" | "calls" | "topUp";
 
 export const EsimExplorer: FC<EsimExplorerProps> = ({ openedSlug, onOpenItem, onCloseItem }) => {
   const { t } = useTranslation();
-  const [market, setMarket] = useState<MarketType>("international");
-  const { data: services = [], isLoading, isError } = useGetEsimsQuery(market);
+  const { data: services = [], isLoading, isError } = useGetEsimsQuery();
 
   const explorer = useExplorer<Esim, EsimFilterState, EsimSortKey>({
     items: services,
@@ -81,15 +78,6 @@ export const EsimExplorer: FC<EsimExplorerProps> = ({ openedSlug, onOpenItem, on
         onPageChange={explorer.setPage}
         controls={
           <>
-            <MarketTabs
-              value={market}
-              onChange={(value) => {
-                setMarket(value);
-                explorer.reset();
-                onCloseItem();
-              }}
-            />
-
             <FiltersBar
               activeCount={explorer.activeCount}
               canReset={explorer.active}

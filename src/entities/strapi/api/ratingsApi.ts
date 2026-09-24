@@ -11,7 +11,6 @@ import {
   DebitCard,
   Esim,
   FaqItem,
-  MarketType,
   Microloan,
   PaymentService,
   VedAgent,
@@ -57,18 +56,18 @@ export const ratingsApi = strapiApi.injectEndpoints({
       providesTags: [{ type: RATING_SECTION, id: "ved" }],
     }),
 
-    getVirtualCards: build.query<VirtualCard[], MarketType>({
-      query: (marketType) => `virtual-cards?filters[market_type][$eq]=${marketType}&${LIST_QUERY}`,
+    /* Российские и международные предложения отдаём одним списком: переключателя
+       рынка в мини-приложении больше нет, фильтра по market_type тоже. */
+    getVirtualCards: build.query<VirtualCard[], void>({
+      query: () => `virtual-cards?${LIST_QUERY}`,
       transformResponse: takeList<VirtualCard>,
-      providesTags: (_r, _e, marketType) => [
-        { type: RATING_SECTION, id: `virtual-cards-${marketType}` },
-      ],
+      providesTags: [{ type: RATING_SECTION, id: "virtual-cards" }],
     }),
 
-    getEsims: build.query<Esim[], MarketType>({
-      query: (marketType) => `e-sims?filters[market_type][$eq]=${marketType}&${LIST_QUERY}`,
+    getEsims: build.query<Esim[], void>({
+      query: () => `e-sims?${LIST_QUERY}`,
       transformResponse: takeList<Esim>,
-      providesTags: (_r, _e, marketType) => [{ type: RATING_SECTION, id: `esim-${marketType}` }],
+      providesTags: [{ type: RATING_SECTION, id: "esim" }],
     }),
 
     getPaymentServices: build.query<PaymentService[], void>({

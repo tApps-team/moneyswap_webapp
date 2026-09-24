@@ -21,9 +21,8 @@ import {
   PsFilterState,
   PsSortKey,
   collectPsCurrencies,
-  collectPsGames,
   collectPsPaymentSystems,
-  collectPsServices,
+  collectPsPlatforms,
   countPsFilters,
   filterPaymentServices,
   isPsFilterActive,
@@ -50,8 +49,7 @@ export const PsExplorer: FC<PsExplorerProps> = ({ openedSlug, onOpenItem, onClos
     countFn: countPsFilters,
   });
 
-  const serviceOptions = useMemo(() => collectPsServices(services), [services]);
-  const gameOptions = useMemo(() => collectPsGames(services), [services]);
+  const platformOptions = useMemo(() => collectPsPlatforms(services), [services]);
   const paymentOptions = useMemo(() => collectPsPaymentSystems(services), [services]);
   const currencyOptions = useMemo(() => collectPsCurrencies(services), [services]);
 
@@ -83,19 +81,11 @@ export const PsExplorer: FC<PsExplorerProps> = ({ openedSlug, onOpenItem, onClos
               }
             >
               <MultiSelectFilter
-                label={t("ratings.ps.services")}
-                searchPlaceholder={t("ratings.ps.search_service")}
-                options={serviceOptions}
-                selected={explorer.filter.services}
-                onChange={(items) => explorer.setFilter((f) => ({ ...f, services: items }))}
-                variant="icon"
-              />
-              <MultiSelectFilter
-                label={t("ratings.ps.games")}
-                searchPlaceholder={t("ratings.ps.search_game")}
-                options={gameOptions}
-                selected={explorer.filter.games}
-                onChange={(games) => explorer.setFilter((f) => ({ ...f, games }))}
+                label={t("ratings.ps.platforms")}
+                searchPlaceholder={t("ratings.ps.search_platform")}
+                options={platformOptions}
+                selected={explorer.filter.platforms}
+                onChange={(platforms) => explorer.setFilter((f) => ({ ...f, platforms }))}
                 variant="icon"
               />
               <MultiSelectFilter
@@ -119,7 +109,6 @@ export const PsExplorer: FC<PsExplorerProps> = ({ openedSlug, onOpenItem, onClos
             <SortChips
               options={[
                 { key: "commission", label: t("ratings.ps.commission") },
-                { key: "platforms", label: t("ratings.ps.platforms") },
                 { key: "rating", label: t("ratings.rating") },
               ]}
               sort={explorer.sort}

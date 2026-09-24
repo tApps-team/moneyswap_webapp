@@ -11,10 +11,8 @@ import { MultiSelectOption, SortState } from "@/shared/ui/ratings";
 /** Порт moneyswap_next/src/widgets/payment-services/ps-explorer/lib/filter.ts. */
 
 export interface PsFilterState {
-  /** id сервисов (kind !== "game") */
-  services: number[];
-  /** id игр (kind === "game") */
-  games: number[];
+  /** id платформ: сервисы и игры в одном списке */
+  platforms: number[];
   /** id способов оплаты */
   paymentSystems: number[];
   /** id валют */
@@ -24,22 +22,19 @@ export interface PsFilterState {
 }
 
 export const EMPTY_PS_FILTER: PsFilterState = {
-  services: [],
-  games: [],
+  platforms: [],
   paymentSystems: [],
   currencies: [],
   search: "",
 };
 
-export type PsSortKey = "commission" | "rating" | "platforms";
+export type PsSortKey = "commission" | "rating";
 export type PsSort = SortState<PsSortKey>;
 
-const collectPlatforms = (services: PaymentService[], kind: "service" | "game") => {
+export const collectPsPlatforms = (services: PaymentService[]) => {
   const map = new Map<number, PaymentServicePlatform>();
   services.forEach((service) =>
-    service.platforms
-      .filter((platform) => (kind === "game" ? platform.kind === "game" : platform.kind !== "game"))
-      .forEach((platform) => map.set(platform.id, platform)),
+    service.platforms.forEach((platform) => map.set(platform.id, platform)),
   );
   return Array.from(map.values())
     .sort((a, b) => a.title.localeCompare(b.title, "ru"))
@@ -49,11 +44,6 @@ const collectPlatforms = (services: PaymentService[], kind: "service" | "game") 
       icon: platform.icon ?? undefined,
     }));
 };
-
-export const collectPsServices = (services: PaymentService[]) =>
-  collectPlatforms(services, "service");
-
-export const collectPsGames = (services: PaymentService[]) => collectPlatforms(services, "game");
 
 export const collectPsPaymentSystems = (services: PaymentService[]) => {
   const map = new Map<number, StrapiRef>();
@@ -86,8 +76,7 @@ export const collectPsCurrencies = (services: PaymentService[]) => {
 
 export function isPsFilterActive(filter: PsFilterState): boolean {
   return (
-    filter.services.length > 0 ||
-    filter.games.length > 0 ||
+    filter.platforms.length > 0 ||
     filter.paymentSystems.length > 0 ||
     filter.currencies.length > 0 ||
     filter.search.trim() !== ""
@@ -103,11 +92,7 @@ export function filterPaymentServices(
   return services.filter((service) => {
     const platformIds = service.platforms.map((platform) => platform.id);
 
-    if (filter.services.length > 0 && !filter.services.every((id) => platformIds.includes(id))) {
-      return false;
-    }
-
-    if (filter.games.length > 0 && !filter.games.every((id) => platformIds.includes(id))) {
+    if (filter.platforms.length > 0 && !filter.platforms.every((id) => platformIds.includes(id))) {
       return false;
     }
 
@@ -140,11 +125,8 @@ export function sortPaymentServices(
   if (!sort) return services;
 
   const factor = sort.dir === "asc" ? 1 : -1;
-  const getValue = (service: PaymentService): number | null => {
-    if (sort.key === "commission") return getCommissionValue(service);
-    if (sort.key === "rating") return service.rating;
-    return service.platforms.length;
-  };
+  const getValue = (service: PaymentService): number | null =>
+    sort.key === "commission" ? getCommissionValue(service) : service.rating;
 
   // Array.prototype.sort стабилен — при равных значениях сохраняется порядок из API.
   return [...services].sort((a, b) => compareNullable(getValue(a), getValue(b), factor));
@@ -152,10 +134,5 @@ export function sortPaymentServices(
 
 /** Сколько фильтров выбрано — для бейджа на кнопке «Фильтры» (поиск не считаем). */
 export function countPsFilters(filter: PsFilterState): number {
-  return (
-    filter.services.length +
-    filter.games.length +
-    filter.paymentSystems.length +
-    filter.currencies.length
-  );
+  return filter.platforms.length + filter.paymentSystems.length + filter.currencies.length;
 }
