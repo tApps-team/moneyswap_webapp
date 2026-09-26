@@ -134,10 +134,6 @@
     "currencies": "Валюты",
     "from": "От",
     "to": "До",
-    "market": {
-      "international": "Международные",
-      "russian": "Российские"
-    },
     "sections": {
       "ved": {
         "title": "ВЭД",
@@ -197,13 +193,10 @@
     },
     "ps": {
       "commission": "Комиссия",
-      "platforms": "Сервисы и игры",
-      "services": "Сервисы",
-      "games": "Игры",
+      "platforms": "Платформы",
       "payment_method": "Способ оплаты",
       "payment_methods": "Способы оплаты",
-      "search_service": "Поиск сервиса",
-      "search_game": "Поиск игры",
+      "search_platform": "Поиск платформы",
       "detail_title": "Сервис оплаты {{name}}"
     },
     "cards": {
@@ -274,6 +267,9 @@
     "title": "Ещё",
     "telegram_bot": "Телеграм-бот MoneySwap",
     "telegram_channel": "Телеграм-канал MoneySwap",
+    "contacts": "Контакты",
+    "support": "Поддержка MoneySwap",
+    "admin": "Администратор MoneySwap",
     "faq": "Частые вопросы",
     "faq_groups": {
       "basic": "Общее",

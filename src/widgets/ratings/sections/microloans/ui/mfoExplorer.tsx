@@ -2,19 +2,16 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import {
+  APPROVAL_HINT,
   MICROLOAN_AMOUNT_OPTIONS,
   MICROLOAN_DURATION_OPTIONS,
   MICROLOAN_FIRST_LOAN_OPTIONS,
   MICROLOAN_LIMIT_OPTIONS,
-  MICROLOAN_TERM_OPTIONS,
-  // MICROLOAN_VERIFICATION_OPTIONS, // фильтр «Проверка условий» скрыт
   Microloan,
   MicroloanAmountType,
   MicroloanDurationType,
   MicroloanFirstLoanType,
   MicroloanLimitType,
-  MicroloanTermType,
-  // MicroloanVerificationStatus, // фильтр «Проверка условий» скрыт
   formatApproval,
   formatFirstLoanType,
   formatMicroloanLimit,
@@ -73,20 +70,10 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ openedSlug, onOpenItem, onCl
     () => keepPresent(MICROLOAN_AMOUNT_OPTIONS, loans.map((loan) => loan.loan_amount_type)),
     [loans],
   );
-  const termOptions = useMemo(
-    () => keepPresent(MICROLOAN_TERM_OPTIONS, loans.map((loan) => loan.loan_term_type)),
-    [loans],
-  );
   const firstLoanOptions = useMemo(
     () => keepPresent(MICROLOAN_FIRST_LOAN_OPTIONS, loans.map((loan) => loan.first_loan_type)),
     [loans],
   );
-  // Фильтр «Проверка условий» скрыт по просьбе заказчика. Логика фильтрации в lib/filter.ts
-  // оставлена нетронутой, поэтому вернуть его — раскомментировать этот блок и разметку ниже.
-  // const verificationOptions = useMemo(
-  //   () => keepPresent(MICROLOAN_VERIFICATION_OPTIONS, loans.map((loan) => loan.verification_status)),
-  //   [loans],
-  // );
   const limitTypeOptions = useMemo(
     () => keepPresent(MICROLOAN_LIMIT_OPTIONS, loans.map((loan) => loan.loan_limit_type)),
     [loans],
@@ -131,14 +118,6 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ openedSlug, onOpenItem, onCl
                 variant="icon"
                 searchable={false}
               />
-              <MultiSelectFilter<MicroloanTermType>
-                label={t("ratings.mfo.term")}
-                options={termOptions}
-                selected={explorer.filter.terms}
-                onChange={(terms) => explorer.setFilter((f) => ({ ...f, terms }))}
-                variant="icon"
-                searchable={false}
-              />
               <MultiSelectFilter<MicroloanFirstLoanType>
                 label={t("ratings.mfo.first_loan")}
                 options={firstLoanOptions}
@@ -171,15 +150,6 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ openedSlug, onOpenItem, onCl
                 variant="icon"
                 searchable={false}
               />
-              {/* Фильтр «Проверка условий» скрыт — см. комментарий у verificationOptions выше.
-              <MultiSelectFilter<MicroloanVerificationStatus>
-                label={t("ratings.mfo.verification")}
-                options={verificationOptions}
-                selected={explorer.filter.verification}
-                onChange={(verification) => explorer.setFilter((f) => ({ ...f, verification }))}
-                variant="icon"
-                searchable={false}
-              /> */}
             </FiltersBar>
 
             <SortChips
@@ -277,7 +247,11 @@ function buildMfoSpecs(loan: Microloan, t: (key: string) => string): AgentSpecRo
     { label: t("ratings.mfo.term"), value: formatMicroloanTerm(loan) },
     { label: t("ratings.mfo.rate"), value: orDash(loan.rate) },
     { label: t("ratings.mfo.psk"), value: orDash(loan.psk) },
-    { label: t("ratings.mfo.approval"), value: formatApproval(loan.approval) },
+    {
+      label: t("ratings.mfo.approval"),
+      value: formatApproval(loan.approval),
+      hint: APPROVAL_HINT,
+    },
     { label: t("ratings.mfo.first_loan"), value: formatFirstLoanType(loan.first_loan_type) },
   ];
 }

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronDown, Loader, Send } from "lucide-react";
+import { ChevronDown, LifeBuoy, Loader, LucideIcon, Send, UserCog } from "lucide-react";
 import { FaqItem, StrapiHtml, useGetFaqQuery } from "@/entities/strapi";
 import { LanguageSwitcher } from "@/features/languageSwitch";
 import {
@@ -14,6 +14,35 @@ import { handleVibration, openExternalLink } from "@/shared/lib";
 
 /** Порядок групп FAQ повторяет страницу /help на сайте. */
 const FAQ_GROUPS = ["basic", "noncash", "cash", "from_users", "for_partners"] as const;
+
+/**
+ * Внешняя ссылка строкой-кнопкой.
+ * Именно кнопка с openExternalLink, а не <a href>: обычная ссылка выкидывает
+ * пользователя из Telegram WebView в браузер.
+ */
+const LinkButton = ({
+  url,
+  label,
+  icon: Icon,
+}: {
+  url: string;
+  label: string;
+  icon: LucideIcon;
+}) => (
+  <button
+    type="button"
+    onClick={() => {
+      handleVibration();
+      openExternalLink(url);
+    }}
+    className="flex items-center gap-3 w-full rounded-[12px] border border-new-grey/50 bg-new-dark-grey p-4 text-left active:opacity-80"
+  >
+    <span className="grid place-items-center size-9 shrink-0 rounded-full bg-new-grey text-mainColor">
+      <Icon className="size-4" />
+    </span>
+    <span className="text-sm text-white min-w-0 truncate">{label}</span>
+  </button>
+);
 
 export const MoreScreen = () => {
   const { t } = useTranslation();
@@ -30,14 +59,30 @@ export const MoreScreen = () => {
   }, [faq]);
 
   // Ссылки берём из .env, но он не в репозитории — оставляем продовые значения по умолчанию.
-  const links = [
+  const links: { url: string; labelKey: string; icon: LucideIcon }[] = [
     {
       url: import.meta.env.VITE_TG_BOT_URL || "https://t.me/MoneySwap_robot",
       labelKey: "more.telegram_bot",
+      icon: Send,
     },
     {
       url: import.meta.env.VITE_TG_CHANNEL_URL || "https://t.me/+hFVeT_X36hs0ZWFi",
       labelKey: "more.telegram_channel",
+      icon: Send,
+    },
+  ];
+
+  /** Контакты выделены в отдельный блок — иконки другие, чтобы не сливались со ссылками. */
+  const contacts: { url: string; labelKey: string; icon: LucideIcon }[] = [
+    {
+      url: import.meta.env.VITE_TG_SUPPORT_URL || "https://t.me/MoneySwap_support",
+      labelKey: "more.support",
+      icon: LifeBuoy,
+    },
+    {
+      url: import.meta.env.VITE_TG_ADMIN_URL || "https://t.me/moneyswap_admin",
+      labelKey: "more.admin",
+      icon: UserCog,
     },
   ];
 
@@ -48,20 +93,17 @@ export const MoreScreen = () => {
       {/* Ссылки на бота и канал */}
       <div className="grid gap-2 min-w-0">
         {links.map((link) => (
-          <button
-            key={link.labelKey}
-            type="button"
-            onClick={() => {
-              handleVibration();
-              openExternalLink(link.url);
-            }}
-            className="flex items-center gap-3 w-full rounded-[12px] border border-new-grey/50 bg-new-dark-grey p-4 text-left active:opacity-80"
-          >
-            <span className="grid place-items-center size-9 shrink-0 rounded-full bg-new-grey text-mainColor">
-              <Send className="size-4" />
-            </span>
-            <span className="text-sm text-white min-w-0 truncate">{t(link.labelKey)}</span>
-          </button>
+          <LinkButton key={link.labelKey} {...link} label={t(link.labelKey)} />
+        ))}
+      </div>
+
+      {/* Контакты: админ и поддержка */}
+      <h2 className="unbounded_font text-white uppercase text-sm font-semibold mt-2">
+        {t("more.contacts")}
+      </h2>
+      <div className="grid gap-2 min-w-0">
+        {contacts.map((contact) => (
+          <LinkButton key={contact.labelKey} {...contact} label={t(contact.labelKey)} />
         ))}
       </div>
 

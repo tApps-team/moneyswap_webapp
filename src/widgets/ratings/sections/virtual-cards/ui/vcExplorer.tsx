@@ -1,14 +1,8 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  MarketType,
-  VirtualCard,
-  formatVcIssuance,
-  useGetVirtualCardsQuery,
-} from "@/entities/strapi";
+import { VirtualCard, formatVcIssuance, useGetVirtualCardsQuery } from "@/entities/strapi";
 import {
   FiltersBar,
-  MarketTabs,
   MultiSelectFilter,
   SearchInput,
   SortChips,
@@ -37,8 +31,7 @@ interface VcExplorerProps {
 
 export const VcExplorer: FC<VcExplorerProps> = ({ openedSlug, onOpenItem, onCloseItem }) => {
   const { t } = useTranslation();
-  const [market, setMarket] = useState<MarketType>("international");
-  const { data: cards = [], isLoading, isError } = useGetVirtualCardsQuery(market);
+  const { data: cards = [], isLoading, isError } = useGetVirtualCardsQuery();
 
   const explorer = useExplorer<VirtualCard, VcFilterState, VcSortKey>({
     items: cards,
@@ -66,15 +59,6 @@ export const VcExplorer: FC<VcExplorerProps> = ({ openedSlug, onOpenItem, onClos
         onPageChange={explorer.setPage}
         controls={
           <>
-            <MarketTabs
-              value={market}
-              onChange={(value) => {
-                setMarket(value);
-                explorer.reset();
-                onCloseItem();
-              }}
-            />
-
             <FiltersBar
               activeCount={explorer.activeCount}
               canReset={explorer.active}
@@ -89,7 +73,7 @@ export const VcExplorer: FC<VcExplorerProps> = ({ openedSlug, onOpenItem, onClos
             >
               <MultiSelectFilter
                 label={t("ratings.vc.platforms")}
-                searchPlaceholder={t("ratings.ps.search_service")}
+                searchPlaceholder={t("ratings.ps.search_platform")}
                 options={platformOptions}
                 selected={explorer.filter.platforms}
                 onChange={(platforms) => explorer.setFilter((f) => ({ ...f, platforms }))}
