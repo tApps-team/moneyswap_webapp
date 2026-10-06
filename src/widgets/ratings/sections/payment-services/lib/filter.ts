@@ -1,7 +1,6 @@
 import {
   PaymentService,
   PaymentServicePlatform,
-  StrapiCurrency,
   StrapiRef,
   compareNullable,
   getCommissionValue,
@@ -15,8 +14,8 @@ export interface PsFilterState {
   platforms: number[];
   /** id способов оплаты */
   paymentSystems: number[];
-  /** id валют */
-  currencies: number[];
+  /** id стран (регионов аккаунта) */
+  countries: number[];
   /** поиск по названию */
   search: string;
 }
@@ -24,7 +23,7 @@ export interface PsFilterState {
 export const EMPTY_PS_FILTER: PsFilterState = {
   platforms: [],
   paymentSystems: [],
-  currencies: [],
+  countries: [],
   search: "",
 };
 
@@ -59,26 +58,20 @@ export const collectPsPaymentSystems = (services: PaymentService[]) => {
     }));
 };
 
-export const collectPsCurrencies = (services: PaymentService[]) => {
-  const map = new Map<number, StrapiCurrency>();
+/** Уникальные страны из всех сервисов, отсортированные по названию. */
+export const collectPsCountries = (services: PaymentService[]): StrapiRef[] => {
+  const map = new Map<number, StrapiRef>();
   services.forEach((service) =>
-    service.currencies.forEach((currency) => map.set(currency.id, currency)),
+    (service.countries ?? []).forEach((country) => map.set(country.id, country)),
   );
-  return Array.from(map.values())
-    .sort((a, b) => (a.code ?? a.title).localeCompare(b.code ?? b.title, "ru"))
-    .map<MultiSelectOption>((currency) => ({
-      id: currency.id,
-      title: currency.code ? `${currency.code} — ${currency.title}` : currency.title,
-      icon: currency.icon ?? undefined,
-      code: currency.code,
-    }));
+  return Array.from(map.values()).sort((a, b) => a.title.localeCompare(b.title, "ru"));
 };
 
 export function isPsFilterActive(filter: PsFilterState): boolean {
   return (
     filter.platforms.length > 0 ||
     filter.paymentSystems.length > 0 ||
-    filter.currencies.length > 0 ||
+    filter.countries.length > 0 ||
     filter.search.trim() !== ""
   );
 }
@@ -104,8 +97,8 @@ export function filterPaymentServices(
     }
 
     if (
-      filter.currencies.length > 0 &&
-      !service.currencies.some((currency) => filter.currencies.includes(currency.id))
+      filter.countries.length > 0 &&
+      !(service.countries ?? []).some((country) => filter.countries.includes(country.id))
     ) {
       return false;
     }
@@ -134,5 +127,5 @@ export function sortPaymentServices(
 
 /** Сколько фильтров выбрано — для бейджа на кнопке «Фильтры» (поиск не считаем). */
 export function countPsFilters(filter: PsFilterState): number {
-  return filter.platforms.length + filter.paymentSystems.length + filter.currencies.length;
+  return filter.platforms.length + filter.paymentSystems.length + filter.countries.length;
 }

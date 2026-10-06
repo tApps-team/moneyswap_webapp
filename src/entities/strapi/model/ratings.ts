@@ -155,6 +155,11 @@ export interface PaymentService {
   reviews_count: number;
   payment_systems: StrapiRef[];
   currencies: StrapiCurrency[];
+  /**
+   * Регионы аккаунтов. Опционально намеренно: поле появилось в Strapi позже
+   * фронта, и до деплоя бэкенда его в ответе нет — читаем через `?? []`.
+   */
+  countries?: StrapiRef[];
   platforms: PaymentServicePlatform[];
   promocodes: StrapiPromocode[];
   about?: DynamicContentItem[];

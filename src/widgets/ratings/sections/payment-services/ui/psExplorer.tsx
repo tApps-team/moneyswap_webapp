@@ -20,7 +20,7 @@ import {
   EMPTY_PS_FILTER,
   PsFilterState,
   PsSortKey,
-  collectPsCurrencies,
+  collectPsCountries,
   collectPsPaymentSystems,
   collectPsPlatforms,
   countPsFilters,
@@ -51,7 +51,7 @@ export const PsExplorer: FC<PsExplorerProps> = ({ openedSlug, onOpenItem, onClos
 
   const platformOptions = useMemo(() => collectPsPlatforms(services), [services]);
   const paymentOptions = useMemo(() => collectPsPaymentSystems(services), [services]);
-  const currencyOptions = useMemo(() => collectPsCurrencies(services), [services]);
+  const countryOptions = useMemo(() => collectPsCountries(services), [services]);
 
   const opened = openedSlug ? services.find((service) => service.slug === openedSlug) : undefined;
 
@@ -97,12 +97,12 @@ export const PsExplorer: FC<PsExplorerProps> = ({ openedSlug, onOpenItem, onClos
                 searchable={false}
               />
               <MultiSelectFilter
-                label={t("ratings.currencies")}
-                searchPlaceholder={t("ratings.search_currency")}
-                options={currencyOptions}
-                selected={explorer.filter.currencies}
-                onChange={(currencies) => explorer.setFilter((f) => ({ ...f, currencies }))}
-                variant="code"
+                label={t("ratings.country")}
+                searchPlaceholder={t("ratings.search_country")}
+                options={countryOptions}
+                selected={explorer.filter.countries}
+                onChange={(countries) => explorer.setFilter((f) => ({ ...f, countries }))}
+                variant="flag"
               />
             </FiltersBar>
 
@@ -172,12 +172,12 @@ function buildPsSpecs(service: PaymentService, t: (key: string) => string): Agen
       ),
     },
     {
-      label: t("ratings.currencies"),
+      label: t("ratings.countries"),
       value: (
         <TagCell
-          items={service.currencies}
-          modalTitle={t("ratings.currencies")}
-          chip="code"
+          items={service.countries ?? []}
+          modalTitle={t("ratings.countries")}
+          chip="flag"
           className="justify-end"
         />
       ),

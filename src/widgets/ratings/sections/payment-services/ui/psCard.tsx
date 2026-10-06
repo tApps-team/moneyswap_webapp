@@ -51,7 +51,7 @@ export const PsCard: FC<PsCardProps> = ({ service, onOpen }) => {
           chip="icon"
         />
         <LabeledTags label={t("ratings.ps.platforms")} items={service.platforms} chip="icon" />
-        <LabeledTags label={t("ratings.currencies")} items={service.currencies} chip="code" />
+        <LabeledTags label={t("ratings.countries")} items={service.countries ?? []} chip="flag" />
       </div>
 
       <ActionButtons
